@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C,Seismic_Unix," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="PzNotes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="序言 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化， 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普">
+<meta name="keywords" content="C,Seismic_Unix">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SU&#x2F;SEGY文件格式">
+<meta property="og:url" content="https://whu-pzhang.github.io/SU-and-Segy-format.html">
+<meta property="og:site_name" content="PzNotes">
+<meta property="og:description" content="序言 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化， 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://whu-pzhang.github.io/images/2016022900.png">
+<meta property="og:image" content="https://whu-pzhang.github.io/images/2016022901.png">
+<meta property="og:updated_time" content="2017-09-08T03:01:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SU&#x2F;SEGY文件格式">
+<meta name="twitter:description" content="序言 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化， 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普">
+<meta name="twitter:image" content="https://whu-pzhang.github.io/images/2016022900.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://whu-pzhang.github.io/SU-and-Segy-format.html"/>
+
+
+
+
+
+  <title>SU/SEGY文件格式 | PzNotes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PzNotes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习和分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://whu-pzhang.github.io/SU-and-Segy-format.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PzNotes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SU/SEGY文件格式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-29T00:00:00+08:00">
+                2016-02-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Exploration-Seismology/" itemprop="url" rel="index">
+                    <span itemprop="name">Exploration Seismology</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="序言">序言</h2>
+<p>地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化， 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。</p>
+<a id="more"></a>
+<h2 id="seg-y数据格式">SEG-Y数据格式</h2>
+<p>SEGY数据格式包括三个部分。</p>
+<div class="figure">
+<img src="/images/2016022900.png">
+
+</div>
+<ul>
+<li><code>EBCDIC</code>：Extended Binary Coded Decimak Interchange Code,主要用于IBM计算机，</li>
+<li><code>32位IBM浮点型</code>: IBM格式和现代IBM PC所用的IEEE格式是不同的</li>
+</ul>
+<p>对于数据的读写主要在于要弄清楚数据的组成，而SEGY和SU文件格式的重要组成部分都是道头，类似于 SAC文件的头段。道头记录了数据的一些基本信息。</p>
+<h3 id="segy卷头文件3200字节ebcdic码内容">SEGY卷头文件3200字节EBCDIC码内容</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">C      This tape was made at the</div><div class="line">C</div><div class="line">C      Center <span class="keyword">for</span> Wave Phenomena</div><div class="line">C      Colorado School of Mines</div><div class="line">C      Golden, CO, 80401</div><div class="line">C</div><div class="line">C</div><div class="line">C</div><div class="line">C</div><div class="line">C</div><div class="line">C</div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C                                                                              </div><div class="line">C</div></pre></td></tr></table></figure>
+<h3 id="segy卷头文件400字节二进制内容表">SEGY卷头文件400字节二进制内容表</h3>
+<table style="width:97%;">
+<colgroup>
+<col width="16%">
+<col width="19%">
+<col width="23%">
+<col width="37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>字节</th>
+<th>参数名</th>
+<th>参数类型</th>
+<th>参数说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>3201-3204</p></td>
+<td><p>jobid</p></td>
+<td><p>int</p></td>
+<td><p>任务识别码</p></td>
+</tr>
+<tr class="even">
+<td><p>3205-3208</p></td>
+<td><p>lino</p></td>
+<td><p>int</p></td>
+<td><p>测线号</p></td>
+</tr>
+<tr class="odd">
+<td><p>3209-3212</p></td>
+<td><p>reno</p></td>
+<td><p>int</p></td>
+<td><p>卷号</p></td>
+</tr>
+<tr class="even">
+<td><p>3213-3214</p></td>
+<td><p>ntrpr</p></td>
+<td><p>short</p></td>
+<td><p>每个记录的道数</p></td>
+</tr>
+<tr class="odd">
+<td><p>3215-3216</p></td>
+<td><p>nart</p></td>
+<td><p>short</p></td>
+<td><p>每个记录的辅助道数</p></td>
+</tr>
+<tr class="even">
+<td><p>3217-3218</p></td>
+<td><p>hdt</p></td>
+<td><p>unsigned short</p></td>
+<td><p>该卷采样间隔(微秒)</p></td>
+</tr>
+<tr class="odd">
+<td><p>3219-3220</p></td>
+<td><p>dto</p></td>
+<td><p>unsigned short</p></td>
+<td><p>原始记录的采样间隔(微秒)</p></td>
+</tr>
+<tr class="even">
+<td><p>3221-3222</p></td>
+<td><p>hns</p></td>
+<td><p>unsigned short</p></td>
+<td><p>该卷每道的样点数</p></td>
+</tr>
+<tr class="odd">
+<td><p>3223-3224</p></td>
+<td><p>nso</p></td>
+<td><p>unsigned short</p></td>
+<td><p>原始记录的每道的采样点</p></td>
+</tr>
+<tr class="even">
+<td><p>3225-3226</p></td>
+<td><p>format</p></td>
+<td><p>short</p></td>
+<td><p>数据采样点的记录格式</p></td>
+</tr>
+<tr class="odd">
+<td><p>3227-3228</p></td>
+<td><p>fold</p></td>
+<td><p>short</p></td>
+<td><p>CMP 覆盖次数</p></td>
+</tr>
+<tr class="even">
+<td><p>3229-3230</p></td>
+<td><p>tsort</p></td>
+<td><p>short</p></td>
+<td><p>道分选码</p></td>
+</tr>
+<tr class="odd">
+<td><p>3231-3232</p></td>
+<td><p>vscode</p></td>
+<td><p>short</p></td>
+<td><p>垂直和码</p></td>
+</tr>
+<tr class="even">
+<td><p>3233-3234</p></td>
+<td><p>hsfs</p></td>
+<td><p>short</p></td>
+<td><p>起始扫描频率</p></td>
+</tr>
+<tr class="odd">
+<td><p>3235-3236</p></td>
+<td><p>hsfe</p></td>
+<td><p>short</p></td>
+<td><p>终止扫描频率</p></td>
+</tr>
+<tr class="even">
+<td><p>3237-3238</p></td>
+<td><p>hslen</p></td>
+<td><p>short</p></td>
+<td><p>扫描时窗</p></td>
+</tr>
+<tr class="odd">
+<td><p>3239-3240</p></td>
+<td><p>hstyp</p></td>
+<td><p>short</p></td>
+<td><p>扫描类型</p></td>
+</tr>
+<tr class="even">
+<td><p>3241-3242</p></td>
+<td><p>schn</p></td>
+<td><p>short</p></td>
+<td><p>扫描频带道数</p></td>
+</tr>
+<tr class="odd">
+<td><p>3243-3244</p></td>
+<td><p>hstas</p></td>
+<td><p>short</p></td>
+<td><p>斜坡扫描起始时间</p></td>
+</tr>
+<tr class="even">
+<td><p>3245-3246</p></td>
+<td><p>hstae</p></td>
+<td><p>short</p></td>
+<td><p>斜坡扫描终止时间</p></td>
+</tr>
+<tr class="odd">
+<td><p>3247-3248</p></td>
+<td><p>htatyp</p></td>
+<td><p>short</p></td>
+<td><p>斜坡扫描类型</p></td>
+</tr>
+<tr class="even">
+<td><p>3249-3250</p></td>
+<td><p>hcorr</p></td>
+<td><p>short</p></td>
+<td><p>相关数据道</p></td>
+</tr>
+<tr class="odd">
+<td><p>3251-3252</p></td>
+<td><p>bgrcv</p></td>
+<td><p>short</p></td>
+<td><p>增益恢复</p></td>
+</tr>
+<tr class="even">
+<td><p>3253-3254</p></td>
+<td><p>rcvm</p></td>
+<td><p>short</p></td>
+<td><p>振幅恢复方法</p></td>
+</tr>
+<tr class="odd">
+<td><p>3255-3256</p></td>
+<td><p>mfeet</p></td>
+<td><p>short</p></td>
+<td><p>测量系统</p></td>
+</tr>
+<tr class="even">
+<td><p>3257-3258</p></td>
+<td><p>polyt</p></td>
+<td><p>short</p></td>
+<td><p>激发信号极性</p></td>
+</tr>
+<tr class="odd">
+<td><p>3259-3260</p></td>
+<td><p>vpol</p></td>
+<td><p>short</p></td>
+<td><p>振动极性</p></td>
+</tr>
+<tr class="even">
+<td><p>3261-3600</p></td>
+<td><p>hunass[170]</p></td>
+<td><p>short</p></td>
+<td><p>无定义</p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="seg-y定义的240字节道头变量列表">SEG-Y定义的240字节道头变量列表</h3>
+<table>
+<colgroup>
+<col width="7%">
+<col width="10%">
+<col width="8%">
+<col width="73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>字节数</th>
+<th>参数名</th>
+<th>参数类型</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>1-4</p></td>
+<td><p><strong>tracl</strong></p></td>
+<td><p>int</p></td>
+<td><p>Trace sequence number within line.</p></td>
+</tr>
+<tr class="even">
+<td><p>5-8</p></td>
+<td><p>tracr</p></td>
+<td><p>int</p></td>
+<td><p>Trace sequence number within file (reel)</p></td>
+</tr>
+<tr class="odd">
+<td><p>9-12</p></td>
+<td><p><strong>fldr</strong></p></td>
+<td><p>int</p></td>
+<td><p>Original field record number</p></td>
+</tr>
+<tr class="even">
+<td><p>13-16</p></td>
+<td><p><strong>tracf</strong></p></td>
+<td><p>int</p></td>
+<td><p>Trace number within original field record</p></td>
+</tr>
+<tr class="odd">
+<td><p>17-20</p></td>
+<td><p>ep</p></td>
+<td><p>int</p></td>
+<td><p>Energy source point number.</p></td>
+</tr>
+<tr class="even">
+<td><p>21-24</p></td>
+<td><p>cdp</p></td>
+<td><p>int</p></td>
+<td><p>CDP ensemble number.</p></td>
+</tr>
+<tr class="odd">
+<td><p>25-28</p></td>
+<td><p>cdpt</p></td>
+<td><p>int</p></td>
+<td><p>Trace number within the CDP ensemble.</p></td>
+</tr>
+<tr class="even">
+<td><p>29-30</p></td>
+<td><p><strong>trid</strong></p></td>
+<td><p>short</p></td>
+<td><p>Trace identification code: 1 = seismic data</p></td>
+</tr>
+<tr class="odd">
+<td><p>31-32</p></td>
+<td><p>nvs</p></td>
+<td><p>short</p></td>
+<td><p>Number of vertically summed traces yielding this trace</p></td>
+</tr>
+<tr class="even">
+<td><p>33-34</p></td>
+<td><p>nhs</p></td>
+<td><p>short</p></td>
+<td><p>Number of horizontally stacked traces yielding this trace</p></td>
+</tr>
+<tr class="odd">
+<td><p>35-36</p></td>
+<td><p>duse</p></td>
+<td><p>short</p></td>
+<td><p>Data use: 1 = production 2 = test</p></td>
+</tr>
+<tr class="even">
+<td><p>37-40</p></td>
+<td><p>offset</p></td>
+<td><p>int</p></td>
+<td><p>Distance from source point to receiver group.</p></td>
+</tr>
+<tr class="odd">
+<td><p>41-44</p></td>
+<td><p>gelev</p></td>
+<td><p>int</p></td>
+<td><p>Receiver group elevation-above sea level are positive, or are negative.</p></td>
+</tr>
+<tr class="even">
+<td><p>45-48</p></td>
+<td><p>selev</p></td>
+<td><p>int</p></td>
+<td><p>Surface elevation at source.</p></td>
+</tr>
+<tr class="odd">
+<td><p>49-52</p></td>
+<td><p>sdepth</p></td>
+<td><p>int</p></td>
+<td><p>Source depth below surface (positive number).</p></td>
+</tr>
+<tr class="even">
+<td><p>53-56</p></td>
+<td><p>gdel</p></td>
+<td><p>int</p></td>
+<td><p>Datum elevation at receiver group.</p></td>
+</tr>
+<tr class="odd">
+<td><p>57-60</p></td>
+<td><p>sdel</p></td>
+<td><p>int</p></td>
+<td><p>Datum elevation at source.</p></td>
+</tr>
+<tr class="even">
+<td><p>61-64</p></td>
+<td><p>swdep</p></td>
+<td><p>int</p></td>
+<td><p>Water depth at source(this is the Fish depth below the sea surface in meters*10)</p></td>
+</tr>
+<tr class="odd">
+<td><p>65-68</p></td>
+<td><p>gwdep</p></td>
+<td><p>int</p></td>
+<td><p>Water depth at group.</p></td>
+</tr>
+<tr class="even">
+<td><p>69-70</p></td>
+<td><p>scalel</p></td>
+<td><p>short</p></td>
+<td><p>Scalar to be applied to the previous 7 entries</p></td>
+</tr>
+<tr class="odd">
+<td><p>71-72</p></td>
+<td><p>scalco</p></td>
+<td><p>short</p></td>
+<td><p>Scalar to be applied to the next 4 entries</p></td>
+</tr>
+<tr class="even">
+<td><p>73-76</p></td>
+<td><p><strong>sx</strong></p></td>
+<td><p>int</p></td>
+<td><p>Source coordinate -Longitude</p></td>
+</tr>
+<tr class="odd">
+<td><p>77-80</p></td>
+<td><p><strong>sy</strong></p></td>
+<td><p>int</p></td>
+<td><p>Source coordinate - Latitude</p></td>
+</tr>
+<tr class="even">
+<td><p>81-84</p></td>
+<td><p><strong>gx</strong></p></td>
+<td><p>int</p></td>
+<td><p>Group coordinate - Longitude</p></td>
+</tr>
+<tr class="odd">
+<td><p>85-88</p></td>
+<td><p><strong>gy</strong></p></td>
+<td><p>int</p></td>
+<td><p>Group coordinate - Latitude</p></td>
+</tr>
+<tr class="even">
+<td><p>89-90</p></td>
+<td><p><strong>conuit</strong></p></td>
+<td><p>short</p></td>
+<td><p>Coordinate units: 1=length(meters or feet) 2=seconds of arc</p></td>
+</tr>
+<tr class="odd">
+<td><p>91-92</p></td>
+<td><p>wevel</p></td>
+<td><p>short</p></td>
+<td><p>weathering velocity.</p></td>
+</tr>
+<tr class="even">
+<td><p>93-94</p></td>
+<td><p>swevel</p></td>
+<td><p>short</p></td>
+<td><p>Subweathering velocity.</p></td>
+</tr>
+<tr class="odd">
+<td><p>95-96</p></td>
+<td><p>sut</p></td>
+<td><p>short</p></td>
+<td><p>Uphole time at source.</p></td>
+</tr>
+<tr class="even">
+<td><p>97-98</p></td>
+<td><p>gut</p></td>
+<td><p>short</p></td>
+<td><p>Uphole time at group.</p></td>
+</tr>
+<tr class="odd">
+<td><p>99-100</p></td>
+<td><p>sstat</p></td>
+<td><p>short</p></td>
+<td><p>Source static correction.</p></td>
+</tr>
+<tr class="even">
+<td><p>101-102</p></td>
+<td><p>gstat</p></td>
+<td><p>short</p></td>
+<td><p>Group static correction.</p></td>
+</tr>
+<tr class="odd">
+<td><p>103-104</p></td>
+<td><p>tstat</p></td>
+<td><p>short</p></td>
+<td><p>Total static applied.</p></td>
+</tr>
+<tr class="even">
+<td><p>105-106</p></td>
+<td><p>laga</p></td>
+<td><p>short</p></td>
+<td><p>Lag time A (ms).</p></td>
+</tr>
+<tr class="odd">
+<td><p>107-108</p></td>
+<td><p>lagb</p></td>
+<td><p>short</p></td>
+<td><p>Lag time B. Time in ms between the time break and positive or negative.</p></td>
+</tr>
+<tr class="even">
+<td><p>109-110</p></td>
+<td><p>delrt</p></td>
+<td><p>short</p></td>
+<td><p>Delay recording time.</p></td>
+</tr>
+<tr class="odd">
+<td><p>111-112</p></td>
+<td><p>muts</p></td>
+<td><p>short</p></td>
+<td><p>Mute time - start.</p></td>
+</tr>
+<tr class="even">
+<td><p>113-114</p></td>
+<td><p>mute</p></td>
+<td><p>short</p></td>
+<td><p>Mute time - end.</p></td>
+</tr>
+<tr class="odd">
+<td><p>115-116</p></td>
+<td><p><strong>ns</strong></p></td>
+<td><p>un short</p></td>
+<td><p>Number of samples in this trace.</p></td>
+</tr>
+<tr class="even">
+<td><p>117-118</p></td>
+<td><p><strong>dt</strong></p></td>
+<td><p>un short</p></td>
+<td><p>Sample interval of this trace in microseconds .</p></td>
+</tr>
+<tr class="odd">
+<td><p>119-120</p></td>
+<td><p>gain</p></td>
+<td><p>short</p></td>
+<td><p>Gain type of field instruments</p></td>
+</tr>
+<tr class="even">
+<td><p>121-122</p></td>
+<td><p>igc</p></td>
+<td><p>short</p></td>
+<td><p>Instrument gain constant.</p></td>
+</tr>
+<tr class="odd">
+<td><p>123-124</p></td>
+<td><p><strong>igi</strong></p></td>
+<td><p>short</p></td>
+<td><p>Instrument early or initial gain (db).</p></td>
+</tr>
+<tr class="even">
+<td><p>125-126</p></td>
+<td><p>corr</p></td>
+<td><p>short</p></td>
+<td><p>Correlated: 1 = no 2 = yes</p></td>
+</tr>
+<tr class="odd">
+<td><p>127-128</p></td>
+<td><p>sfs</p></td>
+<td><p>short</p></td>
+<td><p>Sweep frequency at start.</p></td>
+</tr>
+<tr class="even">
+<td><p>129-130</p></td>
+<td><p>sfe</p></td>
+<td><p>short</p></td>
+<td><p>Sweep frequency at end.</p></td>
+</tr>
+<tr class="odd">
+<td><p>131-132</p></td>
+<td><p>slen</p></td>
+<td><p>short</p></td>
+<td><p>Sweep length (ms).</p></td>
+</tr>
+<tr class="even">
+<td><p>133-134</p></td>
+<td><p>styp</p></td>
+<td><p>short</p></td>
+<td><p>Sweep type: 1 = linear 2 = parabolic 3 = exponential 4 = other</p></td>
+</tr>
+<tr class="odd">
+<td><p>135-136</p></td>
+<td><p>stas</p></td>
+<td><p>short</p></td>
+<td><p>Sweep trace taper length at start (ms).</p></td>
+</tr>
+<tr class="even">
+<td><p>137-138</p></td>
+<td><p>stae</p></td>
+<td><p>short</p></td>
+<td><p>Sweep trace taper length at end, ms.</p></td>
+</tr>
+<tr class="odd">
+<td><p>139-140</p></td>
+<td><p>tatyp</p></td>
+<td><p>short</p></td>
+<td><p>Taper type: 1 = linear 2 = cos 3 = other</p></td>
+</tr>
+<tr class="even">
+<td><p>141-142</p></td>
+<td><p><strong>afilf</strong></p></td>
+<td><p>short</p></td>
+<td><p>Alias filter frequency.</p></td>
+</tr>
+<tr class="odd">
+<td><p>143-144</p></td>
+<td><p><strong>afils</strong></p></td>
+<td><p>short</p></td>
+<td><p>Alias filter slope.</p></td>
+</tr>
+<tr class="even">
+<td><p>145-146</p></td>
+<td><p>nofilf</p></td>
+<td><p>short</p></td>
+<td><p>Notch filter frequency.</p></td>
+</tr>
+<tr class="odd">
+<td><p>147-148</p></td>
+<td><p>nofils</p></td>
+<td><p>short</p></td>
+<td><p>Notch filter slope.</p></td>
+</tr>
+<tr class="even">
+<td><p>149-150</p></td>
+<td><p>lcf</p></td>
+<td><p>short</p></td>
+<td><p>Low cut frequency.</p></td>
+</tr>
+<tr class="odd">
+<td><p>151-152</p></td>
+<td><p>hcf</p></td>
+<td><p>short</p></td>
+<td><p>High cut frequency.</p></td>
+</tr>
+<tr class="even">
+<td><p>153-154</p></td>
+<td><p>lcs</p></td>
+<td><p>short</p></td>
+<td><p>Low cut slope.</p></td>
+</tr>
+<tr class="odd">
+<td><p>155-156</p></td>
+<td><p>hcs</p></td>
+<td><p>short</p></td>
+<td><p>High cut slope.</p></td>
+</tr>
+<tr class="even">
+<td><p>157-158</p></td>
+<td><p><strong>year</strong></p></td>
+<td><p>short</p></td>
+<td><p>Year data recorded (four digit integer).</p></td>
+</tr>
+<tr class="odd">
+<td><p>159-160</p></td>
+<td><p><strong>day</strong></p></td>
+<td><p>short</p></td>
+<td><p>Day of year.</p></td>
+</tr>
+<tr class="even">
+<td><p>161-162</p></td>
+<td><p><strong>hour</strong></p></td>
+<td><p>short</p></td>
+<td><p>Hour of day (24 hour clock).</p></td>
+</tr>
+<tr class="odd">
+<td><p>163-164</p></td>
+<td><p><strong>minute</strong></p></td>
+<td><p>short</p></td>
+<td><p>Minute of hour.</p></td>
+</tr>
+<tr class="even">
+<td><p>165-166</p></td>
+<td><p><strong>sec</strong></p></td>
+<td><p>short</p></td>
+<td><p>Second of minute.</p></td>
+</tr>
+<tr class="odd">
+<td><p>167-168</p></td>
+<td><p>timbas</p></td>
+<td><p>short</p></td>
+<td><p>Time basis code: 1 = local 2 = GMT 3 = other</p></td>
+</tr>
+<tr class="even">
+<td><p>169-170</p></td>
+<td><p><strong>trwf</strong></p></td>
+<td><p>short</p></td>
+<td><p>Trace weighting factor,defined as 2-N volts for the least significant bit.(N=0,1,.,32,767)</p></td>
+</tr>
+<tr class="odd">
+<td><p>171-172</p></td>
+<td><p>grnors</p></td>
+<td><p>short</p></td>
+<td><p>Geophone group number of roll switch position one.</p></td>
+</tr>
+<tr class="even">
+<td><p>173-174</p></td>
+<td><p>grnlof</p></td>
+<td><p>short</p></td>
+<td><p>Geophone group number of trace number one within original field record.</p></td>
+</tr>
+<tr class="odd">
+<td><p>175-176</p></td>
+<td><p>grnlof</p></td>
+<td><p>short</p></td>
+<td><p>Geophone group number of last trace within original field record.</p></td>
+</tr>
+<tr class="even">
+<td><p>177-178</p></td>
+<td><p>gaps</p></td>
+<td><p>short</p></td>
+<td><p>Gape size (total number of groups dropped).</p></td>
+</tr>
+<tr class="odd">
+<td><p>179-180</p></td>
+<td><p>otrav</p></td>
+<td><p>short</p></td>
+<td><p>Overtravel associated with taper at beginning or end of line: 1=down 2=up</p></td>
+</tr>
+<tr class="even">
+<td><p>181-240</p></td>
+<td><p>null</p></td>
+<td><p>null</p></td>
+<td><p>Unassigned-for optional information. <strong>cwp local assignments</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p>其中粗体的变量是比较重要的，一般在SU/SEGY文件中都有值。另外需要说明的是，SEGY格式中有可选的 道头字（字节181-240）,这些道头字的使用没有标准。在SU格式中，这些字节用来存放一些绘图参数。</p>
+<h2 id="su数据格式">SU数据格式</h2>
+<p>SU数据格式是基于SEGY格式的数据道部分。SEGY道和SU道的主要不同在于SU格式的道数据是浮点型， 和你运行SU程序的计算机上的浮点格式一致，SU数据只有SEGY的道部分！SU格式中不保存EBCDIC和 二进制卷头。</p>
+<p>因此，SU数据道头基本与SEGY中的数据道头相同，差别在于道头中的181-240字节在SEGY中并没有分配， 而在SU数据中，这部分用来存放绘图参数。</p>
+<h3 id="su第181-240字节道头变量">SU第181-240字节道头变量</h3>
+<p><strong>cwp local assignments</strong></p>
+<table>
+<colgroup>
+<col width="11%">
+<col width="14%">
+<col width="9%">
+<col width="64%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bytes</th>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>181-184</p></td>
+<td><p>d1</p></td>
+<td><p>float</p></td>
+<td><p>sample spacing for non-seismic data</p></td>
+</tr>
+<tr class="even">
+<td><p>185-188</p></td>
+<td><p>f1</p></td>
+<td><p>float</p></td>
+<td><p>first sample location for non-seismic data</p></td>
+</tr>
+<tr class="odd">
+<td><p>189-192</p></td>
+<td><p>d2</p></td>
+<td><p>float</p></td>
+<td><p>sample spacing between traces</p></td>
+</tr>
+<tr class="even">
+<td><p>193-196</p></td>
+<td><p>f2</p></td>
+<td><p>float</p></td>
+<td><p>first trace location</p></td>
+</tr>
+<tr class="odd">
+<td><p>197-200</p></td>
+<td><p>ungpow</p></td>
+<td><p>float</p></td>
+<td><p>negative of power used for dynamic range compression</p></td>
+</tr>
+<tr class="even">
+<td><p>201-204</p></td>
+<td><p>unscale</p></td>
+<td><p>float</p></td>
+<td><p>reciprocal of scaling factor to normalize</p></td>
+</tr>
+<tr class="odd">
+<td><p>205-208</p></td>
+<td><p>ntr</p></td>
+<td><p>int</p></td>
+<td><p>number of traces</p></td>
+</tr>
+<tr class="even">
+<td><p>209-210</p></td>
+<td><p>mark</p></td>
+<td><p>short</p></td>
+<td><p>mark selected traces</p></td>
+</tr>
+<tr class="odd">
+<td><p>211-212</p></td>
+<td><p>shortpad</p></td>
+<td><p>short</p></td>
+<td><p>alignment padding</p></td>
+</tr>
+<tr class="even">
+<td><p>213-240</p></td>
+<td><p>unass[14]</p></td>
+<td><p>short</p></td>
+<td><p>unassigned</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="部分道头变量之间的关系">部分道头变量之间的关系</h2>
+<p>先来重申以下以下几个变量：</p>
+<ul>
+<li><strong>fldr</strong>: Original field record number</li>
+<li><strong>ep</strong>: Energy source point number</li>
+<li><strong>tracl</strong>: Trace sequence number within LINE</li>
+<li><strong>tracr</strong>: Trace sequence number within REEL(or file)</li>
+<li><strong>tracf</strong>: Trace sequence number within original field record</li>
+</ul>
+<p>现在我们假设一个含有3道的地震记录。那么：</p>
+<ul>
+<li><strong>fldr</strong> 和 <strong>ep</strong> 相等，且从1开始。</li>
+<li><strong>tracl</strong> 和 <strong>tracr</strong> 相等。</li>
+</ul>
+<p>如下图所示：</p>
+<div class="figure">
+<img src="/images/2016022901.png">
+
+</div>
+<h1 id="参考">参考</h1>
+<ul>
+<li><a href="http://www.geo.uib.no/eworkshop/index.php?n=Main.SeismicUnix" target="_blank" rel="external">USING SeismicUnix</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+            <a href="/tags/Seismic-Unix/" rel="tag"># Seismic_Unix</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/install-madagascar-under-linux.html" rel="next" title="Linux下安装Madagascar">
+                <i class="fa fa-chevron-left"></i> Linux下安装Madagascar
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/read-and-write-SU-in-c-program.html" rel="prev" title="在C程序中读写SU格式文件">
+                在C程序中读写SU格式文件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.gif"
+              alt="pzhang" />
+          
+            <p class="site-author-name" itemprop="name">pzhang</p>
+            <p class="site-description motion-element" itemprop="description">个人笔记</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序言"><span class="nav-number">1.</span> <span class="nav-text">序言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#seg-y数据格式"><span class="nav-number">2.</span> <span class="nav-text">SEG-Y数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#segy卷头文件3200字节ebcdic码内容"><span class="nav-number">2.1.</span> <span class="nav-text">SEGY卷头文件3200字节EBCDIC码内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#segy卷头文件400字节二进制内容表"><span class="nav-number">2.2.</span> <span class="nav-text">SEGY卷头文件400字节二进制内容表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#seg-y定义的240字节道头变量列表"><span class="nav-number">2.3.</span> <span class="nav-text">SEG-Y定义的240字节道头变量列表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#su数据格式"><span class="nav-number">3.</span> <span class="nav-text">SU数据格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#su第181-240字节道头变量"><span class="nav-number">3.1.</span> <span class="nav-text">SU第181-240字节道头变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部分道头变量之间的关系"><span class="nav-number">4.</span> <span class="nav-text">部分道头变量之间的关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

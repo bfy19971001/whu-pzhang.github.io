@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,安装," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="PzNotes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="经常遇到这样的情况：  系统自带的Python是2.6，自己需要Python 2.7中的某些特性； 系统自带的Python是2.x，自己需要Python 3.x；  此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。pyenv 就是这样一个Python版本管理器。 安装pyenv 12345$ git clone git://github">
+<meta name="keywords" content="Python,安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python多版本共存之pyenv">
+<meta property="og:url" content="https://whu-pzhang.github.io/python-pyenv.html">
+<meta property="og:site_name" content="PzNotes">
+<meta property="og:description" content="经常遇到这样的情况：  系统自带的Python是2.6，自己需要Python 2.7中的某些特性； 系统自带的Python是2.x，自己需要Python 3.x；  此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。pyenv 就是这样一个Python版本管理器。 安装pyenv 12345$ git clone git://github">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-08T03:01:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python多版本共存之pyenv">
+<meta name="twitter:description" content="经常遇到这样的情况：  系统自带的Python是2.6，自己需要Python 2.7中的某些特性； 系统自带的Python是2.x，自己需要Python 3.x；  此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。pyenv 就是这样一个Python版本管理器。 安装pyenv 12345$ git clone git://github">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://whu-pzhang.github.io/python-pyenv.html"/>
+
+
+
+
+
+  <title>Python多版本共存之pyenv | PzNotes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PzNotes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习和分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://whu-pzhang.github.io/python-pyenv.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PzNotes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python多版本共存之pyenv</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-22T00:00:00+08:00">
+                2015-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>经常遇到这样的情况：</p>
+<ul>
+<li>系统自带的Python是2.6，自己需要Python 2.7中的某些特性；</li>
+<li>系统自带的Python是2.x，自己需要Python 3.x；</li>
+</ul>
+<p>此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。<a href="https://github.com/yyuu/pyenv" target="_blank" rel="external">pyenv</a> 就是这样一个Python版本管理器。</p>
+<h2 id="安装pyenv">安装pyenv</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> git://github.com/yyuu/pyenv.git ~/.pyenv</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'export PYENV_ROOT="$HOME/.pyenv"'</span> &gt;&gt; ~/.bashrc</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'export PATH="$PATH:$PYENV_ROOT/bin"'</span> &gt;&gt; ~/.bashrc</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'eval "$(pyenv init -)"'</span> &gt;&gt; ~/.bashrc</div><div class="line">$ <span class="built_in">exec</span> <span class="variable">$SHELL</span> -l</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="安装python">安装Python</h2>
+<h3 id="查看可安装的版本">查看可安装的版本</h3>
+<p>$ pyenv install –list</p>
+<p>该命令会列出可以用pyenv安装的Python版本，仅列举几个::</p>
+<pre><code>2.7.8   # Python 2最新版本
+3.4.1   # Python 3最新版本
+anaconda-2.0.1  # 支持Python 2.6和2.7
+anaconda3-2.0.1 # 支持Python 3.3和3.4</code></pre>
+<p>其中形如 <code>x.x.x</code> 这样的只有版本号的为Python官方版本，其他的形如 <code>xxxxx-x.x.x</code> 这种既有名称又有版本后的属于“衍生版”或发行版。</p>
+<h3 id="安装python的依赖包">安装Python的依赖包</h3>
+<p>在安装Python时需要首先安装其依赖的其他软件包，已知的一些需要预先安装的库如下。</p>
+<p>在CentOS/RHEL/Fedora下::</p>
+<pre><code>sudo yum install readline readline-devel readline-static
+sudo yum install openssl openssl-devel openssl-static
+sudo yum install sqlite-devel
+sudo yum install bzip2-devel bzip2-libs</code></pre>
+<h3 id="安装指定版本">安装指定版本</h3>
+<p>使用如下命令即可安装python 3.4.1：</p>
+<pre><code>$ pyenv install 3.4.1 -v</code></pre>
+<p>该命令会从github上下载python的源代码，并解压到/tmp目录下，然后在/tmp中执行编译工作。若依赖包没有安装，则会出现编译错误，需要在安装依赖包后重新执行该命令。</p>
+<p>对于科研环境，更推荐安装专为科学计算准备的Anaconda发行版，<code>pyenv install anaconda-2.1.0</code> 安装2.x版本，<code>pyenv install anaconda3-2.1.0</code> 安装3.x版本；</p>
+<p>Anacoda很大，用pyenv下载会比较慢，可以自己到Anaconda官方网站下载，并将下载得到的文件放在 <code>~/.pyenv/cache</code> 目录下，则pyenv不会重复下载。</p>
+<h3 id="更新数据库">更新数据库</h3>
+<p>安装完成之后需要对数据库进行更新：</p>
+<pre><code>$ pyenv rehash</code></pre>
+<h3 id="查看当前已安装的python版本">查看当前已安装的python版本</h3>
+<pre><code>$ pyenv versions
+* system (set by /home/seisman/.pyenv/version)
+3.4.1</code></pre>
+<p>其中的星号表示当前正在使用的是系统自带的python。</p>
+<h3 id="设置全局的python版本">设置全局的python版本</h3>
+<pre><code>$ pyenv global 3.4.1
+$ pyenv versions
+system
+* 3.4.1 (set by /home/seisman/.pyenv/version)</code></pre>
+<p>当前全局的python版本已经变成了3.4.1。也可以使用 <code>pyenv local</code> 或 <code>pyenv shell</code> 临时改变python版本。</p>
+<h3 id="确认python版本">确认python版本</h3>
+<pre><code>$ python
+Python 3.4.1 (default, Sep 10 2014, 17:10:18)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;</code></pre>
+<h2 id="使用python">使用python</h2>
+<ul>
+<li>输入 <code>python</code> 即可使用新版本的python；</li>
+<li>系统自带的脚本会以 <code>/usr/bin/python</code> 的方式直接调用老版本的python，因而不会对系统脚本产生影响；</li>
+<li>使用 <code>pip</code> 安装第三方模块时会安装到 <code>~/.pyenv/versions/3.4.1</code> 下，不会和系统模块发生冲突。</li>
+<li>使用 <code>pip</code> 安装模块后，可能需要执行 <code>pyenv rehash</code> 更新数据库；</li>
+</ul>
+<h2 id="更新">更新</h2>
+<p>更新至最近的pyenv版本，可以用git的pull命令</p>
+<pre><code>$ cd ~/.pyenv
+$ git pull</code></pre>
+<p>想要更新至某个特定的pyenv版本，也行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$ <span class="built_in">cd</span> ~/.pyenv</div><div class="line">$ git fetch</div><div class="line">$ git tag  <span class="comment"># 会显示出所有可用的版本号</span></div><div class="line">v0.1.0</div><div class="line">v0.1.1</div><div class="line">v0.1.2</div><div class="line">v0.2.0</div><div class="line">v0.2.1</div><div class="line">v0.3.0</div><div class="line">v0.4.0</div><div class="line">v0.4.0-20130613</div><div class="line">v0.4.0-20130726</div><div class="line">v0.4.0-20131023</div><div class="line">v0.4.0-20131116</div><div class="line">v0.4.0-20131216</div><div class="line">v0.4.0-20131217</div><div class="line">v0.4.0-20140110</div><div class="line">v0.4.0-20140110.1</div><div class="line">...</div><div class="line">$ git checkout v0.1.0</div></pre></td></tr></table></figure>
+<h2 id="参考">参考</h2>
+<ol>
+<li>https://github.com/yyuu/pyenv</li>
+<li>http://seisman.info/python-pyenv.html</li>
+</ol>
+<h2 id="修订历史">修订历史</h2>
+<ul>
+<li>2015-07-22：初稿取自Seisman；</li>
+<li>2015-09-01：添加了更新pyenv部分</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/安装/" rel="tag"># 安装</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hello-world.html" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/geophysicist.html" rel="prev" title="地球物理学家列表">
+                地球物理学家列表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.gif"
+              alt="pzhang" />
+          
+            <p class="site-author-name" itemprop="name">pzhang</p>
+            <p class="site-description motion-element" itemprop="description">个人笔记</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pyenv"><span class="nav-number">1.</span> <span class="nav-text">安装pyenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装python"><span class="nav-number">2.</span> <span class="nav-text">安装Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看可安装的版本"><span class="nav-number">2.1.</span> <span class="nav-text">查看可安装的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装python的依赖包"><span class="nav-number">2.2.</span> <span class="nav-text">安装Python的依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装指定版本"><span class="nav-number">2.3.</span> <span class="nav-text">安装指定版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新数据库"><span class="nav-number">2.4.</span> <span class="nav-text">更新数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看当前已安装的python版本"><span class="nav-number">2.5.</span> <span class="nav-text">查看当前已安装的python版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置全局的python版本"><span class="nav-number">2.6.</span> <span class="nav-text">设置全局的python版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确认python版本"><span class="nav-number">2.7.</span> <span class="nav-text">确认python版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用python"><span class="nav-number">3.</span> <span class="nav-text">使用python</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">4.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修订历史"><span class="nav-number">6.</span> <span class="nav-text">修订历史</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

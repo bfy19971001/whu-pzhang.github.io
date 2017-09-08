@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Madagascar,Linux,安装," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="PzNotes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。">
+<meta name="keywords" content="Madagascar,Linux,安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下安装Madagascar">
+<meta property="og:url" content="https://whu-pzhang.github.io/install-madagascar-under-linux.html">
+<meta property="og:site_name" content="PzNotes">
+<meta property="og:description" content="Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://whu-pzhang.github.io/images/2015102600.png">
+<meta property="og:updated_time" content="2017-09-08T03:01:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux下安装Madagascar">
+<meta name="twitter:description" content="Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。">
+<meta name="twitter:image" content="https://whu-pzhang.github.io/images/2015102600.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://whu-pzhang.github.io/install-madagascar-under-linux.html"/>
+
+
+
+
+
+  <title>Linux下安装Madagascar | PzNotes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PzNotes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习和分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://whu-pzhang.github.io/install-madagascar-under-linux.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PzNotes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux下安装Madagascar</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-26T00:00:00+08:00">
+                2015-10-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Exploration-Seismology/" itemprop="url" rel="index">
+                    <span itemprop="name">Exploration Seismology</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。</p>
+<a id="more"></a>
+<h2 id="依赖">依赖</h2>
+<p>需要添加 <a href="https://fedoraproject.org/wiki/EPEL" target="_blank" rel="external">EPEL</a> 源 和 <a href="http://li.nux.ro/repos.html" target="_blank" rel="external">Nux Dextop</a> 源支持。</p>
+<pre><code>$ sudo yum install -y epel-release
+$ sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm</code></pre>
+<h3 id="基础依赖包">基础依赖包</h3>
+<pre><code>$ sudo yum install gcc libXaw-devel python</code></pre>
+<p>值的注意的是，Madagascar只支持<code>Python2</code></p>
+<h3 id="核心及开发依赖">核心及开发依赖</h3>
+<pre><code>$ sudo yum install gcc-c++ gcc-gfortran       # c++和fortran
+$ sudo yum install python-devel swig numpy    # Python API
+$ sudo yum install java     # Java API</code></pre>
+<p>要用到MATLAB API的话，自然得安装MATLAB</p>
+<h3 id="图形和可视化">图形和可视化</h3>
+<pre><code>$ sudo yum install libtiff-devel libjpeg-turbo-devel
+$ sudo yum install freeglut freeglut-devel  # opengl
+$ sudo yum install netpbm netpbm-devel      # ppm support
+$ sudo yum install gd gd-devel              # PNG support
+$ sudo yum install plplot plplot-devel      # plplot support
+$ sudo yum install ffmpeg ffmpeg-devel      # need nux-dextop support
+$ sudo yum install cairo cairo-devel        # cairo support</code></pre>
+<p>分别为X11 graphics, vplot2gif, TIFF, JPEG, PLplot, OpenGL和ppm支持</p>
+<h3 id="数值依赖包">数值依赖包</h3>
+<pre><code>$ sudo yum install blas blas-devel atlas atlas-devel lapack lapack-devel
+$ sudo yum install fftw fftw-devel
+$ sudo yum install suitesparse suitesparse-devel    # 稀疏矩阵库</code></pre>
+<p><code>mpi</code>环境的安装可以参看 <a href="linux-environment-for-seismology-research.html">CentOS7安装及配置</a> 中的并行计算部分</p>
+<h3 id="其他">其他</h3>
+<ul>
+<li>Seismic_Unix</li>
+<li>CurveLab, PyCurveLab</li>
+<li></li>
+</ul>
+<h2 id="安装">安装</h2>
+<h3 id="添加环境变量">添加环境变量</h3>
+<p>将以下语句加入 <code>~/.bashrc</code> 或 <code>~/.zshrc</code> 中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> RSFROOT=/opt/rsf <span class="comment"># 安装位置</span></div><div class="line"><span class="built_in">source</span> <span class="variable">$&#123;RSFROOT&#125;</span>/share/madagascar/etc/env.sh</div></pre></td></tr></table></figure>
+<h3 id="编译安装">编译安装</h3>
+<ul>
+<li>稳定版</li>
+</ul>
+<p><a href="http://sourceforge.net/projects/rsf/files/" target="_blank" rel="external">Download the source code distribution from Sourceforge</a></p>
+<pre><code>$ tar jxvf madagascar-1.7.tar.bz2
+$ cd madagascar-1.7
+$ ./configure --preifx=/opt/rsf API=f90,python,matlab
+$ make
+$ sudo make install</code></pre>
+<ul>
+<li>最新版</li>
+</ul>
+<p>直接从 GitHub 克隆下来：</p>
+<pre><code>$ git clone https://github.com/ahay/src.git RSF_SRC
+$ cd RSF_SRC
+$ ./configure --preifx=/opt/rsf API=f90,c++,python,matlab
+$ make
+$ sudo make install</code></pre>
+<h2 id="卸载">卸载</h2>
+<p>清除所有中间文件和安装文件</p>
+<pre><code>$ scons -c install</code></pre>
+<p>或者在源码文件夹中</p>
+<pre><code>$ make distclean</code></pre>
+<h2 id="测试">测试</h2>
+<pre><code>$ sfspike n1=1000 k1=300 | sfbandpass fhi=2 phase=y | \
+    sfwiggle clip=0.02 title=&quot;Welcome to Madagascar&quot; | sfpen</code></pre>
+<p>不出错且出现如下图形即安装成功</p>
+<div class="figure">
+<img src="/images/2015102600.png">
+
+</div>
+<h2 id="出现的问题及解决方案">出现的问题及解决方案</h2>
+<h3 id="blas">BLAS</h3>
+<p>即使安装了<code>blas blas-devel lapack lapack-devel</code>，在<code>./configure</code>时还有如下提示：</p>
+<pre><code>checking for BLAS ... no
+checking for LAPACK ... no</code></pre>
+<p>查看 <code>config.log</code> 后发现其利用的是 <code>cblas</code>，而在CentOS7中<code>cblas</code>为 <code>atlas</code> 包的 一部分，这样在调用<code>cblas</code>中的函数时，默认情况下在编译时需加上<code>-I/usr/include</code>来 包含<code>cblas.h</code>，链接时，则需加上<code>-L/usr/lib64/atlas -lsatlas</code>或 者<code>-L/usr/lib64/atlas -ltatlas</code>。其中,<code>s</code>表示<code>single</code>;<code>t</code>表示<code>multi-threaded</code>。</p>
+<p>有了如上信息，我们可以有如下两种解决方案：</p>
+<h4 id="自己创建一个cblas库文件">自己创建一个cblas库文件</h4>
+<p>这种方法是在不修改Madagascar源文件的前提下进行的。</p>
+<p>第一步，将<code>satlas</code>或<code>tatlas</code>库软链接成<code>cblas</code>库：</p>
+<pre><code>$ sudo ln -s /usr/lib64/atlas/libsatlas.so /usr/lib64/libcblas.so</code></pre>
+<p>第二步，<code>./configure</code>时侯，加上<code>BLAS=cblas</code></p>
+<pre><code>$ ./configure --preifx=/home/pzhang/src.import/rsf API=f90,c++,python,matlab BLAS=cblas</code></pre>
+<h4 id="修改frameworkconfigure.py">修改<code>framework/configure.py</code></h4>
+<p>打开<code>framework/configure.py</code>文件，找到<code>check_all(context)</code>函数，可以发现其调 用<code>blas(context)</code>来对<code>BLAS</code>库进行检查，再定位到<code>blas(context)</code>函数，修改以下 语句：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Line 1014</span></div><div class="line">LIBS.append(<span class="string">'f77blas'</span>)</div><div class="line">LIBS.append(<span class="string">'cblas'</span>)</div><div class="line">LIBS.append(<span class="string">'atlas'</span>)</div><div class="line"></div><div class="line"><span class="comment"># Line 1066</span></div><div class="line">mylibs = [<span class="string">'f77blas'</span>,<span class="string">'cblas'</span>,<span class="string">'atlas'</span>]</div></pre></td></tr></table></figure>
+<p>为： <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#LIBS.append('f77blas') # 因为CentOS7系统上blas库都集成到atlas中了</span></div><div class="line"><span class="comment">#LIBS.append('cblas')</span></div><div class="line">LIBS.append(<span class="string">'satlas'</span>)</div><div class="line"></div><div class="line"><span class="comment">#mylibs = ['f77blas','cblas','atlas']</span></div><div class="line">mylibs = [<span class="string">'satlas'</span>]</div></pre></td></tr></table></figure></p>
+<p>上面两种方法任取一种即可！</p>
+<h3 id="plplot">plplot</h3>
+<p>在安装了<code>plplot</code>和<code>plplot-devel</code>后，<code>configure</code>时<code>plplot</code>仍然是 <code>no</code>。</p>
+<p>同样的，我们查看<code>config.log</code>可以发现是在链接时找不到名为<code>ltdl</code>的库。</p>
+<pre><code>$ ls /usr/lib64 | grep ltdl
+libltdl.so.7
+libltdl.so.7.3.0</code></pre>
+<p>也就是说，没有名为<code>libltdl.so</code> 的动态库文件，要解决的话也很简单，找不到库文件我 们自己造一个：</p>
+<pre><code>$ sudo ln -s /usr/lib64/libltdl.so.7 /usr/lib64/libltdl.so</code></pre>
+<p><strong>PS: 类似其他的<code>checking NO</code> 的问题，都可以在<code>config.log</code>中找到原因！</strong></p>
+<h2 id="其他可能出现的问题">其他可能出现的问题</h2>
+<p>在研究所里的曙光超算(<code>CentOS5.5 Final, gcc-4.1.2, scons-2.3.1,python2.4</code>)上 安装时出现的问题。</p>
+<p>在该环境下，直接<code>./configure</code>时，会报如下错误： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">checking for C compiler ... (cached) gcc</div><div class="line">checking if gcc works ... (cached) no</div><div class="line"></div><div class="line">  Fatal missing dependency</div><div class="line">------------------------</div></pre></td></tr></table></figure></p>
+<p>Google后发现这个报错是由<code>scons-2.3.1</code>对<code>Python-2.6</code>之前版本存在兼容性问题 而导致的。</p>
+<p>有如下三种解决办法：</p>
+<ol style="list-style-type: decimal">
+<li><p>升级<code>Python</code>到较新的版本(2.7)</p></li>
+<li><p>降级<code>Scons</code>(2.3.0)</p></li>
+<li><p>编辑 <code>/usr/local/lib/scons-2.3.1/SCons/Node/__init__.py</code> 文件，Line 1004 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> list(chain.from_iterable(filter(<span class="keyword">None</span>, [self.sources, self.depends, self.implicit])))</div></pre></td></tr></table></figure></p></li>
+</ol>
+<p>替代为: <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> self.implicit <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">    <span class="keyword">return</span> self.sources + self.depends</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">return</span> self.sources + self.depends + self.implicit</div></pre></td></tr></table></figure></p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="http://www.ahay.org/wiki/Installation#Precompiled_binary_packages" target="_blank" rel="external">Madagascar Installation</a></li>
+<li><a href="http://www.ahay.org/wiki/Advanced_Installation#Platform-specific_installation_advice%3E" target="_blank" rel="external">Advanced Installation</a></li>
+<li><a href="https://groups.google.com/forum/#!topic/osdeve_mirror_geophysics_rsf-user/AwnyyKjJ2SI" target="_blank" rel="external">How can I install Madagascar when the gcc version is 4.1.2</a></li>
+</ul>
+<h2 id="修订历史">修订历史</h2>
+<ul>
+<li>2015-10-26： 初稿</li>
+<li>2016-07-19： 更新存在的问题</li>
+<li>2016-10-07： 更新问题的解决方案</li>
+<li>2016-11-10： 添加BLAS库找不到的另一种解决方案</li>
+<li>2016-11-14： 添加在曙光超算上出现的问题</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Madagascar/" rel="tag"># Madagascar</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/安装/" rel="tag"># 安装</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/useful-algorithms.html" rel="next" title="一些有用的算法收集">
+                <i class="fa fa-chevron-left"></i> 一些有用的算法收集
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/SU-and-Segy-format.html" rel="prev" title="SU/SEGY文件格式">
+                SU/SEGY文件格式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.gif"
+              alt="pzhang" />
+          
+            <p class="site-author-name" itemprop="name">pzhang</p>
+            <p class="site-description motion-element" itemprop="description">个人笔记</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖"><span class="nav-number">1.</span> <span class="nav-text">依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础依赖包"><span class="nav-number">1.1.</span> <span class="nav-text">基础依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心及开发依赖"><span class="nav-number">1.2.</span> <span class="nav-text">核心及开发依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形和可视化"><span class="nav-number">1.3.</span> <span class="nav-text">图形和可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数值依赖包"><span class="nav-number">1.4.</span> <span class="nav-text">数值依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他"><span class="nav-number">1.5.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加环境变量"><span class="nav-number">2.1.</span> <span class="nav-text">添加环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译安装"><span class="nav-number">2.2.</span> <span class="nav-text">编译安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卸载"><span class="nav-number">3.</span> <span class="nav-text">卸载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现的问题及解决方案"><span class="nav-number">5.</span> <span class="nav-text">出现的问题及解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#blas"><span class="nav-number">5.1.</span> <span class="nav-text">BLAS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自己创建一个cblas库文件"><span class="nav-number">5.1.1.</span> <span class="nav-text">自己创建一个cblas库文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改frameworkconfigure.py"><span class="nav-number">5.1.2.</span> <span class="nav-text">修改framework/configure.py</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#plplot"><span class="nav-number">5.2.</span> <span class="nav-text">plplot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他可能出现的问题"><span class="nav-number">6.</span> <span class="nav-text">其他可能出现的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修订历史"><span class="nav-number">8.</span> <span class="nav-text">修订历史</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

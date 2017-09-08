@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Linux,C," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="PzNotes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="数组名和指针 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址， 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。 事实上，数组名和指针除了上述区别外，还有其他的一些不同：  在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。 若a是">
+<meta name="keywords" content="Linux,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组和指针">
+<meta property="og:url" content="https://whu-pzhang.github.io/array-and-pointers.html">
+<meta property="og:site_name" content="PzNotes">
+<meta property="og:description" content="数组名和指针 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址， 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。 事实上，数组名和指针除了上述区别外，还有其他的一些不同：  在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。 若a是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://whu-pzhang.github.io/images/2015073100.png">
+<meta property="og:updated_time" content="2017-09-08T03:01:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数组和指针">
+<meta name="twitter:description" content="数组名和指针 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址， 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。 事实上，数组名和指针除了上述区别外，还有其他的一些不同：  在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。 若a是">
+<meta name="twitter:image" content="https://whu-pzhang.github.io/images/2015073100.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://whu-pzhang.github.io/array-and-pointers.html"/>
+
+
+
+
+
+  <title>数组和指针 | PzNotes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">PzNotes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习和分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-link"></i> <br />
+            
+            链接
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-notes">
+          <a href="/notes.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-book"></i> <br />
+            
+            笔记
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://whu-pzhang.github.io/array-and-pointers.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pzhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PzNotes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数组和指针</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-31T00:00:00+08:00">
+                2015-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="数组名和指针">数组名和指针</h2>
+<p>在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址， 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。</p>
+<p>事实上，数组名和指针除了上述区别外，还有其他的一些不同：</p>
+<ol style="list-style-type: decimal">
+<li><p>在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。</p></li>
+<li><p>在引用上，数组名只需访问内存一次；而指针需要访问内存两次。</p></li>
+<li><p>若a是一个数组名，p为指向该数组的指针变量，使用 <code>a</code> 和 <code>&amp;a</code> 得到的值是一样的。对 <code>p</code> 来说则不一样</p></li>
+<li><p><code>sizeof a</code> 得到的是整个数组所占字节的大小，而 <code>sizeof p</code> 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)</p></li>
+<li><p>尽管 <code>a</code>和 <code>&amp;a[0]</code> 得到的地址是一样的，但是其意义是不一样的，<code>a</code>表示的是存储数组这块连续内存空间的首地址而 <code>&amp;a[0]</code>表示的是数组第一个元素的首地址。</p></li>
+</ol>
+<a id="more"></a>
+<p>举例说明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> SIZE 5</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">show_arr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span></span>; <span class="comment">// const是为了保护数组内容</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_arr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span></span>; <span class="comment">// 这里和int sum_arr(const int *a, int n)是一样的</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> a[SIZE];</div><div class="line">    <span class="keyword">int</span> *p;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;SIZE; i++) <span class="comment">// 初始化 产生10以内的随机数</span></div><div class="line">        a[i] = rand()%<span class="number">10</span> + <span class="number">1</span>;</div><div class="line"></div><div class="line">    p = a; <span class="comment">// 将指针变量指向数组</span></div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"a = %p\n&amp;a = %p\n"</span>, a, &amp;a); <span class="comment">// a和&amp;a都为数组开始的地址</span></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"p = %p\n&amp;p = %p\n\n"</span>, p, &amp;p); <span class="comment">// p指向数组开始，&amp;p则为存储指针p的地址</span></div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"sizeof a = %d\n"</span>, <span class="keyword">sizeof</span> a); <span class="comment">// 数组a包含int类型的5个元素</span></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"sizeof p = %d\n\n"</span>, <span class="keyword">sizeof</span> p); <span class="comment">// 指针占字节数与系统位数有关，64位系统占8个字节</span></div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"The contents of array are: \n"</span>);</div><div class="line">    show_arr(a, SIZE);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\nSum of all elements is: %d\n"</span>, sum_arr(a, SIZE));</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">show_arr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%3d "</span>, a[i]);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum_arr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> total = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)</div><div class="line">        total += a[i];</div><div class="line"></div><div class="line">    <span class="keyword">return</span> total;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译: <code>gcc -Wall -std=c99 test.c</code></p>
+<p>输出如下：</p>
+<pre><code>a = 000000000022FE30
+&amp;a = 000000000022FE30
+p = 000000000022FE30
+&amp;p = 000000000022FE28
+
+sizeof a = 20
+sizeof p = 8
+
+The contents of array are:
+  2   8   5   1  10
+Sum of all elements is: 26</code></pre>
+<h2 id="指针数组和数组指针">指针数组和数组指针</h2>
+<p>常常被这两个概念弄晕，其实用英文更加好理解。</p>
+<ul>
+<li><strong>指针数组</strong>: an array of pointers, 首先它是一个数组，数组元素都为指针</li>
+<li><strong>数组指针</strong>： a pointer to an array, 首先它是一个指针，指向一个数组，也称行指针</li>
+</ul>
+<p>其用法区别如下：</p>
+<ul>
+<li><code>int *ar[10]</code>
+<ul>
+<li>指针数组</li>
+<li>表示： ar是包含10个int类指针的数组</li>
+<li>元素表示： <code>*ar[i]</code> 和 <code>*(ar[i])</code> 是一样的, <code>[]</code> 优先级高于 <code>*</code></li>
+</ul></li>
+<li><code>int (*pt)[10]</code>
+<ul>
+<li>数组指针</li>
+<li>表示： pt为指向包含10个int值数组的指针</li>
+<li>元素表示： <code>(*ar)[i]</code></li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="/images/2015073100.png">
+
+</div>
+<p>指针数组比较好理解，就是用来存储指针的数组。举例说明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">2</span>;</div><div class="line">    <span class="keyword">int</span> *a[<span class="number">2</span>];</div><div class="line"></div><div class="line">    <span class="comment">// 数组a用来存储两个指针</span></div><div class="line">    a[<span class="number">0</span>] = &amp;i; <span class="comment">// a[0]和a[1]分别指向i和j</span></div><div class="line">    a[<span class="number">1</span>] = &amp;j;</div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"*a[0] = %d\n*a[1] = %d\n"</span>, *a[<span class="number">0</span>], *a[<span class="number">1</span>]);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出如下::</p>
+<pre><code>*a[0] = 1
+*a[1] = 2</code></pre>
+<p>但是数组指针就看起看有点奇怪了。</p>
+<p>我们平时定义指针都是在数据类型后面加上指针变量名，但是数组指针为什么却是按 <code>int (*pt)[10]</code> 来定义？其实数组指针的原型是这样的： <code>int (*)[10] pt</code> , <code>int (*)[10]</code> 是指针类型，表示指针变量 <code>pt</code> 指向一个包含有10个int值的数组； <code>pt</code> 每加1，就跳过 <code>10 * sizeof(int)</code> 个字节。</p>
+<p>将数组指针当作 <strong>行指针</strong> 也比较好理解，举例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ROWS 4</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> COLS 2</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">int</span> a[ROWS][COLS] = &#123; &#123;<span class="number">2</span>,<span class="number">4</span>&#125;, &#123;<span class="number">6</span>,<span class="number">8</span>&#125;, &#123;<span class="number">1</span>,<span class="number">3</span>&#125;, &#123;<span class="number">5</span>,<span class="number">7</span>&#125; &#125;;</div><div class="line">    <span class="keyword">int</span> (*p)[<span class="number">2</span>]; <span class="comment">// 声明数组指针</span></div><div class="line"></div><div class="line">    p = a;</div><div class="line">    <span class="comment">// 将其指向数组a,这里p指向第一个含有两个int值的数组,即a[0]</span></div><div class="line">    <span class="comment">// 那么 p+1 指向第二个大小为2个int的数组</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;ROWS; i++)</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"p+%d = %p\n"</span>, i, p+i);</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;ROWS; i++)</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"*p+%d = %p\n"</span>, i, *p+i);</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;ROWS; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;COLS; j++)</div><div class="line">            <span class="built_in">printf</span>(<span class="string">"*(*(p+%d)+%d) = %d\t"</span>, i, j, *(*(p+i)+j));</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> *start = *p; <span class="comment">// *p == &amp;a[0][0]</span></div><div class="line">    <span class="keyword">int</span> * <span class="keyword">const</span> end = start + ROWS*COLS;</div><div class="line">    <span class="comment">// 将二维数组当成一维数组来循环</span></div><div class="line">    <span class="keyword">for</span> ( ; start != end; start++)</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%-3d"</span>, *start);</div><div class="line">    <span class="built_in">putchar</span>(<span class="string">'\n'</span>);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出:</p>
+<pre><code>p+0 = 000000000022FE00
+p+1 = 000000000022FE08
+p+2 = 000000000022FE10
+p+3 = 000000000022FE18
+*p+0 = 000000000022FE00
+*p+1 = 000000000022FE04
+*p+2 = 000000000022FE08
+*p+3 = 000000000022FE0C
+*(*(p+0)+0) = 2 *(*(p+0)+1) = 4
+*(*(p+1)+0) = 6 *(*(p+1)+1) = 8
+*(*(p+2)+0) = 1 *(*(p+2)+1) = 3
+*(*(p+3)+0) = 5 *(*(p+3)+1) = 7
+2  4  6  8  1  3  5  7</code></pre>
+<p>从这段代码结果我们可以看出：</p>
+<ol style="list-style-type: decimal">
+<li><p>p每加1都跳过 <code>2 * sizeof(int)</code> 个字节；而 <code>*p</code> 每加1则只跳过 <code>sizeof(int)</code> 个字节</p></li>
+<li><p><code>p+1</code> 和 <code>*(p+1)</code> 值是一样的，但是意义不同，与数组中 <code>a</code> 和 <code>&amp;a[0]</code> 的关系类似,前者表示的是整个数组内存块开始的地址，后者表示的是每个数组首元素的地址。</p></li>
+<li><p>可以将数组指针理解为指针的指针，需要两次取值运算才能得到存储的值。</p></li>
+<li><p>数组指针p的用法和二维数组名a的用法是一样的，尽管其为一个指针变量，仍然可以使用<code>p[2][1]</code>这样的符号。表示单个元素的时候，数组名和数组指针都可行： <code>a[m][n] = *(*(a+m)+n)</code> 或 <code>p[m][n] = *(*(p+m)+n)</code></p></li>
+<li><p>二维数组可以当作特殊的一维数组，上述代码利用一个for循环就遍历了一个二维数组也说明了这一点。</p></li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>其实不论是指针数组还是数组指针，都是复合类型声明。搞明白复合类型声明的规则就都 很好理解。</p>
+<p>最简单的办法就是 <strong>从右至左来阅读声明，离变量名最近的符号对变量的类型有最直接的影响。</strong></p>
+<p>举一个简单的例子: <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> *ptrs[<span class="number">10</span>]</div></pre></td></tr></table></figure></p>
+<p>从右至左： 首先知道我们定义的是一个大小为10的数组，它的名字为<code>ptrs</code>，然后知道 数组中存放的是指向<code>int</code>的指针。</p>
+<p>但是对于: <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> (*pArray)[<span class="number">10</span>]</div></pre></td></tr></table></figure></p>
+<p>这种有括号的声明，需要先考虑括号内的部分。</p>
+<p>由内而外，从右至左：首先是圆括号内的部分，<code>*pArray</code>意味着<code>pArray</code>是一个指针， 接下来观察右边，可知道<code>pArray</code>是指向大小为10的数组的指针，最后观察左边，知道数组 的元素是‵int‵类型，这样最终的含义就清楚了，<code>pArray</code> 是一个指针，它指向一个<code>int</code> 数组，数组中包含有10个元素。</p>
+<h2 id="参考">参考</h2>
+<ol style="list-style-type: decimal">
+<li><a href="http://blog.csdn.net/touch_2011/article/details/6966980" target="_blank" rel="external">数组指针和指针数组</a></li>
+<li><a href="http://www.informit.com/store/c-primer-plus-9780321928429" target="_blank" rel="external">C Primer Plus, 6th Edition</a></li>
+<li><a href="http://www.cnblogs.com/mq0036/p/3382732.html" target="_blank" rel="external">数组指针和指针数组的区别</a></li>
+</ol>
+<h2 id="修订历史">修订历史</h2>
+<ul>
+<li>2015-07-31 初稿</li>
+<li>2017-05-26 添加总结</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/geophysicist.html" rel="next" title="地球物理学家列表">
+                <i class="fa fa-chevron-left"></i> 地球物理学家列表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/dynamic-allocate-2d-array.html" rel="prev" title="C语言中二维数组的动态分配">
+                C语言中二维数组的动态分配 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/uploads/avatar.gif"
+              alt="pzhang" />
+          
+            <p class="site-author-name" itemprop="name">pzhang</p>
+            <p class="site-description motion-element" itemprop="description">个人笔记</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组名和指针"><span class="nav-number">1.</span> <span class="nav-text">数组名和指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指针数组和数组指针"><span class="nav-number">2.</span> <span class="nav-text">指针数组和数组指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修订历史"><span class="nav-number">5.</span> <span class="nav-text">修订历史</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pzhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
