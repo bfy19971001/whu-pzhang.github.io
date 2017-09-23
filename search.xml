@@ -1411,11 +1411,11 @@ libltdl.so.7.3.0</code></pre>
         
         <tags>
             
-            <tag> Madagascar </tag>
-            
             <tag> Linux </tag>
             
             <tag> 安装 </tag>
+            
+            <tag> Madagascar </tag>
             
         </tags>
         
@@ -2154,9 +2154,9 @@ $ git pull</code></pre>
         
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> 安装 </tag>
+            
+            <tag> Python </tag>
             
         </tags>
         
@@ -2644,11 +2644,11 @@ sudo yum install vlc</code></pre>
             
             <tag> Linux </tag>
             
+            <tag> Python </tag>
+            
             <tag> CentOS </tag>
             
             <tag> Perl </tag>
-            
-            <tag> Python </tag>
             
         </tags>
         
