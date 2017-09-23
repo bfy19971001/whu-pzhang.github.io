@@ -16,13 +16,6 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/tags/Python/</loc>
-        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://whu-pzhang.github.io/tags/%E7%90%86%E8%AE%BA%E5%9C%B0%E9%9C%87%E5%9B%BE/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -45,6 +38,13 @@
 
     <url>
         <loc>https://whu-pzhang.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
+        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://whu-pzhang.github.io/tags/Python/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

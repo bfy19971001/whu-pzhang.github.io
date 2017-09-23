@@ -426,9 +426,9 @@
       <category term="Programming" scheme="https://whu-pzhang.github.io/categories/Programming/"/>
     
     
-      <category term="安装" scheme="https://whu-pzhang.github.io/tags/%E5%AE%89%E8%A3%85/"/>
-    
       <category term="Python" scheme="https://whu-pzhang.github.io/tags/Python/"/>
+    
+      <category term="安装" scheme="https://whu-pzhang.github.io/tags/%E5%AE%89%E8%A3%85/"/>
     
   </entry>
   
@@ -484,11 +484,11 @@
     
       <category term="Linux" scheme="https://whu-pzhang.github.io/tags/Linux/"/>
     
-      <category term="Python" scheme="https://whu-pzhang.github.io/tags/Python/"/>
-    
       <category term="CentOS" scheme="https://whu-pzhang.github.io/tags/CentOS/"/>
     
       <category term="Perl" scheme="https://whu-pzhang.github.io/tags/Perl/"/>
+    
+      <category term="Python" scheme="https://whu-pzhang.github.io/tags/Python/"/>
     
   </entry>
   
