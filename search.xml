@@ -1502,7 +1502,10 @@ a[9] = 3; b[9] = 6; c[9] = 7.315299</code></pre>
     <entry>
       <title><![CDATA[Linux安装Sublime Text 3]]></title>
       <url>https://whu-pzhang.github.io/install-sublime-text-3-under-linux.html</url>
-      <content type="html"><![CDATA[<p>Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式， 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。</p>
+      <content type="html"><![CDATA[<blockquote>
+<p><strong>已全面转向 Atom，本文不再更新。</strong></p>
+</blockquote>
+<p>Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式， 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。</p>
 <a id="more"></a>
 <h2 id="安装">安装</h2>
 <p>从 <a href="http://www.sublimetext.com/3" target="_blank" rel="external">Sublime Text 3</a> 官网选择相应的版本下载。</p>

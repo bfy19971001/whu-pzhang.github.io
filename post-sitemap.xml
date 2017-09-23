@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://whu-pzhang.github.io/install-sublime-text-3-under-linux.html</loc>
+        <lastmod>2017-09-21T01:59:22.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://whu-pzhang.github.io/geo-software.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -40,14 +48,6 @@
 
     <url>
         <loc>https://whu-pzhang.github.io/array-and-pointers.html</loc>
-        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://whu-pzhang.github.io/install-sublime-text-3-under-linux.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

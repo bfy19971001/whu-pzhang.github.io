@@ -23,13 +23,6 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/tags/Linux/</loc>
-        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://whu-pzhang.github.io/tags/%E7%90%86%E8%AE%BA%E5%9C%B0%E9%9C%87%E5%9B%BE/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -52,13 +45,6 @@
 
     <url>
         <loc>https://whu-pzhang.github.io/tags/Python/</loc>
-        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://whu-pzhang.github.io/tags/%E5%AE%89%E8%A3%85/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -116,6 +102,20 @@
     <url>
         <loc>https://whu-pzhang.github.io/tags/colormap/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://whu-pzhang.github.io/tags/Linux/</loc>
+        <lastmod>2017-09-21T01:59:22.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://whu-pzhang.github.io/tags/%E5%AE%89%E8%A3%85/</loc>
+        <lastmod>2017-09-21T01:59:22.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
