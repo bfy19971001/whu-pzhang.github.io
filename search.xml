@@ -2154,9 +2154,9 @@ $ git pull</code></pre>
         
         <tags>
             
-            <tag> 安装 </tag>
-            
             <tag> Python </tag>
+            
+            <tag> 安装 </tag>
             
         </tags>
         
@@ -2644,11 +2644,11 @@ sudo yum install vlc</code></pre>
             
             <tag> Linux </tag>
             
-            <tag> Python </tag>
-            
             <tag> CentOS </tag>
             
             <tag> Perl </tag>
+            
+            <tag> Python </tag>
             
         </tags>
         

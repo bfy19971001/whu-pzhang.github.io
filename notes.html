@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="PzNotes">
 <meta property="og:description" content="matplotlib  存储图片时，可加入bbox_inches=&apos;tight&apos; 参数切除白边  Git  HEAD: 表示当前版本 reflog: 记录历史命令 git checkout -- file: 丢弃工作区的改动。其实就是用版本库的并本替换工作区的版本，无论是修改还是删除，都可以一键还原。 git reset HEAD file: 将暂存区的修改回退到工作区 git reset --h">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-01T08:15:11.000Z">
+<meta property="og:updated_time" content="2017-10-10T06:58:41.825Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PzNotes">
 <meta name="twitter:description" content="matplotlib  存储图片时，可加入bbox_inches=&apos;tight&apos; 参数切除白边  Git  HEAD: 表示当前版本 reflog: 记录历史命令 git checkout -- file: 丢弃工作区的改动。其实就是用版本库的并本替换工作区的版本，无论是修改还是删除，都可以一键还原。 git reset HEAD file: 将暂存区的修改回退到工作区 git reset --h">
@@ -325,7 +325,9 @@
 </ul></li>
 <li><p><code>git rm -r --cached dirname</code> : 删除远程文件夹</p></li>
 <li><p>fork 他人的 repo，做了自己的修改，在不冲突的前提下保持与上游项目同步：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git remote add upstream https://github.com/someone-repo.git  <span class="comment"># 配置上游项目地址</span></div><div class="line">git fetch upstream  <span class="comment"># 获取上游项目更新</span></div><div class="line">git merge upstream/master  <span class="comment"># 合并到本地分支</span></div><div class="line">git push origin master  <span class="comment"># 提交推送到自己的 repo</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git remote add upstream https://github.com/someone-repo.git  <span class="comment"># 配置上游项目地址</span></div><div class="line">git fetch upstream  <span class="comment"># 获取上游项目更新</span></div><div class="line">git merge upstream/master  <span class="comment"># 合并到本地分支</span></div><div class="line">git push origin master  <span class="comment"># 提交推送到自己的 repo</span></div></pre></td></tr></table></figure></li>
+<li><p>更改远程分支地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git remote rm origin <span class="comment"># 如不需要原来的地址，可删除</span></div><div class="line">git remote <span class="built_in">set</span>-url origin new-url</div></pre></td></tr></table></figure>
 <p>​</p></li>
 </ol>
 
