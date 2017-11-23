@@ -16,6 +16,13 @@
     </url>
 
     <url>
+        <loc>https://whu-pzhang.github.io/tags/C/</loc>
+        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://whu-pzhang.github.io/tags/%E7%90%86%E8%AE%BA%E5%9C%B0%E9%9C%87%E5%9B%BE/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -51,7 +58,7 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/tags/C/</loc>
+        <loc>https://whu-pzhang.github.io/tags/Madagascar/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -65,13 +72,6 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/tags/Madagascar/</loc>
-        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://whu-pzhang.github.io/tags/Seismic-Unix/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -79,14 +79,14 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/tags/SEPlib/</loc>
+        <loc>https://whu-pzhang.github.io/tags/Anaconda/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/tags/Anaconda/</loc>
+        <loc>https://whu-pzhang.github.io/tags/SEPlib/</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

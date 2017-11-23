@@ -31,14 +31,6 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/python-pyenv.html</loc>
-        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://whu-pzhang.github.io/array-and-pointers.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -47,7 +39,7 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/dynamic-allocate-2d-array.html</loc>
+        <loc>https://whu-pzhang.github.io/python-pyenv.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -63,7 +55,7 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/useful-algorithms.html</loc>
+        <loc>https://whu-pzhang.github.io/dynamic-allocate-2d-array.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -87,7 +79,7 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/SU-and-Segy-format.html</loc>
+        <loc>https://whu-pzhang.github.io/useful-algorithms.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -95,7 +87,7 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/install-SEPlib-under-linux.html</loc>
+        <loc>https://whu-pzhang.github.io/SU-and-Segy-format.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -119,7 +111,7 @@
     </url>
 
     <url>
-        <loc>https://whu-pzhang.github.io/python-ctypes.html</loc>
+        <loc>https://whu-pzhang.github.io/install-SEPlib-under-linux.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -128,6 +120,14 @@
 
     <url>
         <loc>https://whu-pzhang.github.io/2016-11-03-add-new-program-to-madagascar.html</loc>
+        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://whu-pzhang.github.io/python-ctypes.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>

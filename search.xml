@@ -105,9 +105,9 @@ ArgumentError: argument 3: &lt;class &#39;TypeError&#39;&gt;: expected LP_c_int 
         
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> C </tag>
+            
+            <tag> Python </tag>
             
         </tags>
         
@@ -1489,9 +1489,9 @@ a[9] = 3; b[9] = 6; c[9] = 7.315299</code></pre>
         
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> C </tag>
+            
+            <tag> Python </tag>
             
             <tag> 算法，Bash </tag>
             
