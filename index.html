@@ -688,7 +688,7 @@
       
         
           <p>有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目 录重新编译，然后再在SConstruct中调用,类似这样：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">prog = Program(<span class="string">'Mcode.c'</span>)</div><div class="line">exe = str(prog[<span class="number">0</span>])</div><div class="line"><span class="comment"># proj = Project()</span></div><div class="line"><span class="comment"># prog = proj.Program('Mcode.c')</span></div><div class="line">Flow(<span class="string">'out'</span>, [<span class="string">'inp1'</span>, <span class="string">'inp2'</span>, exe],</div><div class="line">    <span class="string">'''</span></div><div class="line"><span class="string">    $&#123;SOURCES[2].abspath&#125; inp2=$&#123;SOURCES[1]&#125;</span></div><div class="line"><span class="string">    '''</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">prog = Program(<span class="string">'Mcode.c'</span>)</span><br><span class="line">exe = str(prog[<span class="number">0</span>])</span><br><span class="line"><span class="comment"># proj = Project()</span></span><br><span class="line"><span class="comment"># prog = proj.Program('Mcode.c')</span></span><br><span class="line">Flow(<span class="string">'out'</span>, [<span class="string">'inp1'</span>, <span class="string">'inp2'</span>, exe],</span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    $&#123;SOURCES[2].abspath&#125; inp2=$&#123;SOURCES[1]&#125;</span></span><br><span class="line"><span class="string">    '''</span>)</span><br></pre></td></tr></table></figure>
 <p>若是只在一个project中用到倒还好，但若是比较通用的程序，在不同的文件夹中都要这么来调 用的话未免太麻烦。而将我们的代码直接加入Mada中，就可以直接调用。不用将源码拷来拷去还 要编译了。当然了，加入Mada的程序一般是我们的最终版本，测试的程序还是就放在测试目录中 比较好。</p>
 <p>本文介绍怎么样将自己的程序加入到Madagascar中。</p>
           <!--noindex-->
@@ -836,7 +836,7 @@
 
       
         
-          <p><a href="http://sepwww.stanford.edu/doku.php?id=sep:software:seplib" target="_blank" rel="external">SEPlib</a> 是由 Stanford Exploration Project 开发并维护的地震勘探开源软件包。</p>
+          <p><a href="http://sepwww.stanford.edu/doku.php?id=sep:software:seplib" target="_blank" rel="noopener">SEPlib</a> 是由 Stanford Exploration Project 开发并维护的地震勘探开源软件包。</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/install-SEPlib-under-linux.html#more" rel="contents">

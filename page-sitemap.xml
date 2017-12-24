@@ -8,20 +8,20 @@
     
     <url>
         <loc>https://whu-pzhang.github.io/notes.html</loc>
-        <lastmod>2017-11-23T07:42:44.744Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>https://whu-pzhang.github.io/about.html</loc>
-        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
+        <lastmod>2017-12-20T02:39:09.016Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>https://whu-pzhang.github.io/404.html</loc>
+        <lastmod>2017-09-08T03:01:05.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://whu-pzhang.github.io/about.html</loc>
         <lastmod>2017-09-08T03:01:05.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
