@@ -76,7 +76,7 @@
 
 <meta itemprop="datePublished" content="2017-10-06T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2017-10-06T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="491">
+<meta itemprop="wordCount" content="547">
 
 
 
@@ -187,16 +187,25 @@
 
 <li><p>fork 他人的 repo，做了自己的修改，在不冲突的前提下保持与上游项目同步：</p>
 
-<pre><code class="language-Bash">git remote add upstream https://github.com/someone-repo.git  # 配置上游项目地址
+<p><code>Bash
+git remote add upstream https://github.com/someone-repo.git  # 配置上游项目地址
 git fetch upstream  # 获取上游项目更新
 git merge upstream/master  # 合并到本地分支
 git push origin master  # 提交推送到自己的 repo
-</code></pre></li>
+</code>`</p></li>
 
 <li><p>更改远程分支地址</p>
 
 <pre><code class="language-bash">git remote rm origin # 如不需要原来的地址，可删除
 git remote set-url origin new-url
+</code></pre></li>
+
+<li><p>添加子模块</p>
+
+<pre><code class="language-bash"># 将远程repo添加为当前repo下的子模块
+git submodule add -b master https://github.com/someone-repo.git dirname
+# 保持子模块和远程分支同步
+git submodule update --recursive --remote
 </code></pre></li>
 </ol>
 
@@ -234,7 +243,11 @@ Flow('out', 'in '+exe,
 End()
 </code></pre>
 
-<h2 id="取模和取余">取模和取余</h2>
+<h2 id="其他">其他</h2>
+
+<ol>
+<li>取模和取余</li>
+</ol>
 
 <p>整数 a 和 b
 <code>MOD</code> 和 <code>REM</code> 的计算都分两步：</p>
