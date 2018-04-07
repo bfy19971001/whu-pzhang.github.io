@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Madagascar之colormap - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="平常作图时都会遇到如何选择colormap的问题。 而Madagascar文档也没有对各种colormap作系统的说明。
+本文梳理了Madagascar中现有的各种colormap。
+本文 SConstruct 脚本位于 Github.
+
+" />
+
+  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/mada-colormaps/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Madagascar之colormap" />
+<meta property="og:description" content="平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。
+
+本文梳理了Madagascar中现有的各种colormap。
+
+本文 SConstruct 脚本位于 Github.
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/mada-colormaps/" />
+
+
+
+<meta property="article:published_time" content="2017-05-10T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-05-10T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Madagascar之colormap">
+<meta itemprop="description" content="平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。
+
+本文梳理了Madagascar中现有的各种colormap。
+
+本文 SConstruct 脚本位于 Github.
+
+">
+
+
+<meta itemprop="datePublished" content="2017-05-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-05-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="594">
+
+
+
+<meta itemprop="keywords" content="madagascar,colormap," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Madagascar之colormap"/>
+<meta name="twitter:description" content="平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。
+
+本文梳理了Madagascar中现有的各种colormap。
+
+本文 SConstruct 脚本位于 Github.
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Madagascar之colormap</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-05-10 </span>
+        
+        <span class="more-meta"> 约 594 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#标准配色">标准配色</a></li>
+<li><a href="#新加入的配色">新加入的配色</a>
+<ul>
+<li><a href="#light-bartlein">Light Bartlein</a></li>
+<li><a href="#cube-helix">Cube-helix</a></li>
+<li><a href="#其他配色">其他配色</a></li>
+</ul></li>
+<li><a href="#自定义配色">自定义配色</a></li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#更新">更新</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。</p>
+
+<p>本文梳理了Madagascar中现有的各种colormap。</p>
+
+<p>本文 <code>SConstruct</code> 脚本位于 <a href="https://github.com/whu-pzhang/Mada/tree/master/colormap">Github</a>.</p>
+
+<p></p>
+
+<p>Madagascar中的配色方案在<code>sfgrey</code>和<code>sfgrey3</code>中由参数<code>color=</code>控制。
+默认为灰阶的，参数为<code>color=i</code></p>
+
+<h2 id="标准配色">标准配色</h2>
+
+<p>Madagascar 中自带的配色方案如下表所示：</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">配色</th>
+<th align="left">参数</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">Rainbow</td>
+<td align="left"><code>color=a</code></td>
+</tr>
+
+<tr>
+<td align="left">Bone</td>
+<td align="left"><code>color=b</code></td>
+</tr>
+
+<tr>
+<td align="left">Cool</td>
+<td align="left"><code>color=c</code></td>
+</tr>
+
+<tr>
+<td align="left">Blue-white-red</td>
+<td align="left"><code>color=e</code></td>
+</tr>
+
+<tr>
+<td align="left">Flag</td>
+<td align="left"><code>color=f</code></td>
+</tr>
+
+<tr>
+<td align="left">Black-white-red</td>
+<td align="left"><code>color=g</code></td>
+</tr>
+
+<tr>
+<td align="left">Hot</td>
+<td align="left"><code>color=h</code></td>
+</tr>
+
+<tr>
+<td align="left">Greyscale</td>
+<td align="left"><code>color=i</code></td>
+</tr>
+
+<tr>
+<td align="left">Jet</td>
+<td align="left"><code>color=j</code></td>
+</tr>
+
+<tr>
+<td align="left">Linear</td>
+<td align="left"><code>color=l</code></td>
+</tr>
+
+<tr>
+<td align="left">Pink</td>
+<td align="left"><code>color=p</code></td>
+</tr>
+
+<tr>
+<td align="left">Traffic</td>
+<td align="left"><code>color=t</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>效果图如下：</p>
+
+<p><img src="http://opq72e2wz.bkt.clouddn.com/mona.jpg" alt="Different colorschemes" /></p>
+
+<p>将小写改为大写就可以获得翻转的配色方案。</p>
+
+<p>而配色方案中加入<code>C</code>可以高亮显示被裁剪的值。</p>
+
+<h2 id="新加入的配色">新加入的配色</h2>
+
+<p>除了上述基础配色，Madagascar中还有一些后续加入的配色方案。</p>
+
+<h3 id="light-bartlein">Light Bartlein</h3>
+
+<p>这种橙色，白色和紫色主导的配色提出在以下文章中：</p>
+
+<p>Light, A. and P.J. Bartlein (2004) <a href="http://geog.uoregon.edu/datagraphics/EOS/">The end of the rainbow? Color schemes for improved data graphics</a>. EOS Transactions of the American Geophysical Union 85(40):385</p>
+
+<p><a href="https://mycarta.wordpress.com/2012/03/15/a-good-divergent-color-palette-for-matlab/">Matteo Niccoli</a>推荐其作为红-白-蓝（Madagascar中<code>color=g</code>的配色）地震数据显示配色的替代品。</p>
+
+<p>该配色在Madagascar中的参数为<code>color=lb</code>。</p>
+
+<p><img src="http://opq72e2wz.bkt.clouddn.com/lb.jpg" alt="Light Bartlein" /></p>
+
+<h3 id="cube-helix">Cube-helix</h3>
+
+<p>这种配色被设计成根据其感知亮度单调增加，用黑白打印机打印时可以产生了很好的灰度。</p>
+
+<p>该种配色在Madagascar中的参数为<code>color=x</code>。</p>
+
+<p><img src="http://opq72e2wz.bkt.clouddn.com/x.jpg" alt="Cube-helix" /></p>
+
+<h3 id="其他配色">其他配色</h3>
+
+<p><img src="http://opq72e2wz.bkt.clouddn.com/colorbars.jpg" alt="Other color schemes" /></p>
+
+<h2 id="自定义配色">自定义配色</h2>
+
+<p>目前够用，先不折腾了！</p>
+
+<p>只知道自定义配色方案要用csv格式！</p>
+
+<p>可以参考<code>rsf/tutorials/colormaps</code></p>
+
+<h2 id="参考">参考</h2>
+
+<ol>
+<li><a href="http://ahay.org/blog/2005/03/28/color-schemes/">Color schemes</a></li>
+<li><a href="http://wiki.seg.org/wiki/How_to_evaluate_and_compare_color_maps">How to evaluate and compare color maps</a></li>
+</ol>
+
+<h2 id="更新">更新</h2>
+
+<ol>
+<li>2017年5月 初稿</li>
+<li>2018年3月 添加 Github 地址。</li>
+</ol>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-05-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/madagascar/">madagascar</a>
+          
+          <a href="/tags/colormap/">colormap</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/python-ctypes/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">用ctypes调用C函数</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/learn-numpy/">
+            <span class="next-text nav-default">NumPy学习笔记</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

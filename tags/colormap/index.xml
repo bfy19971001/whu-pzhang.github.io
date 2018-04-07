@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Colormap on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/colormap/</link>
+    <description>Recent content in Colormap on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/colormap/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Madagascar之colormap</title>
+      <link>https://whu-pzhang.github.io/mada-colormaps/</link>
+      <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/mada-colormaps/</guid>
+      <description>&lt;p&gt;平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。&lt;/p&gt;
+
+&lt;p&gt;本文梳理了Madagascar中现有的各种colormap。&lt;/p&gt;
+
+&lt;p&gt;本文 &lt;code&gt;SConstruct&lt;/code&gt; 脚本位于 &lt;a href=&#34;https://github.com/whu-pzhang/Mada/tree/master/colormap&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

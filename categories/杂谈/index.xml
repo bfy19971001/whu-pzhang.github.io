@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>杂谈 on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/categories/%E6%9D%82%E8%B0%88/</link>
+    <description>Recent content in 杂谈 on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Jul 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/categories/%E6%9D%82%E8%B0%88/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://whu-pzhang.github.io/hello-world/</link>
+      <pubDate>Tue, 14 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/hello-world/</guid>
+      <description>&lt;p&gt;Hello World! 欢迎来到 pzhang 的个人博客。&lt;/p&gt;
+
+&lt;p&gt;博客成立于2015年，主要关注地震学的基础知识、相关软件以及编程语言和工具。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

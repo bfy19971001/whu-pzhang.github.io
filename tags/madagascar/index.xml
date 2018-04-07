@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Madagascar on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/madagascar/</link>
+    <description>Recent content in Madagascar on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/madagascar/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Madagascar之colormap</title>
+      <link>https://whu-pzhang.github.io/mada-colormaps/</link>
+      <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/mada-colormaps/</guid>
+      <description>&lt;p&gt;平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。&lt;/p&gt;
+
+&lt;p&gt;本文梳理了Madagascar中现有的各种colormap。&lt;/p&gt;
+
+&lt;p&gt;本文 &lt;code&gt;SConstruct&lt;/code&gt; 脚本位于 &lt;a href=&#34;https://github.com/whu-pzhang/Mada/tree/master/colormap&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>添加程序到Madagascar中</title>
+      <link>https://whu-pzhang.github.io/%E6%B7%BB%E5%8A%A0%E7%A8%8B%E5%BA%8F%E5%88%B0madagascar%E4%B8%AD/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/%E6%B7%BB%E5%8A%A0%E7%A8%8B%E5%BA%8F%E5%88%B0madagascar%E4%B8%AD/</guid>
+      <description>&lt;p&gt;有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目
+录重新编译，然后再在SConstruct中调用,类似这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prog = Program(&#39;Mcode.c&#39;)
+exe = str(prog[0])
+# proj = Project()
+# prog = proj.Program(&#39;Mcode.c&#39;)
+Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
+    &#39;&#39;&#39;
+    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
+    &#39;&#39;&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若是只在一个project中用到倒还好，但若是比较通用的程序，在不同的文件夹中都要这么来调
+用的话未免太麻烦。而将我们的代码直接加入Mada中，就可以直接调用。不用将源码拷来拷去还
+要编译了。当然了，加入Mada的程序一般是我们的最终版本，测试的程序还是就放在测试目录中
+比较好。&lt;/p&gt;
+
+&lt;p&gt;本文介绍怎么样将自己的程序加入到Madagascar中。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux下安装Madagascar</title>
+      <link>https://whu-pzhang.github.io/install-madagascar-on-linux/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/install-madagascar-on-linux/</guid>
+      <description>&lt;p&gt;Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

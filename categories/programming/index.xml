@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/categories/programming/</link>
+    <description>Recent content in Programming on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>用ctypes调用C函数</title>
+      <link>https://whu-pzhang.github.io/python-ctypes/</link>
+      <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/python-ctypes/</guid>
+      <description>&lt;p&gt;现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。&lt;/p&gt;
+
+&lt;p&gt;对于这样的需求，使用Python标准库中的&lt;code&gt;ctypes&lt;/code&gt;模块来实现是非常容易的。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Python科学计算环境Anaconda</title>
+      <link>https://whu-pzhang.github.io/python-anaconda/</link>
+      <pubDate>Tue, 05 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/python-anaconda/</guid>
+      <description>&lt;p&gt;本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。&lt;/p&gt;
+
+&lt;h2 id=&#34;anaconda-特性&#34;&gt;Anaconda 特性&lt;/h2&gt;
+
+&lt;p&gt;主页： &lt;a href=&#34;https://www.continuum.io/&#34;&gt;https://www.continuum.io/&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;包含了众多流行的科学、教学、工程和数据分析的Python包&lt;/li&gt;
+&lt;li&gt;完全开源、免费&lt;/li&gt;
+&lt;li&gt;对于学术用途可以申请免费的加速 icense&lt;/li&gt;
+&lt;li&gt;全平台支持： Linux、Windows、Mac&lt;/li&gt;
+&lt;li&gt;支持Python2.6、2.7、3.4、3.5&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>C语言中二维数组的动态分配</title>
+      <link>https://whu-pzhang.github.io/dynamic-allocate-2d-array/</link>
+      <pubDate>Sun, 02 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/dynamic-allocate-2d-array/</guid>
+      <description>&lt;p&gt;在C语言中，数组是最常用到的。分为静态数组和动态数组。
+静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
+内存。&lt;/p&gt;
+
+&lt;p&gt;动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 &lt;code&gt;malloc&lt;/code&gt; 或 &lt;code&gt;calloc&lt;/code&gt;
+从堆（heap）上分配，用完后需要程序员自己释放内存。&lt;/p&gt;
+
+&lt;p&gt;标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 &lt;code&gt;stdlib.h&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

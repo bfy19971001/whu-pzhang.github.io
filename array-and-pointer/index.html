@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>数组和指针 - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="数组名和指针 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址， 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
+事实上，数组名和指针除了上述区别外，还有其他的一些不同：
+ 在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
+ 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+ 若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;amp;a 得到的值是一样的。对 p 来说则不一样
+ sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
+ 尽管 a和 &amp;amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;amp;a[0]表示的是数组第一个元素的首地址。
+  
+" />
+
+  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/array-and-pointer/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="数组和指针" />
+<meta property="og:description" content="数组名和指针
+
+在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
+不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
+
+事实上，数组名和指针除了上述区别外，还有其他的一些不同：
+
+
+在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
+
+在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+
+若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;a 得到的值是一样的。对 p 来说则不一样
+
+sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
+
+尽管 a和 &amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;a[0]表示的是数组第一个元素的首地址。
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/array-and-pointer/" />
+
+
+
+<meta property="article:published_time" content="2015-07-31T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-07-31T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="数组和指针">
+<meta itemprop="description" content="数组名和指针
+
+在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
+不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
+
+事实上，数组名和指针除了上述区别外，还有其他的一些不同：
+
+
+在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
+
+在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+
+若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;a 得到的值是一样的。对 p 来说则不一样
+
+sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
+
+尽管 a和 &amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;a[0]表示的是数组第一个元素的首地址。
+
+
+">
+
+
+<meta itemprop="datePublished" content="2015-07-31T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-07-31T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1961">
+
+
+
+<meta itemprop="keywords" content="c,Linux," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数组和指针"/>
+<meta name="twitter:description" content="数组名和指针
+
+在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
+不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
+
+事实上，数组名和指针除了上述区别外，还有其他的一些不同：
+
+
+在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
+
+在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+
+若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;a 得到的值是一样的。对 p 来说则不一样
+
+sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
+
+尽管 a和 &amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;a[0]表示的是数组第一个元素的首地址。
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">数组和指针</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-07-31 </span>
+        
+        <span class="more-meta"> 约 1961 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#数组名和指针">数组名和指针</a></li>
+<li><a href="#指针数组和数组指针">指针数组和数组指针</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#修订历史">修订历史</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="数组名和指针">数组名和指针</h2>
+
+<p>在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
+不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。</p>
+
+<p>事实上，数组名和指针除了上述区别外，还有其他的一些不同：</p>
+
+<ol>
+<li><p>在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。</p></li>
+
+<li><p>在引用上，数组名只需访问内存一次；而指针需要访问内存两次。</p></li>
+
+<li><p>若a是一个数组名，p为指向该数组的指针变量，使用 <code>a</code> 和 <code>&amp;a</code> 得到的值是一样的。对 <code>p</code> 来说则不一样</p></li>
+
+<li><p><code>sizeof a</code> 得到的是整个数组所占字节的大小，而 <code>sizeof p</code> 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)</p></li>
+
+<li><p>尽管 <code>a</code>和 <code>&amp;a[0]</code> 得到的地址是一样的，但是其意义是不一样的，<code>a</code>表示的是存储数组这块连续内存空间的首地址而 <code>&amp;a[0]</code>表示的是数组第一个元素的首地址。</p></li>
+</ol>
+
+<p></p>
+
+<p>举例说明：</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#define SIZE 5
+
+void show_arr(const int a[], int n); // const是为了保护数组内容
+int sum_arr(const int a[], int n); // 这里和int sum_arr(const int *a, int n)是一样的
+
+int main(void)
+{
+    int a[SIZE];
+    int *p;
+
+    for (int i=0; i&lt;SIZE; i++) // 初始化 产生10以内的随机数
+        a[i] = rand()%10 + 1;
+
+    p = a; // 将指针变量指向数组
+
+    printf(&quot;a = %p\n&amp;a = %p\n&quot;, a, &amp;a); // a和&amp;a都为数组开始的地址
+    printf(&quot;p = %p\n&amp;p = %p\n\n&quot;, p, &amp;p); // p指向数组开始，&amp;p则为存储指针p的地址
+
+    printf(&quot;sizeof a = %d\n&quot;, sizeof a); // 数组a包含int类型的5个元素
+    printf(&quot;sizeof p = %d\n\n&quot;, sizeof p); // 指针占字节数与系统位数有关，64位系统占8个字节
+
+    printf(&quot;The contents of array are: \n&quot;);
+    show_arr(a, SIZE);
+    printf(&quot;\nSum of all elements is: %d\n&quot;, sum_arr(a, SIZE));
+
+    return 0;
+}
+
+void show_arr(const int a[], int n) {
+    for (int i=0; i&lt;n; i++)
+        printf(&quot;%3d &quot;, a[i]);
+}
+
+int sum_arr(const int a[], int n) {
+    int total = 0;
+
+    for (int i=0; i&lt;n; i++)
+        total += a[i];
+
+    return total;
+}
+</code></pre>
+
+<p>编译: <code>gcc -Wall -std=c99 test.c</code></p>
+
+<p>输出如下：</p>
+
+<pre><code>a = 000000000022FE30
+&amp;a = 000000000022FE30
+p = 000000000022FE30
+&amp;p = 000000000022FE28
+
+sizeof a = 20
+sizeof p = 8
+
+The contents of array are:
+  2   8   5   1  10
+Sum of all elements is: 26
+</code></pre>
+
+<h2 id="指针数组和数组指针">指针数组和数组指针</h2>
+
+<p>常常被这两个概念弄晕，其实用英文更加好理解。</p>
+
+<ul>
+<li><strong>指针数组</strong>:  an array of pointers, 首先它是一个数组，数组元素都为指针</li>
+<li><strong>数组指针</strong>： a pointer to an array, 首先它是一个指针，指向一个数组，也称行指针</li>
+</ul>
+
+<p>其用法区别如下：</p>
+
+<ul>
+<li><p><code>int *ar[10]</code></p>
+
+<ul>
+<li>指针数组</li>
+<li>表示： ar是包含10个int类指针的数组</li>
+<li>元素表示： <code>*ar[i]</code> 和 <code>*(ar[i])</code> 是一样的,  <code>[]</code> 优先级高于 <code>*</code></li>
+</ul></li>
+
+<li><p><code>int (*pt)[10]</code></p>
+
+<ul>
+<li>数组指针</li>
+<li>表示： pt为指向包含10个int值数组的指针</li>
+<li>元素表示： <code>(*ar)[i]</code></li>
+</ul></li>
+</ul>
+
+<p><img src="/images/2015073100.png" alt="" /></p>
+
+<p>指针数组比较好理解，就是用来存储指针的数组。举例说明：</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int i = 1, j = 2;
+    int *a[2];
+
+    // 数组a用来存储两个指针
+    a[0] = &amp;i; // a[0]和a[1]分别指向i和j
+    a[1] = &amp;j;
+
+    printf(&quot;*a[0] = %d\n*a[1] = %d\n&quot;, *a[0], *a[1]);
+
+    return 0;
+}
+</code></pre>
+
+<p>输出如下::</p>
+
+<pre><code>*a[0] = 1
+*a[1] = 2
+</code></pre>
+
+<p>但是数组指针就看起看有点奇怪了。</p>
+
+<p>我们平时定义指针都是在数据类型后面加上指针变量名，但是数组指针为什么却是按
+<code>int (*pt)[10]</code> 来定义？其实数组指针的原型是这样的： <code>int (*)[10] pt</code> ,
+<code>int (*)[10]</code> 是指针类型，表示指针变量 <code>pt</code> 指向一个包含有10个int值的数组； <code>pt</code> 每加1，就跳过 <code>10 * sizeof(int)</code> 个字节。</p>
+
+<p>将数组指针当作 <strong>行指针</strong> 也比较好理解，举例：</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#define ROWS 4
+#define COLS 2
+
+int main(void)
+{
+    int a[ROWS][COLS] = { {2,4}, {6,8}, {1,3}, {5,7} };
+    int (*p)[2]; // 声明数组指针
+
+    p = a;
+    // 将其指向数组a,这里p指向第一个含有两个int值的数组,即a[0]
+    // 那么 p+1 指向第二个大小为2个int的数组
+
+    for (int i=0; i&lt;ROWS; i++)
+        printf(&quot;p+%d = %p\n&quot;, i, p+i);
+
+    for (int i=0; i&lt;ROWS; i++)
+        printf(&quot;*p+%d = %p\n&quot;, i, *p+i);
+
+    for (int i=0; i&lt;ROWS; i++) {
+        for (int j=0; j&lt;COLS; j++)
+            printf(&quot;*(*(p+%d)+%d) = %d\t&quot;, i, j, *(*(p+i)+j));
+    printf(&quot;\n&quot;);
+    }
+
+    int *start = *p; // *p == &amp;a[0][0]
+    int * const end = start + ROWS*COLS;
+    // 将二维数组当成一维数组来循环
+    for ( ; start != end; start++)
+        printf(&quot;%-3d&quot;, *start);
+    putchar('\n');
+
+
+    return 0;
+}
+</code></pre>
+
+<p>输出:</p>
+
+<pre><code>p+0 = 000000000022FE00
+p+1 = 000000000022FE08
+p+2 = 000000000022FE10
+p+3 = 000000000022FE18
+*p+0 = 000000000022FE00
+*p+1 = 000000000022FE04
+*p+2 = 000000000022FE08
+*p+3 = 000000000022FE0C
+*(*(p+0)+0) = 2 *(*(p+0)+1) = 4
+*(*(p+1)+0) = 6 *(*(p+1)+1) = 8
+*(*(p+2)+0) = 1 *(*(p+2)+1) = 3
+*(*(p+3)+0) = 5 *(*(p+3)+1) = 7
+2  4  6  8  1  3  5  7
+</code></pre>
+
+<p>从这段代码结果我们可以看出：</p>
+
+<ol>
+<li><p>p每加1都跳过 <code>2 * sizeof(int)</code> 个字节；而 <code>*p</code> 每加1则只跳过  <code>sizeof(int)</code> 个字节</p></li>
+
+<li><p><code>p+1</code> 和 <code>*(p+1)</code> 值是一样的，但是意义不同，与数组中 <code>a</code> 和 <code>&amp;a[0]</code> 的关系类似,前者表示的是整个数组内存块开始的地址，后者表示的是每个数组首元素的地址。</p></li>
+
+<li><p>可以将数组指针理解为指针的指针，需要两次取值运算才能得到存储的值。</p></li>
+
+<li><p>数组指针p的用法和二维数组名a的用法是一样的，尽管其为一个指针变量，仍然可以使用<code>p[2][1]</code>这样的符号。表示单个元素的时候，数组名和数组指针都可行： <code>a[m][n] = *(*(a+m)+n)</code> 或 <code>p[m][n] = *(*(p+m)+n)</code></p></li>
+
+<li><p>二维数组可以当作特殊的一维数组，上述代码利用一个for循环就遍历了一个二维数组也说明了这一点。</p></li>
+</ol>
+
+<h2 id="总结">总结</h2>
+
+<p>其实不论是指针数组还是数组指针，都是复合类型声明。搞明白复合类型声明的规则就都
+很好理解。</p>
+
+<p>最简单的办法就是
+<strong>从右至左来阅读声明，离变量名最近的符号对变量的类型有最直接的影响。</strong></p>
+
+<p>举一个简单的例子:</p>
+
+<pre><code class="language-c">int *ptrs[10]
+</code></pre>
+
+<p>从右至左： 首先知道我们定义的是一个大小为10的数组，它的名字为<code>ptrs</code>，然后知道
+数组中存放的是指向<code>int</code>的指针。</p>
+
+<p>但是对于:</p>
+
+<pre><code class="language-c">int (*pArray)[10]
+</code></pre>
+
+<p>这种有括号的声明，需要先考虑括号内的部分。</p>
+
+<p>由内而外，从右至左：首先是圆括号内的部分，<code>*pArray</code>意味着<code>pArray</code>是一个指针，
+接下来观察右边，可知道<code>pArray</code>是指向大小为10的数组的指针，最后观察左边，知道数组
+的元素是‵int‵类型，这样最终的含义就清楚了，<code>pArray</code> 是一个指针，它指向一个<code>int</code>
+数组，数组中包含有10个元素。</p>
+
+<h2 id="参考">参考</h2>
+
+<ol>
+<li><a href="http://blog.csdn.net/touch_2011/article/details/6966980">数组指针和指针数组</a></li>
+<li><a href="http://www.informit.com/store/c-primer-plus-9780321928429">C Primer Plus, 6th Edition</a></li>
+<li><a href="http://www.cnblogs.com/mq0036/p/3382732.html">数组指针和指针数组的区别</a></li>
+</ol>
+
+<h2 id="修订历史">修订历史</h2>
+
+<ul>
+<li>2015-07-31 初稿</li>
+<li>2017-05-26 添加总结</li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2015-07-31</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/c/">c</a>
+          
+          <a href="/tags/linux/">Linux</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/dynamic-allocate-2d-array/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">C语言中二维数组的动态分配</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/geophysicist/">
+            <span class="next-text nav-default">地球物理学家列表</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

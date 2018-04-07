@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title> - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="matplotlib 存储图片时，可加入bbox_inches=&#39;tight&#39; 参数切除白边 Git HEAD: 表示当前版本 reflog: 记录历史命令 git checkout -- file: 丢弃工作区的改动。其实就是用版本" />
+
+  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/notes/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="" />
+<meta property="og:description" content="matplotlib 存储图片时，可加入bbox_inches=&#39;tight&#39; 参数切除白边 Git HEAD: 表示当前版本 reflog: 记录历史命令 git checkout -- file: 丢弃工作区的改动。其实就是用版本" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/notes/" />
+
+
+
+<meta property="article:published_time" content="2017-10-06T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-04-07T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="matplotlib 存储图片时，可加入bbox_inches=&#39;tight&#39; 参数切除白边 Git HEAD: 表示当前版本 reflog: 记录历史命令 git checkout -- file: 丢弃工作区的改动。其实就是用版本">
+
+
+<meta itemprop="datePublished" content="2017-10-06T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-10-06T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="491">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="matplotlib 存储图片时，可加入bbox_inches=&#39;tight&#39; 参数切除白边 Git HEAD: 表示当前版本 reflog: 记录历史命令 git checkout -- file: 丢弃工作区的改动。其实就是用版本"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+  <div class="post-content">
+      
+
+<h2 id="matplotlib">matplotlib</h2>
+
+<ol>
+<li>存储图片时，可加入<code>bbox_inches='tight'</code> 参数切除白边</li>
+</ol>
+
+<h2 id="git">Git</h2>
+
+<ol>
+<li><p><code>HEAD</code>: 表示当前版本</p></li>
+
+<li><p><code>reflog</code>: 记录历史命令</p></li>
+
+<li><p><code>git checkout -- file</code>: 丢弃工作区的改动。其实就是用版本库的并本替换工作区的版本，无论是修改还是删除，都可以一键还原。</p></li>
+
+<li><p><code>git reset HEAD file</code>: 将暂存区的修改回退到工作区</p></li>
+
+<li><p><code>git reset --hard</code>: 版本回退</p></li>
+
+<li><p><code>git tag</code>: 打标签</p>
+
+<ul>
+<li><code>git tag &lt;name&gt;</code>用于新建一个标签，默认为<code>HEAD</code>，也可以指定一个<code>commit id</code></li>
+<li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code> 可以指定标签信息</li>
+<li><code>git tag -s &lt;tagname&gt; -m &quot;blablabla...&quot;</code> 可以用PGP签名标签</li>
+<li><code>git tag</code> 可以查看所有标签。</li>
+</ul></li>
+
+<li><p><code>git rm -r --cached dirname</code> : 删除远程文件夹</p></li>
+
+<li><p>fork 他人的 repo，做了自己的修改，在不冲突的前提下保持与上游项目同步：</p>
+
+<pre><code class="language-Bash">git remote add upstream https://github.com/someone-repo.git  # 配置上游项目地址
+git fetch upstream  # 获取上游项目更新
+git merge upstream/master  # 合并到本地分支
+git push origin master  # 提交推送到自己的 repo
+</code></pre></li>
+
+<li><p>更改远程分支地址</p>
+
+<pre><code class="language-bash">git remote rm origin # 如不需要原来的地址，可删除
+git remote set-url origin new-url
+</code></pre></li>
+</ol>
+
+<h2 id="tmux">tmux</h2>
+
+<ol>
+<li><p>给当前窗口改名:</p>
+
+<p><code>C-b</code> then<code>·:rename-window &lt;newname&gt;</code> 或者 <code>tmux renane-window &lt;newname&gt;</code></p></li>
+
+<li><p>窗口滚动</p>
+
+<p><code>C-b</code> then <code>[</code>  然后就可以用方向键或者鼠标滚轮进行上下滚动了</p></li>
+</ol>
+
+<h2 id="madagascar">Madagascar</h2>
+
+<ol>
+<li>编译程序时添加链接库更改程序后缀：</li>
+</ol>
+
+<pre><code class="language-python">from rsf.proj import *
+
+proj = Project()
+proj.Prepend(LIBS='rsfgee rsfpwd')
+proj.Replace(PROGSUFFIX='.x')
+
+prog = proj.Program('Mprog.c')
+exe = str(prog[0])
+
+Flow('out', 'in '+exe,
+    '''
+    ${SOURCES[1].abspath} verb=y blablabla...
+    ''')
+End()
+</code></pre>
+
+<h2 id="取模和取余">取模和取余</h2>
+
+<p>整数 a 和 b
+<code>MOD</code> 和 <code>REM</code> 的计算都分两步：</p>
+
+<ul>
+<li><code>c = a / b</code></li>
+<li><code>r = a - (c * b)</code></li>
+</ul>
+
+<p>不同之处在第一步里面：</p>
+
+<ul>
+<li>取模时，<code>c</code> 往负无穷取整</li>
+<li>取余时，<code>c</code> 往靠近零的方向取整</li>
+</ul>
+
+  </div>
+</article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

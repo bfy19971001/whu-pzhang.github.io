@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Anaconda on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/anaconda/</link>
+    <description>Recent content in Anaconda on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 05 Apr 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/anaconda/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python科学计算环境Anaconda</title>
+      <link>https://whu-pzhang.github.io/python-anaconda/</link>
+      <pubDate>Tue, 05 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/python-anaconda/</guid>
+      <description>&lt;p&gt;本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。&lt;/p&gt;
+
+&lt;h2 id=&#34;anaconda-特性&#34;&gt;Anaconda 特性&lt;/h2&gt;
+
+&lt;p&gt;主页： &lt;a href=&#34;https://www.continuum.io/&#34;&gt;https://www.continuum.io/&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;包含了众多流行的科学、教学、工程和数据分析的Python包&lt;/li&gt;
+&lt;li&gt;完全开源、免费&lt;/li&gt;
+&lt;li&gt;对于学术用途可以申请免费的加速 icense&lt;/li&gt;
+&lt;li&gt;全平台支持： Linux、Windows、Mac&lt;/li&gt;
+&lt;li&gt;支持Python2.6、2.7、3.4、3.5&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>getopt用法 - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="getopt介绍 getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数， getopt提供了更为方便和友好的方式。
+函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
+int getopt(int argc, char *const argv[], const char *optstring); extern char *optarg; extern int optind, opterr, optopt;  
+" />
+
+  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/usage-of-getopt/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="getopt用法" />
+<meta property="og:description" content="getopt介绍
+
+getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
+getopt提供了更为方便和友好的方式。
+
+函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
+
+int getopt(int argc, char *const argv[], const char *optstring);
+extern char *optarg;
+extern int optind, opterr, optopt;
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/usage-of-getopt/" />
+
+
+
+<meta property="article:published_time" content="2015-09-20T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-09-20T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="getopt用法">
+<meta itemprop="description" content="getopt介绍
+
+getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
+getopt提供了更为方便和友好的方式。
+
+函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
+
+int getopt(int argc, char *const argv[], const char *optstring);
+extern char *optarg;
+extern int optind, opterr, optopt;
+
+
+">
+
+
+<meta itemprop="datePublished" content="2015-09-20T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-09-20T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="848">
+
+
+
+<meta itemprop="keywords" content="Linux,C," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="getopt用法"/>
+<meta name="twitter:description" content="getopt介绍
+
+getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
+getopt提供了更为方便和友好的方式。
+
+函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
+
+int getopt(int argc, char *const argv[], const char *optstring);
+extern char *optarg;
+extern int optind, opterr, optopt;
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">getopt用法</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-09-20 </span>
+        
+        <span class="more-meta"> 约 848 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#getopt介绍">getopt介绍</a></li>
+<li><a href="#实例说明">实例说明</a></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="getopt介绍">getopt介绍</h2>
+
+<p><code>getopt</code> 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
+getopt提供了更为方便和友好的方式。</p>
+
+<p>函数 <code>getopt</code> 包含于系统头文件 <code>unistd.h</code> 中，其函数原型为:</p>
+
+<pre><code class="language-c">int getopt(int argc, char *const argv[], const char *optstring);
+extern char *optarg;
+extern int optind, opterr, optopt;
+</code></pre>
+
+<p></p>
+
+<p>其中，<code>argc</code> 和 <code>argv</code> 是由 <code>main()</code> 函数传递的参数个数和内容， <code>optstring</code> 代表待处理的选项字符串;</p>
+
+<ul>
+<li><code>optarg</code>: 指向当前选项参数的指针</li>
+<li><code>optind</code>: 再次调用 <code>getopt()</code> 时，下一个 <code>argv</code> 指针的索引</li>
+<li><code>opterr</code>: 非零时， <code>getopt</code> 会向标准错误输出错误信息</li>
+<li><code>optopt</code>: 遭遇未知选项或者遗漏必须参数的选项时，用来存储该选项</li>
+</ul>
+
+<p><code>optstring</code> 中内容的意义（例如 <code>getopt(argc, argv, &quot;ab:c::&quot;)</code>）</p>
+
+<ul>
+<li>单个字符: 表示选项,例如a，b和c</li>
+<li>单个字符后一个冒号： 表示该选项后必须跟一个参数。参数紧跟在选项后或者以空格隔开，该参数指针赋值给optarg</li>
+<li>单个字符后两个冒号： 表示该选项后可以跟一个参数也可以不跟。若跟一个参数，则该参数必须紧跟在选项后而不能以空格隔开。</li>
+</ul>
+
+<p>若 <code>getopt</code> 遇到一个不包括于 <code>argv</code> 中的选项，或是一个没有参数的选项，将会返回 <code>?</code> 并将全局变量
+<code>optopt</code> 设置为该选项字符；
+若选项首字符为一个冒号 <code>:</code> ，getopt返回 <code>:</code> 代替 <code>?</code> 来表明没有选项参数。</p>
+
+<h2 id="实例说明">实例说明</h2>
+
+<p>getopt 的通常用法如下：</p>
+
+<ul>
+<li><code>getopt</code> 在循环中调用，当其返回-1时表明没有选项了，循环就此结束</li>
+<li><code>switch</code> 语句用来对getopt返回的值进行分派</li>
+<li>利用第二个循环来处理余下的非选项参数</li>
+</ul>
+
+<p>多说无益，看实例：</p>
+
+<pre><code class="language-c">#include &lt;ctype.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(int argc, char *agrv[])
+{
+    int aflag = 0;
+    int bflag = 0;
+    char *cvalue = NULL;
+    int index, i;
+
+    opterr = 0;
+
+    while ((c=getopt(argc, argv, &quot;abc:&quot;)) != -1)
+        switch (c) {
+            case 'a':
+                aflag = 1;
+                break;
+            case 'b':
+                bflag = 1;
+                break;
+            case 'c':
+                cvalue = optarg;
+                break;
+            case '?':
+                if (optopt == 'c')
+                    fprintf(stderr, &quot;Option -%c requires an argument.\n&quot;, optopt);
+                else if (isprint(optopt))
+                    fprintf(stderr, &quot;Unknow option -%c.\n&quot;, optopt);
+                else
+                    fprintf(stderr, &quot;Unknown option character '\\x%x'.\n&quot;, optopt); // 以16进制输出未知选项
+                    return 1;
+            default:
+                abort();
+        }
+        printf(&quot;aflag = %d, bflag = %d, cvalue = %s\n&quot;,
+                aflag, bflag, cvalue);
+
+        for (index = optind; index&lt;argc; index++)
+            printf(&quot;Non-option argument %s\n&quot;, argv[index]);
+
+        return 0;
+}
+</code></pre>
+
+<p>编译链接成可执行文件，运行：</p>
+
+<pre><code class="language-bash">$ ./testopt
+aflag = 0, bflag = 0, cvalue = (null)
+
+$ ./testopt -a -b
+aflag = 1, bflag = 1, cvalue = (null)
+
+$ ./testopt -ab
+aflag = 1, bflag = 1, cvalue = (null)
+
+$ ./testopt -c foo
+aflag = 0, bflag = 0, cvalue = foo
+
+$ ./testopt -cfoo
+aflag = 0, bflag = 0, cvalue = foo
+
+$ ./testopt arg1
+aflag = 0, bflag = 0, cvalue = (null)
+Non-option argument arg1
+
+$ ./testopt -a arg1
+aflag = 1, bflag = 0, cvalue = (null)
+Non-option argument arg1
+
+$ ./testopt -c foo arg1
+aflag = 0, bflag = 0, cvalue = foo
+Non-option argument arg1
+
+$ ./testopt -a -- -b
+aflag = 1, bflag = 0, cvalue = (null)
+Non-option argument -b
+
+$ ./testopt -a -
+aflag = 1, bflag = 0, cvalue = (null)
+Non-option argument -
+
+$ ./testopt -a -我
+Unknown option character '\xffffffce'.
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="http://www.gnu.org/software/libc/manual/html_node/Getopt.html#Getopt">The GNU C Library</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2015-09-20</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">Linux</a>
+          
+          <a href="/tags/c/">C</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/install-sublime-text-3-under-linux/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux安装Sublime Text 3</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/dynamic-allocate-2d-array/">
+            <span class="next-text nav-default">C语言中二维数组的动态分配</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

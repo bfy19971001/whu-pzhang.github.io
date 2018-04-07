@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/linux/</link>
+    <description>Recent content in Linux on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 26 Oct 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux下安装Madagascar</title>
+      <link>https://whu-pzhang.github.io/install-madagascar-on-linux/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/install-madagascar-on-linux/</guid>
+      <description>&lt;p&gt;Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux安装Sublime Text 3</title>
+      <link>https://whu-pzhang.github.io/install-sublime-text-3-under-linux/</link>
+      <pubDate>Tue, 22 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/install-sublime-text-3-under-linux/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;已全面转向 Atom，本文不再更新。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
+在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>getopt用法</title>
+      <link>https://whu-pzhang.github.io/usage-of-getopt/</link>
+      <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/usage-of-getopt/</guid>
+      <description>&lt;h2 id=&#34;getopt介绍&#34;&gt;getopt介绍&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;getopt&lt;/code&gt; 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
+getopt提供了更为方便和友好的方式。&lt;/p&gt;
+
+&lt;p&gt;函数 &lt;code&gt;getopt&lt;/code&gt; 包含于系统头文件 &lt;code&gt;unistd.h&lt;/code&gt; 中，其函数原型为:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int getopt(int argc, char *const argv[], const char *optstring);
+extern char *optarg;
+extern int optind, opterr, optopt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>C语言中二维数组的动态分配</title>
+      <link>https://whu-pzhang.github.io/dynamic-allocate-2d-array/</link>
+      <pubDate>Sun, 02 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/dynamic-allocate-2d-array/</guid>
+      <description>&lt;p&gt;在C语言中，数组是最常用到的。分为静态数组和动态数组。
+静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
+内存。&lt;/p&gt;
+
+&lt;p&gt;动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 &lt;code&gt;malloc&lt;/code&gt; 或 &lt;code&gt;calloc&lt;/code&gt;
+从堆（heap）上分配，用完后需要程序员自己释放内存。&lt;/p&gt;
+
+&lt;p&gt;标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 &lt;code&gt;stdlib.h&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数组和指针</title>
+      <link>https://whu-pzhang.github.io/array-and-pointer/</link>
+      <pubDate>Fri, 31 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/array-and-pointer/</guid>
+      <description>&lt;h2 id=&#34;数组名和指针&#34;&gt;数组名和指针&lt;/h2&gt;
+
+&lt;p&gt;在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
+不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。&lt;/p&gt;
+
+&lt;p&gt;事实上，数组名和指针除了上述区别外，还有其他的一些不同：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在引用上，数组名只需访问内存一次；而指针需要访问内存两次。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;若a是一个数组名，p为指向该数组的指针变量，使用 &lt;code&gt;a&lt;/code&gt; 和 &lt;code&gt;&amp;amp;a&lt;/code&gt; 得到的值是一样的。对 &lt;code&gt;p&lt;/code&gt; 来说则不一样&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;sizeof a&lt;/code&gt; 得到的是整个数组所占字节的大小，而 &lt;code&gt;sizeof p&lt;/code&gt; 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;尽管 &lt;code&gt;a&lt;/code&gt;和 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt; 得到的地址是一样的，但是其意义是不一样的，&lt;code&gt;a&lt;/code&gt;表示的是存储数组这块连续内存空间的首地址而 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt;表示的是数组第一个元素的首地址。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>CentOS 7安装及配置</title>
+      <link>https://whu-pzhang.github.io/linux-environment-for-seismology/</link>
+      <pubDate>Tue, 15 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/linux-environment-for-seismology/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;转载于 Seisman &lt;a href=&#34;https://seisman.info/linux-environment-for-seismology-research.html&#34;&gt;用 CentOS 7 打造合适的科研环境&lt;/a&gt;&lt;/strong&gt;，
+部分小节按照自己需求有更改。&lt;/p&gt;
+
+&lt;p&gt;这篇博文记录了我用 CentOS 7 搭建 &lt;strong&gt;地震学科研环境&lt;/strong&gt; 的过程，供我个人在未来重装系统时参考。
+对于其他地震学科研人员，也许有借鉴意义。&lt;/p&gt;
+
+&lt;p&gt;阅读须知：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;本文适用于个人电脑，不适用于服务器；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不推荐刚接触 Linux 的人使用 CentOS 发行版&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;本文尽量写的浅显易懂，但要求读者掌握 Linux 基础知识；&lt;/li&gt;
+&lt;li&gt;本文所有操作均在 CentOS 7 下完成，其他发行版或多或少与 CentOS 7 不同，因而仅供参考；&lt;/li&gt;
+&lt;li&gt;本文所安装的软件纯粹出于个人习惯及喜好，读者应自己判断，按需安装；&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

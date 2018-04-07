@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sac on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/sac/</link>
+    <description>Recent content in Sac on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Feb 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/sac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>地球物理相关软件</title>
+      <link>https://whu-pzhang.github.io/geo-software/</link>
+      <pubDate>Thu, 20 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/geo-software/</guid>
+      <description>转载于 Seisman。 通用数据处理 SAC: Seismic Analysis Code，地震学数据处理的常用软件。 CPS330 ObsPy: 基于 Python 的地震学数据处理框架 数据格式转换 rdseed: SEED 格式转换为 SAC 等地震</description>
+    </item>
+    
+  </channel>
+</rss>

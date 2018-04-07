@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux安装Sublime Text 3 - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content=" 已全面转向 Atom，本文不再更新。
+ Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式， 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。
+
+" />
+
+  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/install-sublime-text-3-under-linux/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Linux安装Sublime Text 3" />
+<meta property="og:description" content="
+已全面转向 Atom，本文不再更新。
+
+
+Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
+在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/install-sublime-text-3-under-linux/" />
+
+
+
+<meta property="article:published_time" content="2015-09-22T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-09-22T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Linux安装Sublime Text 3">
+<meta itemprop="description" content="
+已全面转向 Atom，本文不再更新。
+
+
+Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
+在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。
+
+">
+
+
+<meta itemprop="datePublished" content="2015-09-22T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-09-22T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="736">
+
+
+
+<meta itemprop="keywords" content="Linux,安装," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux安装Sublime Text 3"/>
+<meta name="twitter:description" content="
+已全面转向 Atom，本文不再更新。
+
+
+Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
+在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux安装Sublime Text 3</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-09-22 </span>
+        
+        <span class="more-meta"> 约 736 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#基础设置">基础设置</a></li>
+<li><a href="#插件管理">插件管理</a>
+<ul>
+<li><a href="#安装-1">安装</a></li>
+<li><a href="#使用">使用</a></li>
+<li><a href="#常用插件列表">常用插件列表</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <blockquote>
+<p><strong>已全面转向 Atom，本文不再更新。</strong></p>
+</blockquote>
+
+<p>Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
+在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。</p>
+
+<p></p>
+
+<h2 id="安装">安装</h2>
+
+<p>从 <a href="http://www.sublimetext.com/3">Sublime Text 3</a> 官网选择相应的版本下载。</p>
+
+<p>我下载的是64位的 <code>tarball for other Linux distributions</code> 版本。</p>
+
+<p>下载完成解压到指定目录下</p>
+
+<pre><code>$ sudo tar jxvf sublime_text_3_build_3083_x64.tar.bz2 -C /opt/
+</code></pre>
+
+<p>然后建立软连接到 <code>/usr/bin/</code> 目录下以便可以在终端启动</p>
+
+<pre><code>$ sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime
+</code></pre>
+
+<p>加入应用程序列表</p>
+
+<pre><code>$ sudo cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications/
+</code></pre>
+
+<p>修改该文本:</p>
+
+<pre><code>$ sudo vi /usr/share/applications/sublime_text.desktop
+</code></pre>
+
+<p>将 <code>Exec</code> 和 <code>Icon</code> 这项改为：</p>
+
+<pre><code>Exec=/opt/sublime_text_3/sublime_text
+Icon=/opt/sublime_text_3/Icon/48x48/sublime-text.png
+</code></pre>
+
+<p>其他的可以根据自己需求来修改。</p>
+
+<p>修改完成后即可在 <code>Gnome应用程序 &gt; 编程</code> 中找到 sublime</p>
+
+<ul>
+<li><p>加入右键菜单</p>
+
+<p>$ sublime ~/.local/share/applications/mimeapps.list</p></li>
+</ul>
+
+<p>加入以下内容：</p>
+
+<pre><code>text/plain=sublime.desktop;
+</code></pre>
+
+<h2 id="基础设置">基础设置</h2>
+
+<p>sublime text 3自带的配置已经可以用了，加上自己的一些设置会更好。</p>
+
+<p>其设置方式为：</p>
+
+<p><code>Preferences--&gt;Settings-User</code> 打开配置文件，配置文件是以Python字典的格式存在的。</p>
+
+<p>以下为个人的一些设置，每个选项的值可以在 <code>Preferences--&gt;Settings-Default</code> 中查看</p>
+
+<pre><code class="language-Python">    {
+        &quot;color_scheme&quot;: &quot;Packages/Monokai Extended/Monokai Extended.tmTheme&quot;,   # 安装Monokai Extended后的主题设置
+        &quot;default_line_ending&quot;: &quot;unix&quot;,                      # 以UNIX格式的&quot;\n&quot;为行结尾，而不是doc的 &quot;\r\n&quot;
+        &quot;font_face&quot;: &quot;Yahei Consolas Hybrid&quot;,               # 字体设置
+        &quot;font_size&quot;: 13,                                    # 字号
+        &quot;highlight_line&quot;: true,
+        &quot;ignored_packages&quot;:
+        [
+        ],
+        &quot;line_padding_bottom&quot;: 1,
+        &quot;line_padding_top&quot;: 1,
+        &quot;show_encoding&quot;: true,                              # 状态栏显示编码
+        &quot;show_line_endings&quot;: true,
+        &quot;tab_size&quot;: 4,                                      # tabwidth: 4个空格
+        &quot;translate_tabs_to_spaces&quot;: true,
+        &quot;vintage_ctrl_keys&quot;: true
+    }
+</code></pre>
+
+<h2 id="插件管理">插件管理</h2>
+
+<p>管理插件最简单的方法就是安装包管理器。</p>
+
+<h3 id="安装-1">安装</h3>
+
+<ul>
+<li><p><strong>自动安装</strong></p>
+
+<ul>
+<li>组合键 <code>ctrl+</code><code>或者</code>View &gt; Show Console` 打开控制台，输入以下 Python 代码</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-python">import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
+</code></pre>
+
+<p>这段代码会下载 <code>Package Control.sublime-package</code> 到 Installed Packages 文件夹（若没有的话会创建）。</p>
+
+<ul>
+<li><p><strong>手动安装</strong></p>
+
+<ul>
+<li>Preferences &gt; Browse Packages</li>
+<li>进入 Installed Packages 文件夹</li>
+<li>下载 <a href="https://packagecontrol.io/Package%20Control.sublime-package">Package Control.sublime-package</a> 至该文件夹</li>
+<li>重启 Sublime Text 3</li>
+</ul></li>
+</ul>
+
+<h3 id="使用">使用</h3>
+
+<p>组合键 <code>Ctrl+Shift+P</code> 打开包管理器，输入 <code>PCI</code> 即可搜索安装插件包</p>
+
+<h3 id="常用插件列表">常用插件列表</h3>
+
+<ul>
+<li>IMESupport: 解决中文输入框不跟随的问题</li>
+<li>Monokai Extended: 增强的Monokai主题</li>
+<li>MinimalFortran: Fortran语法高亮</li>
+</ul>
+
+<h2 id="参考">参考</h2>
+
+<ol>
+<li><a href="http://www.sublimetext.com/docs/3/">Sublime Text 3 Documentation</a></li>
+<li><a href="http://docs.sublimetext.info/en/latest/index.html">Sublime Text Unofficial Documentation</a></li>
+<li><a href="https://packagecontrol.io/installation">Package Control</a></li>
+</ol>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2015-09-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">Linux</a>
+          
+          <a href="/tags/%E5%AE%89%E8%A3%85/">安装</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/useful-algorithms/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">一些有用的算法收集</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/usage-of-getopt/">
+            <span class="next-text nav-default">getopt用法</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

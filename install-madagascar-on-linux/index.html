@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux下安装Madagascar - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。
+
+" />
+
+  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/install-madagascar-on-linux/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Linux下安装Madagascar" />
+<meta property="og:description" content="Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/install-madagascar-on-linux/" />
+
+
+
+<meta property="article:published_time" content="2015-10-26T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2015-10-26T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Linux下安装Madagascar">
+<meta itemprop="description" content="Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。
+
+">
+
+
+<meta itemprop="datePublished" content="2015-10-26T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-10-26T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1616">
+
+
+
+<meta itemprop="keywords" content="Linux,Madagascar,安装," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux下安装Madagascar"/>
+<meta name="twitter:description" content="Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux下安装Madagascar</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-10-26 </span>
+        
+        <span class="more-meta"> 约 1616 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#依赖">依赖</a>
+<ul>
+<li><a href="#基础依赖包">基础依赖包</a></li>
+<li><a href="#核心及开发依赖">核心及开发依赖</a></li>
+<li><a href="#图形和可视化">图形和可视化</a></li>
+<li><a href="#数值依赖包">数值依赖包</a></li>
+<li><a href="#其他">其他</a></li>
+</ul></li>
+<li><a href="#安装">安装</a>
+<ul>
+<li><a href="#添加环境变量">添加环境变量</a></li>
+<li><a href="#编译安装">编译安装</a></li>
+</ul></li>
+<li><a href="#卸载">卸载</a></li>
+<li><a href="#测试">测试</a></li>
+<li><a href="#出现的问题及解决方案">出现的问题及解决方案</a>
+<ul>
+<li><a href="#blas">BLAS</a>
+<ul>
+<li><a href="#自己创建一个cblas库文件">自己创建一个cblas库文件</a></li>
+<li><a href="#修改-framework-configure-py">修改<code>framework/configure.py</code></a></li>
+</ul></li>
+<li><a href="#plplot">plplot</a></li>
+</ul></li>
+<li><a href="#其他可能出现的问题">其他可能出现的问题</a></li>
+<li><a href="#参考">参考</a></li>
+<li><a href="#修订历史">修订历史</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p>Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。</p>
+
+<p></p>
+
+<h2 id="依赖">依赖</h2>
+
+<p>需要添加 <a href="https://fedoraproject.org/wiki/EPEL">EPEL</a> 源 和 <a href="http://li.nux.ro/repos.html">Nux Dextop</a> 源支持。</p>
+
+<pre><code>$ sudo yum install -y epel-release
+$ sudo rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+</code></pre>
+
+<h3 id="基础依赖包">基础依赖包</h3>
+
+<pre><code>$ sudo yum install gcc libXaw-devel python
+</code></pre>
+
+<p>值的注意的是，Madagascar只支持<code>Python2</code></p>
+
+<h3 id="核心及开发依赖">核心及开发依赖</h3>
+
+<pre><code>$ sudo yum install gcc-c++ gcc-gfortran       # c++和fortran
+$ sudo yum install python-devel swig numpy    # Python API
+$ sudo yum install java     # Java API
+</code></pre>
+
+<p>要用到MATLAB API的话，自然得安装MATLAB</p>
+
+<h3 id="图形和可视化">图形和可视化</h3>
+
+<pre><code>$ sudo yum install libtiff-devel libjpeg-turbo-devel
+$ sudo yum install freeglut freeglut-devel  # opengl
+$ sudo yum install netpbm netpbm-devel      # ppm support
+$ sudo yum install gd gd-devel              # PNG support
+$ sudo yum install plplot plplot-devel      # plplot support
+$ sudo yum install ffmpeg ffmpeg-devel      # need nux-dextop support
+$ sudo yum install cairo cairo-devel        # cairo support
+</code></pre>
+
+<p>分别为X11 graphics, vplot2gif, TIFF, JPEG, PLplot, OpenGL和ppm支持</p>
+
+<h3 id="数值依赖包">数值依赖包</h3>
+
+<pre><code>$ sudo yum install blas blas-devel atlas atlas-devel lapack lapack-devel
+$ sudo yum install fftw fftw-devel
+$ sudo yum install suitesparse suitesparse-devel    # 稀疏矩阵库
+</code></pre>
+
+<p><code>mpi</code>环境的安装可以参看 <a href="linux-environment-for-seismology-research.html">CentOS7安装及配置</a> 中的并行计算部分</p>
+
+<h3 id="其他">其他</h3>
+
+<ul>
+<li>Seismic_Unix</li>
+<li>CurveLab, PyCurveLab
+-</li>
+</ul>
+
+<h2 id="安装">安装</h2>
+
+<h3 id="添加环境变量">添加环境变量</h3>
+
+<p>将以下语句加入 <code>~/.bashrc</code> 或 <code>~/.zshrc</code> 中</p>
+
+<pre><code class="language-bash">export RSFROOT=/opt/rsf # 安装位置
+source ${RSFROOT}/share/madagascar/etc/env.sh
+</code></pre>
+
+<h3 id="编译安装">编译安装</h3>
+
+<ul>
+<li>稳定版</li>
+</ul>
+
+<p><a href="http://sourceforge.net/projects/rsf/files/">Download the source code distribution from Sourceforge</a></p>
+
+<pre><code>$ tar jxvf madagascar-1.7.tar.bz2
+$ cd madagascar-1.7
+$ ./configure --preifx=/opt/rsf API=f90,python,matlab
+$ make
+$ sudo make install
+</code></pre>
+
+<ul>
+<li>最新版</li>
+</ul>
+
+<p>直接从 GitHub 克隆下来：</p>
+
+<pre><code>$ git clone https://github.com/ahay/src.git RSF_SRC
+$ cd RSF_SRC
+$ ./configure --preifx=/opt/rsf API=f90,c++,python,matlab
+$ make
+$ sudo make install
+</code></pre>
+
+<h2 id="卸载">卸载</h2>
+
+<p>清除所有中间文件和安装文件</p>
+
+<pre><code>$ scons -c install
+</code></pre>
+
+<p>或者在源码文件夹中</p>
+
+<pre><code>$ make distclean
+</code></pre>
+
+<h2 id="测试">测试</h2>
+
+<pre><code>$ sfspike n1=1000 k1=300 | sfbandpass fhi=2 phase=y | \
+    sfwiggle clip=0.02 title=&quot;Welcome to Madagascar&quot; | sfpen
+</code></pre>
+
+<p>不出错且出现如下图形即安装成功</p>
+
+<p><img src="http://www.ahay.org/wiki2015/images/3/35/Filter.png" alt="" /></p>
+
+<h2 id="出现的问题及解决方案">出现的问题及解决方案</h2>
+
+<h3 id="blas">BLAS</h3>
+
+<p>即使安装了<code>blas blas-devel lapack lapack-devel</code>，在<code>./configure</code>时还有如下提示：</p>
+
+<pre><code>checking for BLAS ... no
+checking for LAPACK ... no
+</code></pre>
+
+<p>查看 <code>config.log</code> 后发现其利用的是 <code>cblas</code>，而在CentOS7中<code>cblas</code>为 <code>atlas</code> 包的
+一部分，这样在调用<code>cblas</code>中的函数时，默认情况下在编译时需加上<code>-I/usr/include</code>来
+包含<code>cblas.h</code>，链接时，则需加上<code>-L/usr/lib64/atlas -lsatlas</code>或
+者<code>-L/usr/lib64/atlas -ltatlas</code>。其中,<code>s</code>表示<code>single</code>;<code>t</code>表示<code>multi-threaded</code>。</p>
+
+<p>有了如上信息，我们可以有如下两种解决方案：</p>
+
+<h4 id="自己创建一个cblas库文件">自己创建一个cblas库文件</h4>
+
+<p>这种方法是在不修改Madagascar源文件的前提下进行的。</p>
+
+<p>第一步，将<code>satlas</code>或<code>tatlas</code>库软链接成<code>cblas</code>库：</p>
+
+<pre><code>$ sudo ln -s /usr/lib64/atlas/libsatlas.so /usr/lib64/libcblas.so
+</code></pre>
+
+<p>第二步，<code>./configure</code>时侯，加上<code>BLAS=cblas</code></p>
+
+<pre><code>$ ./configure --preifx=/home/pzhang/src.import/rsf API=f90,c++,python,matlab BLAS=cblas
+</code></pre>
+
+<h4 id="修改-framework-configure-py">修改<code>framework/configure.py</code></h4>
+
+<p>打开<code>framework/configure.py</code>文件，找到<code>check_all(context)</code>函数，可以发现其调
+用<code>blas(context)</code>来对<code>BLAS</code>库进行检查，再定位到<code>blas(context)</code>函数，修改以下
+语句：</p>
+
+<pre><code class="language-python"># Line 1014
+LIBS.append('f77blas')
+LIBS.append('cblas')
+LIBS.append('atlas')
+
+# Line 1066
+mylibs = ['f77blas','cblas','atlas']
+</code></pre>
+
+<p>为：</p>
+
+<pre><code class="language-python">#LIBS.append('f77blas') # 因为CentOS7系统上blas库都集成到atlas中了
+#LIBS.append('cblas')
+LIBS.append('satlas')
+
+#mylibs = ['f77blas','cblas','atlas']
+mylibs = ['satlas']
+</code></pre>
+
+<p>上面两种方法任取一种即可！</p>
+
+<h3 id="plplot">plplot</h3>
+
+<p>在安装了<code>plplot</code>和<code>plplot-devel</code>后，<code>configure</code>时<code>plplot</code>仍然是 <code>no</code>。</p>
+
+<p>同样的，我们查看<code>config.log</code>可以发现是在链接时找不到名为<code>ltdl</code>的库。</p>
+
+<pre><code>$ ls /usr/lib64 | grep ltdl
+libltdl.so.7
+libltdl.so.7.3.0
+</code></pre>
+
+<p>也就是说，没有名为<code>libltdl.so</code> 的动态库文件，要解决的话也很简单，找不到库文件我
+们自己造一个：</p>
+
+<pre><code>$ sudo ln -s /usr/lib64/libltdl.so.7 /usr/lib64/libltdl.so
+</code></pre>
+
+<p><strong>PS: 类似其他的<code>checking NO</code> 的问题，都可以在<code>config.log</code>中找到原因！</strong></p>
+
+<h2 id="其他可能出现的问题">其他可能出现的问题</h2>
+
+<p>在研究所里的曙光超算(<code>CentOS5.5 Final, gcc-4.1.2, scons-2.3.1,python2.4</code>)上
+安装时出现的问题。</p>
+
+<p>在该环境下，直接<code>./configure</code>时，会报如下错误：</p>
+
+<pre><code>checking for C compiler ... (cached) gcc
+checking if gcc works ... (cached) no
+
+  Fatal missing dependency
+------------------------
+</code></pre>
+
+<p>Google后发现这个报错是由<code>scons-2.3.1</code>对<code>Python-2.6</code>之前版本存在兼容性问题
+而导致的。</p>
+
+<p>有如下三种解决办法：</p>
+
+<ol>
+<li><p>升级<code>Python</code>到较新的版本(2.7)</p></li>
+
+<li><p>降级<code>Scons</code>(2.3.0)</p></li>
+
+<li><p>编辑 <code>/usr/local/lib/scons-2.3.1/SCons/Node/__init__.py</code> 文件，Line 1004</p>
+
+<pre><code class="language-python">return list(chain.from_iterable(filter(None, [self.sources, self.depends, self.implicit])))
+</code></pre>
+
+<p>替代为:</p>
+
+<pre><code class="language-python">if self.implicit is None:
+return self.sources + self.depends
+else:
+return self.sources + self.depends + self.implicit
+</code></pre></li>
+</ol>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="http://www.ahay.org/wiki/Installation#Precompiled_binary_packages">Madagascar Installation</a></li>
+<li><a href="http://www.ahay.org/wiki/Advanced_Installation#Platform-specific_installation_advice">Advanced Installation</a></li>
+<li><a href="https://groups.google.com/forum/#!topic/osdeve_mirror_geophysics_rsf-user/AwnyyKjJ2SI">How can I install Madagascar when the gcc version is 4.1.2</a></li>
+</ul>
+
+<h2 id="修订历史">修订历史</h2>
+
+<ul>
+<li>2015-10-26： 初稿</li>
+<li>2016-07-19： 更新存在的问题</li>
+<li>2016-10-07： 更新问题的解决方案</li>
+<li>2016-11-10： 添加BLAS库找不到的另一种解决方案</li>
+<li>2016-11-14： 添加在曙光超算上出现的问题</li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2015-10-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">Linux</a>
+          
+          <a href="/tags/madagascar/">Madagascar</a>
+          
+          <a href="/tags/%E5%AE%89%E8%A3%85/">安装</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/su-and-segy-format/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">SU/SEGY文件格式</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/useful-algorithms/">
+            <span class="next-text nav-default">一些有用的算法收集</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

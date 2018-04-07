@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/categories/</link>
+    <description>Recent content in Categories on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://whu-pzhang.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploration Seismology</title>
+      <link>https://whu-pzhang.github.io/categories/exploration-seismology/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/categories/exploration-seismology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://whu-pzhang.github.io/categories/linux/</link>
+      <pubDate>Tue, 15 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/categories/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Programming</title>
+      <link>https://whu-pzhang.github.io/categories/programming/</link>
+      <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/categories/programming/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>地球物理相关资源</title>
+      <link>https://whu-pzhang.github.io/categories/%E5%9C%B0%E7%90%83%E7%89%A9%E7%90%86%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90/</link>
+      <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/categories/%E5%9C%B0%E7%90%83%E7%89%A9%E7%90%86%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>杂谈</title>
+      <link>https://whu-pzhang.github.io/categories/%E6%9D%82%E8%B0%88/</link>
+      <pubDate>Tue, 14 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/categories/%E6%9D%82%E8%B0%88/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

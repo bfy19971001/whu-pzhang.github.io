@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/c/</link>
+    <description>Recent content in C on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 11 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/c/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>用ctypes调用C函数</title>
+      <link>https://whu-pzhang.github.io/python-ctypes/</link>
+      <pubDate>Thu, 11 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/python-ctypes/</guid>
+      <description>&lt;p&gt;现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。&lt;/p&gt;
+
+&lt;p&gt;对于这样的需求，使用Python标准库中的&lt;code&gt;ctypes&lt;/code&gt;模块来实现是非常容易的。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SU/SEGY文件格式</title>
+      <link>https://whu-pzhang.github.io/su-and-segy-format/</link>
+      <pubDate>Mon, 29 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/su-and-segy-format/</guid>
+      <description>&lt;h2 id=&#34;序言&#34;&gt;序言&lt;/h2&gt;
+
+&lt;p&gt;地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
+SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
+最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
+由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一些有用的算法收集</title>
+      <link>https://whu-pzhang.github.io/useful-algorithms/</link>
+      <pubDate>Fri, 16 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/useful-algorithms/</guid>
+      <description>&lt;p&gt;收集了一些可能会用到的小算法。&lt;/p&gt;
+
+&lt;h2 id=&#34;判断字节序&#34;&gt;判断字节序&lt;/h2&gt;
+
+&lt;p&gt;在处理数据是常常会碰到字节序(Byte Endian)的问题&lt;/p&gt;
+
+&lt;p&gt;Linux下可以直接用Shell命令查看：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;lscpu | grep -i byte
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>getopt用法</title>
+      <link>https://whu-pzhang.github.io/usage-of-getopt/</link>
+      <pubDate>Sun, 20 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/usage-of-getopt/</guid>
+      <description>&lt;h2 id=&#34;getopt介绍&#34;&gt;getopt介绍&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;getopt&lt;/code&gt; 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
+getopt提供了更为方便和友好的方式。&lt;/p&gt;
+
+&lt;p&gt;函数 &lt;code&gt;getopt&lt;/code&gt; 包含于系统头文件 &lt;code&gt;unistd.h&lt;/code&gt; 中，其函数原型为:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int getopt(int argc, char *const argv[], const char *optstring);
+extern char *optarg;
+extern int optind, opterr, optopt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>C语言中二维数组的动态分配</title>
+      <link>https://whu-pzhang.github.io/dynamic-allocate-2d-array/</link>
+      <pubDate>Sun, 02 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/dynamic-allocate-2d-array/</guid>
+      <description>&lt;p&gt;在C语言中，数组是最常用到的。分为静态数组和动态数组。
+静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
+内存。&lt;/p&gt;
+
+&lt;p&gt;动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 &lt;code&gt;malloc&lt;/code&gt; 或 &lt;code&gt;calloc&lt;/code&gt;
+从堆（heap）上分配，用完后需要程序员自己释放内存。&lt;/p&gt;
+
+&lt;p&gt;标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 &lt;code&gt;stdlib.h&lt;/code&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>数组和指针</title>
+      <link>https://whu-pzhang.github.io/array-and-pointer/</link>
+      <pubDate>Fri, 31 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/array-and-pointer/</guid>
+      <description>&lt;h2 id=&#34;数组名和指针&#34;&gt;数组名和指针&lt;/h2&gt;
+
+&lt;p&gt;在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
+不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。&lt;/p&gt;
+
+&lt;p&gt;事实上，数组名和指针除了上述区别外，还有其他的一些不同：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;在引用上，数组名只需访问内存一次；而指针需要访问内存两次。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;若a是一个数组名，p为指向该数组的指针变量，使用 &lt;code&gt;a&lt;/code&gt; 和 &lt;code&gt;&amp;amp;a&lt;/code&gt; 得到的值是一样的。对 &lt;code&gt;p&lt;/code&gt; 来说则不一样&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;sizeof a&lt;/code&gt; 得到的是整个数组所占字节的大小，而 &lt;code&gt;sizeof p&lt;/code&gt; 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;尽管 &lt;code&gt;a&lt;/code&gt;和 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt; 得到的地址是一样的，但是其意义是不一样的，&lt;code&gt;a&lt;/code&gt;表示的是存储数组这块连续内存空间的首地址而 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt;表示的是数组第一个元素的首地址。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
