@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pyenv on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/pyenv/</link>
+    <description>Recent content in Pyenv on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 22 Jul 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/pyenv/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python多版本共存之pyenv</title>
+      <link>https://whu-pzhang.github.io/python-env/</link>
+      <pubDate>Wed, 22 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/python-env/</guid>
+      <description>&lt;p&gt;经常遇到这样的情况：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;系统自带的Python是2.6，自己需要Python 2.7中的某些特性；&lt;/li&gt;
+&lt;li&gt;系统自带的Python是2.x，自己需要Python 3.x；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。&lt;a href=&#34;https://github.com/yyuu/pyenv&#34;&gt;pyenv&lt;/a&gt; 就是这样一个Python版本管理器。&lt;/p&gt;
+
+&lt;h2 id=&#34;安装pyenv&#34;&gt;安装pyenv&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+$ echo &#39;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
+$ echo &#39;export PATH=&amp;quot;$PATH:$PYENV_ROOT/bin&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
+$ echo &#39;eval &amp;quot;$(pyenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
+$ exec $SHELL -l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

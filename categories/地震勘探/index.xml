@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>地震勘探 on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/categories/%E5%9C%B0%E9%9C%87%E5%8B%98%E6%8E%A2/</link>
+    <description>Recent content in 地震勘探 on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 May 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/categories/%E5%9C%B0%E9%9C%87%E5%8B%98%E6%8E%A2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Madagascar之colormap</title>
+      <link>https://whu-pzhang.github.io/mada-colormaps/</link>
+      <pubDate>Wed, 10 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/mada-colormaps/</guid>
+      <description>&lt;p&gt;平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。&lt;/p&gt;
+
+&lt;p&gt;本文梳理了Madagascar中现有的各种colormap。&lt;/p&gt;
+
+&lt;p&gt;本文 &lt;code&gt;SConstruct&lt;/code&gt; 脚本位于 &lt;a href=&#34;https://github.com/whu-pzhang/Mada/tree/master/colormap&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>添加程序到Madagascar中</title>
+      <link>https://whu-pzhang.github.io/add-new-program-to-mada/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/add-new-program-to-mada/</guid>
+      <description>&lt;p&gt;有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目
+录重新编译，然后再在SConstruct中调用,类似这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prog = Program(&#39;Mcode.c&#39;)
+exe = str(prog[0])
+# proj = Project()
+# prog = proj.Program(&#39;Mcode.c&#39;)
+Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
+    &#39;&#39;&#39;
+    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
+    &#39;&#39;&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux下安装SEPlib</title>
+      <link>https://whu-pzhang.github.io/install-seplib-on-linux/</link>
+      <pubDate>Mon, 18 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/install-seplib-on-linux/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://sepwww.stanford.edu/doku.php?id=sep:software:seplib&#34;&gt;SEPlib&lt;/a&gt; 是由
+Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>在C程序中读写SU格式文件</title>
+      <link>https://whu-pzhang.github.io/read-and-write-su-in-c/</link>
+      <pubDate>Tue, 01 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/read-and-write-su-in-c/</guid>
+      <description>&lt;h2 id=&#34;序言&#34;&gt;序言&lt;/h2&gt;
+
+&lt;p&gt;Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
+中读写SU文件。本文介绍如何在C程序中读写SU格式文件。&lt;/p&gt;
+
+&lt;h2 id=&#34;子函数库&#34;&gt;子函数库&lt;/h2&gt;
+
+&lt;p&gt;Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。&lt;/p&gt;
+
+&lt;p&gt;但是其中自带的 &lt;code&gt;segy.h&lt;/code&gt; 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
+来对SU格式的文件进行读写。&lt;/p&gt;
+
+&lt;p&gt;关于SU文件格式可以参考&lt;a href=&#34;https://whu-pzhang.github.io/SU-and-Segy-format.html&#34;&gt;SU/SEGY文件格式&lt;/a&gt; 一文。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>SU/SEGY文件格式</title>
+      <link>https://whu-pzhang.github.io/su-and-segy-format/</link>
+      <pubDate>Mon, 29 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/su-and-segy-format/</guid>
+      <description>&lt;h2 id=&#34;序言&#34;&gt;序言&lt;/h2&gt;
+
+&lt;p&gt;地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
+SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
+最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
+由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Linux下安装Madagascar</title>
+      <link>https://whu-pzhang.github.io/install-madagascar-on-linux/</link>
+      <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/install-madagascar-on-linux/</guid>
+      <description>&lt;p&gt;Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
