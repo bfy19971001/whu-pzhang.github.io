@@ -6,10 +6,22 @@
     <description>Recent content in Programming on PzNotes - Learning and Sharing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 May 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 13 Oct 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://whu-pzhang.github.io/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>C/C&#43;&#43; 中的 define 和 typedef</title>
+      <link>https://whu-pzhang.github.io/define-and-typedef/</link>
+      <pubDate>Fri, 13 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/define-and-typedef/</guid>
+      <description>&lt;p&gt;c语言中，&lt;code&gt;#define&lt;/code&gt; 和 &lt;code&gt;typedef&lt;/code&gt; 均是用来定义别名的符号，但又有明显的不同。
+&lt;code&gt;#define&lt;/code&gt; 定义的宏只是简单的文本替换，&lt;code&gt;typedef&lt;/code&gt; 则是类型别名。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>用ctypes调用C函数</title>
