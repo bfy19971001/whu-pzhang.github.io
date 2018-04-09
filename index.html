@@ -57,7 +57,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-04-07T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2018-04-07T16:01:06&#43;08:00"/>
 
 
 
@@ -145,6 +145,34 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/install-opencv-on-macos/">macOS 安装 OpenCV</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-04-07 </span>
+      <div class="post-category">
+          
+            <a href="/categories/%E5%AE%89%E8%A3%85/"> 安装 </a>
+          
+        </div>
+      <span class="more-meta"> 约 388 字 </span>
+      <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p>记录macOS上安装OpenCV。</p>
+
+<p></p>
+    </div>
+    <div class="read-more">
+      <a href="/install-opencv-on-macos/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -259,48 +287,6 @@
     </div>
     <div class="read-more">
       <a href="/learn-numpy/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/%E6%B7%BB%E5%8A%A0%E7%A8%8B%E5%BA%8F%E5%88%B0madagascar%E4%B8%AD/">添加程序到Madagascar中</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-11-03 </span>
-      
-      <span class="more-meta"> 约 593 字 </span>
-      <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <p>有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目
-录重新编译，然后再在SConstruct中调用,类似这样：</p>
-
-<pre><code class="language-python">prog = Program('Mcode.c')
-exe = str(prog[0])
-# proj = Project()
-# prog = proj.Program('Mcode.c')
-Flow('out', ['inp1', 'inp2', exe],
-    '''
-    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
-    ''')
-</code></pre>
-
-<p>若是只在一个project中用到倒还好，但若是比较通用的程序，在不同的文件夹中都要这么来调
-用的话未免太麻烦。而将我们的代码直接加入Mada中，就可以直接调用。不用将源码拷来拷去还
-要编译了。当然了，加入Mada的程序一般是我们的最终版本，测试的程序还是就放在测试目录中
-比较好。</p>
-
-<p>本文介绍怎么样将自己的程序加入到Madagascar中。</p>
-
-<p></p>
-    </div>
-    <div class="read-more">
-      <a href="/%E6%B7%BB%E5%8A%A0%E7%A8%8B%E5%BA%8F%E5%88%B0madagascar%E4%B8%AD/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -37,6 +37,28 @@
     </item>
     
     <item>
+      <title>添加程序到Madagascar中</title>
+      <link>https://whu-pzhang.github.io/add-new-program-to-mada/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/add-new-program-to-mada/</guid>
+      <description>&lt;p&gt;有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目
+录重新编译，然后再在SConstruct中调用,类似这样：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prog = Program(&#39;Mcode.c&#39;)
+exe = str(prog[0])
+# proj = Project()
+# prog = proj.Program(&#39;Mcode.c&#39;)
+Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
+    &#39;&#39;&#39;
+    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
+    &#39;&#39;&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>SU/SEGY文件格式</title>
       <link>https://whu-pzhang.github.io/su-and-segy-format/</link>
       <pubDate>Mon, 29 Feb 2016 00:00:00 +0000</pubDate>

@@ -57,7 +57,7 @@
 
 
 
-<meta property="og:updated_time" content="2016-04-18T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2016-11-03T00:00:00&#43;00:00"/>
 
 
 
@@ -145,6 +145,45 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/add-new-program-to-mada/">添加程序到Madagascar中</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-11-03 </span>
+      <div class="post-category">
+          
+            <a href="/categories/exploration-seismology/"> Exploration Seismology </a>
+          
+        </div>
+      <span class="more-meta"> 约 593 字 </span>
+      <span class="more-meta"> 预计阅读 2 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p>有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目
+录重新编译，然后再在SConstruct中调用,类似这样：</p>
+
+<pre><code class="language-python">prog = Program('Mcode.c')
+exe = str(prog[0])
+# proj = Project()
+# prog = proj.Program('Mcode.c')
+Flow('out', ['inp1', 'inp2', exe],
+    '''
+    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
+    ''')
+</code></pre>
+
+<p></p>
+    </div>
+    <div class="read-more">
+      <a href="/add-new-program-to-mada/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -275,30 +314,6 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
     </div>
     <div class="read-more">
       <a href="/su-and-segy-format/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/install-madagascar-on-linux/">Linux下安装Madagascar</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2015-10-26 </span>
-      
-      <span class="more-meta"> 约 1616 字 </span>
-      <span class="more-meta"> 预计阅读 4 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <p>Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。</p>
-
-<p></p>
-    </div>
-    <div class="read-more">
-      <a href="/install-madagascar-on-linux/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
