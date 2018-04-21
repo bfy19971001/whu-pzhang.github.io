@@ -286,7 +286,7 @@ extern int optind, opterr, optopt;
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/dynamic-allocate-2d-array/">C语言中二维数组的动态分配</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/dynamic-allocate-2d-array/">C语言中多维数组的动态分配</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2015-08-02 </span>
       <div class="post-category">
@@ -294,8 +294,8 @@ extern int optind, opterr, optopt;
             <a href="/categories/programming/"> Programming </a>
           
         </div>
-      <span class="more-meta"> 约 1250 字 </span>
-      <span class="more-meta"> 预计阅读 3 分钟 </span>
+      <span class="more-meta"> 约 1570 字 </span>
+      <span class="more-meta"> 预计阅读 4 分钟 </span>
     </div>
   </header>
   
@@ -305,10 +305,17 @@ extern int optind, opterr, optopt;
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。</p>
 
-<p>动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 <code>malloc</code> 或 <code>calloc</code>
-从堆（heap）上分配，用完后需要程序员自己释放内存。</p>
+<p>c99 标准中加入了<a href="http://en.cppreference.com/w/c/language/array">变长数组VLA</a>，
+数组大小可以用非整数常量表达式表示。例如：</p>
 
-<p>标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 <code>stdlib.h</code> 中。</p>
+<pre><code class="language-c">size_t n1 = 10, n2=35;
+float a[n1], b[n1][n2];
+</code></pre>
+
+<p>但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+这时就需要动态地从堆（heap）上分配内存，即动态分配。
+动态数组的长度则是随程序的需要来指定的。
+标准C语言中提供动态分配和释放的函数，包含于头文件 <code>stdlib.h</code> 中。</p>
 
 <p></p>
     </div>

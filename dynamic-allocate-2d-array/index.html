@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>C语言中二维数组的动态分配 - PzNotes - Learning and Sharing</title>
+  <title>C语言中多维数组的动态分配 - PzNotes - Learning and Sharing</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -18,8 +18,8 @@
 
 <meta name="author" content="pzhang" />
   <meta name="description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放 内存。
-动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 malloc 或 calloc 从堆（heap）上分配，用完后需要程序员自己释放内存。
-标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 stdlib.h 中。
+c99 标准中加入了变长数组VLA， 数组大小可以用非整数常量表达式表示。例如：
+size_t n1 = 10, n2=35; float a[n1], b[n1][n2];  但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。 这时就需要动态地从堆（heap）上分配内存，即动态分配。 动态数组的长度则是随程序的需要来指定的。 标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。
 
 " />
 
@@ -53,15 +53,22 @@
 
 
 
-<meta property="og:title" content="C语言中二维数组的动态分配" />
+<meta property="og:title" content="C语言中多维数组的动态分配" />
 <meta property="og:description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。
 
-动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 malloc 或 calloc
-从堆（heap）上分配，用完后需要程序员自己释放内存。
+c99 标准中加入了变长数组VLA，
+数组大小可以用非整数常量表达式表示。例如：
 
-标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 stdlib.h 中。
+size_t n1 = 10, n2=35;
+float a[n1], b[n1][n2];
+
+
+但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+这时就需要动态地从堆（heap）上分配内存，即动态分配。
+动态数组的长度则是随程序的需要来指定的。
+标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。
 
 " />
 <meta property="og:type" content="article" />
@@ -71,7 +78,7 @@
 
 <meta property="article:published_time" content="2015-08-02T00:00:00&#43;00:00"/>
 
-<meta property="article:modified_time" content="2015-08-02T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-04-21T00:00:00&#43;00:00"/>
 
 
 
@@ -83,36 +90,50 @@
 
 
 
-<meta itemprop="name" content="C语言中二维数组的动态分配">
+<meta itemprop="name" content="C语言中多维数组的动态分配">
 <meta itemprop="description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。
 
-动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 malloc 或 calloc
-从堆（heap）上分配，用完后需要程序员自己释放内存。
+c99 标准中加入了变长数组VLA，
+数组大小可以用非整数常量表达式表示。例如：
 
-标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 stdlib.h 中。
+size_t n1 = 10, n2=35;
+float a[n1], b[n1][n2];
+
+
+但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+这时就需要动态地从堆（heap）上分配内存，即动态分配。
+动态数组的长度则是随程序的需要来指定的。
+标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。
 
 ">
 
 
 <meta itemprop="datePublished" content="2015-08-02T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2015-08-02T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1250">
+<meta itemprop="wordCount" content="1570">
 
 
 
 <meta itemprop="keywords" content="C,Linux," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="C语言中二维数组的动态分配"/>
+<meta name="twitter:title" content="C语言中多维数组的动态分配"/>
 <meta name="twitter:description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。
 
-动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 malloc 或 calloc
-从堆（heap）上分配，用完后需要程序员自己释放内存。
+c99 标准中加入了变长数组VLA，
+数组大小可以用非整数常量表达式表示。例如：
 
-标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 stdlib.h 中。
+size_t n1 = 10, n2=35;
+float a[n1], b[n1][n2];
+
+
+但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+这时就需要动态地从堆（heap）上分配内存，即动态分配。
+动态数组的长度则是随程序的需要来指定的。
+标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。
 
 "/>
 
@@ -185,7 +206,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">C语言中二维数组的动态分配</h1>
+      <h1 class="post-title">C语言中多维数组的动态分配</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2015-08-02 </span>
@@ -194,8 +215,8 @@
               <a href="/categories/programming/"> Programming </a>
             
           </div>
-        <span class="more-meta"> 约 1250 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
+        <span class="more-meta"> 约 1570 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
     </header>
@@ -218,6 +239,7 @@
 <ul>
 <li><a href="#测试-1">测试</a></li>
 </ul></li>
+<li><a href="#更高维数组">更高维数组</a></li>
 <li><a href="#总结">总结</a></li>
 </ul></li>
 </ul>
@@ -231,10 +253,17 @@
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。</p>
 
-<p>动态数组的长度则是随程序的需要来指定的。其需要的内存由内存分配函数 <code>malloc</code> 或 <code>calloc</code>
-从堆（heap）上分配，用完后需要程序员自己释放内存。</p>
+<p>c99 标准中加入了<a href="http://en.cppreference.com/w/c/language/array">变长数组VLA</a>，
+数组大小可以用非整数常量表达式表示。例如：</p>
 
-<p>标准C语言中提供了一维数组动态分配和释放的函数，包含于头文件 <code>stdlib.h</code> 中。</p>
+<pre><code class="language-c">size_t n1 = 10, n2=35;
+float a[n1], b[n1][n2];
+</code></pre>
+
+<p>但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+这时就需要动态地从堆（heap）上分配内存，即动态分配。
+动态数组的长度则是随程序的需要来指定的。
+标准C语言中提供动态分配和释放的函数，包含于头文件 <code>stdlib.h</code> 中。</p>
 
 <p></p>
 
@@ -256,15 +285,13 @@ extern void free(void *p);
 <p>最外层的指针就是数组名<code>array</code>，为一个指针的指针。</p>
 
 <pre><code class="language-c">// 给二维数组动态分配内存
-int **p;
-// 指针p指向数组array的第一维，有m个元素
-p = (int **)malloc(m * sizeof(int *));
+int **p = malloc(m * sizeof(int *));
 </code></pre>
 
 <p>次层指针为 <code>array[]</code>, 是一个一维指针，直接对其分配内存就行了。</p>
 
 <pre><code class="language-c">for (int i=0; i&lt;n; i++)
-    p[i] = (int *)malloc(n * sizeof(int));
+    p[i] = malloc(n * sizeof(int));
 </code></pre>
 
 <p>综合这两步：</p>
@@ -274,9 +301,9 @@ p = (int **)malloc(m * sizeof(int *));
 int **alloc2int(size_t n1, size_t n2)
 {
     int **p;
-    if ((p = (int **)malloc(n1 * sizeof(int *))) == NULL) return NULL;
+    if ((p = malloc(n1 * sizeof(int *))) == NULL) return NULL;
     for (int i=0; i&lt;n1; i++) {
-        if ((p[i] = (int *)malloc(n2 * sizeof(int))) == NULL) return NULL;
+        if ((p[i] = malloc(n2 * sizeof(int))) == NULL) return NULL;
     }
     return p;
 }
@@ -364,13 +391,13 @@ int **alloc2int(size_t n1, size_t n2)
 {
     int **m;
     // allocate pointers to rows (m is actually a pointer to an array)
-    // m 为一个行指针
     if ((m = (int **)malloc(n1*sizeof(int *))) == NULL) return NULL;
     // allocate rows and set pointers to them
     // m[0] 指向整个数组内存块的首地址
     if ((m[0] = (int *)malloc(n1*n2*sizeof(int))) == NULL) return NULL;
-    for (size_t i1=1; i1&lt;n1; i1++) m[i1]=m[i1-1]+n2;
-    // return pointers to array of pointers to rows
+    for (size_t i1=1; i1&lt;n1; i1++)
+        m[i1] = m[i1-1] + n2;
+
     return m;
 }
 
@@ -392,9 +419,7 @@ void free2int(int **p);
 
 int main()
 {
-    int **m;
-
-    m = alloc2int(ROW, COL);
+    int **m = alloc2int(ROW, COL);
     for (int i=0; i&lt;ROW; i++)
         for (int j=0; j&lt;COL; j++) {
             m[i][j] = i+j;
@@ -404,8 +429,6 @@ int main()
     int * const end = start + ROW*COL;
     for ( ; start != end; start++)
         printf(&quot;%p -&gt; %d\n&quot;, start, *start);
-
-    //printf(&quot;%p\n&quot;, m[0]+4);
 
     free2int(m);
     return 0;
@@ -426,12 +449,83 @@ $ ./a.out
 
 <p>可以看到，现在的二维数组内存是连续的了，我们用一个循环便可以遍历整个数组。</p>
 
+<h2 id="更高维数组">更高维数组</h2>
+
+<p>当需要更高维度的数组时，也是一样的道理。</p>
+
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
+
+float ***alloc3float(size_t n1, size_t n2, size_t n3)
+{
+    float ***ptr = malloc(n1 * sizeof(float **) + /* level1 pointer */
+                          n1 * n2 * sizeof(float *) + /* level2 pointer */
+                          n1 * n2 * n3 * sizeof(float)); /* data pointer */
+    for (size_t i = 0; i &lt; n1; ++i) {
+        ptr[i] = (float **)(ptr + n1) + i * n2;
+        for (size_t j = 0; j &lt; n2; ++j)
+            ptr[i][j] = (float *)(ptr + n1 + n1 * n2) + i * n2 * n3 + j * n3;
+    }
+
+    return ptr;
+}
+</code></pre>
+
+<p>这里不仅数据内存是连续的，各级指针内存也是连续的。</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+int **alloc3float(size_t n1, size_t n2, size_t n3);
+
+int main(void)
+{
+    size_t n1 = 2, n2 = 3, n3 = 4;
+    float ***ar3 = alloc3float(n1, n2, n3);
+    for (size_t i = 0; i &lt; n1; ++i)
+        for (size_t j = 0; j &lt; n2; ++j)
+            for (size_t k = 0; k &lt; n3; ++k)
+                ar3[i][j][k] = i + j + k;
+
+    float *start = &amp;(ar3[0][0][0]);
+    float *end = start + n1 * n2 * n3;
+    for (; start != end; ++start)
+        printf(&quot;%p -&gt; %f\n&quot;, start, *start);
+
+    free(ar3);
+    return 0;
+}
+</code></pre>
+
+<pre><code class="language-bash">$ gcc -Wall -std=c99 test.c alloc.c &amp; ./a.out
+0x7ffeed4b63d0 -&gt; 0.000000
+0x7ffeed4b63d4 -&gt; 1.000000
+0x7ffeed4b63d8 -&gt; 2.000000
+0x7ffeed4b63dc -&gt; 3.000000
+0x7ffeed4b63e0 -&gt; 1.000000
+0x7ffeed4b63e4 -&gt; 2.000000
+0x7ffeed4b63e8 -&gt; 3.000000
+0x7ffeed4b63ec -&gt; 4.000000
+0x7ffeed4b63f0 -&gt; 2.000000
+0x7ffeed4b63f4 -&gt; 3.000000
+0x7ffeed4b63f8 -&gt; 4.000000
+0x7ffeed4b63fc -&gt; 5.000000
+0x7ffeed4b6400 -&gt; 1.000000
+0x7ffeed4b6404 -&gt; 2.000000
+0x7ffeed4b6408 -&gt; 3.000000
+0x7ffeed4b640c -&gt; 4.000000
+0x7ffeed4b6410 -&gt; 2.000000
+0x7ffeed4b6414 -&gt; 3.000000
+0x7ffeed4b6418 -&gt; 4.000000
+0x7ffeed4b641c -&gt; 5.000000
+0x7ffeed4b6420 -&gt; 3.000000
+0x7ffeed4b6424 -&gt; 4.000000
+0x7ffeed4b6428 -&gt; 5.000000
+0x7ffeed4b642c -&gt; 6.000000
+</code></pre>
+
 <h2 id="总结">总结</h2>
 
-<p>对与二维动态数组的分配，我们要了解C语言中数组和指针的联系和区别，具体可以参考
+<p>对与多维动态数组的分配，我们要了解C语言中数组和指针的联系和区别，具体可以参考
 <a href="/array-and-pointers.html">数组和指针</a></p>
-
-<p>上述两种方法都可行，但是推荐用第二种方法！</p>
     </div>
 
     
@@ -442,7 +536,7 @@ $ ./a.out
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2015-08-02</span>
+    <span class="item-content">2018-04-21</span>
   </p>
   
   <p class="copyright-item">
