@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>卡尔曼滤波 - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="引言 最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。
+
+" />
+
+  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.49" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/kalman-filter/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="卡尔曼滤波" />
+<meta property="og:description" content="引言
+
+最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/kalman-filter/" /><meta property="article:published_time" content="2018-09-27T22:20:58&#43;08:00"/>
+<meta property="article:modified_time" content="2018-11-15T21:01:58&#43;08:00"/>
+
+<meta itemprop="name" content="卡尔曼滤波">
+<meta itemprop="description" content="引言
+
+最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。
+
+">
+
+
+<meta itemprop="datePublished" content="2018-09-27T22:20:58&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-27T22:20:58&#43;08:00" />
+<meta itemprop="wordCount" content="2497">
+
+
+
+<meta itemprop="keywords" content="理论," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="卡尔曼滤波"/>
+<meta name="twitter:description" content="引言
+
+最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">卡尔曼滤波</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-27 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+            
+          </div>
+        <span class="more-meta"> 约 2497 字 </span>
+        <span class="more-meta"> 预计阅读 5 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="引言">引言</h2>
+
+<p>最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。</p>
+
+<p></p>
+
+<p><a href="https://en.wikipedia.org/wiki/Kalman_filter">Kalman filter</a> 的提出到现在已经快60年了，但其应用仍然十分广泛，只要是对动态系统不确定的状态估计，基本都可以看到kalman滤波的身影。</p>
+
+<h2 id="状态预测">状态预测</h2>
+
+<p>已知物体某一时刻的状态（例如：位置，速度，运动方向等），如何对其下一时刻的位置进行预测？卡尔曼滤波便是用来解决这一类问题而提出的。假设一个物体的状态向量表示如下：</p>
+
+<p><span  class="math">\[
+\boldsymbol{x} = \begin{bmatrix}
+p \\
+v
+\end{bmatrix}
+\]</span></p>
+
+<p>卡尔曼滤波假设状态向量中的变量均符合高斯分布，具有均值$\mu$ ，以及方差 $\sigma^2$ 。 状态向量的协方差矩阵为 $\mathbf{P}$ ，表示状态向量内部变量之间的相关性以及自身的不确定性。设当前时刻为 $k-1$，那么下一时刻的状态向量可以用矩阵形式表示如下：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\color{deeppink}{\boldsymbol{\hat{x}}_k} &= \begin{bmatrix}
+1 & \Delta t \\
+0 & 1
+\end{bmatrix} \color{royalblue}{\boldsymbol{\hat{x}}_{k-1}} \\
+&= \mathbf{F}_k \color{royalblue}{\boldsymbol{\hat{x}}_{k-1}}
+\end{align}
+\]</span></p>
+
+<p>$\mathbf{F}_k$ 称为状态转移矩阵（state transition matrix），也即是预测矩阵。通过该矩阵可以得到下个时刻的状态。那么状态向量的协方差呢？也通过该矩阵传递到下一状态。首先易知有如下关系：</p>
+
+<p><span  class="math">\[
+\begin{split}
+Cov(\boldsymbol{x}) &= \mathbf{\Sigma} \\
+Cov(\mathbf{A} \boldsymbol{x}) &= \mathbf{A} \mathbf{\Sigma} \mathbf{A}^T
+\end{split}
+\]</span></p>
+
+<p>那么可得状态向量及其协方差矩阵更新如下：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\color{deeppink}{\boldsymbol{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\boldsymbol{\hat{x}}_{k-1}} \\
+\color{deeppink}{\mathbf{P}_k} &= \mathbf{F_k} \color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T
+\end{split}
+\]</span></p>
+
+<p>虽然该方程可以预测出物体下个时刻的状态，但它并不完全。可能还有与状态向量无关的因素带来的影响。例如，汽车运动过程中对刹车或油门的控制。假设小车运动时的加速度为 $a$ ，那么我们的运动方程就变为：</p>
+
+<p><span  class="math">\[
+\begin{split}
+p_k & = p_{k-1} + \Delta t & v_{k-1} + \frac{1}{2} a {\Delta t}^2 \\
+v_k & =  & v_{k-1} + a \Delta t
+\end{split}
+\]</span></p>
+
+<p>表示为矩阵形式：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\color{deeppink} {\boldsymbol{\hat{x}}_k} & = \mathbf{F}_k \color{royalblue} {\boldsymbol {\hat{x}}_{k-1}} + \begin{bmatrix}
+\frac{{\Delta t}^2}{2} \\
+\Delta t
+\end{bmatrix} a \\
+& = \mathbf{F}_{k} \color{royalblue} {\boldsymbol {\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\boldsymbol{u}_k}
+\end{split}
+\]</span></p>
+
+<p>$\mathbf{B}_k$ 为控制矩阵（control matrix），$\mathbf{u}_k$ 为控制向量。</p>
+
+<p>到目前为止，若我们考虑了所有对运动状态有影响的因素，便可以根据上述式子对物体的运动状态进行递推。但实际上，还有一些外部的影响是我们没法控制的，比如四轴飞行器被风吹的摇晃，小车轮子打滑等。这些也都会对运动状态产生影响。在卡尔曼滤波中，我们假设这些不确定的因素为服从高斯分布的噪声，其协方差矩阵表示为$\mathbf{Q}_{k}$ 。如此一来，我们的递推关系式变为了：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\color{deeppink}{\boldsymbol{\hat{x}}_k} &= \mathbf{F}_k \color{royalblue}{\boldsymbol{\hat{x}}_{k-1}} + \mathbf{B}_k \color{darkorange}{\boldsymbol{u}_k} \\
+\color{deeppink}{\mathbf{P}_k} &= \mathbf{F_k} \color{royalblue}{\mathbf{P}_{k-1}} \mathbf{F}_k^T + \color{mediumaquamarine} {\mathbf{Q}_k}
+\end{split}
+\]</span></p>
+
+<p>状态 <font color=deeppink><strong>新的最优估计</strong></font> 是在 <font color=royalblue><strong>前一个最优估计</strong></font> 的基础预测出来的，再加上一个 <font color=darkorange><strong>已知的外部影响</strong></font> 的修正量。而<font color=deeppink><strong>新的不确定性</strong></font> 则是由 <font color=royalblue><strong>旧的不确定性</strong></font> 预测而来，再加上额外的来自 <font color=mediumaquamarine><strong>环境的不确定性</strong></font>。</p>
+
+<p>现在我们利用当前状态预测出了由 $\color{deeppink} {\boldsymbol{\hat{ x}}_k}$ 和 $\color{deeppink} {\mathbf{P}_k}$ 所描述的系统下一时刻的状态，那么当我们有了来自传感器的实际观测值后，应当如何对系统进行更新呢？这里涉及到卡尔曼滤波的关键部分了，也就是将预测的状态与观测的状态进行融合。</p>
+
+<h2 id="利用测量更新预测">利用测量更新预测</h2>
+
+<p>传感器得到的测量值可能与状态向量的单位以及标度不同，因此需要将状态向量转换为我们读取的测量值，转换矩阵为 $\mathbf{H}_k$ 。 那么传感器的读数表示如下：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\boldsymbol{\mu}_{expected} &= \mathbf{H}_k \color{deeppink}{\hat{\boldsymbol{x}}_k} \\
+\mathbf{\Sigma}_{expected} &= \mathbf{H}_k \color{deeppink}{\mathbf{P}_k} \mathbf{H}_k^T
+\end{split}
+\]</span></p>
+
+<p>卡尔曼滤波海考虑了传感器的噪声影响，也就是说测量值也存在着不确定性，将传感器噪声的协方差表示为 $\color{mediumaquamarine}{\mathbf{R}_k}$ 。那么测量读数表示为 $\color{yellowgreen}{\boldsymbol{\mathbf{z}_k}}$ 。</p>
+
+<p>现在我们有了两个值：一个预测值和一个观测值。两个值都遵循高斯分布。问题变为了如何将两个值融合起来得到新的状态向量。</p>
+
+<h2 id="高斯分布的融合">高斯分布的融合</h2>
+
+<p>首先考虑一维的高斯分布：</p>
+
+<p><span  class="math">\[
+\mathcal{N}(x, \mu, \sigma) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\]</span></p>
+
+<p>现在有两个分布均为高斯分布，将这两个概率密度函数相乘得到一个新的概率密度函数，可以证明这个PDF仍然是高斯分布，推导可得新分布的均值和方差（见附录）：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\color{royalblue}{\mu_{fused}} &= \mu_1 + \frac{\sigma_1^2(\mu_2 - \mu_1) }{\sigma_1^2 + \sigma_2^2} \\
+\color{royalblue}{\sigma_{fused}^2} &= \sigma_1^2 - \frac{\sigma_1^4}{\sigma_1^2 + \sigma_2^2}
+\end{split}
+\]</span></p>
+
+<p>我们引入$\color{purple}{k}$，那么融合后的高斯分布均值和方差表示为：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\color{royalblue}{\mu_{fused}} & = \mu_1 + k (\mu_2 - \mu_1) \\
+\color{royalblue}{\sigma_{fused}^2} &= \sigma_1^2 - k \sigma_1^2
+\end{split}
+\]</span></p>
+
+<p>其中，$ \color{purple}{k} = \frac{\sigma_1<sup>2}{\sigma_1</sup>2 + \sigma_2^2}$</p>
+
+<p>上面是两个一维高斯分布的融合，对于多变量的高斯分布，只需要将方差替换为协方差矩阵，均值替换为均值向量即可：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\color{purple}{\mathbf{K}} &= \Sigma_1(\Sigma_1 + \Sigma_2)^{-1} \\
+ & \\
+\color{royalblue}{\vec{\mu}_{fused}} &= \vec{\mu}_1 + \color{purple}{\mathbf{K}}(\vec{\mu}_2 - \vec{\mu}_1) \\
+\color{royalblue}{\Sigma_{fused}} &= \Sigma_1 - \color{purple}{\mathbf{K}} \Sigma_1
+\end{split}
+\]</span></p>
+
+<p>这里的 $\color{purple}{\mathbf{K}}$ 即为卡尔曼增益系数（Kalman gain） ，也即是将预测值和观测值进行融合的权系数。卡尔曼滤波的贡献就是找到了这个权系数。到此，我们将前面所有的步骤综合起来便是传统的卡尔曼滤波的过程了。</p>
+
+<h2 id="小结">小结</h2>
+
+<p>通过状态方程我们得到了预测的状态分布：$(\color{deeppink}{ \mu_1, \mathbf{\Sigma}_1}) = (\color{deeppink}{\mathbf{H}_k \hat{\boldsymbol{x}}_k, \mathbf{H}_k \mathbf{P}_k \mathbf{H}^T})$；然后通过量测方程得到了测量状态分布：$(\color{yellowgreen}{\mu_2}, \color{mediumaquamarine}{\mathbf{\Sigma}_2}) = (\color{yellowgreen}{\boldsymbol{{z}_k}}, \color{mediumaquamarine}{\mathbf{R}_k})$。将两个状态分布代入上式中：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\mathbf{H}_k \color{royalblue}{\hat{ \boldsymbol{x}}_k^{fused}} &= \color{deeppink}{\mathbf{H}_k \hat{\boldsymbol{x}}_k} & + & \color{purple}{\mathbf{K}} (\color{yellowgreen}{\vec{\mathbf{z}_k}} - \color{deeppink}{\mathbf{H}_k \hat{\boldsymbol{x}}_k}) \\
+\mathbf{H}_k \color{royalblue}{\mathbf{P}_k^{fused}} \mathbf{H}_k^T  &=  \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} & – & \color{purple}{\mathbf{K}} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T}
+\end{split}
+\]</span></p>
+
+<p>同时可以得到卡尔曼增益为：</p>
+
+<p><span  class="math">\[
+\begin{equation} \label{eq:kalgainunsimplified}
+\color{purple}{\mathbf{K}} = \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1}
+\end{equation}
+\]</span></p>
+
+<p>从上面三个式子中都消掉一个 $\mathbf{H}_k$ 可得：</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\begin{split}
+\color{royalblue}{\boldsymbol{\hat{x}}_k^{fused}} &= \color{fuchsia}{\boldsymbol{\hat{x}}_k} & + & \color{purple}{\mathbf{K}’} ( \color{yellowgreen}{{\boldsymbol{z}_k}} – \color{fuchsia}{\mathbf{H}_k \boldsymbol{\hat{x}}_k} ) \\
+\color{royalblue}{\mathbf{P}_k^{fused}} &= \color{deeppink}{\mathbf{P}_k} & – & \color{purple}{\mathbf{K}’} \color{deeppink}{\mathbf{H}_k \mathbf{P}_k}
+\end{split}
+\label{kalupdatefull}
+\end{equation}
+\]</span></p>
+
+<p>其中：</p>
+
+<p><span  class="math">\[
+\begin{equation}
+\color{purple}{\mathbf{K}’} = \color{deeppink}{\mathbf{P}_k \mathbf{H}_k^T} ( \color{deeppink}{\mathbf{H}_k \mathbf{P}_k \mathbf{H}_k^T} + \color{mediumaquamarine}{\mathbf{R}_k})^{-1}
+\label{kalgainfull}
+\end{equation}
+\]</span></p>
+
+<p>这样，一个完整的迭代更新流程就完成了。$\color{royalblue}{\boldsymbol{\hat{x}}_k^{fused}}$ 为新的最优估计，可以在此基础上继续预测-更新的递推下去。</p>
+
+<p><figure><img src="https://www.bzarg.com/wp-content/uploads/2015/08/kalflow.png" alt=""></figure></p>
+
+<h2 id="总结">总结</h2>
+
+<p>卡尔曼滤波的核心思想在于<strong>信息融合（information fusion）</strong>：如何将预测和观测两个量融合得到新的描述物体运动的状态量。</p>
+
+<p>卡尔曼滤波可以对线性系统进行准确的预测。对于非线性系统，则需要利用扩展卡尔曼滤波（Extended Kalman filter）,通过将问题线性化来进行。</p>
+
+<h2 id="附录">附录</h2>
+
+<h3 id="协方差">协方差</h3>
+
+<p><span  class="math">\[
+\begin{split}
+Cov(x) &= \Sigma \\
+Cov(\mathbf{A}x) &= \mathbf{A} \Sigma \mathbf{A}^T
+\end{split}
+\]</span></p>
+
+<p>已知：</p>
+
+<p><span  class="math">\[
+Cov(\boldsymbol{x}) = \boldsymbol{x} \boldsymbol{x}^T
+\]</span></p>
+
+<p>那么</p>
+
+<p><span  class="math">\[
+\begin{split}
+Cov(\mathbf{A} \boldsymbol{x}) &= \mathbf{A} \boldsymbol{x} (\mathbf{A} \boldsymbol{x})^T \\
+&= \mathbf{A} \boldsymbol{x} \boldsymbol{x}^T \mathbf{A}^T \\
+&= \mathbf{A} \mathbf{\Sigma} \mathbf{A}^T
+\end{split}
+\]</span></p>
+
+<h3 id="高斯分布的乘积仍为高斯分布">高斯分布的乘积仍为高斯分布</h3>
+
+<p>设有高斯分布 $p_1(x) = \mathcal{N}(\mu_1, \sigma_1)$ 和 $p_2(x) = \mathcal{N}(\mu_2, \sigma_2)$ ， 那么其乘积为：</p>
+
+<p><span  class="math">\[
+\begin{split}
+p_{fused} &= \frac{1}{\sigma_1 \sqrt{2\pi}} e^{-\frac{(x-\mu_1)^2}{2\sigma_1^2}} \times
+\frac{1}{\sigma_2 \sqrt{2\pi}} e^{-\frac{(x-\mu_2)^2}{2\sigma_2^2}} \\
+&= \frac{1}{\sigma_1 \sigma_2 2\pi} e^{ - \left[ \frac{(x-\mu_1)^2}{2\sigma_1^2} + \frac{(x-\mu_2)^2}{2\sigma_2^2} \right]}  \\
+&= \frac{1}{\sigma_{fused} \sqrt{2\pi}} e ^{-\frac{(x-\mu_{fused})^2}{2\sigma_{fused}^2}}
+\end{split}
+\]</span></p>
+
+<p>经化简可得：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\mu_{fused} &= \frac{\mu_1 \sigma_2^2 + \mu_2 \sigma_1^2} {\sigma_1^2 + \sigma_2^2} \\
+&= \mu_1 + \frac{\sigma_1^2(\mu_2 - \mu_1)}{\sigma_1^2 + \sigma_2^2}
+\end{split}
+\]</span></p>
+
+<p><span  class="math">\[
+\sigma_{fused}^2 = \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2 + \sigma_2^2}
+\]</span></p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/">How a kalman filter works in pictures</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Kalman_filter">Kalman filter</a></li>
+</ul>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-11-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/%E7%90%86%E8%AE%BA/">理论</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/install-opencv-on-macos/">
+            <span class="next-text nav-default">macOS 安装 OpenCV</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

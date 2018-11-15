@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>理论 on PzNotes - Learning and Sharing</title>
+    <link>https://whu-pzhang.github.io/tags/%E7%90%86%E8%AE%BA/</link>
+    <description>Recent content in 理论 on PzNotes - Learning and Sharing</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 Sep 2018 22:20:58 +0800</lastBuildDate>
+    
+	<atom:link href="https://whu-pzhang.github.io/tags/%E7%90%86%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>卡尔曼滤波</title>
+      <link>https://whu-pzhang.github.io/kalman-filter/</link>
+      <pubDate>Thu, 27 Sep 2018 22:20:58 +0800</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/kalman-filter/</guid>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
+
+&lt;p&gt;最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

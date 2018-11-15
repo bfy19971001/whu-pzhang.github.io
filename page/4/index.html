@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.49" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/" />
@@ -54,19 +54,7 @@
 <meta property="og:description" content="Learning and Sharing Knowledge." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://whu-pzhang.github.io/" />
-
-
-
-<meta property="og:updated_time" content="2015-07-31T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
+<meta property="og:updated_time" content="2015-08-02T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="PzNotes - Learning and Sharing">
 <meta itemprop="description" content="Learning and Sharing Knowledge.">
@@ -145,6 +133,48 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/dynamic-allocate-2d-array/">C语言中多维数组的动态分配</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2015-08-02 </span>
+      <div class="post-category">
+          
+            <a href="/categories/programming/"> Programming </a>
+          
+        </div>
+      <span class="more-meta"> 约 1572 字 </span>
+      <span class="more-meta"> 预计阅读 4 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p>在C语言中，数组是最常用到的。分为静态数组和动态数组。
+静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
+内存。</p>
+
+<p>c99 标准中加入了<a href="http://en.cppreference.com/w/c/language/array">变长数组VLA</a>，
+数组大小可以用非整数常量表达式表示。例如：</p>
+
+<pre><code class="language-c">size_t n1 = 10, n2=35;
+float a[n1], b[n1][n2];
+</code></pre>
+
+<p>但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+这时就需要动态地从堆（heap）上分配内存，即动态分配。
+动态数组的长度则是随程序的需要来指定的。
+标准C语言中提供动态分配和释放的函数，包含于头文件 <code>stdlib.h</code> 中。</p>
+
+<p></p>
+    </div>
+    <div class="read-more">
+      <a href="/dynamic-allocate-2d-array/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -282,48 +312,6 @@ $ exec $SHELL -l
     </div>
     <div class="read-more">
       <a href="/hello-world/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/linux-environment-for-seismology/">CentOS 7安装及配置</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2014-07-15 </span>
-      <div class="post-category">
-          
-            <a href="/categories/%E5%AE%89%E8%A3%85/"> 安装 </a>
-          
-        </div>
-      <span class="more-meta"> 约 6493 字 </span>
-      <span class="more-meta"> 预计阅读 13 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <p><strong>转载于 Seisman <a href="https://seisman.info/linux-environment-for-seismology-research.html">用 CentOS 7 打造合适的科研环境</a></strong>，
-部分小节按照自己需求有更改。</p>
-
-<p>这篇博文记录了我用 CentOS 7 搭建 <strong>地震学科研环境</strong> 的过程，供我个人在未来重装系统时参考。
-对于其他地震学科研人员，也许有借鉴意义。</p>
-
-<p>阅读须知：</p>
-
-<ol>
-<li>本文适用于个人电脑，不适用于服务器；</li>
-<li><strong>不推荐刚接触 Linux 的人使用 CentOS 发行版</strong>；</li>
-<li>本文尽量写的浅显易懂，但要求读者掌握 Linux 基础知识；</li>
-<li>本文所有操作均在 CentOS 7 下完成，其他发行版或多或少与 CentOS 7 不同，因而仅供参考；</li>
-<li>本文所安装的软件纯粹出于个人习惯及喜好，读者应自己判断，按需安装；</li>
-</ol>
-
-<p></p>
-    </div>
-    <div class="read-more">
-      <a href="/linux-environment-for-seismology/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
