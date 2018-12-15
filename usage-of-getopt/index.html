@@ -19,17 +19,16 @@
 <meta name="author" content="pzhang" />
   <meta name="description" content="getopt介绍 getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数， getopt提供了更为方便和友好的方式。
 函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
-int getopt(int argc, char *const argv[], const char *optstring); extern char *optarg; extern int optind, opterr, optopt;  
-" />
+int getopt(int argc, char *const argv[], const char *optstring); extern char *optarg; extern int optind, opterr, optopt; " />
 
-  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
-
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
 
 
 
 
 
-<meta name="generator" content="Hugo 0.49" />
+
+<meta name="generator" content="Hugo 0.51" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/usage-of-getopt/" />
@@ -63,8 +62,6 @@ getopt提供了更为方便和友好的方式。
 int getopt(int argc, char *const argv[], const char *optstring);
 extern char *optarg;
 extern int optind, opterr, optopt;
-
-
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://whu-pzhang.github.io/usage-of-getopt/" /><meta property="article:published_time" content="2015-09-20T00:00:00&#43;00:00"/>
@@ -81,8 +78,6 @@ getopt提供了更为方便和友好的方式。
 int getopt(int argc, char *const argv[], const char *optstring);
 extern char *optarg;
 extern int optind, opterr, optopt;
-
-
 ">
 
 
@@ -105,8 +100,6 @@ getopt提供了更为方便和友好的方式。
 int getopt(int argc, char *const argv[], const char *optstring);
 extern char *optarg;
 extern int optind, opterr, optopt;
-
-
 "/>
 
 <!--[if lte IE 9]>
@@ -225,8 +218,6 @@ getopt提供了更为方便和友好的方式。</p>
 extern char *optarg;
 extern int optind, opterr, optopt;
 </code></pre>
-
-<p></p>
 
 <p>其中，<code>argc</code> 和 <code>argv</code> 是由 <code>main()</code> 函数传递的参数个数和内容， <code>optstring</code> 代表待处理的选项字符串;</p>
 

@@ -17,9 +17,7 @@
       <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
       
       <guid>https://whu-pzhang.github.io/install-madagascar-on-linux/</guid>
-      <description>&lt;p&gt;Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -33,9 +31,7 @@
 &lt;/blockquote&gt;
 
 &lt;p&gt;Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
-在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -54,9 +50,7 @@ getopt提供了更为方便和友好的方式。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int getopt(int argc, char *const argv[], const char *optstring);
 extern char *optarg;
 extern int optind, opterr, optopt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -79,9 +73,7 @@ float a[n1], b[n1][n2];
 &lt;p&gt;但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
 这时就需要动态地从堆（heap）上分配内存，即动态分配。
 动态数组的长度则是随程序的需要来指定的。
-标准C语言中提供动态分配和释放的函数，包含于头文件 &lt;code&gt;stdlib.h&lt;/code&gt; 中。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+标准C语言中提供动态分配和释放的函数，包含于头文件 &lt;code&gt;stdlib.h&lt;/code&gt; 中。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -107,9 +99,7 @@ float a[n1], b[n1][n2];
 &lt;li&gt;&lt;p&gt;&lt;code&gt;sizeof a&lt;/code&gt; 得到的是整个数组所占字节的大小，而 &lt;code&gt;sizeof p&lt;/code&gt; 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)&lt;/p&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;尽管 &lt;code&gt;a&lt;/code&gt;和 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt; 得到的地址是一样的，但是其意义是不一样的，&lt;code&gt;a&lt;/code&gt;表示的是存储数组这块连续内存空间的首地址而 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt;表示的是数组第一个元素的首地址。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ol&gt;</description>
     </item>
     
     <item>
@@ -132,9 +122,7 @@ float a[n1], b[n1][n2];
 &lt;li&gt;本文尽量写的浅显易懂，但要求读者掌握 Linux 基础知识；&lt;/li&gt;
 &lt;li&gt;本文所有操作均在 CentOS 7 下完成，其他发行版或多或少与 CentOS 7 不同，因而仅供参考；&lt;/li&gt;
 &lt;li&gt;本文所安装的软件纯粹出于个人习惯及喜好，读者应自己判断，按需安装；&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ol&gt;</description>
     </item>
     
   </channel>

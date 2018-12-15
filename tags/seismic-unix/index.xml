@@ -29,9 +29,7 @@
 &lt;p&gt;但是其中自带的 &lt;code&gt;segy.h&lt;/code&gt; 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
 来对SU格式的文件进行读写。&lt;/p&gt;
 
-&lt;p&gt;关于SU文件格式可以参考&lt;a href=&#34;https://whu-pzhang.github.io/SU-and-Segy-format.html&#34;&gt;SU/SEGY文件格式&lt;/a&gt; 一文。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;关于SU文件格式可以参考&lt;a href=&#34;https://whu-pzhang.github.io/SU-and-Segy-format.html&#34;&gt;SU/SEGY文件格式&lt;/a&gt; 一文。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -45,9 +43,7 @@
 &lt;p&gt;地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
-由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。&lt;/p&gt;</description>
     </item>
     
   </channel>

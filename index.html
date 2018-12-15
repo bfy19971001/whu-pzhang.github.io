@@ -18,14 +18,14 @@
 
 <meta name="author" content="whu-pzhang" />
   <meta name="description" content="Learning and Sharing Knowledge." />
-  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.49" />
+<meta name="generator" content="Hugo 0.51" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/" />
@@ -54,7 +54,7 @@
 <meta property="og:description" content="Learning and Sharing Knowledge." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://whu-pzhang.github.io/" />
-<meta property="og:updated_time" content="2018-09-27T22:20:58&#43;08:00"/>
+<meta property="og:updated_time" content="2018-10-10T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="PzNotes - Learning and Sharing">
 <meta itemprop="description" content="Learning and Sharing Knowledge.">
@@ -136,6 +136,48 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/cs231n-assignment1/">cs231n作业1笔记</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-10-10 </span>
+      <div class="post-category">
+          
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+          
+        </div>
+      <span class="more-meta"> 约 2616 字 </span>
+      <span class="more-meta"> 预计阅读 6 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <h2 id="课程简介">课程简介</h2>
+
+<p>这段时间刷了一遍斯坦福的<a href="http://cs231n.stanford.edu/">cs231n</a>计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。</p>
+
+<p>Assignment主页： <a href="https://cs231n.github.io/">CS231n Convolutional Neural Networks for Visual Recognition</a></p>
+
+<p>今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。</p>
+
+<p><a href="https://cs231n.github.io/assignments2018/assignment1/">Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network</a></p>
+
+<p><a href="https://cs231n.github.io/assignments2018/assignment2/">Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets</a></p>
+
+<p><a href="https://cs231n.github.io/assignments2018/assignment3/">Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks</a></p>
+
+<p>Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。</p>
+
+<p>我的代码实现<a href="https://github.com/whu-pzhang/cs231n">whu-pzhang/cs231n</a>.</p>
+    </div>
+    <div class="read-more">
+      <a href="/cs231n-assignment1/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/kalman-filter/">卡尔曼滤波</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2018-09-27 </span>
@@ -154,8 +196,6 @@
       <h2 id="引言">引言</h2>
 
 <p>最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/kalman-filter/" class="read-more-link">阅读更多</a>
@@ -184,8 +224,6 @@
   <div class="post-content">
     <div class="post-summary">
       <p>记录macOS上安装OpenCV。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/install-opencv-on-macos/" class="read-more-link">阅读更多</a>
@@ -213,8 +251,6 @@
     <div class="post-summary">
       <p>c语言中，<code>#define</code> 和 <code>typedef</code> 均是用来定义别名的符号，但又有明显的不同。
 <code>#define</code> 定义的宏只是简单的文本替换，<code>typedef</code> 则是类型别名。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/define-and-typedef/" class="read-more-link">阅读更多</a>
@@ -243,44 +279,9 @@
       <p>现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。</p>
 
 <p>对于这样的需求，使用Python标准库中的<code>ctypes</code>模块来实现是非常容易的。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/python-ctypes/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/mada-colormaps/">Madagascar之colormap</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-05-10 </span>
-      <div class="post-category">
-          
-            <a href="/categories/%E5%9C%B0%E9%9C%87%E5%8B%98%E6%8E%A2/"> 地震勘探 </a>
-          
-        </div>
-      <span class="more-meta"> 约 594 字 </span>
-      <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <p>平常作图时都会遇到如何选择colormap的问题。
-而Madagascar文档也没有对各种colormap作系统的说明。</p>
-
-<p>本文梳理了Madagascar中现有的各种colormap。</p>
-
-<p>本文 <code>SConstruct</code> 脚本位于 <a href="https://github.com/whu-pzhang/Mada/tree/master/colormap">Github</a>.</p>
-
-<p></p>
-    </div>
-    <div class="read-more">
-      <a href="/mada-colormaps/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

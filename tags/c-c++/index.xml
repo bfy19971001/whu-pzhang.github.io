@@ -17,9 +17,7 @@
       <pubDate>Sat, 07 Apr 2018 16:01:06 +0800</pubDate>
       
       <guid>https://whu-pzhang.github.io/install-opencv-on-macos/</guid>
-      <description>&lt;p&gt;记录macOS上安装OpenCV。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;记录macOS上安装OpenCV。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -29,9 +27,7 @@
       
       <guid>https://whu-pzhang.github.io/define-and-typedef/</guid>
       <description>&lt;p&gt;c语言中，&lt;code&gt;#define&lt;/code&gt; 和 &lt;code&gt;typedef&lt;/code&gt; 均是用来定义别名的符号，但又有明显的不同。
-&lt;code&gt;#define&lt;/code&gt; 定义的宏只是简单的文本替换，&lt;code&gt;typedef&lt;/code&gt; 则是类型别名。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;code&gt;#define&lt;/code&gt; 定义的宏只是简单的文本替换，&lt;code&gt;typedef&lt;/code&gt; 则是类型别名。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -51,9 +47,7 @@ Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
     &#39;&#39;&#39;
     ${SOURCES[2].abspath} inp2=${SOURCES[1]}
     &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

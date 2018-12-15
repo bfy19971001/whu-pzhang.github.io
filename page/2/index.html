@@ -18,14 +18,14 @@
 
 <meta name="author" content="whu-pzhang" />
   <meta name="description" content="Learning and Sharing Knowledge." />
-  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.49" />
+<meta name="generator" content="Hugo 0.51" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/" />
@@ -54,7 +54,7 @@
 <meta property="og:description" content="Learning and Sharing Knowledge." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://whu-pzhang.github.io/" />
-<meta property="og:updated_time" content="2017-05-03T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2017-05-10T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="PzNotes - Learning and Sharing">
 <meta itemprop="description" content="Learning and Sharing Knowledge.">
@@ -136,6 +136,37 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/mada-colormaps/">Madagascar之colormap</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-05-10 </span>
+      <div class="post-category">
+          
+            <a href="/categories/%E5%9C%B0%E9%9C%87%E5%8B%98%E6%8E%A2/"> 地震勘探 </a>
+          
+        </div>
+      <span class="more-meta"> 约 594 字 </span>
+      <span class="more-meta"> 预计阅读 2 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p>平常作图时都会遇到如何选择colormap的问题。
+而Madagascar文档也没有对各种colormap作系统的说明。</p>
+
+<p>本文梳理了Madagascar中现有的各种colormap。</p>
+
+<p>本文 <code>SConstruct</code> 脚本位于 <a href="https://github.com/whu-pzhang/Mada/tree/master/colormap">Github</a>.</p>
+    </div>
+    <div class="read-more">
+      <a href="/mada-colormaps/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/learn-numpy/">NumPy学习笔记</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-05-03 </span>
@@ -158,8 +189,6 @@
 <p>NumPy 的出现主要是弥补 Python 数值计算的不足。为 Python 科学计算提供了强大的支撑。</p>
 
 <p>NumPy 主要提供了两种对象：ndarray(N-dimensional array)和 ufunc(Unversal function)。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/learn-numpy/" class="read-more-link">阅读更多</a>
@@ -197,8 +226,6 @@ Flow('out', ['inp1', 'inp2', exe],
     ${SOURCES[2].abspath} inp2=${SOURCES[1]}
     ''')
 </code></pre>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/add-new-program-to-mada/" class="read-more-link">阅读更多</a>
@@ -228,8 +255,6 @@ Flow('out', ['inp1', 'inp2', exe],
     <div class="post-summary">
       <p><a href="http://sepwww.stanford.edu/doku.php?id=sep:software:seplib">SEPlib</a> 是由
 Stanford Exploration Project 开发并维护的地震勘探开源软件包。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/install-seplib-on-linux/" class="read-more-link">阅读更多</a>
@@ -268,53 +293,9 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。</p
 <li>全平台支持： Linux、Windows、Mac</li>
 <li>支持Python2.6、2.7、3.4、3.5</li>
 </ul>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/python-anaconda/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/read-and-write-su-in-c/">在C程序中读写SU格式文件</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-03-01 </span>
-      <div class="post-category">
-          
-            <a href="/categories/%E5%9C%B0%E9%9C%87%E5%8B%98%E6%8E%A2/"> 地震勘探 </a>
-          
-            <a href="/categories/programming/"> Programming </a>
-          
-        </div>
-      <span class="more-meta"> 约 4280 字 </span>
-      <span class="more-meta"> 预计阅读 9 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <h2 id="序言">序言</h2>
-
-<p>Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
-中读写SU文件。本文介绍如何在C程序中读写SU格式文件。</p>
-
-<h2 id="子函数库">子函数库</h2>
-
-<p>Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。</p>
-
-<p>但是其中自带的 <code>segy.h</code> 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
-来对SU格式的文件进行读写。</p>
-
-<p>关于SU文件格式可以参考<a href="/SU-and-Segy-format.html">SU/SEGY文件格式</a> 一文。</p>
-
-<p></p>
-    </div>
-    <div class="read-more">
-      <a href="/read-and-write-su-in-c/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

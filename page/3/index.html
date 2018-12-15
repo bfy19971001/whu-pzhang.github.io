@@ -18,14 +18,14 @@
 
 <meta name="author" content="whu-pzhang" />
   <meta name="description" content="Learning and Sharing Knowledge." />
-  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.49" />
+<meta name="generator" content="Hugo 0.51" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/" />
@@ -54,7 +54,7 @@
 <meta property="og:description" content="Learning and Sharing Knowledge." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://whu-pzhang.github.io/" />
-<meta property="og:updated_time" content="2016-02-29T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2016-03-01T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="PzNotes - Learning and Sharing">
 <meta itemprop="description" content="Learning and Sharing Knowledge.">
@@ -136,6 +136,46 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/read-and-write-su-in-c/">在C程序中读写SU格式文件</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-03-01 </span>
+      <div class="post-category">
+          
+            <a href="/categories/%E5%9C%B0%E9%9C%87%E5%8B%98%E6%8E%A2/"> 地震勘探 </a>
+          
+            <a href="/categories/programming/"> Programming </a>
+          
+        </div>
+      <span class="more-meta"> 约 4280 字 </span>
+      <span class="more-meta"> 预计阅读 9 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <h2 id="序言">序言</h2>
+
+<p>Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
+中读写SU文件。本文介绍如何在C程序中读写SU格式文件。</p>
+
+<h2 id="子函数库">子函数库</h2>
+
+<p>Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。</p>
+
+<p>但是其中自带的 <code>segy.h</code> 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
+来对SU格式的文件进行读写。</p>
+
+<p>关于SU文件格式可以参考<a href="/SU-and-Segy-format.html">SU/SEGY文件格式</a> 一文。</p>
+    </div>
+    <div class="read-more">
+      <a href="/read-and-write-su-in-c/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/su-and-segy-format/">SU/SEGY文件格式</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2016-02-29 </span>
@@ -157,8 +197,6 @@
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/su-and-segy-format/" class="read-more-link">阅读更多</a>
@@ -187,8 +225,6 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
   <div class="post-content">
     <div class="post-summary">
       <p>Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/install-madagascar-on-linux/" class="read-more-link">阅读更多</a>
@@ -224,8 +260,6 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
 
 <pre><code>lscpu | grep -i byte
 </code></pre>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/useful-algorithms/" class="read-more-link">阅读更多</a>
@@ -257,49 +291,9 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
 
 <p>Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。</p>
-
-<p></p>
     </div>
     <div class="read-more">
       <a href="/install-sublime-text-3-under-linux/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/usage-of-getopt/">getopt用法</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2015-09-20 </span>
-      <div class="post-category">
-          
-            <a href="/categories/programming/"> Programming </a>
-          
-        </div>
-      <span class="more-meta"> 约 848 字 </span>
-      <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <h2 id="getopt介绍">getopt介绍</h2>
-
-<p><code>getopt</code> 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
-getopt提供了更为方便和友好的方式。</p>
-
-<p>函数 <code>getopt</code> 包含于系统头文件 <code>unistd.h</code> 中，其函数原型为:</p>
-
-<pre><code class="language-c">int getopt(int argc, char *const argv[], const char *optstring);
-extern char *optarg;
-extern int optind, opterr, optopt;
-</code></pre>
-
-<p></p>
-    </div>
-    <div class="read-more">
-      <a href="/usage-of-getopt/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -18,17 +18,16 @@
 
 <meta name="author" content="pzhang" />
   <meta name="description" content="序言 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化， 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。
-
 " />
 
-  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
 
 
 
 
 
 
-<meta name="generator" content="Hugo 0.49" />
+<meta name="generator" content="Hugo 0.51" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/su-and-segy-format/" />
@@ -57,9 +56,7 @@
 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
-由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。
-
-" />
+由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://whu-pzhang.github.io/su-and-segy-format/" /><meta property="article:published_time" content="2016-02-29T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2016-02-29T00:00:00&#43;00:00"/>
@@ -70,9 +67,7 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
-由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。
-
-">
+由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。">
 
 
 <meta itemprop="datePublished" content="2016-02-29T00:00:00&#43;00:00" />
@@ -89,9 +84,7 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
-由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。
-
-"/>
+由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -215,8 +208,6 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。</p>
 
-<p></p>
-
 <h2 id="seg-y数据格式">SEG-Y数据格式</h2>
 
 <p>SEGY数据格式包括三个部分。</p>
@@ -244,35 +235,35 @@ SAC文件的头段。道头记录了数据的一些基本信息。</p>
     C
     C
     C
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
-    C                                                                              
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
+    C
 </code></pre>
 
 <h3 id="segy卷头文件400字节二进制内容表">SEGY卷头文件400字节二进制内容表</h3>

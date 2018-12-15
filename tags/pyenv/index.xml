@@ -33,9 +33,7 @@ $ echo &#39;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&#39; &amp;gt;&amp
 $ echo &#39;export PATH=&amp;quot;$PATH:$PYENV_ROOT/bin&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
 $ echo &#39;eval &amp;quot;$(pyenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
 $ exec $SHELL -l
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

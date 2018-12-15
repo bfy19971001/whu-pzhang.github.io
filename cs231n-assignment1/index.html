@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>cs231n作业1笔记 - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="课程简介 这段时间刷了一遍斯坦福的cs231n计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。
+Assignment主页： CS231n Convolutional Neural Networks for Visual Recognition
+今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。
+Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network
+Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets
+Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks
+Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。
+我的代码实现whu-pzhang/cs231n.
+" />
+
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/cs231n-assignment1/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="cs231n作业1笔记" />
+<meta property="og:description" content="课程简介
+
+这段时间刷了一遍斯坦福的cs231n计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。
+
+Assignment主页： CS231n Convolutional Neural Networks for Visual Recognition
+
+今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。
+
+Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network
+
+Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets
+
+Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks
+
+Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。
+
+我的代码实现whu-pzhang/cs231n." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/cs231n-assignment1/" /><meta property="article:published_time" content="2018-10-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-10-10T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="cs231n作业1笔记">
+<meta itemprop="description" content="课程简介
+
+这段时间刷了一遍斯坦福的cs231n计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。
+
+Assignment主页： CS231n Convolutional Neural Networks for Visual Recognition
+
+今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。
+
+Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network
+
+Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets
+
+Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks
+
+Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。
+
+我的代码实现whu-pzhang/cs231n.">
+
+
+<meta itemprop="datePublished" content="2018-10-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-10-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2616">
+
+
+
+<meta itemprop="keywords" content="Python,NumPy," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="cs231n作业1笔记"/>
+<meta name="twitter:description" content="课程简介
+
+这段时间刷了一遍斯坦福的cs231n计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。
+
+Assignment主页： CS231n Convolutional Neural Networks for Visual Recognition
+
+今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。
+
+Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network
+
+Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets
+
+Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks
+
+Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。
+
+我的代码实现whu-pzhang/cs231n."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">cs231n作业1笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-10-10 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+            
+          </div>
+        <span class="more-meta"> 约 2616 字 </span>
+        <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="课程简介">课程简介</h2>
+
+<p>这段时间刷了一遍斯坦福的<a href="http://cs231n.stanford.edu/">cs231n</a>计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。</p>
+
+<p>Assignment主页： <a href="https://cs231n.github.io/">CS231n Convolutional Neural Networks for Visual Recognition</a></p>
+
+<p>今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。</p>
+
+<p><a href="https://cs231n.github.io/assignments2018/assignment1/">Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network</a></p>
+
+<p><a href="https://cs231n.github.io/assignments2018/assignment2/">Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets</a></p>
+
+<p><a href="https://cs231n.github.io/assignments2018/assignment3/">Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks</a></p>
+
+<p>Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。</p>
+
+<p>我的代码实现<a href="https://github.com/whu-pzhang/cs231n">whu-pzhang/cs231n</a>.</p>
+
+<h2 id="assignmet1">assignmet1</h2>
+
+<p>作业1的前导课程主要包括课程介绍、对数据驱动方法的介绍，kNN方法，线性分类方法（SVM以及Softmax）以及神经网络方法（多层感知机和反向传播算法）。
+因此，作业1的内容也是基于这几个方面的。</p>
+
+<p>首先需要说明的是，所有分类方法的使用均分为两步：<code>train()</code> 和 <code>predict()</code></p>
+
+<h3 id="knn">kNN</h3>
+
+<p>kNN（k-Nearest Neighbor）方法</p>
+
+<ul>
+<li>训练阶段： 简单的记住训练集数据</li>
+<li>预测阶段： 测试数据分别和训练集中的所有数据计算相似度（以距离为度量），<code>k=1</code>时，取最相似的训练数据的标签作为该测试数据的标签；若<code>k&gt;1</code>，则选择最相似的<code>k</code>个训练数据标签中出现次数最多的类别（多数投票法，vote）作为预测输出。</li>
+</ul>
+
+<p>kNN 方法的主要计算量在计算测试数据与训练集数据的距离这里，因此距离计算的高效性十分重要。这部分的作业也是循序渐进，要求分别实现：双循环计算距离，单循环计算距离以及完全向量化的无循环计算距离。</p>
+
+<ol>
+<li>双循环：每个测试数据和每个训练数据分别计算，可以使用<code>np.linalg.norm()</code>来计算距离。</li>
+<li>单循环：每个测试数据和整个训练集分别计算</li>
+<li>无循环：令测试集为$P$，其维度为 $M \times D$，训练集$C$的维度为 $N \times D$，其中 $M$ 为测试集样本数， $D$为每个样本的维度， $N$为训练集样本数。记 $P_i$为其中一个测试样本，$C_j$ 为一个任意一个训练样本</li>
+</ol>
+
+<p><span  class="math">\[
+P_i = [P_{i1}, P_{i2}, \cdots, P_{iD}] \\
+C_j = [C_{j1}, C_{j2}, \cdots, C_{jD}]
+\]</span></p>
+
+<p>那么 $P_i$ 和 $C_j$ 的距离的平方为：</p>
+
+<p><span  class="math">\[
+\begin{align}
+d(P_i, C_j) &= \sum_{k=1}^D {(P_{ik} - C_{jk})^2} \\
+&= \Vert P_i \Vert^2 + \Vert C_j \Vert^2 - 2 P_i C_j^T
+\end{align}
+\]</span></p>
+
+<p>上述结果是得到是最终的距离矩阵（$M \times N$）其中的一个元素。那么我们可以推广得到距离矩阵的其中一行为：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\boldsymbol{R}_i &= [\Vert P_i \Vert^2 \quad \Vert P_i \Vert^2 \quad \cdots \quad \Vert P_i \Vert^2 ] + [\Vert C_1 \Vert^2 \quad \Vert C_2 \Vert^2 \quad \cdots \quad \Vert C_N \Vert^2] - 2 P_i [C_1^T \quad C_2^T \quad \cdots \quad C_N^T] \\
+&= [\Vert P_i \Vert^2 \quad \Vert P_i \Vert^2 \quad \cdots \quad \Vert P_i \Vert^2 ] + [\Vert C_1 \Vert^2 \quad \Vert C_2 \Vert^2 \quad \cdots \quad \Vert C_N \Vert^2] - 2 P_i C^T]
+\end{align}
+\]</span></p>
+
+<p>继而，可得距离矩阵为：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\boldsymbol{R} &= \begin{bmatrix}
+\Vert P_1 \Vert^2 & \Vert P_1 \Vert^2 & \cdots & \Vert P_1 \Vert^2 \\
+\Vert P_2 \Vert^2 & \Vert P_2 \Vert^2 & \cdots & \Vert P_2 \Vert^2 \\
+\vdots & \vdots & \ddots & \vdots \\
+\Vert P_M \Vert^2 & \Vert P_M \Vert^2 & \cdots & \Vert P_M \Vert^2
+\end{bmatrix} +
+\begin{bmatrix}
+\Vert C_1 \Vert^2 & \Vert C_2 \Vert^2 & \cdots & \Vert C_N \Vert^2 \\
+\Vert C_1 \Vert^2 & \Vert C_2 \Vert^2 & \cdots & \Vert C_N \Vert^2 \\
+\vdots & \vdots & \ddots & \vdots \\
+\Vert C_1 \Vert^2 & \Vert C_2 \Vert^2 & \cdots & \Vert C_N \Vert^2
+\end{bmatrix} - 2 \boldsymbol{P} \boldsymbol{C}^T
+\end{align}
+\]</span></p>
+
+<p>注意，这里计算距离的时候，没有计算其平方跟，这是因为进行距离比较时，计不计算平方跟不影响结果，平方根运算属于冗余计算。</p>
+
+<p>最终计算的时候利用广播即可。代码如下：</p>
+
+<pre><code class="language-python">dists += np.sum(X**2, axis=1).reshape(num_test, 1)
+dists += np.sum(self.X_train**2, axis=1).reshape(1, num_train)
+dists -= 2 * (X @ self.X_train.T)
+</code></pre>
+
+<p>计算得到距离后，然后就是预测了。可利用 <code>np.argsort()</code> 获取距离最近的前<code>k</code>个训练样本，然后采用 <code>np.bincount()</code> 与 <code>np.argmax()</code> 结合，得到高票标签作为预测输出。</p>
+
+<p>最后部分是利用交叉验证得到kNN中的最佳的<code>k</code>值。</p>
+
+<h3 id="svm">SVM</h3>
+
+<p>第二部分是多分类的SVM算法。</p>
+
+<p>线性分类器表示如下：</p>
+
+<p><span  class="math">\[
+f(x_i; \boldsymbol{W}, b) = \boldsymbol{W} x_i + b
+\]</span></p>
+
+<p>$f(x_i; \boldsymbol{W}, b)$ 称为单个样本的分数（score），首先需要计算线性SVM的合页损失函数：</p>
+
+<p><span  class="math">\[
+L = \frac{1}{N} \sum_{i=1}^N {L_i} + \lambda R(\boldsymbol{W})
+\]</span></p>
+
+<p>其中，</p>
+
+<p><span  class="math">\[
+L_i = \sum_{j \ne y_i} max(0, s_j - s_{y_i} + \Delta)
+\]</span></p>
+
+<p>式中，$s_{y_i}$ 表示正确类别的分数，$s_j$则表示其他类别对应的分数。也就是说只有错误的分类才会产生loss，正确分类的loss为0。</p>
+
+<p>这里的 $\Delta$ 表示最大间隔，需要注意的是，它的值不需要通过交叉验证来确定，大多数情况下，令 $\Delta = 1.0$ 即可。
+这是因为 $\Delta$ 和 $\lambda$ 一样控制着数据损失和正则化损失之间的权衡，而权重矩阵 $\boldsymbol{W}$ 的缩放可以直接影响各个类别分数之间的差异，因此分数之间边界的精确值（$\Delta=1$ 或 $\Delta=100$），在某种程度上是无意义的。</p>
+
+<p>主要代码如下：</p>
+
+<pre><code class="language-python">margins = np.maximum(0, scores - corrent_scores + 1) # delta = 1
+margins[np.arange(num_train), y] = 0.0
+</code></pre>
+
+<p>接下来是权重矩阵$\boldsymbol{W}$梯度的计算。</p>
+
+<p><span  class="math">\[
+\begin{cases}
+\nabla_{w_{y_i}} L_i = - \left ( \sum_{j \ne y_i} {\mathbb{I} (margin_j > 0)} \right) x_i \\
+\nabla_{w_{j}} L_i = \mathbb{I} (margin_j > 0) x_i
+\end{cases}
+\]</span></p>
+
+<p>其中 $\mathbb{I}$ 为指示函数，条件为真时，其值为1；反之为零。上式表达的意思就是：每个 $margin &gt; 0$  的分类会对正确类别产生 $-x_i$ 的贡献，而对于错误分类产生一个 $x_i$ 的贡献。对某个样本，所有 $margin&gt;0$ 的错误分类（正确分类 $margin$ 为 0）对正确分类共产生 $NUM(margin &gt; 0)​$ 次贡献，而对错误分类则只产生一次贡献。</p>
+
+<p>根据反向传播原理（链式法则）：</p>
+
+<p><span  class="math">\[
+\nabla_{\boldsymbol{W}} L = \frac{\partial L} {\partial \mathbf{s}} \frac{\partial \mathbf{s}} {\partial \boldsymbol{W}}
+\]</span></p>
+
+<p>其中，$\frac{\partial \mathbf{s}} {\partial \boldsymbol{W}} = \boldsymbol{X}^T$，因此只需要构造 $\frac{\partial L} {\partial \mathbf{s}}$ 即可。</p>
+
+<pre><code class="language-python">dS = np.zeros((num_train, num_classes))
+dS[margins &gt; 0] = 1  # only margin &gt; 0 contribute to gradient
+dS[np.arange(num_train), y] -= np.sum(coeff_mat, axis=1)
+
+dW = X.T @ dS
+</code></pre>
+
+<p>另外，计算损失和梯度时不要漏掉正则项即可。</p>
+
+<p>损失函数和梯度计算搞定后，小批量SGD就很简单了，直接根据学习率更新参数即可。</p>
+
+<h3 id="softmax">Softmax</h3>
+
+<p>这部分是基于线性模型的softmax损失分类器，与SVM不同的是，损失函数里的子项是交叉熵（cross-entropy）：</p>
+
+<p><span  class="math">\[
+L_i = -\log \left( \frac{e^{f_{y_i}}} {\sum_{j} {e^{f_j}}} \right) =
+-f_{y_i} + \log (\sum_{j} {e^{f_j}})
+\]</span></p>
+
+<p>这里计算loss若采用的是第一种表示形式，那么需要注意数值稳定性的问题：分子分母中都有指数项。实现时，可先将得到的值shift一下，这样不会改变最终的结果，但是数值稳定。</p>
+
+<p><span  class="math">\[
+\frac{e^{f_{y_i}}} {\sum_{j} {e^{f_j}}} = \frac{C e^{f_{y_i}}} {C \sum_{j} {e^{f_j}}} = \frac{e^{f_{y_i} + \log C}} {\sum_{j} {e^{f_j + \log C}}}
+\]</span></p>
+
+<p>上式中，取 $\log C = - \max_j f_j$ 的话，实现如下：</p>
+
+<pre><code class="language-python">scores = X.dot(W)
+scores -= np.max(scores, axis=1, keepdims=True)  # N X 1
+</code></pre>
+
+<p>对权重矩阵的梯度如下：</p>
+
+<p><span  class="math">\[
+\nabla_\boldsymbol{W} L = \left( - \mathbb{I} (j = i) +  \frac{e^{\hat{f}_{y_i}}} {\sum_{j} {e^{\hat{f}_j}}} \right) x_i
+\]</span></p>
+
+<p>即样本对正确分类的贡献比错误分类的贡献小 $x_i$。具体实现和SVM类似：</p>
+
+<pre><code class="language-python">normalized_scores = np.exp(
+    scores) / np.sum(np.exp(scores), axis=1, keepdims=True)  # N X C
+normalized_scores[np.arange(num_train), y] += -1
+dW = X.T @ normalized_scores
+</code></pre>
+
+<h3 id="两层神经网络">两层神经网络</h3>
+
+<p>这部分需要完成一个简单的两层神经网络。包含一个隐藏层，激活函数为<code>ReLU</code>，使用Softmax分类损失函数。</p>
+
+<p>loss 的计算和前面SVM以及Softmax类似，不再赘述。</p>
+
+<p>主要是梯度的计算过程。应用反向传播原理，理清顺序即可，最好画个示意图。</p>
+
+<p><span  class="math">\[
+\mathcal{l} = \frac{1}{N} \sum_{i=1}^N { (\hat{y}_i - y_i)^2 }
+\]</span></p>
+
+<p><span  class="math">\[
+\mathbf{y} = \mathbf{x} \mathbf{w} + \mathbf{b}
+\]</span></p>
+
+<pre><code class="language-python">dscores = np.exp(scores) / np.sum(np.exp(scores), axis=1, keepdims=True)
+dscores[np.arange(N), y] += -1
+dscores /= N
+grads['W2'] = h1_output.T @ dscores + 2.0 * reg * W2
+grads['b2'] = np.sum(dscores, axis=0)
+
+dh = dscores @ W2.T
+dh_ReLU = (h1_output &gt; 0) * dh
+grads['W1'] = X.T @ dh_ReLU + 2.0 * reg * W1
+grads['b1'] = np.sum(dh_ReLU, axis=0)
+</code></pre>
+
+<h3 id="更高级别的表示">更高级别的表示</h3>
+
+<p>这部分主要是将 Histogram of Oriented(HoG) 特征和 color histogram 预先从图像中提取出来，然后作为特征加入到神经网络的输入中，从而达到提高预测准确率的目的。</p>
+
+<p>练习部分主要是调参，尝试不同的学习率和正则化强度后，达到最好的预测准确率即可。</p>
+
+<p>至此，作业1的全部内容就完成了！</p>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-10-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/python/">Python</a>
+          
+          <a href="/tags/numpy/">NumPy</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/kalman-filter/">
+            <span class="next-text nav-default">卡尔曼滤波</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

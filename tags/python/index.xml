@@ -6,10 +6,35 @@
     <description>Recent content in Python on PzNotes - Learning and Sharing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 07 Apr 2018 16:01:06 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 10 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://whu-pzhang.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cs231n作业1笔记</title>
+      <link>https://whu-pzhang.github.io/cs231n-assignment1/</link>
+      <pubDate>Wed, 10 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/cs231n-assignment1/</guid>
+      <description>&lt;h2 id=&#34;课程简介&#34;&gt;课程简介&lt;/h2&gt;
+
+&lt;p&gt;这段时间刷了一遍斯坦福的&lt;a href=&#34;http://cs231n.stanford.edu/&#34;&gt;cs231n&lt;/a&gt;计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。&lt;/p&gt;
+
+&lt;p&gt;Assignment主页： &lt;a href=&#34;https://cs231n.github.io/&#34;&gt;CS231n Convolutional Neural Networks for Visual Recognition&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cs231n.github.io/assignments2018/assignment1/&#34;&gt;Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cs231n.github.io/assignments2018/assignment2/&#34;&gt;Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cs231n.github.io/assignments2018/assignment3/&#34;&gt;Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。&lt;/p&gt;
+
+&lt;p&gt;我的代码实现&lt;a href=&#34;https://github.com/whu-pzhang/cs231n&#34;&gt;whu-pzhang/cs231n&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>macOS 安装 OpenCV</title>
@@ -17,9 +42,7 @@
       <pubDate>Sat, 07 Apr 2018 16:01:06 +0800</pubDate>
       
       <guid>https://whu-pzhang.github.io/install-opencv-on-macos/</guid>
-      <description>&lt;p&gt;记录macOS上安装OpenCV。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;记录macOS上安装OpenCV。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -30,9 +53,7 @@
       <guid>https://whu-pzhang.github.io/python-ctypes/</guid>
       <description>&lt;p&gt;现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。&lt;/p&gt;
 
-&lt;p&gt;对于这样的需求，使用Python标准库中的&lt;code&gt;ctypes&lt;/code&gt;模块来实现是非常容易的。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;对于这样的需求，使用Python标准库中的&lt;code&gt;ctypes&lt;/code&gt;模块来实现是非常容易的。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -47,9 +68,7 @@
 
 &lt;p&gt;NumPy 的出现主要是弥补 Python 数值计算的不足。为 Python 科学计算提供了强大的支撑。&lt;/p&gt;
 
-&lt;p&gt;NumPy 主要提供了两种对象：ndarray(N-dimensional array)和 ufunc(Unversal function)。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;NumPy 主要提供了两种对象：ndarray(N-dimensional array)和 ufunc(Unversal function)。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -70,9 +89,7 @@
 &lt;li&gt;对于学术用途可以申请免费的加速 icense&lt;/li&gt;
 &lt;li&gt;全平台支持： Linux、Windows、Mac&lt;/li&gt;
 &lt;li&gt;支持Python2.6、2.7、3.4、3.5&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/ul&gt;</description>
     </item>
     
     <item>
@@ -90,9 +107,7 @@
 &lt;p&gt;Linux下可以直接用Shell命令查看：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;lscpu | grep -i byte
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -117,9 +132,7 @@ $ echo &#39;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&#39; &amp;gt;&amp
 $ echo &#39;export PATH=&amp;quot;$PATH:$PYENV_ROOT/bin&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
 $ echo &#39;eval &amp;quot;$(pyenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
 $ exec $SHELL -l
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
   </channel>

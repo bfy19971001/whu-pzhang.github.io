@@ -18,17 +18,16 @@
 
 <meta name="author" content="pzhang" />
   <meta name="description" content="有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目 录重新编译，然后再在SConstruct中调用,类似这样：
-prog = Program(&#39;Mcode.c&#39;) exe = str(prog[0]) # proj = Project() # prog = proj.Program(&#39;Mcode.c&#39;) Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe], &#39;&#39;&#39; ${SOURCES[2].abspath} inp2=${SOURCES[1]} &#39;&#39;&#39;)  
-" />
+prog = Program(&#39;Mcode.c&#39;) exe = str(prog[0]) # proj = Project() # prog = proj.Program(&#39;Mcode.c&#39;) Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe], &#39;&#39;&#39; ${SOURCES[2].abspath} inp2=${SOURCES[1]} &#39;&#39;&#39;) " />
 
-  <meta name="keywords" content="Geophysics, Coding, OpenSource" />
-
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
 
 
 
 
 
-<meta name="generator" content="Hugo 0.49" />
+
+<meta name="generator" content="Hugo 0.51" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/add-new-program-to-mada/" />
@@ -63,8 +62,6 @@ Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
     &#39;&#39;&#39;
     ${SOURCES[2].abspath} inp2=${SOURCES[1]}
     &#39;&#39;&#39;)
-
-
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://whu-pzhang.github.io/add-new-program-to-mada/" /><meta property="article:published_time" content="2016-11-03T00:00:00&#43;00:00"/>
@@ -82,8 +79,6 @@ Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
     &#39;&#39;&#39;
     ${SOURCES[2].abspath} inp2=${SOURCES[1]}
     &#39;&#39;&#39;)
-
-
 ">
 
 
@@ -107,8 +102,6 @@ Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
     &#39;&#39;&#39;
     ${SOURCES[2].abspath} inp2=${SOURCES[1]}
     &#39;&#39;&#39;)
-
-
 "/>
 
 <!--[if lte IE 9]>
@@ -229,8 +222,6 @@ Flow('out', ['inp1', 'inp2', exe],
     ${SOURCES[2].abspath} inp2=${SOURCES[1]}
     ''')
 </code></pre>
-
-<p></p>
 
 <p>若是只在一个project中用到倒还好，但若是比较通用的程序，在不同的文件夹中都要这么来调
 用的话未免太麻烦。而将我们的代码直接加入Mada中，就可以直接调用。不用将源码拷来拷去还

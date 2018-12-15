@@ -22,9 +22,7 @@
 
 &lt;p&gt;本文梳理了Madagascar中现有的各种colormap。&lt;/p&gt;
 
-&lt;p&gt;本文 &lt;code&gt;SConstruct&lt;/code&gt; 脚本位于 &lt;a href=&#34;https://github.com/whu-pzhang/Mada/tree/master/colormap&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;本文 &lt;code&gt;SConstruct&lt;/code&gt; 脚本位于 &lt;a href=&#34;https://github.com/whu-pzhang/Mada/tree/master/colormap&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -44,9 +42,7 @@ Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
     &#39;&#39;&#39;
     ${SOURCES[2].abspath} inp2=${SOURCES[1]}
     &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
@@ -56,9 +52,7 @@ Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
       
       <guid>https://whu-pzhang.github.io/install-seplib-on-linux/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://sepwww.stanford.edu/doku.php?id=sep:software:seplib&#34;&gt;SEPlib&lt;/a&gt; 是由
-Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -79,9 +73,7 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt
 &lt;p&gt;但是其中自带的 &lt;code&gt;segy.h&lt;/code&gt; 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
 来对SU格式的文件进行读写。&lt;/p&gt;
 
-&lt;p&gt;关于SU文件格式可以参考&lt;a href=&#34;https://whu-pzhang.github.io/SU-and-Segy-format.html&#34;&gt;SU/SEGY文件格式&lt;/a&gt; 一文。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;关于SU文件格式可以参考&lt;a href=&#34;https://whu-pzhang.github.io/SU-and-Segy-format.html&#34;&gt;SU/SEGY文件格式&lt;/a&gt; 一文。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -95,9 +87,7 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt
 &lt;p&gt;地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
-由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -106,9 +96,7 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
       <pubDate>Mon, 26 Oct 2015 00:00:00 +0000</pubDate>
       
       <guid>https://whu-pzhang.github.io/install-madagascar-on-linux/</guid>
-      <description>&lt;p&gt;Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Madagascar 是与Seismic_Unix 以及 SEPlib 差不多的一套东西。&lt;/p&gt;</description>
     </item>
     
   </channel>

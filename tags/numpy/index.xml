@@ -6,10 +6,35 @@
     <description>Recent content in Numpy on PzNotes - Learning and Sharing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 03 May 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 10 Oct 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://whu-pzhang.github.io/tags/numpy/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cs231n作业1笔记</title>
+      <link>https://whu-pzhang.github.io/cs231n-assignment1/</link>
+      <pubDate>Wed, 10 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/cs231n-assignment1/</guid>
+      <description>&lt;h2 id=&#34;课程简介&#34;&gt;课程简介&lt;/h2&gt;
+
+&lt;p&gt;这段时间刷了一遍斯坦福的&lt;a href=&#34;http://cs231n.stanford.edu/&#34;&gt;cs231n&lt;/a&gt;计算机视觉课程。其作业难度相比Andrew Ng在Coursera上的机器学习而言大得多。&lt;/p&gt;
+
+&lt;p&gt;Assignment主页： &lt;a href=&#34;https://cs231n.github.io/&#34;&gt;CS231n Convolutional Neural Networks for Visual Recognition&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;今年Spring 2018的作业分为3个部分，都是在Python3环境下进行的。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cs231n.github.io/assignments2018/assignment1/&#34;&gt;Assignment #1: Image Classification, kNN, SVM, Softmax, Neural Network&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cs231n.github.io/assignments2018/assignment2/&#34;&gt;Assignment #2: Fully-Connected Nets, Batch Normalization, Dropout, Convolutional Nets&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cs231n.github.io/assignments2018/assignment3/&#34;&gt;Assignment #3: Image Captioning with Vanilla RNNs, Image Captioning with LSTMs, Network Visualization, Style Transfer, Generative Adversarial Networks&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Assignment1从最简单的kNN分类器开始，到基本的线性分类器，逐步实现SVM以及Softmax分类器，直到最后需要手写一个简单的双层神经网络分类器。&lt;/p&gt;
+
+&lt;p&gt;我的代码实现&lt;a href=&#34;https://github.com/whu-pzhang/cs231n&#34;&gt;whu-pzhang/cs231n&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>NumPy学习笔记</title>
@@ -23,9 +48,7 @@
 
 &lt;p&gt;NumPy 的出现主要是弥补 Python 数值计算的不足。为 Python 科学计算提供了强大的支撑。&lt;/p&gt;
 
-&lt;p&gt;NumPy 主要提供了两种对象：ndarray(N-dimensional array)和 ufunc(Unversal function)。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+&lt;p&gt;NumPy 主要提供了两种对象：ndarray(N-dimensional array)和 ufunc(Unversal function)。&lt;/p&gt;</description>
     </item>
     
   </channel>
