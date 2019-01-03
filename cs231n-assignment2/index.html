@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>cs231n作业2笔记 - PzNotes - Learning and Sharing</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="pzhang" />
+  <meta name="description" content="简介 Assignment1中我们分别采用 kNN、线性分类器、SVM、Softmax分类以及简单两层神经网络对CIFAR-10数据集进行了分类。
+来到Assignment2中，需要自己搭建卷积神经网络（CNN）来进行图像分类。
+Assignment2主要分为5个部分：
+ Fully-connected Nerual Network  这部分为作业1中两层神经网络的延续，需要将各个隐藏层的forward以及backward过程模块化，以便搭建任意层数的神经网络。
+ Batch Normalization  为了使深度神经网络的训练更快，一种策略是寻找更好的优化方法；另一种思路便是改变网络的架构使其训练更快。我们知道，机器学习方法对于白化（特征之间无相关性，零均值，单位方差）的输入数据有着更好的效果。
+对数据的预处理（去均值、归一化、PCA以及白化）只能保证第一层的输入满足条件，但随着网络的逐步深入，深层网络的激活输入就不再满足条件了。更糟的是，随着训练加深，每层的特征分布还会随着权重的更新而偏移。
+loffe 2015提出的Batch Normalization便是为了解决这个问题的。具体可以参考论文。
+ Dropout  Dropout 是缓解过拟合的一种方法。会按比例随机的丢掉一部分激活值，达到缓解过拟合的目的。
+ Convolutional Networks  这部分需要完成CNN的各个组件，然后组合在一起，搭建一个完整的CNN网络。
+ PyTorch/TensofFlow on CIFAR-10  主要是这两个框架的练习。
+我的代码实现whu-pzhang/cs231n.
+" />
+
+  <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.51" />
+
+
+<link rel="canonical" href="https://whu-pzhang.github.io/cs231n-assignment2/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="cs231n作业2笔记" />
+<meta property="og:description" content="简介
+
+Assignment1中我们分别采用 kNN、线性分类器、SVM、Softmax分类以及简单两层神经网络对CIFAR-10数据集进行了分类。
+
+来到Assignment2中，需要自己搭建卷积神经网络（CNN）来进行图像分类。
+
+Assignment2主要分为5个部分：
+
+
+Fully-connected Nerual Network
+
+
+这部分为作业1中两层神经网络的延续，需要将各个隐藏层的forward以及backward过程模块化，以便搭建任意层数的神经网络。
+
+
+Batch Normalization
+
+
+为了使深度神经网络的训练更快，一种策略是寻找更好的优化方法；另一种思路便是改变网络的架构使其训练更快。我们知道，机器学习方法对于白化（特征之间无相关性，零均值，单位方差）的输入数据有着更好的效果。
+
+对数据的预处理（去均值、归一化、PCA以及白化）只能保证第一层的输入满足条件，但随着网络的逐步深入，深层网络的激活输入就不再满足条件了。更糟的是，随着训练加深，每层的特征分布还会随着权重的更新而偏移。
+
+loffe 2015提出的Batch Normalization便是为了解决这个问题的。具体可以参考论文。
+
+
+Dropout
+
+
+Dropout 是缓解过拟合的一种方法。会按比例随机的丢掉一部分激活值，达到缓解过拟合的目的。
+
+
+Convolutional Networks
+
+
+这部分需要完成CNN的各个组件，然后组合在一起，搭建一个完整的CNN网络。
+
+
+PyTorch/TensofFlow on CIFAR-10
+
+
+主要是这两个框架的练习。
+
+我的代码实现whu-pzhang/cs231n." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://whu-pzhang.github.io/cs231n-assignment2/" /><meta property="article:published_time" content="2018-11-10T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2018-11-10T00:00:00&#43;00:00"/>
+
+<meta itemprop="name" content="cs231n作业2笔记">
+<meta itemprop="description" content="简介
+
+Assignment1中我们分别采用 kNN、线性分类器、SVM、Softmax分类以及简单两层神经网络对CIFAR-10数据集进行了分类。
+
+来到Assignment2中，需要自己搭建卷积神经网络（CNN）来进行图像分类。
+
+Assignment2主要分为5个部分：
+
+
+Fully-connected Nerual Network
+
+
+这部分为作业1中两层神经网络的延续，需要将各个隐藏层的forward以及backward过程模块化，以便搭建任意层数的神经网络。
+
+
+Batch Normalization
+
+
+为了使深度神经网络的训练更快，一种策略是寻找更好的优化方法；另一种思路便是改变网络的架构使其训练更快。我们知道，机器学习方法对于白化（特征之间无相关性，零均值，单位方差）的输入数据有着更好的效果。
+
+对数据的预处理（去均值、归一化、PCA以及白化）只能保证第一层的输入满足条件，但随着网络的逐步深入，深层网络的激活输入就不再满足条件了。更糟的是，随着训练加深，每层的特征分布还会随着权重的更新而偏移。
+
+loffe 2015提出的Batch Normalization便是为了解决这个问题的。具体可以参考论文。
+
+
+Dropout
+
+
+Dropout 是缓解过拟合的一种方法。会按比例随机的丢掉一部分激活值，达到缓解过拟合的目的。
+
+
+Convolutional Networks
+
+
+这部分需要完成CNN的各个组件，然后组合在一起，搭建一个完整的CNN网络。
+
+
+PyTorch/TensofFlow on CIFAR-10
+
+
+主要是这两个框架的练习。
+
+我的代码实现whu-pzhang/cs231n.">
+
+
+<meta itemprop="datePublished" content="2018-11-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-11-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="5771">
+
+
+
+<meta itemprop="keywords" content="Python,NumPy," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="cs231n作业2笔记"/>
+<meta name="twitter:description" content="简介
+
+Assignment1中我们分别采用 kNN、线性分类器、SVM、Softmax分类以及简单两层神经网络对CIFAR-10数据集进行了分类。
+
+来到Assignment2中，需要自己搭建卷积神经网络（CNN）来进行图像分类。
+
+Assignment2主要分为5个部分：
+
+
+Fully-connected Nerual Network
+
+
+这部分为作业1中两层神经网络的延续，需要将各个隐藏层的forward以及backward过程模块化，以便搭建任意层数的神经网络。
+
+
+Batch Normalization
+
+
+为了使深度神经网络的训练更快，一种策略是寻找更好的优化方法；另一种思路便是改变网络的架构使其训练更快。我们知道，机器学习方法对于白化（特征之间无相关性，零均值，单位方差）的输入数据有着更好的效果。
+
+对数据的预处理（去均值、归一化、PCA以及白化）只能保证第一层的输入满足条件，但随着网络的逐步深入，深层网络的激活输入就不再满足条件了。更糟的是，随着训练加深，每层的特征分布还会随着权重的更新而偏移。
+
+loffe 2015提出的Batch Normalization便是为了解决这个问题的。具体可以参考论文。
+
+
+Dropout
+
+
+Dropout 是缓解过拟合的一种方法。会按比例随机的丢掉一部分激活值，达到缓解过拟合的目的。
+
+
+Convolutional Networks
+
+
+这部分需要完成CNN的各个组件，然后组合在一起，搭建一个完整的CNN网络。
+
+
+PyTorch/TensofFlow on CIFAR-10
+
+
+主要是这两个框架的练习。
+
+我的代码实现whu-pzhang/cs231n."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">PzNotes</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/notes/">
+        <li class="mobile-menu-item">Notes</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">PzNotes</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/notes/">Notes</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">cs231n作业2笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-11-10 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+            
+          </div>
+        <span class="more-meta"> 约 5771 字 </span>
+        <span class="more-meta"> 预计阅读 12 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content">
+    
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="简介">简介</h2>
+
+<p>Assignment1中我们分别采用 <code>kNN</code>、线性分类器、<code>SVM</code>、<code>Softmax</code>分类以及简单两层神经网络对CIFAR-10数据集进行了分类。</p>
+
+<p>来到Assignment2中，需要自己搭建卷积神经网络（CNN）来进行图像分类。</p>
+
+<p>Assignment2主要分为5个部分：</p>
+
+<ul>
+<li><strong>Fully-connected Nerual Network</strong></li>
+</ul>
+
+<p>这部分为作业1中两层神经网络的延续，需要将各个隐藏层的<code>forward</code>以及<code>backward</code>过程模块化，以便搭建任意层数的神经网络。</p>
+
+<ul>
+<li><strong>Batch Normalization</strong></li>
+</ul>
+
+<p>为了使深度神经网络的训练更快，一种策略是寻找更好的优化方法；另一种思路便是改变网络的架构使其训练更快。我们知道，机器学习方法对于白化（特征之间无相关性，零均值，单位方差）的输入数据有着更好的效果。</p>
+
+<p>对数据的预处理（去均值、归一化、PCA以及白化）只能保证第一层的输入满足条件，但随着网络的逐步深入，深层网络的激活输入就不再满足条件了。更糟的是，随着训练加深，每层的特征分布还会随着权重的更新而偏移。</p>
+
+<p><a href="https://arxiv.org/abs/1502.03167">loffe 2015</a>提出的Batch Normalization便是为了解决这个问题的。具体可以参考论文。</p>
+
+<ul>
+<li><strong>Dropout</strong></li>
+</ul>
+
+<p>Dropout 是缓解过拟合的一种方法。会按比例随机的丢掉一部分激活值，达到缓解过拟合的目的。</p>
+
+<ul>
+<li><strong>Convolutional Networks</strong></li>
+</ul>
+
+<p>这部分需要完成CNN的各个组件，然后组合在一起，搭建一个完整的CNN网络。</p>
+
+<ul>
+<li><strong>PyTorch/TensofFlow on CIFAR-10</strong></li>
+</ul>
+
+<p>主要是这两个框架的练习。</p>
+
+<p>我的代码实现<a href="https://github.com/whu-pzhang/cs231n/tree/master/assignment2">whu-pzhang/cs231n</a>.</p>
+
+<h2 id="fullyconnected-nerual-network">Fully-connected Nerual Network</h2>
+
+<p>这部分需要对每层实现一个 <code>forward</code> 和 <code>backward</code> 函数：<code>forward</code> 函数接收为输入、权重和其他参数，返回输出以及一个 <code>cache</code> 对象，包含反向传播计算梯度时用到的数据。</p>
+
+<pre><code class="language-python">def layer_forward(x, w):
+  &quot;&quot;&quot; Receive inputs x and weights w &quot;&quot;&quot;
+  # Do some computations ...
+  z = # ... some intermediate value
+  # Do some more computations ...
+  out = # the output
+
+  cache = (x, w, z, out) # Values we need to compute gradients
+
+  return out, cache
+</code></pre>
+
+<p><code>backward</code> 函数则接收upstream传过来的梯度和 <code>forward</code> 返回的 <code>cache</code> 对象，
+计算返回该层相对于输入和权重的梯度值。</p>
+
+<pre><code class="language-python">def layer_backward(dout, cache):
+  &quot;&quot;&quot;
+  Receive dout (derivative of loss with respect to outputs) and cache,
+  and compute derivative with respect to inputs.
+  &quot;&quot;&quot;
+  # Unpack cache values
+  x, w, z, out = cache
+
+  # Use values in cache to compute derivatives
+  dx = # Derivative of loss with respect to x
+  dw = # Derivative of loss with respect to w
+
+  return dx, dw
+</code></pre>
+
+<h3 id="affine-layer">affine layer</h3>
+
+<p>全连接层的forward就是简单的矩阵乘法。需要先将每个实例展平为向量，然后和权重做矩阵乘法即可，最后别忘了偏置项。</p>
+
+<pre><code class="language-python">x_reshaped = x.reshape(x.shape[0], -1)
+out = x_reshaped.dot(w) + b
+</code></pre>
+
+<p>backward时，根据链式法计算即可，注意各个量的shape即可。</p>
+
+<pre><code class="language-python">dx = dout.dot(w.T).reshape(*x.shape)
+dw = x.reshape(x.shape[0], -1).T.dot(dout)
+db = np.sum(dout, axis=0)
+</code></pre>
+
+<h3 id="relu-activation">ReLU activation</h3>
+
+<p><code>ReLU</code> 激活只是应用一个mask，计算相当简单，直接用 <code>np.maximum()</code> 函数即可。</p>
+
+<p>backward时，注意只有大于零的项有梯度值。</p>
+
+<h3 id="组合层">组合层</h3>
+
+<p>将affine层和ReLU组合起来即可</p>
+
+<h3 id="loss-layers">loss layers</h3>
+
+<p>在作业1中实现的<code>Softmax</code>和<code>SVM</code>损失函数可以直接拿过来用，不再赘述。</p>
+
+<h3 id="搭建多层神经网络">搭建多层神经网络</h3>
+
+<p>现在直接将前面实现的层组合起来便可以实现全连接层神经网络。
+搭建完成后，利用提供的<code>Solver</code>类，便可以实现神经网络的训练和验证。</p>
+
+<h3 id="优化方法">优化方法</h3>
+
+<p>根据讲义里的各种优化方法，直接实现即可，没啥难度。主要是理解每个优化方法的思想。
+依次是 <code>SGD+Momentum</code>，<code>RMSProp</code> 和 <code>Adam</code>。</p>
+
+<h2 id="batch-normalization">Batch Normalization</h2>
+
+<p>Batch Normalization是为了克服层数较多的神经网络在训练时的 internal covariate shift 现象，减弱梯度饱和。此外，还可以加快训练速度，学习率也可以设置的较大。</p>
+
+<h3 id="forward">forward</h3>
+
+<p>设BN层的小批量输入为 $\boldsymbol{X} \in \mathbb{R}^{ N \times D}$。
+在forward过程中，首先计算每个特征的均值和方差：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\boldsymbol{\mu} &= \frac{1}{N} \sum_{k=1}^N \boldsymbol{x}_k \\
+\boldsymbol{\sigma}^2 & = \frac{1}{N} \sum_{k=1}^N { (\boldsymbol{x}_k - \boldsymbol{\mu})^2 }
+\end{align}
+\]</span></p>
+
+<p>接着就可以对输入进行归一化：</p>
+
+<p><span  class="math">\[
+\boldsymbol{\hat{x}}_i = \frac{ \boldsymbol{x}_i - \boldsymbol{\mu}} { \sqrt{\boldsymbol{\sigma}^2 + \epsilon} }
+\]</span></p>
+
+<p>再进行平移和缩放：</p>
+
+<p><span  class="math">\[
+\boldsymbol{y}_i = \gamma \, \boldsymbol{\hat x}_i + \beta
+\]</span></p>
+
+<p>其中，$\gamma, \beta \in \mathbb{R}^{1 \times D}$。整个forward过程可记为：</p>
+
+<p><span  class="math">\[
+\boldsymbol{\hat{X}} = \frac{\boldsymbol{X} - \boldsymbol{\mu}} {\sqrt{ \boldsymbol{\sigma}^2 + \epsilon}} \\
+\boldsymbol{Y} = \gamma \odot \boldsymbol{\hat{X}} + \beta
+\]</span></p>
+
+<p>至此，正向传播就完成了。</p>
+
+<p>为了方便计算梯度的反向传播，根据计算图可将<code>forward</code>过程分解为如下9步：</p>
+
+<pre><code class="language-python">mu = 1.0 / N * np.sum(x, axis=0, keepdims=True)               # (1)
+xsubmu = x - mu                                               # (2)
+xsubmusqr = xsubmu**2                                         # (3)
+var = 1.0 / N * np.sum(xsubmusqr, axis=0, keepdims=True)      # (4)
+sqrtvar = np.sqrt(var + eps)                                  # (5)
+invsqrtvar = 1.0 / sqrtvar                                    # (6)
+x_norm = xsubmu * invsqrtvar                                  # (7)
+gammax = gamma * x_norm                                       # (8)
+out = gammax + beta                                           # (9)
+</code></pre>
+
+<h3 id="backward">backward</h3>
+
+<p><code>backward</code> 过程按照上面9步倒序进行即可：</p>
+
+<pre><code class="language-python">dgammax = dout                                                # (9)
+dbeta = np.sum(dout, axis=0, keepdims=True)                   # (9)
+dgamma = np.sum(dgammax * x_norm, axis=0, keepdims=True)      # (8)
+dx_norm = dgammax * gamma                                     # (8)
+dxsubmu = dx_norm * invsqrtvar                                # (7)
+dinvsqrtvar = np.sum(dx_norm * xsubmu, axis=0, keepdims=True) # (7)
+dsqrtvar = dinvsqrtvar * (-1.0) * (sqrtvar)**(-2)             # (6)
+dvar = dsqrtvar * (0.5 * (var + eps)**(-0.5))                 # (5)
+dxsubmusqr = dvar * (1.0 / N * np.ones((N, D)))               # (4)
+dxsubmu += dxsubmusqr * (2 * xsubmu)                          # (3)
+dx = dxsubmu                                                  # (2)
+dmu = -1.0 * np.sum(dxsubmu, axis=0, keepdims=True)           # (2)
+dx += dmu * (1.0 / N * np.ones((N, D)))                       # (1)
+</code></pre>
+
+<h3 id="alternative-backward-implement">Alternative backward implement</h3>
+
+<p>BatchNorm backward前面的实现是按照计算图一步步来的，实际上可以直接推导出BatchNorm的梯度计算公式，这样能够简化计算。</p>
+
+<p>设 $L$ 为训练损失，我们已知从upstream传来的 $\frac{\partial L}{\partial \boldsymbol{Y}} \in \mathbb{R}^{N \times D}$， 反向传播时，我们需要计算：</p>
+
+<ol>
+<li>$\frac{\partial L}{\partial \beta} \in \mathbb{R}^{1 \times D}$</li>
+<li>$\frac{\partial L}{\partial \gamma} \in \mathbb{R}^{1 \times D}$</li>
+<li>$\frac{\partial L}{\partial \boldsymbol{X}} \in \mathbb{R}^{N \times D}$。</li>
+</ol>
+
+<p>$\frac{\partial L}{\partial \beta}$ 和 $\frac{\partial L}{\partial \gamma}$ 的计算很直观：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\frac{\partial L}{\partial \gamma} & = \sum_{i}^N { \frac{\partial L} {\partial \boldsymbol{y}_i} \odot \boldsymbol{\hat{x}_i}} \\
+\frac{\partial L}{\partial \beta} & = \sum_i^N {\frac{\partial L} {\partial \boldsymbol{y}_i}}
+\end{align}
+\]</span></p>
+
+<p>而 $\frac{\partial L}{\partial \boldsymbol{x}_i}$ 的计算则比较复杂。
+由于 $\boldsymbol{\mu}, \boldsymbol{\sigma}$ 都是 $\boldsymbol{x}_i$ 的函数，根据链式法则：</p>
+
+<p><span  class="math">\[
+\frac{\partial L}{\partial \boldsymbol{x}_i} =
+\frac{\partial L}{\partial \boldsymbol{\hat{x}}_i} \frac{\partial \boldsymbol{\hat{x}}_i}{\partial \boldsymbol{x}_i} +
+\frac{\partial L}{\partial \boldsymbol{\sigma}^2} \frac{\partial \boldsymbol{\sigma}^2}{\partial \boldsymbol{x}_i} +
+\frac{\partial L}{\partial \boldsymbol{\mu}} \frac{\partial \boldsymbol{\mu}}{\partial \boldsymbol{x}_i}
+\]</span></p>
+
+<p>我们可以依次计算这三项。第一项比较简单：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\frac{\partial L}{\partial \boldsymbol{\hat{x}}_i} & =
+\gamma \odot \frac{\partial L}{\partial \boldsymbol{y}_i} \\
+\frac{\partial \boldsymbol{\hat{x}}_i}{\partial \boldsymbol{x}_i} & =
+(\boldsymbol{\sigma}^2 + \epsilon) ^ {-1/2} \\
+ & \Downarrow \\
+\frac{\partial L}{\partial \boldsymbol{\hat{x}}_i} \frac{\partial \boldsymbol{\hat{x}}_i}{\partial \boldsymbol{x}_i} & =
+\gamma \odot \frac{\partial L}{\partial \boldsymbol{y}_i} \, (\boldsymbol{\sigma}^2 + \epsilon) ^ {-1/2}
+\end{align}
+\]</span></p>
+
+<p>接下来计算第二项：</p>
+
+<p><span  class="math">\[
+\frac{\partial L}{\partial \boldsymbol{\sigma}^2} =
+\sum_i^N { \frac{\partial L}{\partial \boldsymbol{\hat{x}}_i} \,
+\frac{\partial \boldsymbol{\hat{x}}_i}{\partial \boldsymbol{\sigma}^2} } =
+-\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-3/2}}{2} \,
+\sum_{i}^{N} {\frac{\partial L}{\partial \boldsymbol{y}_i} \odot (\boldsymbol{x}_i - \boldsymbol{\mu}) }
+\]</span></p>
+
+<p>计算相对于 $\boldsymbol{\sigma}$ 的梯度时，需要沿着批量中所有的实例求和，对 $\boldsymbol{\mu}$ 求导（第三项）时也是一样：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\frac{\partial L}{\partial \boldsymbol{\mu}} & =
+\sum_i^N { \frac{\partial L}{\partial \boldsymbol{\hat{x}}_i}
+\frac{\partial \boldsymbol{\hat{x}}_i}{\partial \boldsymbol{\mu}} } +
+\frac{\partial L}{\partial \boldsymbol{\sigma}^2}
+\frac{\partial \boldsymbol{\sigma}^2}{\partial \boldsymbol{\mu}} \\
+& = -\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2} \,
+\sum_{i}^{N} {\frac{\partial L}{\partial \boldsymbol{y}_i}} +
+\frac{\partial L}{\partial \boldsymbol{\sigma}^2} \cdot (-\frac{2}{N}) \cdot \sum_i^N (\boldsymbol{x}_i - \boldsymbol{\mu}) \\
+& = -\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2} \,
+\sum_{i}^{N} {\frac{\partial L}{\partial \boldsymbol{y}_i}}
+\end{align}
+\]</span></p>
+
+<p>接下来分别求得 $\frac{\partial \boldsymbol{\sigma}^2}{\partial \boldsymbol{x}_i}$ 和 $\frac{\partial \boldsymbol{\mu}}{\partial \boldsymbol{x}_i}$:</p>
+
+<p><span  class="math">\[
+\frac{\partial \boldsymbol{\mu}} {\partial \boldsymbol{x}_i} = \frac{1}{N} \\
+\frac{\partial \boldsymbol{\sigma}^2} {\partial \boldsymbol{x}_i} =
+\frac{2}{N} \sum_i^N (\boldsymbol{x}_i - \boldsymbol{\mu})
+\]</span></p>
+
+<p>现在可得第二项为：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\frac{\partial L}{\partial \boldsymbol{\sigma}^2} \frac{\partial \boldsymbol{\sigma}^2}{\partial \boldsymbol{x}_i} & =
+-\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-3/2}}{2} \,
+\sum_{i}^{N} {\frac{\partial L}{\partial \boldsymbol{y}_i} \odot (\boldsymbol{x}_i - \boldsymbol{\mu}) } \cdot \frac{2}{N} (\boldsymbol{x}_j - \boldsymbol{\mu}) \\
+& = -\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2}} {N}
+\left( \sum_i^N {\frac{\partial L}{\partial \boldsymbol{y}_i} \odot (\boldsymbol{x}_i - \boldsymbol{\mu}) } \right)  \frac{ \boldsymbol{x}_j - \boldsymbol{\mu}} {\boldsymbol{\sigma}^2 + \epsilon} \\
+& = -\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2}} {N}
+\left( \sum_i^N {\frac{\partial L}{\partial \boldsymbol{y}_i} \odot \boldsymbol{\hat{x}_i}\sqrt{\boldsymbol{\sigma}^2 + \epsilon} } \right)  \frac{ \boldsymbol{x}_j - \boldsymbol{\mu}} {\boldsymbol{\sigma}^2 + \epsilon} \\
+& = -\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2}} {N}
+\left( \sum_i^N {\frac{\partial L}{\partial \boldsymbol{y}_i} \odot \boldsymbol{\hat{x}_i} } \right)  \frac{ \boldsymbol{x}_j - \boldsymbol{\mu}} { \sqrt{\boldsymbol{\sigma}^2 + \epsilon} } \\
+& = -\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2}} {N} \cdot
+\frac{\partial L} {\partial \gamma} \cdot
+\boldsymbol{\hat{x}_j}
+\end{align}
+\]</span></p>
+
+<p>第三项为：</p>
+
+<p><span  class="math">\[
+\begin{align}
+\frac{\partial L}{\partial \boldsymbol{\mu}} \frac{\partial \boldsymbol{\mu}}{\partial \boldsymbol{x}_i} & =
+-\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2}} {N} \cdot
+\sum_i^N { \frac{\partial L} {\partial \boldsymbol{y}_i}} \\
+& = -\frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2}} {N} \cdot
+\frac{\partial L} {\partial \beta}
+\end{align}
+\]</span></p>
+
+<p>现在将这三项加在一块即可得：</p>
+
+<p><span  class="math">\[
+\frac{\partial L}{\partial \boldsymbol{x}_i} = \frac{\gamma (\boldsymbol{\sigma}^2 + \epsilon)^{-1/2}} {N}
+\left( N \frac{\partial L} {\partial \boldsymbol{y}_i} - \frac{\partial L} {\partial \gamma} \cdot
+\boldsymbol{\hat{x}_j} - \frac{\partial L} {\partial \beta} \right)
+\]</span></p>
+
+<p>最终我们得到了$\frac{\partial L}{\partial \boldsymbol{x}_i}$的数学表达式，相比前面基于计算图的实现更为简便。实现代码如下：</p>
+
+<pre><code class="language-python">xsubmu, var, sqrtvar, invsqrtvar, x_norm, gamma, eps = cache
+N, D = xsubmu.shape
+dbeta = np.sum(dout, axis=0, keepdims=True)
+dgamma = np.sum(x_norm * dout, axis=0, keepdims=True)
+dx = (1. / N) * gamma * invsqrtvar * (N * dout - dgamma * x_norm - dbeta)
+</code></pre>
+
+<p>这个实现相比基于计算图的实现，会快上2~4倍。</p>
+
+<h3 id="layer-normalization">Layer Normalization</h3>
+
+<p>BatchNorm对batch size的依赖使其在复杂网络的训练中受限。因此发展出了多种batchnorm的变种。
+Layer Normalization 是沿着特征轴进行的 Batch Normalization。其实现只需要对batchnorm进行些许的改动即可。</p>
+
+<h2 id="dropout">Dropout</h2>
+
+<p><a href="https://arxiv.org/abs/1207.0580">Dropout</a>是在forward过程中通过随机将一部分特征设为零来实现的一种正则化方法。实现起来也很简单，不过为了使测试时的代码不发生改变，通常使用的是 <strong>Inverted dropout</strong>，在训练时进行放大。</p>
+
+<pre><code class="language-python">mask = (np.random.rand(*x.shape) &lt; p) / p
+out = x * mask
+</code></pre>
+
+<h2 id="convolutional-networks">Convolutional Networks</h2>
+
+<p>卷积神经网络（CNN）其实和常规的神经网络很像，由包含可学习的权重和偏置的神经元组成。
+每个神经元参数与输入做点积得到新的输出。CNN中通常包括卷积层（Convolutional layer）、池化层（Pooling layer）和全联接层（Fully-connected layer）。</p>
+
+<p>卷积层是CNN的核心。在处理图像这类高维的输入时，不可能将当前神经元与输入的全部神经元连接起来。在卷积层中，只将当前神经元与输入数据的局部区域进行连接。即神经元的局部感受野（Local receptive field），也即是卷积核的大小，这是一个Hyperparameter。此外，主要注意的是，这种空间局部连接在深度轴方向总是与输入的深度相等的。</p>
+
+<p>卷积层的输出大小由三个Hyperparameter控制：</p>
+
+<ol>
+<li>输出深度（depth）</li>
+</ol>
+
+<p>对应着卷积层中卷积核的个数。每个卷积核在训练过程中会从输入中提取出不同的特征。</p>
+
+<ol start="2">
+<li>滑动步长（stride）</li>
+</ol>
+
+<p>控制着卷积核每次移动的像素数。当stride为2时，卷积核每次移动两个像素。</p>
+
+<ol start="3">
+<li>zero-padding</li>
+</ol>
+
+<p>输入数据边缘需要填充的大小。可以控制输出的空间大小。</p>
+
+<p>输出的空间大小是着三个参数的函数。设输入数据大小为 $W$，卷积层神经元感受野大小为$F$，卷积核移动步幅为$S$，zero-padding大小为$P$，那么该卷积层输出的大小为</p>
+
+<p><span  class="math">\[
+(W - F + 2P) / S + 1
+\]</span></p>
+
+<p>卷积层的另外一个重要特点是参数共享。</p>
+
+<h3 id="forward-1">forward</h3>
+
+<p>先来看单通道，<code>S=1，P=0</code>的最简单的情况，设输入$X$ 为 $3 \times 3$，卷积核$K$为 $2 \times 2$，那么输出$Y$的大小为 $(3 - 2)/1 + 1 = 2$</p>
+
+<p><span  class="math">\[
+\begin{pmatrix}
+x_{11} & x_{12} & x_{13} \\
+x_{21} & x_{22} & x_{33} \\
+x_{31} & x_{32} & x_{33}
+\end{pmatrix} \otimes
+\begin{pmatrix}
+k_{11} & k_{12} \\
+k_{21} & k_{22}
+\end{pmatrix} =
+\begin{pmatrix}
+y_{11} & y_{12} \\
+y_{21} & y_{22}
+\end{pmatrix}
+\]</span></p>
+
+<p>即</p>
+
+<!-- $$
+\begin{align}
+\begin{pmatrix}
+y_{11} \\
+y_{12} \\
+y_{21} \\
+y_{22}
+\end{pmatrix} & =
+\begin{pmatrix}
+x_{11} k_{11} + x_{12} k_{12} + x_{21} k_{21} + x_{22} k_{22} \\
+x_{12} k_{11} + x_{13} k_{12} + x_{22} k_{21} + x_{23} k_{22} \\
+x_{21} k_{11} + x_{22} k_{12} + x_{31} k_{21} + x_{32} k_{22} \\
+x_{22} k_{11} + x_{23} k_{12} + x_{32} k_{21} + x_{33} k_{22}
+\end{pmatrix} \\
+& =
+\begin{pmatrix}
+x_{11} & x_{12} & x_{21} & x_{22} \\
+x_{12} & x_{13} & x_{22} & x_{23} \\
+x_{21} & x_{22} & x_{31} & x_{32} \\
+x_{22} & x_{23} & x_{32} & x_{33}
+\end{pmatrix}
+\begin{pmatrix}
+k_{11} \\
+k_{12} \\
+k_{21} \\
+k_{22}
+\end{pmatrix}
+\end{align}
+$$ -->
+
+<p><span  class="math">\[
+\begin{align}
+\begin{pmatrix}
+y_{11} & y_{12} & y_{21} & y_{22}
+\end{pmatrix} & =
+\begin{pmatrix}
+k_{11} & k_{12} & k_{21} & k_{22} \\
+\end{pmatrix}
+\begin{pmatrix}
+x_{11} & x_{12} & x_{21} & x_{22} \\
+x_{12} & x_{13} & x_{22} & x_{23} \\
+x_{21} & x_{22} & x_{31} & x_{32} \\
+x_{22} & x_{23} & x_{32} & x_{33}
+\end{pmatrix}
+\end{align}
+\]</span></p>
+
+<p>卷积最终转化为了矩阵乘的形式。转换之后的 $X$， $K$ 和 $Y$ 分别为 $XC$， $KC$ 和 $YC$。
+$XC$的每一列为卷积核的局部区域（感受野）展平得到。$KC$ 和 $YC$ 则分别是将 $K$ 和 $Y$ 展平后得到的行向量。</p>
+
+<p>对于更常见的多通道输入，也是一样的原理：先将每个卷积核对应的局部感受野展平为一个列向量
+（该操作称为<code>im2col</code>），然后将卷积核展平为行向量。以AlexNet为例，输入图像形状为 $227 \times 227 \times 3$，
+卷积核形状为 $11 \times 11 \times 3$，步幅为4。那么就将卷积核的每个感受野展平为
+$11 \times 11 \times 3=363$ 大小的列向量。以步幅4遍历整个图像后，卷积核的输出宽和高均为 $(227-11)/4+1=55$，
+展平的话就是大小$55 \times 55=3025$的行向量。那么一幅图像经 <code>im2col</code> 后就变换成了大小 $363 \times 3025$ 的矩阵。</p>
+
+<p>卷积层的权重参数也是类似的展平为行向量，AlexNet中第一个卷积层深度为96，那么经展平后，权重就变为了
+$96 \times 363$ 大小的矩阵。接下来直接进行矩阵乘法就完成了forward过程，得到的输出大小为 $96 \times 3025$，对其<code>reshape</code>一下就得到了输出大小 $96 \times 55 \times 55$。</p>
+
+<h3 id="backward-1">backward</h3>
+
+<p>反向传播时，需要求$\boldsymbol{x}$, $\boldsymbol{w}$ 和 偏置项 $\boldsymbol{b}$ 这三项的梯度。</p>
+
+<p>根据链式法则，$\boldsymbol{x}$ 的梯度表示如下：</p>
+
+<p><span  class="math">\[
+\frac{\partial L} {\partial \boldsymbol{x}} = \frac{\partial L} {\partial \boldsymbol{y}} \frac{\partial \boldsymbol{y}} {\partial \boldsymbol{x}}
+\]</span></p>
+
+<p>其中，$\frac{\partial L} {\partial \boldsymbol{y}}$ 为后面（通常为池化层或激活函数）传过来的梯度，记为 $\boldsymbol{\delta}$.</p>
+
+<p>通过前面forward过程，可将$\boldsymbol{x}$的梯度依次写出来：</p>
+
+<p><span  class="math">\[
+\begin{split}
+\frac{\partial L} {\partial x_{11}} & =
+\boldsymbol{\delta} \cdot
+\begin{pmatrix}
+k_{11} & 0 \\
+0 & 0
+\end{pmatrix} & =
+\delta_{11} k_{11} \\
+\frac{\partial L} {\partial x_{12}} & =
+\boldsymbol{\delta} \cdot
+\begin{pmatrix}
+k_{12} & k_{11} \\
+0 & 0
+\end{pmatrix} & = \delta_{11} k_{12} + \delta_{12} k_{11} \\
+\frac{\partial L} {\partial x_{13}} & =
+\boldsymbol{\delta} \cdot
+\begin{pmatrix}
+0 & k_{12} \\
+0 & 0
+\end{pmatrix} & = \delta_{12} k_{12} \\
+ & & \vdots \\
+\frac{\partial L} {\partial x_{22}} & =
+\boldsymbol{\delta} \cdot
+\begin{pmatrix}
+k_{22} & k_{21} \\
+k_{12} & k_{11}
+\end{pmatrix} & = \delta_{11} k_{22} + \delta_{12} k_{21} + \delta_{21} k_{12} + \delta_{22} k_{11} \\
+ & & \vdots \\
+\frac{\partial L} {\partial x_{33}} & =
+\boldsymbol{\delta} \cdot
+\begin{pmatrix}
+0 & 0 \\
+0 & k_{22}
+\end{pmatrix} & =
+\delta_{22} k_{22}
+\end{split}
+\]</span></p>
+
+<p>观察发现，可以用一个卷积来计算：</p>
+
+<p><span  class="math">\[
+\begin{pmatrix}
+0 & 0 & 0 & 0 \\
+0 & \delta_{11} & \delta_{12} & 0 \\
+0 & \delta_{21} & \delta_{22} & 0 \\
+0 & 0 & 0 & 0
+\end{pmatrix} *
+\begin{pmatrix}
+k_{22} & k_{21} \\
+k_{12} & k_{11}
+\end{pmatrix} =
+\begin{pmatrix}
+\nabla x_{11} & \nabla x_{12} & \nabla x_{13} \\
+\nabla x_{21} & \nabla x_{22} & \nabla x_{23} \\
+\nabla x_{31} & \nabla x_{32} & \nabla x_{33}
+\end{pmatrix}
+\]</span></p>
+
+<p>该卷积核为forward中卷积核翻转之后得到。因此，卷积层对输入的梯度可以表示为：</p>
+
+<p><span  class="math">\[
+\frac{\partial L} {\partial \boldsymbol{x}} = \boldsymbol{\delta} * flipped(\boldsymbol{k})
+\]</span></p>
+
+<p>同理，对 $\boldsymbol{w}$ 和 $\boldsymbol{b}$ 的梯度也可以用同样的原理来计算。</p>
+
+<h3 id="max-pooling">Max pooling</h3>
+
+<p>pooling层起到下采样的作用，可以大幅度的减少网络的参数，使训练变得容易。最常用的即是max pooling。pooling层参数和卷积层相同，根据pooling的大小以及padding等参数来确定其输出的
+大小，计算公式和卷积层相同。</p>
+
+<p>forward时，依次处理每个pooling区域内的值，以max pooling为例，只保留pooling区域内的最大值作为输出值。若输入为 $4 \times 4$，pooling的核大小为2，stride=1，没有padding时，输出大小为 $2 \times 2$:</p>
+
+<p><span  class="math">\[
+\begin{bmatrix}
+5 & 3 & 1 & 2\\
+1 & 2 & 3 & 2\\
+4 & 2 & 2 & 5\\
+3 & 6 & 1 & 1
+\end{bmatrix} \Rightarrow
+\begin{bmatrix}
+5 & 3 \\
+6 & 5
+\end{bmatrix}
+\]</span></p>
+
+<p>backward时，先将梯度矩阵还原为pooling前的大小，接着将梯度直接传给前一层取最大值位置处的，其他位置梯度为零，保证梯度总大小不变：</p>
+
+<p><span  class="math">\[
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+0 & 0 & 0.8 & 0\\
+0 & 0 & 0 & 0.6\\
+0 & 0.4 & 0 & 0
+\end{bmatrix} \Leftarrow
+\begin{bmatrix}
+1 & 0.8 \\
+0.4 & 0.6
+\end{bmatrix}
+\]</span></p>
+
+<p>若是Average pooling层，backward时，则是将梯度平均分配到原来的位置上去：</p>
+
+<p><span  class="math">\[
+\begin{bmatrix}
+0.25 & 0.25 & 0.2 & 0.2\\
+0.25 & 0.25 & 0.2 & 0.2\\
+0.1 & 0.1 & 0.15 & 0.15\\
+0.1 & 0.1 & 0.15 & 0.15
+\end{bmatrix} \Leftarrow
+\begin{bmatrix}
+1 & 0.8 \\
+0.4 & 0.6
+\end{bmatrix}
+\]</span></p>
+
+<p>原始实现代码如下：</p>
+
+<p>forward：</p>
+
+<pre><code class="language-python">for i in range(Hout):
+    for j in range(Wout):
+        xblock = x[:, :, i * stride:i * stride +
+                    HH, j * stride:j * stride + WW]
+        out[:, :, i, j] = np.max(xblock, axis=(2, 3))
+</code></pre>
+
+<p>Backward:</p>
+
+<pre><code class="language-python">for i in range(Hout):
+    for j in range(Wout):
+        xblock = x[:, :, i * stride:i * stride +
+                     HH, j * stride:j * stride + WW]
+        max_values = np.max(xblock, axis=(2, 3), keepdims=True)
+        mask = (xblock == max_values)
+        dx[:, :, i * stride:i * stride +
+           HH, j * stride:j * stride + WW] += dout[:, :, i, j][:, :, None, None] * mask
+</code></pre>
+
+<h3 id="spatial-batch-normalization">Spatial batch normalization</h3>
+
+<p>BatchNorm 不仅可以加快全连接深度神经网络的训练过程，而且对CNN也有效，只不过需要略微的调整，调整后称为 <strong>Spatial batch normalization</strong>.</p>
+
+<p>BatchNorm 是沿着小批量维做归一化，输入为 $\mathbb{R}^{N \times D}$，则沿着 $N$ 方向做归一化。但是在CNN中，BatchNorm的输入大小为 $\mathbb{R}^{N \times C \times H \times W}$，$N$ 为小批量实例数目，$H \times W$ 为特征图大小。</p>
+
+<p>Spatial batch normalization对每个通道 $C$ 计算均值和方差，然后对数据进行归一化。
+因此，将batchnorm程序稍作修改即可：</p>
+
+<p>Forward:</p>
+
+<pre><code class="language-python">N, C, H, W = x.shape
+x_reshaped = np.transpose(x, axes=[0, 2, 3, 1]).reshape(-1, C)
+out, cache = batchnorm_forward(x_reshaped, gamma, beta, bn_param)
+out = np.transpose(out.reshape((N, H, W, C)), axes=[0, 3, 1, 2])
+</code></pre>
+
+<p>backward:</p>
+
+<pre><code class="language-python">N, C, H, W = dout.shape
+dout_reshaped = np.transpose(dout, axes=[0, 2, 3, 1]).reshape(-1, C)
+dx, dgamma, dbeta = batchnorm_backward(dout_reshaped, cache)
+dx = np.transpose(dx.reshape((N, H, W, C)), axes=[0, 3, 1, 2])
+</code></pre>
+
+<h3 id="group-normalization">Group normalization</h3>
+
+<p>LayerNorm是BatchNorm的一种缓解batchsize依赖的选择，但研究人员发现，在CNN中，LayerNorm表现不如BatchNorm。因此又提出了一种新的归一化方法： <strong>Group normalization</strong>，为LayerNorm和BatchNorm的折衷。</p>
+
+<p><figure><img src="/images/normalization.png" alt=""></figure></p>
+
+<p>相比如LayerNorm和BatchNorm，GroupNorm多了一个控制Group的参数 <code>G</code>。</p>
+
+<p>forward：</p>
+
+<pre><code class="language-python">group_size = C // G
+x_reshaped = np.transpose(x, axes=[0, 2, 3, 1]).reshape(-1, C)
+gamma_reshaped = np.transpose(gamma, axes=[0, 2, 3, 1]).reshape(C,)
+beta_reshaped = np.transpose(beta, axes=[0, 2, 3, 1]).reshape(C,)
+for i in range(G):
+    index = np.arange(i * group_size, (i + 1) * group_size)
+    group_x = x_reshaped[:, index]
+    group_gamma = gamma_reshaped[index]
+    group_beta = beta_reshaped[index]
+    group_out, group_cache = layernorm_forward(
+        group_x, group_gamma, group_beta, gn_param)
+
+    out[:, index, :, :] = np.transpose(
+        group_out.reshape(N, H, W, group_size), axes=[0, 3, 1, 2])
+    cache.append(group_cache)
+</code></pre>
+
+<p>backward:</p>
+
+<pre><code class="language-python">N, C, H, W = dout.shape
+dx = np.zeros_like(dout)
+dgamma = np.zeros((1, C, 1, 1), dtype=dout.dtype)
+dbeta = np.zeros((1, C, 1, 1), dtype=dout.dtype)
+G = len(cache)
+group_size = C // G
+dout_reshaped = np.transpose(dout, axes=[0, 2, 3, 1]).reshape(-1, C)
+for i in range(G):
+    index = np.arange(i * group_size, (i + 1) * group_size)
+    group_dout = dout_reshaped[:, index]
+    group_cache = cache[i]
+    group_dx, group_dgamma, group_dbeta = layernorm_backward(
+        group_dout, group_cache)
+    dx[:, index, :, :] = np.transpose(
+        group_dx.reshape(N, H, W, group_size), axes=[0, 3, 1, 2])
+    dgamma[:, index, :, :] = group_dgamma[:, :, None, None]
+    dbeta[:, index, :, :] = group_dbeta[:, :, None, None]
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>作业2的核心在于实现一个可用的CNN网络，重点是卷积层原理和实现以及BatchNorm层的原理和实现，作业中的卷积层采用的是原始的循环方法，是较为低效的实现，实际中一般采用 <code>im2col</code> 来实现，可以充分利用计算机的并行优势。而BatchNorm则是优化训练效果和速度的黑魔法，后面的LayerNorm以及GroupNorm均为其变种。</p>
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">pzhang</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-11-10</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/python/">Python</a>
+          
+          <a href="/tags/numpy/">NumPy</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/cs231n-assignment1/">
+            <span class="next-text nav-default">cs231n作业1笔记</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:pzhang.omega@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/whu-pzhang" class="iconfont icon-github" title="github"></a>
+  <a href="https://whu-pzhang.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2014 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">whu-pzhang</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=3.1.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

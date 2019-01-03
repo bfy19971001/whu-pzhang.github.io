@@ -54,7 +54,7 @@
 <meta property="og:description" content="Learning and Sharing Knowledge." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://whu-pzhang.github.io/" />
-<meta property="og:updated_time" content="2018-10-10T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2018-11-10T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="PzNotes - Learning and Sharing">
 <meta itemprop="description" content="Learning and Sharing Knowledge.">
@@ -133,6 +133,74 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/cs231n-assignment2/">cs231n作业2笔记</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-11-10 </span>
+      <div class="post-category">
+          
+            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"> 计算机视觉 </a>
+          
+        </div>
+      <span class="more-meta"> 约 5771 字 </span>
+      <span class="more-meta"> 预计阅读 12 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <h2 id="简介">简介</h2>
+
+<p>Assignment1中我们分别采用 <code>kNN</code>、线性分类器、<code>SVM</code>、<code>Softmax</code>分类以及简单两层神经网络对CIFAR-10数据集进行了分类。</p>
+
+<p>来到Assignment2中，需要自己搭建卷积神经网络（CNN）来进行图像分类。</p>
+
+<p>Assignment2主要分为5个部分：</p>
+
+<ul>
+<li><strong>Fully-connected Nerual Network</strong></li>
+</ul>
+
+<p>这部分为作业1中两层神经网络的延续，需要将各个隐藏层的<code>forward</code>以及<code>backward</code>过程模块化，以便搭建任意层数的神经网络。</p>
+
+<ul>
+<li><strong>Batch Normalization</strong></li>
+</ul>
+
+<p>为了使深度神经网络的训练更快，一种策略是寻找更好的优化方法；另一种思路便是改变网络的架构使其训练更快。我们知道，机器学习方法对于白化（特征之间无相关性，零均值，单位方差）的输入数据有着更好的效果。</p>
+
+<p>对数据的预处理（去均值、归一化、PCA以及白化）只能保证第一层的输入满足条件，但随着网络的逐步深入，深层网络的激活输入就不再满足条件了。更糟的是，随着训练加深，每层的特征分布还会随着权重的更新而偏移。</p>
+
+<p><a href="https://arxiv.org/abs/1502.03167">loffe 2015</a>提出的Batch Normalization便是为了解决这个问题的。具体可以参考论文。</p>
+
+<ul>
+<li><strong>Dropout</strong></li>
+</ul>
+
+<p>Dropout 是缓解过拟合的一种方法。会按比例随机的丢掉一部分激活值，达到缓解过拟合的目的。</p>
+
+<ul>
+<li><strong>Convolutional Networks</strong></li>
+</ul>
+
+<p>这部分需要完成CNN的各个组件，然后组合在一起，搭建一个完整的CNN网络。</p>
+
+<ul>
+<li><strong>PyTorch/TensofFlow on CIFAR-10</strong></li>
+</ul>
+
+<p>主要是这两个框架的练习。</p>
+
+<p>我的代码实现<a href="https://github.com/whu-pzhang/cs231n/tree/master/assignment2">whu-pzhang/cs231n</a>.</p>
+    </div>
+    <div class="read-more">
+      <a href="/cs231n-assignment2/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -261,34 +329,6 @@
 </article>
 
     
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/python-ctypes/">用ctypes调用C函数</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-05-11 </span>
-      <div class="post-category">
-          
-            <a href="/categories/programming/"> Programming </a>
-          
-        </div>
-      <span class="more-meta"> 约 2732 字 </span>
-      <span class="more-meta"> 预计阅读 6 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <p>现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。</p>
-
-<p>对于这样的需求，使用Python标准库中的<code>ctypes</code>模块来实现是非常容易的。</p>
-    </div>
-    <div class="read-more">
-      <a href="/python-ctypes/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
   </section>
   
   <nav class="pagination">
@@ -329,7 +369,7 @@
     &copy; 
     
       2014 - 
-    2018
+    2019
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
