@@ -6,10 +6,23 @@
     <description>Recent content in Programming on PzNotes - Learning and Sharing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 13 Oct 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 08 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://whu-pzhang.github.io/categories/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MPI之环境配置</title>
+      <link>https://whu-pzhang.github.io/mpi-intro/</link>
+      <pubDate>Sun, 08 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/mpi-intro/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt; 很久之前挖的坑，现在慢慢填坑中……&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>C/C&#43;&#43; 中的 define 和 typedef</title>

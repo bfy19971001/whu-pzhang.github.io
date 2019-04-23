@@ -25,7 +25,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.51" />
+<meta name="generator" content="Hugo 0.53" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/" />
@@ -54,7 +54,7 @@
 <meta property="og:description" content="Learning and Sharing Knowledge." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://whu-pzhang.github.io/" />
-<meta property="og:updated_time" content="2015-07-22T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2015-07-31T00:00:00&#43;00:00"/>
 
 <meta itemprop="name" content="PzNotes - Learning and Sharing">
 <meta itemprop="description" content="Learning and Sharing Knowledge.">
@@ -133,6 +133,75 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/array-and-pointer/">数组和指针</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2015-07-31 </span>
+      <div class="post-category">
+          
+            <a href="/categories/programming/"> Programming </a>
+          
+        </div>
+      <span class="more-meta"> 约 1961 字 </span>
+      <span class="more-meta"> 预计阅读 4 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <h2 id="数组名和指针">数组名和指针</h2>
+
+<p>在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
+不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。</p>
+
+<p>事实上，数组名和指针除了上述区别外，还有其他的一些不同：</p>
+
+<ol>
+<li><p>在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。</p></li>
+
+<li><p>在引用上，数组名只需访问内存一次；而指针需要访问内存两次。</p></li>
+
+<li><p>若a是一个数组名，p为指向该数组的指针变量，使用 <code>a</code> 和 <code>&amp;a</code> 得到的值是一样的。对 <code>p</code> 来说则不一样</p></li>
+
+<li><p><code>sizeof a</code> 得到的是整个数组所占字节的大小，而 <code>sizeof p</code> 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)</p></li>
+
+<li><p>尽管 <code>a</code>和 <code>&amp;a[0]</code> 得到的地址是一样的，但是其意义是不一样的，<code>a</code>表示的是存储数组这块连续内存空间的首地址而 <code>&amp;a[0]</code>表示的是数组第一个元素的首地址。</p></li>
+</ol>
+    </div>
+    <div class="read-more">
+      <a href="/array-and-pointer/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/geophysicist/">地球物理学家列表</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2015-07-23 </span>
+      <div class="post-category">
+          
+            <a href="/categories/%E5%9C%B0%E7%90%83%E7%89%A9%E7%90%86%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90/"> 地球物理相关资源 </a>
+          
+        </div>
+      <span class="more-meta"> 约 129 字 </span>
+      <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      欢迎补充。 天然地震 Name Keywords Charles J. Ammon Don L. Anderson Andrew Curtis Chris Chapman Robert W. Clayton Vernon F. Cormier Arwen Deuss Stephen Shangxing Gao Peter Gerstoft Yu Jeffrey Gu Donald V. Helmberger Robert van der Hilst Kei Hirose Miaki Ishii Chen Ji Keith D. Koper Gabi Laske Fan-Chi Lin Thorne Lay Guy Master Fenglin Niu Zhigang Peng Barbara Romanowicz Jeroen Ritsema Michael
+    </div>
+    <div class="read-more">
+      <a href="/geophysicist/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -240,32 +309,6 @@ $ exec $SHELL -l
 </article>
 
     
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/geo-software/">地球物理相关软件</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2014-02-20 </span>
-      <div class="post-category">
-          
-            <a href="/categories/%E5%9C%B0%E7%90%83%E7%89%A9%E7%90%86%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90/"> 地球物理相关资源 </a>
-          
-        </div>
-      <span class="more-meta"> 约 1003 字 </span>
-      <span class="more-meta"> 预计阅读 3 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      转载于 Seisman。 通用数据处理 SAC: Seismic Analysis Code，地震学数据处理的常用软件。 CPS330 ObsPy: 基于 Python 的地震学数据处理框架 数据格式转换 rdseed: SEED 格式转换为 SAC 等地震
-    </div>
-    <div class="read-more">
-      <a href="/geo-software/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
   </section>
   
   <nav class="pagination">
@@ -275,6 +318,10 @@ $ exec $SHELL -l
         <span class="prev-text">上一页</span>
       </a>
     
+      <a class="next" href="/page/6/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
 
         </div>

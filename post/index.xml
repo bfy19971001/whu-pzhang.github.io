@@ -6,10 +6,21 @@
     <description>Recent content in Posts on PzNotes - Learning and Sharing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 10 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Dec 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://whu-pzhang.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cs231n作业3笔记</title>
+      <link>https://whu-pzhang.github.io/cs231n-assignment3/</link>
+      <pubDate>Thu, 20 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/cs231n-assignment3/</guid>
+      <description>&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+
+&lt;p&gt;在作业 2 中手撸 CNN 后，cs231n 讲述了 RNN，LSTM，GRU 以及语言模型、图像标注、检测、定位、分割、识别等多方面的内容。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>cs231n作业2笔记</title>
@@ -98,6 +109,19 @@
       <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;
 
 &lt;p&gt;最近项目需要，要做目标跟踪以及轨迹预测的算法，翻了翻论文，应用比较多的就是卡尔曼滤波了。以前本科的时候就听过卡尔曼滤波，学大地测量的做卫星轨道预测时好像经常会用到这个，不过那时本身用不到，也就没关注。现在需要用到了，就去学习了一下，这里算是将其总结记录一下吧。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>MPI之环境配置</title>
+      <link>https://whu-pzhang.github.io/mpi-intro/</link>
+      <pubDate>Sun, 08 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://whu-pzhang.github.io/mpi-intro/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt; 很久之前挖的坑，现在慢慢填坑中……&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。&lt;/p&gt;</description>
     </item>
     
     <item>
