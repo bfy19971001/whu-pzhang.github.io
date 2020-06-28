@@ -29,7 +29,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/mada-colormaps/" />
@@ -55,37 +55,28 @@
 <meta property="og:title" content="Madagascar之colormap" />
 <meta property="og:description" content="平常作图时都会遇到如何选择colormap的问题。
 而Madagascar文档也没有对各种colormap作系统的说明。
-
 本文梳理了Madagascar中现有的各种colormap。
-
 本文 SConstruct 脚本位于 Github." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/mada-colormaps/" /><meta property="article:published_time" content="2017-05-10T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2017-05-10T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/mada-colormaps/" />
+<meta property="article:published_time" content="2017-05-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-05-10T00:00:00+00:00" />
 <meta itemprop="name" content="Madagascar之colormap">
 <meta itemprop="description" content="平常作图时都会遇到如何选择colormap的问题。
 而Madagascar文档也没有对各种colormap作系统的说明。
-
 本文梳理了Madagascar中现有的各种colormap。
-
 本文 SConstruct 脚本位于 Github.">
-
-
 <meta itemprop="datePublished" content="2017-05-10T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2017-05-10T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="594">
 
 
 
-<meta itemprop="keywords" content="madagascar,colormap," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="madagascar,colormap," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Madagascar之colormap"/>
 <meta name="twitter:description" content="平常作图时都会遇到如何选择colormap的问题。
 而Madagascar文档也没有对各种colormap作系统的说明。
-
 本文梳理了Madagascar中现有的各种colormap。
-
 本文 SConstruct 脚本位于 Github."/>
 
 <!--[if lte IE 9]>
@@ -179,21 +170,19 @@
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#标准配色">标准配色</a></li>
-<li><a href="#新加入的配色">新加入的配色</a>
-<ul>
-<li><a href="#light-bartlein">Light Bartlein</a></li>
-<li><a href="#cube-helix">Cube-helix</a></li>
-<li><a href="#其他配色">其他配色</a></li>
-</ul></li>
-<li><a href="#自定义配色">自定义配色</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#更新">更新</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#标准配色">标准配色</a></li>
+    <li><a href="#新加入的配色">新加入的配色</a>
+      <ul>
+        <li><a href="#light-bartlein">Light Bartlein</a></li>
+        <li><a href="#cube-helix">Cube-helix</a></li>
+        <li><a href="#其他配色">其他配色</a></li>
+      </ul>
+    </li>
+    <li><a href="#自定义配色">自定义配色</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#更新">更新</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -202,18 +191,12 @@
     <div class="post-content">
       <p>平常作图时都会遇到如何选择colormap的问题。
 而Madagascar文档也没有对各种colormap作系统的说明。</p>
-
 <p>本文梳理了Madagascar中现有的各种colormap。</p>
-
 <p>本文 <code>SConstruct</code> 脚本位于 <a href="https://github.com/whu-pzhang/Mada/tree/master/colormap">Github</a>.</p>
-
 <p>Madagascar中的配色方案在<code>sfgrey</code>和<code>sfgrey3</code>中由参数<code>color=</code>控制。
 默认为灰阶的，参数为<code>color=i</code></p>
-
 <h2 id="标准配色">标准配色</h2>
-
 <p>Madagascar 中自带的配色方案如下表所示：</p>
-
 <table>
 <thead>
 <tr>
@@ -221,123 +204,85 @@
 <th align="left">参数</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td align="left">Rainbow</td>
 <td align="left"><code>color=a</code></td>
 </tr>
-
 <tr>
 <td align="left">Bone</td>
 <td align="left"><code>color=b</code></td>
 </tr>
-
 <tr>
 <td align="left">Cool</td>
 <td align="left"><code>color=c</code></td>
 </tr>
-
 <tr>
 <td align="left">Blue-white-red</td>
 <td align="left"><code>color=e</code></td>
 </tr>
-
 <tr>
 <td align="left">Flag</td>
 <td align="left"><code>color=f</code></td>
 </tr>
-
 <tr>
 <td align="left">Black-white-red</td>
 <td align="left"><code>color=g</code></td>
 </tr>
-
 <tr>
 <td align="left">Hot</td>
 <td align="left"><code>color=h</code></td>
 </tr>
-
 <tr>
 <td align="left">Greyscale</td>
 <td align="left"><code>color=i</code></td>
 </tr>
-
 <tr>
 <td align="left">Jet</td>
 <td align="left"><code>color=j</code></td>
 </tr>
-
 <tr>
 <td align="left">Linear</td>
 <td align="left"><code>color=l</code></td>
 </tr>
-
 <tr>
 <td align="left">Pink</td>
 <td align="left"><code>color=p</code></td>
 </tr>
-
 <tr>
 <td align="left">Traffic</td>
 <td align="left"><code>color=t</code></td>
 </tr>
 </tbody>
 </table>
-
 <p>效果图如下：</p>
-
-<p><img src="http://opq72e2wz.bkt.clouddn.com/mona.jpg" alt="Different colorschemes" /></p>
-
+<p><img src="http://opq72e2wz.bkt.clouddn.com/mona.jpg" alt="Different colorschemes"></p>
 <p>将小写改为大写就可以获得翻转的配色方案。</p>
-
 <p>而配色方案中加入<code>C</code>可以高亮显示被裁剪的值。</p>
-
 <h2 id="新加入的配色">新加入的配色</h2>
-
 <p>除了上述基础配色，Madagascar中还有一些后续加入的配色方案。</p>
-
 <h3 id="light-bartlein">Light Bartlein</h3>
-
 <p>这种橙色，白色和紫色主导的配色提出在以下文章中：</p>
-
 <p>Light, A. and P.J. Bartlein (2004) <a href="http://geog.uoregon.edu/datagraphics/EOS/">The end of the rainbow? Color schemes for improved data graphics</a>. EOS Transactions of the American Geophysical Union 85(40):385</p>
-
 <p><a href="https://mycarta.wordpress.com/2012/03/15/a-good-divergent-color-palette-for-matlab/">Matteo Niccoli</a>推荐其作为红-白-蓝（Madagascar中<code>color=g</code>的配色）地震数据显示配色的替代品。</p>
-
 <p>该配色在Madagascar中的参数为<code>color=lb</code>。</p>
-
-<p><img src="http://opq72e2wz.bkt.clouddn.com/lb.jpg" alt="Light Bartlein" /></p>
-
+<p><img src="http://opq72e2wz.bkt.clouddn.com/lb.jpg" alt="Light Bartlein"></p>
 <h3 id="cube-helix">Cube-helix</h3>
-
 <p>这种配色被设计成根据其感知亮度单调增加，用黑白打印机打印时可以产生了很好的灰度。</p>
-
 <p>该种配色在Madagascar中的参数为<code>color=x</code>。</p>
-
-<p><img src="http://opq72e2wz.bkt.clouddn.com/x.jpg" alt="Cube-helix" /></p>
-
+<p><img src="http://opq72e2wz.bkt.clouddn.com/x.jpg" alt="Cube-helix"></p>
 <h3 id="其他配色">其他配色</h3>
-
-<p><img src="http://opq72e2wz.bkt.clouddn.com/colorbars.jpg" alt="Other color schemes" /></p>
-
+<p><img src="http://opq72e2wz.bkt.clouddn.com/colorbars.jpg" alt="Other color schemes"></p>
 <h2 id="自定义配色">自定义配色</h2>
-
 <p>目前够用，先不折腾了！</p>
-
 <p>只知道自定义配色方案要用csv格式！</p>
-
 <p>可以参考<code>rsf/tutorials/colormaps</code></p>
-
 <h2 id="参考">参考</h2>
-
 <ol>
 <li><a href="http://ahay.org/blog/2005/03/28/color-schemes/">Color schemes</a></li>
 <li><a href="http://wiki.seg.org/wiki/How_to_evaluate_and_compare_color_maps">How to evaluate and compare color maps</a></li>
 </ol>
-
 <h2 id="更新">更新</h2>
-
 <ol>
 <li>2017年5月 初稿</li>
 <li>2018年3月 添加 Github 地址。</li>
@@ -422,7 +367,7 @@
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

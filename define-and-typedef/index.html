@@ -27,7 +27,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/define-and-typedef/" />
@@ -54,22 +54,19 @@
 <meta property="og:description" content="c语言中，#define 和 typedef 均是用来定义别名的符号，但又有明显的不同。
 #define 定义的宏只是简单的文本替换，typedef 则是类型别名。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/define-and-typedef/" /><meta property="article:published_time" content="2017-10-13T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-04-08T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/define-and-typedef/" />
+<meta property="article:published_time" content="2017-10-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-04-08T00:00:00+00:00" />
 <meta itemprop="name" content="C/C&#43;&#43; 中的 define 和 typedef">
 <meta itemprop="description" content="c语言中，#define 和 typedef 均是用来定义别名的符号，但又有明显的不同。
 #define 定义的宏只是简单的文本替换，typedef 则是类型别名。">
-
-
 <meta itemprop="datePublished" content="2017-10-13T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-08T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="1819">
 
 
 
-<meta itemprop="keywords" content="c/c&#43;&#43;," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="c/c&#43;&#43;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C/C&#43;&#43; 中的 define 和 typedef"/>
 <meta name="twitter:description" content="c语言中，#define 和 typedef 均是用来定义别名的符号，但又有明显的不同。
 #define 定义的宏只是简单的文本替换，typedef 则是类型别名。"/>
@@ -165,27 +162,21 @@
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#宏">宏</a>
-<ul>
-<li><a href="#基础用法">基础用法</a></li>
-<li><a href="#高级用法">高级用法</a>
-<ul>
-<li><a href="#字符串化-stringizing">字符串化(Stringizing)</a></li>
-<li><a href="#连接字符串-concatenation">连接字符串(Concatenation)</a></li>
-<li><a href="#变参数宏-variadic-macros">变参数宏(Variadic Macros)</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#typedef">typedef</a>
-<ul>
-<li><a href="#简化声明">简化声明</a></li>
-<li><a href="#与数组和指针一起使用">与数组和指针一起使用</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#宏">宏</a>
+      <ul>
+        <li><a href="#基础用法">基础用法</a></li>
+        <li><a href="#高级用法">高级用法</a></li>
+      </ul>
+    </li>
+    <li><a href="#typedef">typedef</a>
+      <ul>
+        <li><a href="#简化声明">简化声明</a></li>
+        <li><a href="#与数组和指针一起使用">与数组和指针一起使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -194,280 +185,185 @@
     <div class="post-content">
       <p>c语言中，<code>#define</code> 和 <code>typedef</code> 均是用来定义别名的符号，但又有明显的不同。
 <code>#define</code> 定义的宏只是简单的文本替换，<code>typedef</code> 则是类型别名。</p>
-
 <h2 id="宏">宏</h2>
-
 <p>C语言中宏为预处理阶段的一种文本替换工具。从使用上分为</p>
-
 <ul>
-<li><p>对象类的宏</p></li>
-
-<li><p>函数类的宏。</p></li>
+<li>
+<p>对象类的宏</p>
+</li>
+<li>
+<p>函数类的宏。</p>
+</li>
 </ul>
-
 <p>可以将任何有效的标识符定义为宏，你甚至可以将c语言关键字定义为宏，你能这么做的原因是因为c预处理器
 没有关键字这个概念。利用这个特性你可以将<code>const</code>关键字对不支持的编译器隐藏起来。</p>
-
 <h3 id="基础用法">基础用法</h3>
-
 <p>对象类的宏仅仅为会被替换为定义的代码片段，被称为对象类的宏也是因为其在代码中以数据对象的形式存在。</p>
-
 <ol>
 <li>标识符别名</li>
 </ol>
-
-<pre><code class="language-c">#define BUFFER_SIZE 1024
-</code></pre>
-
-<p>这是最常用的用法，预处理阶段，<code>BUFFER_SIZE</code>会被替换为<code>1024</code>。按照惯例，宏名用大写字母表示。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define BUFFER_SIZE 1024
+</span></code></pre></div><p>这是最常用的用法，预处理阶段，<code>BUFFER_SIZE</code>会被替换为<code>1024</code>。按照惯例，宏名用大写字母表示。</p>
 <p>若宏体过长，可以加反斜杠换行</p>
-
-<pre><code class="language-c">#define NUMBERS 1,\
-				2,\
-				3
-</code></pre>
-
-<p>预处理阶段，<code>int x[] = { NUMBERS };</code>会被替换为<code>int x[] = { 1, 2, 3 };</code></p>
-
-<ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define NUMBERS 1,\
+</span><span style="color:#75715e">				2,\
+</span><span style="color:#75715e">				3
+</span></code></pre></div><p>预处理阶段，<code>int x[] = { NUMBERS };</code>会被替换为<code>int x[] = { 1, 2, 3 };</code></p>
+<ol start="2">
 <li>宏函数</li>
 </ol>
-
 <p>带括号的宏被认为是宏函数。用法和普通函数一样，只不过其在预处理阶段就展开。</p>
-
-<pre><code class="language-c">#define MIN(X, Y) ((X) &lt; (Y) ? (X) : (Y))
-</code></pre>
-
-<p>需要注意的是，宏名和括号之间不能有空格！</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define MIN(X, Y) ((X) &lt; (Y) ? (X) : (Y))
+</span></code></pre></div><p>需要注意的是，宏名和括号之间不能有空格！</p>
 <h3 id="高级用法">高级用法</h3>
-
-<h4 id="字符串化-stringizing">字符串化(Stringizing)</h4>
-
+<h4 id="字符串化stringizing">字符串化(Stringizing)</h4>
 <p>在写调试程序的宏函数时，我们希望可以将宏函数的参数转换为字符串嵌入字符常量中，这时我们可以使用符号<code>#</code>将其字符串化。</p>
-
-<pre><code class="language-c">#define WARN_IF(EXP) \
-do { if (EXP) \
-		 fprintf(stderr, &quot;Warning: &quot; #EXP &quot;\n&quot;);} \
-while (0)
-</code></pre>
-
-<p>这时<code>WARN_IF(x==0);</code>会被扩展成：</p>
-
-<pre><code class="language-c">do { if (x == 0)
-    fprintf (stderr, &quot;Warning: &quot; &quot;x == 0&quot; &quot;\n&quot;); }
-while (0);
-</code></pre>
-
-<p>上面宏函数体中的 <code>do {  } while (0)</code> 是在宏中有多个语句时用到的。为了将宏代码和其他片段分割开来。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define WARN_IF(EXP) \
+</span><span style="color:#75715e">do { if (EXP) \
+</span><span style="color:#75715e">		 fprintf(stderr, &#34;Warning: &#34; #EXP &#34;\n&#34;);} \
+</span><span style="color:#75715e">while (0)
+</span></code></pre></div><p>这时<code>WARN_IF(x==0);</code>会被扩展成：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">do</span> { <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+    fprintf (stderr, <span style="color:#e6db74">&#34;Warning: &#34;</span> <span style="color:#e6db74">&#34;x == 0&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>); }
+<span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">0</span>);
+</code></pre></div><p>上面宏函数体中的 <code>do {  } while (0)</code> 是在宏中有多个语句时用到的。为了将宏代码和其他片段分割开来。
 譬如以下的程序：</p>
-
-<pre><code class="language-c">#define M() a(); b()
-
-if (cond)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define M() a(); b()
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">if</span> (cond)
     M();
-else
-    c();
+<span style="color:#66d9ef">else</span>
+    <span style="color:#a6e22e">c</span>();
 
-/* 预处理后 */
+<span style="color:#75715e">/* 预处理后 */</span>
 
-if (cond)
+<span style="color:#66d9ef">if</span> (cond)
     a(); b();
-else   /* &lt;- else 没有对应的 if */
+<span style="color:#66d9ef">else</span>   <span style="color:#75715e">/* &lt;- else 没有对应的 if */</span>
     c();
-</code></pre>
-
-<p>只用 <code>{}</code> 也不行：</p>
-
-<pre><code class="language-c">#define M() { a(); b(); }
-
-if (cond)
+</code></pre></div><p>只用 <code>{}</code> 也不行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define M() { a(); b(); }
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">if</span> (cond)
     M();
-else
+<span style="color:#66d9ef">else</span>
+    <span style="color:#a6e22e">c</span>();
+
+<span style="color:#75715e">/* 预处理后 */</span>
+
+<span style="color:#66d9ef">if</span> (cond)
+    { a(); b(); };  <span style="color:#75715e">/* 最后的分号表示 if 语句结束 */</span>
+<span style="color:#66d9ef">else</span>   <span style="color:#75715e">/* &lt;- else 没有对应的 if */</span>
     c();
-
-/* 预处理后 */
-
-if (cond)
-    { a(); b(); };  /* 最后的分号表示 if 语句结束 */
-else   /* &lt;- else 没有对应的 if */
-    c();
-</code></pre>
-
-<p>用 <code>do {} while(0)</code> 才可以：</p>
-
-<pre><code class="language-c">#define M() do { a(); b(); } while(0)
-
-if (cond)
+</code></pre></div><p>用 <code>do {} while(0)</code> 才可以：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define M() do { a(); b(); } while(0)
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">if</span> (cond)
     M();
-else
-    c();
+<span style="color:#66d9ef">else</span>
+    <span style="color:#a6e22e">c</span>();
 
-/* 预处理后 */
+<span style="color:#75715e">/* 预处理后 */</span>
 
-if (cond)
-    do { a(); b(); } while(0);
-else
-    c();
-</code></pre>
-
-<h4 id="连接字符串-concatenation">连接字符串(Concatenation)</h4>
-
+<span style="color:#66d9ef">if</span> (cond)
+    <span style="color:#66d9ef">do</span> { a(); b(); } <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">0</span>);
+<span style="color:#66d9ef">else</span>
+    <span style="color:#a6e22e">c</span>();
+</code></pre></div><h4 id="连接字符串concatenation">连接字符串(Concatenation)</h4>
 <p>当宏中出现<code>##</code>时，会对 token 进行连接：</p>
-
-<pre><code class="language-c">#define COMMAND(NAME)  { #NAME, NAME ## _command }
-
-struct command
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define COMMAND(NAME)  { #NAME, NAME ## _command }
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> command
 {
-    char *name;
-    void (*function) (void);
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name;
+    <span style="color:#66d9ef">void</span> (<span style="color:#f92672">*</span>function) (<span style="color:#66d9ef">void</span>);
 };
 
-struct command commands[] =
+<span style="color:#66d9ef">struct</span> command commands[] <span style="color:#f92672">=</span>
 {
     COMMAND (quit),
     COMMAND (help),
     ...
 };
-</code></pre>
-
-<p>上述命令会被扩展为：</p>
-
-<pre><code class="language-c">struct command commands[] =
+</code></pre></div><p>上述命令会被扩展为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> command commands[] <span style="color:#f92672">=</span>
 {
-    { &quot;quit&quot;, quit_command },
-    { &quot;help&quot;, help_command },
+    { <span style="color:#e6db74">&#34;quit&#34;</span>, quit_command },
+    { <span style="color:#e6db74">&#34;help&#34;</span>, help_command },
     ...
 };
-</code></pre>
-
-<h4 id="变参数宏-variadic-macros">变参数宏(Variadic Macros)</h4>
-
+</code></pre></div><h4 id="变参数宏variadic-macros">变参数宏(Variadic Macros)</h4>
 <p>宏函数还可以像函数一样接受可变参数。语法和可变参数的函数一样：</p>
-
-<pre><code class="language-c">#define eprintf(...) fprintf(stderr, __VA_ARGS__)
-</code></pre>
-
-<p>这时调用宏的所有参数都会代替<code>__VA_ARGS__</code>被展开：</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define eprintf(...) fprintf(stderr, __VA_ARGS__)
+</span></code></pre></div><p>这时调用宏的所有参数都会代替<code>__VA_ARGS__</code>被展开：</p>
 <p><code>eprintf(&quot;%s:%d: &quot;, input_file, lineno)</code>会被展开为<code>fprintf(stderr, &quot;%s:%d: &quot;, input_file, lineno)</code></p>
-
 <p>以上宏定义不够直观，我们可以指定参数名：</p>
-
-<pre><code class="language-c">#define eprintf(fmt, ...) fprintf(stderr, fmt, __VA_ARGS__)
-</code></pre>
-
-<p>但是还有一个问题，调用上述宏定义时若省略可选参数，会报错。例如<code>eprintf(&quot;success!\n&quot;,);</code>会展开为<code>fprintf(stderr, &quot;success!\n&quot;, );</code>，原因在于字符串末尾会多出来一个逗号。这时我们就需要用到前面提到的<code>##</code>了，将宏定义改写为：</p>
-
-<pre><code class="language-c">#define eprintf(fmt, ...) fprintf(stderr, fmt, ##__VA_ARGS__)
-</code></pre>
-
-<p>当省略参数时，多余的逗号就会被删除。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define eprintf(fmt, ...) fprintf(stderr, fmt, __VA_ARGS__)
+</span></code></pre></div><p>但是还有一个问题，调用上述宏定义时若省略可选参数，会报错。例如<code>eprintf(&quot;success!\n&quot;,);</code>会展开为<code>fprintf(stderr, &quot;success!\n&quot;, );</code>，原因在于字符串末尾会多出来一个逗号。这时我们就需要用到前面提到的<code>##</code>了，将宏定义改写为：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define eprintf(fmt, ...) fprintf(stderr, fmt, ##__VA_ARGS__)
+</span></code></pre></div><p>当省略参数时，多余的逗号就会被删除。</p>
 <h2 id="typedef">typedef</h2>
-
 <p>c语言中的 <code>typedef</code> 用来给数据类型取别名，目的是使代码易读和易理解。有简化声明的作用。</p>
-
 <h3 id="简化声明">简化声明</h3>
-
 <p>定义了一个结构体如下：</p>
-
-<pre><code class="language-c">struct _Point {
-  double x, y;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> _Point {
+  <span style="color:#66d9ef">double</span> x, y;
 };
-</code></pre>
-
-<p>每次创建一个 <code>_Point</code> 类型的变量，得这么写：</p>
-
-<pre><code class="language-c">struct _Point a;
-</code></pre>
-
-<p>每次都要带上 <code>struct</code> 关键字增加击键数，这时可以利用 <code>typedef</code> 取别名简化变量声明。</p>
-
+</code></pre></div><p>每次创建一个 <code>_Point</code> 类型的变量，得这么写：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> _Point a;
+</code></pre></div><p>每次都要带上 <code>struct</code> 关键字增加击键数，这时可以利用 <code>typedef</code> 取别名简化变量声明。</p>
 <p>在 <code>C++</code> 中定义结构体已经隐含了这层含义，因此可以直接使用 <code>_Point a;</code> 来声明变量。</p>
-
-<pre><code class="language-c">typedef struct _Point Point;
-</code></pre>
-
-<p>这样的话，定义新的变量可以写为</p>
-
-<pre><code class="language-c">Point a;
-</code></pre>
-
-<p>更易阅读和理解。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> _Point Point;
+</code></pre></div><p>这样的话，定义新的变量可以写为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">Point a;
+</code></pre></div><p>更易阅读和理解。</p>
 <h3 id="与数组和指针一起使用">与数组和指针一起使用</h3>
-
 <p>先来看几个例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> iArr[<span style="color:#ae81ff">6</span>];
 
-<pre><code class="language-c">typedef int iArr[6];
-
-typedef struct Node Node;
-struct Node {
-  int data;
-  Node *pNext;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> Node Node;
+<span style="color:#66d9ef">struct</span> Node {
+  <span style="color:#66d9ef">int</span> data;
+  Node <span style="color:#f92672">*</span>pNext;
 };
-typedef struct Node* pNode;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> Node<span style="color:#f92672">*</span> pNode;
 
-typedef int (*pfunc)(int a, int b);
-</code></pre>
-
-<p>这几个例子其实和c语言的复杂声明是一样的。去掉 <code>typedef</code> 关键字后就得到一个正常的
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">int</span> (<span style="color:#f92672">*</span>pfunc)(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+</code></pre></div><p>这几个例子其实和c语言的复杂声明是一样的。去掉 <code>typedef</code> 关键字后就得到一个正常的
 变量声明语句。</p>
-
 <p><code>typedef int iArr[6];</code> 变为 <code>int iArr[6];</code>，表示声明一个包含6个元素的<code>int</code>数组。
 而加上 <code>typedef</code> 后就得到了一个新的类型名，<code>iArr</code> 不再是变量名，而是新的类型名 <code>iArr</code>，
 用 <code>iArr</code> 可以去定义与原来的 <code>iArr</code> 变量相同类型的变量。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">iArr a;  <span style="color:#75715e">/* a 为 包含6个元素的int数组 */</span>
+</code></pre></div><p>理解了这个后，剩下其他 <code>typedef</code> 就都好理解了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pNode pNew;  <span style="color:#75715e">/* pNew 为指向 struct Node 类型的指针 */</span>
 
-<pre><code class="language-c">iArr a;  /* a 为 包含6个元素的int数组 */
-</code></pre>
-
-<p>理解了这个后，剩下其他 <code>typedef</code> 就都好理解了。</p>
-
-<pre><code class="language-c">pNode pNew;  /* pNew 为指向 struct Node 类型的指针 */
-
-int add(int a, int b) {
-  return a + b;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+  <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
 }
-pfunc func = add;  /* func 为一个函数指针，其指向的函数有两个int参数，返回int */
-</code></pre>
-
-<p>另外，在 <code>C++11</code> 标准中，引入了新的为类型取别名的关键字 <code>using</code>，可以用来代替 <code>typedef</code>，
+pfunc func <span style="color:#f92672">=</span> add;  <span style="color:#75715e">/* func 为一个函数指针，其指向的函数有两个int参数，返回int */</span>
+</code></pre></div><p>另外，在 <code>C++11</code> 标准中，引入了新的为类型取别名的关键字 <code>using</code>，可以用来代替 <code>typedef</code>，
 而且更好理解：</p>
-
-<pre><code class="language-cpp">using iArr = int [6];
-using pNode = Node *;
-using pfunc = int (*) (int a, int b);
-</code></pre>
-
-<p>从可读性上 <code>using</code> 好于 <code>typedef</code> 。此外 <code>typedef</code> 和 <code>using</code> 不是完全等价的，using 可以用来
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">using</span> iArr <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span> [<span style="color:#ae81ff">6</span>];
+<span style="color:#66d9ef">using</span> pNode <span style="color:#f92672">=</span> Node <span style="color:#f92672">*</span>;
+<span style="color:#66d9ef">using</span> pfunc <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>) (<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+</code></pre></div><p>从可读性上 <code>using</code> 好于 <code>typedef</code> 。此外 <code>typedef</code> 和 <code>using</code> 不是完全等价的，using 可以用来
 给模板取别买，<code>typdef</code> 则不行。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">using</span> Vec <span style="color:#f92672">=</span> MyVector<span style="color:#f92672">&lt;</span>T, MyAlloc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span>;
 
-<pre><code class="language-cpp">template &lt;typename T&gt;
-using Vec = MyVector&lt;T, MyAlloc&lt;T&gt;&gt;;
+<span style="color:#75715e">// usage
+</span><span style="color:#75715e"></span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ivec;
+</code></pre></div><p>用起来非常自然。若是使用 <code>typedef</code>，则是这样：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+<span style="color:#66d9ef">typedef</span> MyVector<span style="color:#f92672">&lt;</span>T, MyAlloc<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> Vec;
 
-// usage
-Vec&lt;int&gt; ivec;
-</code></pre>
-
-<p>用起来非常自然。若是使用 <code>typedef</code>，则是这样：</p>
-
-<pre><code class="language-cpp">template &lt;typename T&gt;
-typedef MyVector&lt;T, MyAlloc&lt;T&gt;&gt; Vec;
-
-// usage
-Vec&lt;int&gt; vec;
-</code></pre>
-
-<p>编译的时候，会得到类似 <code>error: a typedef cannot be a template</code> 的错误信息。</p>
-
+<span style="color:#75715e">// usage
+</span><span style="color:#75715e"></span>Vec<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> vec;
+</code></pre></div><p>编译的时候，会得到类似 <code>error: a typedef cannot be a template</code> 的错误信息。</p>
 <p>总结起来，你只要弄懂了复杂声明，<code>typedef</code> 就很好理解！</p>
-
 <p>此外，在 <code>C++11</code> 中推荐使用 <code>using</code> 代替 <code>typedef</code>。</p>
-
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="http://gcc.gnu.org/onlinedocs/cpp/Macros.html">GNU Documents</a></li>
 </ul>
@@ -549,7 +445,7 @@ Vec&lt;int&gt; vec;
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

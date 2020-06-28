@@ -19,7 +19,7 @@
 <meta name="author" content="pzhang" />
   <meta name="description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放 内存。
 c99 标准中加入了变长数组VLA， 数组大小可以用非整数常量表达式表示。例如：
-size_t n1 = 10, n2=35; float a[n1], b[n1][n2];  但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。 这时就需要动态地从堆（heap）上分配内存，即动态分配。 动态数组的长度则是随程序的需要来指定的。 标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。
+size_t n1 = 10, n2=35; float a[n1], b[n1][n2]; 但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。 这时就需要动态地从堆（heap）上分配内存，即动态分配。 动态数组的长度则是随程序的需要来指定的。 标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。
 " />
 
   <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
@@ -29,7 +29,7 @@ size_t n1 = 10, n2=35; float a[n1], b[n1][n2];  但当需要的数组大小过�
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/dynamic-allocate-2d-array/" />
@@ -56,60 +56,45 @@ size_t n1 = 10, n2=35; float a[n1], b[n1][n2];  但当需要的数组大小过�
 <meta property="og:description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。
-
 c99 标准中加入了变长数组VLA，
 数组大小可以用非整数常量表达式表示。例如：
-
 size_t n1 = 10, n2=35;
 float a[n1], b[n1][n2];
-
-
 但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
 这时就需要动态地从堆（heap）上分配内存，即动态分配。
 动态数组的长度则是随程序的需要来指定的。
 标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/dynamic-allocate-2d-array/" /><meta property="article:published_time" content="2015-08-02T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-04-21T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/dynamic-allocate-2d-array/" />
+<meta property="article:published_time" content="2015-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-04-21T00:00:00+00:00" />
 <meta itemprop="name" content="C语言中多维数组的动态分配">
 <meta itemprop="description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。
-
 c99 标准中加入了变长数组VLA，
 数组大小可以用非整数常量表达式表示。例如：
-
 size_t n1 = 10, n2=35;
 float a[n1], b[n1][n2];
-
-
 但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
 这时就需要动态地从堆（heap）上分配内存，即动态分配。
 动态数组的长度则是随程序的需要来指定的。
 标准C语言中提供动态分配和释放的函数，包含于头文件 stdlib.h 中。">
-
-
 <meta itemprop="datePublished" content="2015-08-02T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-21T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1572">
+<meta itemprop="wordCount" content="1569">
 
 
 
-<meta itemprop="keywords" content="C,Linux," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="C,Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C语言中多维数组的动态分配"/>
 <meta name="twitter:description" content="在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。
-
 c99 标准中加入了变长数组VLA，
 数组大小可以用非整数常量表达式表示。例如：
-
 size_t n1 = 10, n2=35;
 float a[n1], b[n1][n2];
-
-
 但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
 这时就需要动态地从堆（heap）上分配内存，即动态分配。
 动态数组的长度则是随程序的需要来指定的。
@@ -193,7 +178,7 @@ float a[n1], b[n1][n2];
               <a href="/categories/programming/"> Programming </a>
             
           </div>
-        <span class="more-meta"> 约 1572 字 </span>
+        <span class="more-meta"> 约 1569 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -206,21 +191,20 @@ float a[n1], b[n1][n2];
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#分配内存不连续的空间">分配内存不连续的空间</a>
-<ul>
-<li><a href="#测试">测试</a></li>
-</ul></li>
-<li><a href="#分配内存连续的空间">分配内存连续的空间</a>
-<ul>
-<li><a href="#测试-1">测试</a></li>
-</ul></li>
-<li><a href="#更高维数组">更高维数组</a></li>
-<li><a href="#总结">总结</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#分配内存不连续的空间">分配内存不连续的空间</a>
+      <ul>
+        <li><a href="#测试">测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#分配内存连续的空间">分配内存连续的空间</a>
+      <ul>
+        <li><a href="#测试-1">测试</a></li>
+      </ul>
+    </li>
+    <li><a href="#更高维数组">更高维数组</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -230,106 +214,81 @@ float a[n1], b[n1][n2];
       <p>在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。</p>
-
 <p>c99 标准中加入了<a href="http://en.cppreference.com/w/c/language/array">变长数组VLA</a>，
 数组大小可以用非整数常量表达式表示。例如：</p>
-
-<pre><code class="language-c">size_t n1 = 10, n2=35;
-float a[n1], b[n1][n2];
-</code></pre>
-
-<p>但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">size_t n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, n2<span style="color:#f92672">=</span><span style="color:#ae81ff">35</span>;
+<span style="color:#66d9ef">float</span> a[n1], b[n1][n2];
+</code></pre></div><p>但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
 这时就需要动态地从堆（heap）上分配内存，即动态分配。
 动态数组的长度则是随程序的需要来指定的。
 标准C语言中提供动态分配和释放的函数，包含于头文件 <code>stdlib.h</code> 中。</p>
-
-<pre><code class="language-c">extern void *malloc(unsigned int num_bytes);
-extern void *calloc(int num_elems, int elem_size);
-extern void *realloc(void *mem_address, unsigned int newsize);
-extern void free(void *p);
-</code></pre>
-
-<p>对于一维数组，直接使用这四个函数就可以了。但有的时候，我们需要动态的创建
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">malloc</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> num_bytes);
+<span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">calloc</span>(<span style="color:#66d9ef">int</span> num_elems, <span style="color:#66d9ef">int</span> elem_size);
+<span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">realloc</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>mem_address, <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> newsize);
+<span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>p);
+</code></pre></div><p>对于一维数组，直接使用这四个函数就可以了。但有的时候，我们需要动态的创建
 二维数组或者三维数组。这时候就需要自行在这些函数的基础上，编写多维数组分配的函数。</p>
-
 <h2 id="分配内存不连续的空间">分配内存不连续的空间</h2>
-
 <p>以二维整型数组 <code>int array[m][n]</code> 为例。</p>
-
 <p>遵循从外到里，也就是从变化慢的维到变化快的维，逐层申请的原则。</p>
-
 <p>最外层的指针就是数组名<code>array</code>，为一个指针的指针。</p>
-
-<pre><code class="language-c">// 给二维数组动态分配内存
-int **p = malloc(m * sizeof(int *));
-</code></pre>
-
-<p>次层指针为 <code>array[]</code>, 是一个一维指针，直接对其分配内存就行了。</p>
-
-<pre><code class="language-c">for (int i=0; i&lt;n; i++)
-    p[i] = malloc(n * sizeof(int));
-</code></pre>
-
-<p>综合这两步：</p>
-
-<pre><code class="language-c">#include &lt;stdlib.h&gt;
-
-int **alloc2int(size_t n1, size_t n2)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 给二维数组动态分配内存
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>p <span style="color:#f92672">=</span> malloc(m <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>));
+</code></pre></div><p>次层指针为 <code>array[]</code>, 是一个一维指针，直接对其分配内存就行了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>)
+    p[i] <span style="color:#f92672">=</span> malloc(n <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+</code></pre></div><p>综合这两步：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span><span style="color:#a6e22e">alloc2int</span>(size_t n1, size_t n2)
 {
-    int **p;
-    if ((p = malloc(n1 * sizeof(int *))) == NULL) return NULL;
-    for (int i=0; i&lt;n1; i++) {
-        if ((p[i] = malloc(n2 * sizeof(int))) == NULL) return NULL;
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>p;
+    <span style="color:#66d9ef">if</span> ((p <span style="color:#f92672">=</span> malloc(n1 <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>))) <span style="color:#f92672">==</span> NULL) <span style="color:#66d9ef">return</span> NULL;
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n1; i<span style="color:#f92672">++</span>) {
+        <span style="color:#66d9ef">if</span> ((p[i] <span style="color:#f92672">=</span> malloc(n2 <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>))) <span style="color:#f92672">==</span> NULL) <span style="color:#66d9ef">return</span> NULL;
     }
-    return p;
+    <span style="color:#66d9ef">return</span> p;
 }
 
-void free2int(int **p, size_t n1)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free2int</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>p, size_t n1)
 {
-    for (int i=0; i&lt;n1; i++) {
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n1; i<span style="color:#f92672">++</span>) {
         free(p[i]);
     }
     free(p);
 }
-</code></pre>
-
-<h3 id="测试">测试</h3>
-
+</code></pre></div><h3 id="测试">测试</h3>
 <p>我们可以测试看看，这样分配二维数组是否可行</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#define ROW 2
+</span><span style="color:#75715e">#define COL 3
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span><span style="color:#a6e22e">alloc2int</span>(size_t n1, size_t n2);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free2int</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>p, size_t n1);
 
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#define ROW 2
-#define COL 3
-
-int **alloc2int(size_t n1, size_t n2);
-void free2int(int **p, size_t n1);
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int **m;
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>m;
 
-    m = alloc2int(ROW, COL);
-    for (size_t i=0; i&lt;ROW; i++)
-        for (size_t j=0; j&lt;COL; j++) {
-            m[i][j] = i+j;
+    m <span style="color:#f92672">=</span> alloc2int(ROW, COL);
+    <span style="color:#66d9ef">for</span> (size_t i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ROW; i<span style="color:#f92672">++</span>)
+        <span style="color:#66d9ef">for</span> (size_t j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>COL; j<span style="color:#f92672">++</span>) {
+            m[i][j] <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span>j;
         }
 
-    for (int i1=0; i1&lt;ROW; i1++) {
-        printf(&quot;m[%d] = %p\n&quot;, i1, m[i1]);
-        for (int i2=0; i2&lt;COL; i2++) {
-            printf(&quot;&amp;m[%d][%d] = %p; m[%d][%d] = %d\n&quot;, i1, i2, &amp;(m[i1][i2]),
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i1<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i1<span style="color:#f92672">&lt;</span>ROW; i1<span style="color:#f92672">++</span>) {
+        printf(<span style="color:#e6db74">&#34;m[%d] = %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i1, m[i1]);
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i2<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i2<span style="color:#f92672">&lt;</span>COL; i2<span style="color:#f92672">++</span>) {
+            printf(<span style="color:#e6db74">&#34;&amp;m[%d][%d] = %p; m[%d][%d] = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i1, i2, <span style="color:#f92672">&amp;</span>(m[i1][i2]),
                 i1, i2, m[i1][i2]);
         }
-        printf(&quot;\n&quot;);
+        printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
     }
 
     free2int(m, ROW);
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<p>编译链接：</p>
-
+</code></pre></div><p>编译链接：</p>
 <pre><code>$ gcc -Wall -std=c99 test.c alloc.c
 $ ./a.out
 m[0] = 0x1433030
@@ -342,77 +301,64 @@ m[1] = 0x1433050
 &amp;m[1][1] = 0x1433054; m[1][1] = 2
 &amp;m[1][2] = 0x1433058; m[1][2] = 3
 </code></pre>
-
 <p>可以看到，在二维数组的第一行和第二行中，内存是连续的，但是行与行之间内存就不连续了。
 这样的话，我们就不能以一维数组指针的形式来对其进行取值，<code>*(*(a+i)+j)</code> 的值就不等于
 <code>a[i][j]</code> 了。</p>
-
 <h2 id="分配内存连续的空间">分配内存连续的空间</h2>
-
 <p>我们知道，在静态的二维数组中，内存是连续的，也就是说可以将二维数组当作
 特殊的一维数组来进行遍历。上面的方法明显做不到这一点。</p>
-
 <p>为了使得内存连续。还需另外一种思路。</p>
-
 <p>上述第一种方法内存不连续的原因在于，二维数组行指针的分配的在循环中依次分别进行的，
 不能保证每个行指针之间相隔 <code>sizeof(int)*COL</code> 个字节。</p>
-
 <p>那么，为了使得动态分配的二维数组内存也同静态二维数组一样是连续的，我们就需要将
 每个行指针联系起来。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span><span style="color:#a6e22e">alloc2int</span>(size_t n1, size_t n2)
+<span style="color:#75715e">// allocate a int matrix
+</span><span style="color:#75715e"></span>{
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>m;
+    <span style="color:#75715e">// allocate pointers to rows (m is actually a pointer to an array)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ((m <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>)malloc(n1<span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>))) <span style="color:#f92672">==</span> NULL) <span style="color:#66d9ef">return</span> NULL;
+    <span style="color:#75715e">// allocate rows and set pointers to them
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// m[0] 指向整个数组内存块的首地址
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> ((m[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)malloc(n1<span style="color:#f92672">*</span>n2<span style="color:#f92672">*</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>))) <span style="color:#f92672">==</span> NULL) <span style="color:#66d9ef">return</span> NULL;
+    <span style="color:#66d9ef">for</span> (size_t i1<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>; i1<span style="color:#f92672">&lt;</span>n1; i1<span style="color:#f92672">++</span>)
+        m[i1] <span style="color:#f92672">=</span> m[i1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> n2;
 
-<pre><code class="language-c">#include &lt;stdlib.h&gt;
-
-int **alloc2int(size_t n1, size_t n2)
-// allocate a int matrix
-{
-    int **m;
-    // allocate pointers to rows (m is actually a pointer to an array)
-    if ((m = (int **)malloc(n1*sizeof(int *))) == NULL) return NULL;
-    // allocate rows and set pointers to them
-    // m[0] 指向整个数组内存块的首地址
-    if ((m[0] = (int *)malloc(n1*n2*sizeof(int))) == NULL) return NULL;
-    for (size_t i1=1; i1&lt;n1; i1++)
-        m[i1] = m[i1-1] + n2;
-
-    return m;
+    <span style="color:#66d9ef">return</span> m;
 }
 
-void free2int(int **m)
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free2int</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>m)
 {
-    free(m[0]);
+    free(m[<span style="color:#ae81ff">0</span>]);
     free(m);
 }
-</code></pre>
+</code></pre></div><h3 id="测试-1">测试</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#define ROW 2
+</span><span style="color:#75715e">#define COL 3
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span><span style="color:#a6e22e">alloc2int</span>(size_t n1, size_t n2);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free2int</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>p);
 
-<h3 id="测试-1">测试</h3>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#define ROW 2
-#define COL 3
-
-int **alloc2int(size_t n1, size_t n2);
-void free2int(int **p);
-
-int main()
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int **m = alloc2int(ROW, COL);
-    for (int i=0; i&lt;ROW; i++)
-        for (int j=0; j&lt;COL; j++) {
-            m[i][j] = i+j;
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>m <span style="color:#f92672">=</span> alloc2int(ROW, COL);
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ROW; i<span style="color:#f92672">++</span>)
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>COL; j<span style="color:#f92672">++</span>) {
+            m[i][j] <span style="color:#f92672">=</span> i<span style="color:#f92672">+</span>j;
         }
 
-    int *start = *m; // *m = &amp;m[0][0]
-    int * const end = start + ROW*COL;
-    for ( ; start != end; start++)
-        printf(&quot;%p -&gt; %d\n&quot;, start, *start);
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>start <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>m; <span style="color:#75715e">// *m = &amp;m[0][0]
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> end <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> ROW<span style="color:#f92672">*</span>COL;
+    <span style="color:#66d9ef">for</span> ( ; start <span style="color:#f92672">!=</span> end; start<span style="color:#f92672">++</span>)
+        printf(<span style="color:#e6db74">&#34;%p -&gt; %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, start, <span style="color:#f92672">*</span>start);
 
     free2int(m);
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<p>编译链接：</p>
-
+</code></pre></div><p>编译链接：</p>
 <pre><code>$ gcc -Wall -std=c99 test.c alloc.c
 $ ./a.out
 0x135d030 -&gt; 0
@@ -422,57 +368,48 @@ $ ./a.out
 0x135d040 -&gt; 2
 0x135d044 -&gt; 3
 </code></pre>
-
 <p>可以看到，现在的二维数组内存是连续的了，我们用一个循环便可以遍历整个数组。</p>
-
 <h2 id="更高维数组">更高维数组</h2>
-
 <p>当需要更高维度的数组时，也是一样的道理。</p>
-
-<pre><code class="language-c">#include &lt;stdlib.h&gt;
-
-float ***alloc3float(size_t n1, size_t n2, size_t n3)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">float</span> <span style="color:#f92672">***</span><span style="color:#a6e22e">alloc3float</span>(size_t n1, size_t n2, size_t n3)
 {
-    float ***ptr = malloc(n1 * sizeof(float **) + /* level1 pointer */
-                          n1 * n2 * sizeof(float *) + /* level2 pointer */
-                          n1 * n2 * n3 * sizeof(float)); /* data pointer */
-    for (size_t i = 0; i &lt; n1; ++i) {
-        ptr[i] = (float **)(ptr + n1) + i * n2;
-        for (size_t j = 0; j &lt; n2; ++j)
-            ptr[i][j] = (float *)(ptr + n1 + n1 * n2) + i * n2 * n3 + j * n3;
+    <span style="color:#66d9ef">float</span> <span style="color:#f92672">***</span>ptr <span style="color:#f92672">=</span> malloc(n1 <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">float</span> <span style="color:#f92672">**</span>) <span style="color:#f92672">+</span> <span style="color:#75715e">/* level1 pointer */</span>
+                          n1 <span style="color:#f92672">*</span> n2 <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>) <span style="color:#f92672">+</span> <span style="color:#75715e">/* level2 pointer */</span>
+                          n1 <span style="color:#f92672">*</span> n2 <span style="color:#f92672">*</span> n3 <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">float</span>)); <span style="color:#75715e">/* data pointer */</span>
+    <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n1; <span style="color:#f92672">++</span>i) {
+        ptr[i] <span style="color:#f92672">=</span> (<span style="color:#66d9ef">float</span> <span style="color:#f92672">**</span>)(ptr <span style="color:#f92672">+</span> n1) <span style="color:#f92672">+</span> i <span style="color:#f92672">*</span> n2;
+        <span style="color:#66d9ef">for</span> (size_t j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> n2; <span style="color:#f92672">++</span>j)
+            ptr[i][j] <span style="color:#f92672">=</span> (<span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>)(ptr <span style="color:#f92672">+</span> n1 <span style="color:#f92672">+</span> n1 <span style="color:#f92672">*</span> n2) <span style="color:#f92672">+</span> i <span style="color:#f92672">*</span> n2 <span style="color:#f92672">*</span> n3 <span style="color:#f92672">+</span> j <span style="color:#f92672">*</span> n3;
     }
 
-    return ptr;
+    <span style="color:#66d9ef">return</span> ptr;
 }
-</code></pre>
+</code></pre></div><p>这里不仅数据内存是连续的，各级指针内存也是连续的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span><span style="color:#a6e22e">alloc3float</span>(size_t n1, size_t n2, size_t n3);
 
-<p>这里不仅数据内存是连续的，各级指针内存也是连续的。</p>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-int **alloc3float(size_t n1, size_t n2, size_t n3);
-
-int main(void)
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
 {
-    size_t n1 = 2, n2 = 3, n3 = 4;
-    float ***ar3 = alloc3float(n1, n2, n3);
-    for (size_t i = 0; i &lt; n1; ++i)
-        for (size_t j = 0; j &lt; n2; ++j)
-            for (size_t k = 0; k &lt; n3; ++k)
-                ar3[i][j][k] = i + j + k;
+    size_t n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, n3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+    <span style="color:#66d9ef">float</span> <span style="color:#f92672">***</span>ar3 <span style="color:#f92672">=</span> alloc3float(n1, n2, n3);
+    <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n1; <span style="color:#f92672">++</span>i)
+        <span style="color:#66d9ef">for</span> (size_t j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> n2; <span style="color:#f92672">++</span>j)
+            <span style="color:#66d9ef">for</span> (size_t k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> n3; <span style="color:#f92672">++</span>k)
+                ar3[i][j][k] <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> j <span style="color:#f92672">+</span> k;
 
-    float *start = &amp;(ar3[0][0][0]);
-    float *end = start + n1 * n2 * n3;
-    for (; start != end; ++start)
-        printf(&quot;%p -&gt; %f\n&quot;, start, *start);
+    <span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>start <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>(ar3[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]);
+    <span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>end <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> n1 <span style="color:#f92672">*</span> n2 <span style="color:#f92672">*</span> n3;
+    <span style="color:#66d9ef">for</span> (; start <span style="color:#f92672">!=</span> end; <span style="color:#f92672">++</span>start)
+        printf(<span style="color:#e6db74">&#34;%p -&gt; %f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, start, <span style="color:#f92672">*</span>start);
 
     free(ar3);
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<pre><code class="language-bash">$ gcc -Wall -std=c99 test.c alloc.c &amp;&amp; ./a.out
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcc -Wall -std<span style="color:#f92672">=</span>c99 test.c alloc.c <span style="color:#f92672">&amp;&amp;</span> ./a.out
 0x7ffeed4b63d0 -&gt; 0.000000
 0x7ffeed4b63d4 -&gt; 1.000000
 0x7ffeed4b63d8 -&gt; 2.000000
@@ -497,10 +434,7 @@ int main(void)
 0x7ffeed4b6424 -&gt; 4.000000
 0x7ffeed4b6428 -&gt; 5.000000
 0x7ffeed4b642c -&gt; 6.000000
-</code></pre>
-
-<h2 id="总结">总结</h2>
-
+</code></pre></div><h2 id="总结">总结</h2>
 <p>对与多维动态数组的分配，我们要了解C语言中数组和指针的联系和区别，具体可以参考
 <a href="/array-and-pointers.html">数组和指针</a></p>
     </div>
@@ -583,7 +517,7 @@ int main(void)
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

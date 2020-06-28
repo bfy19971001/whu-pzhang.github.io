@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Anaconda on PzNotes - Learning and Sharing</title>
@@ -18,11 +18,8 @@
       
       <guid>https://whu-pzhang.github.io/python-anaconda/</guid>
       <description>&lt;p&gt;本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。&lt;/p&gt;
-
 &lt;h2 id=&#34;anaconda-特性&#34;&gt;Anaconda 特性&lt;/h2&gt;
-
 &lt;p&gt;主页： &lt;a href=&#34;https://www.continuum.io/&#34;&gt;https://www.continuum.io/&lt;/a&gt;&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;包含了众多流行的科学、教学、工程和数据分析的Python包&lt;/li&gt;
 &lt;li&gt;完全开源、免费&lt;/li&gt;

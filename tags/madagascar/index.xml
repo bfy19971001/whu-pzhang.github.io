@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Madagascar on PzNotes - Learning and Sharing</title>
@@ -19,9 +19,7 @@
       <guid>https://whu-pzhang.github.io/mada-colormaps/</guid>
       <description>&lt;p&gt;平常作图时都会遇到如何选择colormap的问题。
 而Madagascar文档也没有对各种colormap作系统的说明。&lt;/p&gt;
-
 &lt;p&gt;本文梳理了Madagascar中现有的各种colormap。&lt;/p&gt;
-
 &lt;p&gt;本文 &lt;code&gt;SConstruct&lt;/code&gt; 脚本位于 &lt;a href=&#34;https://github.com/whu-pzhang/Mada/tree/master/colormap&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
@@ -33,16 +31,15 @@
       <guid>https://whu-pzhang.github.io/add-new-program-to-mada/</guid>
       <description>&lt;p&gt;有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目
 录重新编译，然后再在SConstruct中调用,类似这样：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prog = Program(&#39;Mcode.c&#39;)
-exe = str(prog[0])
-# proj = Project()
-# prog = proj.Program(&#39;Mcode.c&#39;)
-Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
-    &#39;&#39;&#39;
-    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
-    &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;prog &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Program(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Mcode.c&amp;#39;&lt;/span&gt;)
+exe &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(prog[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+&lt;span style=&#34;color:#75715e&#34;&gt;# proj = Project()&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# prog = proj.Program(&amp;#39;Mcode.c&amp;#39;)&lt;/span&gt;
+Flow(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;out&amp;#39;&lt;/span&gt;, [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;inp1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;inp2&amp;#39;&lt;/span&gt;, exe],
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>

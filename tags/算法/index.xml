@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>算法 on PzNotes - Learning and Sharing</title>
@@ -18,13 +18,9 @@
       
       <guid>https://whu-pzhang.github.io/useful-algorithms/</guid>
       <description>&lt;p&gt;收集了一些可能会用到的小算法。&lt;/p&gt;
-
 &lt;h2 id=&#34;判断字节序&#34;&gt;判断字节序&lt;/h2&gt;
-
 &lt;p&gt;在处理数据是常常会碰到字节序(Byte Endian)的问题&lt;/p&gt;
-
 &lt;p&gt;Linux下可以直接用Shell命令查看：&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;lscpu | grep -i byte
 &lt;/code&gt;&lt;/pre&gt;</description>
     </item>

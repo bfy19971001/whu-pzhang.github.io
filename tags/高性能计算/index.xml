@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>高性能计算 on PzNotes - Learning and Sharing</title>
@@ -20,7 +20,6 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt; 很久之前挖的坑，现在慢慢填坑中……&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。&lt;/p&gt;</description>
     </item>
     

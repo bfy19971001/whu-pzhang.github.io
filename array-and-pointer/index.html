@@ -19,11 +19,11 @@
 <meta name="author" content="pzhang" />
   <meta name="description" content="数组名和指针 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址， 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
 事实上，数组名和指针除了上述区别外，还有其他的一些不同：
- 在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
- 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
- 若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;amp;a 得到的值是一样的。对 p 来说则不一样
- sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
- 尽管 a和 &amp;amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;amp;a[0]表示的是数组第一个元素的首地址。
+  在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
+  在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+  若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;amp;a 得到的值是一样的。对 p 来说则不一样
+  sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
+  尽管 a和 &amp;amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;amp;a[0]表示的是数组第一个元素的首地址。
  " />
 
   <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/array-and-pointer/" />
@@ -58,74 +58,80 @@
 
 <meta property="og:title" content="数组和指针" />
 <meta property="og:description" content="数组名和指针
-
 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
-
 事实上，数组名和指针除了上述区别外，还有其他的一些不同：
 
 
 在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
 
+
 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+
 
 若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;a 得到的值是一样的。对 p 来说则不一样
 
+
 sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
 
+
 尽管 a和 &amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;a[0]表示的是数组第一个元素的首地址。
+
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/array-and-pointer/" /><meta property="article:published_time" content="2015-07-31T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2015-07-31T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/array-and-pointer/" />
+<meta property="article:published_time" content="2015-07-31T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-07-31T00:00:00+00:00" />
 <meta itemprop="name" content="数组和指针">
 <meta itemprop="description" content="数组名和指针
-
 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
-
 事实上，数组名和指针除了上述区别外，还有其他的一些不同：
 
 
 在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
 
+
 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+
 
 若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;a 得到的值是一样的。对 p 来说则不一样
 
+
 sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
 
+
 尽管 a和 &amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;a[0]表示的是数组第一个元素的首地址。
+
 ">
-
-
 <meta itemprop="datePublished" content="2015-07-31T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2015-07-31T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1961">
+<meta itemprop="wordCount" content="1958">
 
 
 
-<meta itemprop="keywords" content="c,Linux," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="c,Linux," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="数组和指针"/>
 <meta name="twitter:description" content="数组名和指针
-
 在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。
-
 事实上，数组名和指针除了上述区别外，还有其他的一些不同：
 
 
 在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。
 
+
 在引用上，数组名只需访问内存一次；而指针需要访问内存两次。
+
 
 若a是一个数组名，p为指向该数组的指针变量，使用 a 和 &amp;a 得到的值是一样的。对 p 来说则不一样
 
+
 sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)
 
+
 尽管 a和 &amp;a[0] 得到的地址是一样的，但是其意义是不一样的，a表示的是存储数组这块连续内存空间的首地址而 &amp;a[0]表示的是数组第一个元素的首地址。
+
 "/>
 
 <!--[if lte IE 9]>
@@ -206,7 +212,7 @@ sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的�
               <a href="/categories/programming/"> Programming </a>
             
           </div>
-        <span class="more-meta"> 约 1961 字 </span>
+        <span class="more-meta"> 约 1958 字 </span>
         <span class="more-meta"> 预计阅读 4 分钟 </span>
         
       </div>
@@ -219,16 +225,13 @@ sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的�
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#数组名和指针">数组名和指针</a></li>
-<li><a href="#指针数组和数组指针">指针数组和数组指针</a></li>
-<li><a href="#总结">总结</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#修订历史">修订历史</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#数组名和指针">数组名和指针</a></li>
+    <li><a href="#指针数组和数组指针">指针数组和数组指针</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#修订历史">修订历史</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -236,75 +239,72 @@ sizeof a 得到的是整个数组所占字节的大小，而 sizeof p 得到的�
     
     <div class="post-content">
       <h2 id="数组名和指针">数组名和指针</h2>
-
 <p>在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。</p>
-
 <p>事实上，数组名和指针除了上述区别外，还有其他的一些不同：</p>
-
 <ol>
-<li><p>在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。</p></li>
-
-<li><p>在引用上，数组名只需访问内存一次；而指针需要访问内存两次。</p></li>
-
-<li><p>若a是一个数组名，p为指向该数组的指针变量，使用 <code>a</code> 和 <code>&amp;a</code> 得到的值是一样的。对 <code>p</code> 来说则不一样</p></li>
-
-<li><p><code>sizeof a</code> 得到的是整个数组所占字节的大小，而 <code>sizeof p</code> 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)</p></li>
-
-<li><p>尽管 <code>a</code>和 <code>&amp;a[0]</code> 得到的地址是一样的，但是其意义是不一样的，<code>a</code>表示的是存储数组这块连续内存空间的首地址而 <code>&amp;a[0]</code>表示的是数组第一个元素的首地址。</p></li>
+<li>
+<p>在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。</p>
+</li>
+<li>
+<p>在引用上，数组名只需访问内存一次；而指针需要访问内存两次。</p>
+</li>
+<li>
+<p>若a是一个数组名，p为指向该数组的指针变量，使用 <code>a</code> 和 <code>&amp;a</code> 得到的值是一样的。对 <code>p</code> 来说则不一样</p>
+</li>
+<li>
+<p><code>sizeof a</code> 得到的是整个数组所占字节的大小，而 <code>sizeof p</code> 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)</p>
+</li>
+<li>
+<p>尽管 <code>a</code>和 <code>&amp;a[0]</code> 得到的地址是一样的，但是其意义是不一样的，<code>a</code>表示的是存储数组这块连续内存空间的首地址而 <code>&amp;a[0]</code>表示的是数组第一个元素的首地址。</p>
+</li>
 </ol>
-
 <p>举例说明：</p>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#define SIZE 5
-
-void show_arr(const int a[], int n); // const是为了保护数组内容
-int sum_arr(const int a[], int n); // 这里和int sum_arr(const int *a, int n)是一样的
-
-int main(void)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#define SIZE 5
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">show_arr</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n); <span style="color:#75715e">// const是为了保护数组内容
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sum_arr</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n); <span style="color:#75715e">// 这里和int sum_arr(const int *a, int n)是一样的
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
 {
-    int a[SIZE];
-    int *p;
+    <span style="color:#66d9ef">int</span> a[SIZE];
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p;
 
-    for (int i=0; i&lt;SIZE; i++) // 初始化 产生10以内的随机数
-        a[i] = rand()%10 + 1;
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>SIZE; i<span style="color:#f92672">++</span>) <span style="color:#75715e">// 初始化 产生10以内的随机数
+</span><span style="color:#75715e"></span>        a[i] <span style="color:#f92672">=</span> rand()<span style="color:#f92672">%</span><span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
 
-    p = a; // 将指针变量指向数组
-
-    printf(&quot;a = %p\n&amp;a = %p\n&quot;, a, &amp;a); // a和&amp;a都为数组开始的地址
-    printf(&quot;p = %p\n&amp;p = %p\n\n&quot;, p, &amp;p); // p指向数组开始，&amp;p则为存储指针p的地址
-
-    printf(&quot;sizeof a = %d\n&quot;, sizeof a); // 数组a包含int类型的5个元素
-    printf(&quot;sizeof p = %d\n\n&quot;, sizeof p); // 指针占字节数与系统位数有关，64位系统占8个字节
-
-    printf(&quot;The contents of array are: \n&quot;);
+    p <span style="color:#f92672">=</span> a; <span style="color:#75715e">// 将指针变量指向数组
+</span><span style="color:#75715e"></span>
+    printf(<span style="color:#e6db74">&#34;a = %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&amp;a = %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, a, <span style="color:#f92672">&amp;</span>a); <span style="color:#75715e">// a和&amp;a都为数组开始的地址
+</span><span style="color:#75715e"></span>    printf(<span style="color:#e6db74">&#34;p = %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&amp;p = %p</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>, p, <span style="color:#f92672">&amp;</span>p); <span style="color:#75715e">// p指向数组开始，&amp;p则为存储指针p的地址
+</span><span style="color:#75715e"></span>
+    printf(<span style="color:#e6db74">&#34;sizeof a = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#66d9ef">sizeof</span> a); <span style="color:#75715e">// 数组a包含int类型的5个元素
+</span><span style="color:#75715e"></span>    printf(<span style="color:#e6db74">&#34;sizeof p = %d</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#66d9ef">sizeof</span> p); <span style="color:#75715e">// 指针占字节数与系统位数有关，64位系统占8个字节
+</span><span style="color:#75715e"></span>
+    printf(<span style="color:#e6db74">&#34;The contents of array are: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
     show_arr(a, SIZE);
-    printf(&quot;\nSum of all elements is: %d\n&quot;, sum_arr(a, SIZE));
+    printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Sum of all elements is: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, sum_arr(a, SIZE));
 
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 
-void show_arr(const int a[], int n) {
-    for (int i=0; i&lt;n; i++)
-        printf(&quot;%3d &quot;, a[i]);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">show_arr</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n) {
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>)
+        printf(<span style="color:#e6db74">&#34;%3d &#34;</span>, a[i]);
 }
 
-int sum_arr(const int a[], int n) {
-    int total = 0;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sum_arr</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> a[], <span style="color:#66d9ef">int</span> n) {
+    <span style="color:#66d9ef">int</span> total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    for (int i=0; i&lt;n; i++)
-        total += a[i];
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n; i<span style="color:#f92672">++</span>)
+        total <span style="color:#f92672">+=</span> a[i];
 
-    return total;
+    <span style="color:#66d9ef">return</span> total;
 }
-</code></pre>
-
-<p>编译: <code>gcc -Wall -std=c99 test.c</code></p>
-
+</code></pre></div><p>编译: <code>gcc -Wall -std=c99 test.c</code></p>
 <p>输出如下：</p>
-
 <pre><code>a = 000000000022FE30
 &amp;a = 000000000022FE30
 p = 000000000022FE30
@@ -317,110 +317,93 @@ The contents of array are:
   2   8   5   1  10
 Sum of all elements is: 26
 </code></pre>
-
 <h2 id="指针数组和数组指针">指针数组和数组指针</h2>
-
 <p>常常被这两个概念弄晕，其实用英文更加好理解。</p>
-
 <ul>
 <li><strong>指针数组</strong>:  an array of pointers, 首先它是一个数组，数组元素都为指针</li>
 <li><strong>数组指针</strong>： a pointer to an array, 首先它是一个指针，指向一个数组，也称行指针</li>
 </ul>
-
 <p>其用法区别如下：</p>
-
 <ul>
-<li><p><code>int *ar[10]</code></p>
-
+<li>
+<p><code>int *ar[10]</code></p>
 <ul>
 <li>指针数组</li>
 <li>表示： ar是包含10个int类指针的数组</li>
 <li>元素表示： <code>*ar[i]</code> 和 <code>*(ar[i])</code> 是一样的,  <code>[]</code> 优先级高于 <code>*</code></li>
-</ul></li>
-
-<li><p><code>int (*pt)[10]</code></p>
-
+</ul>
+</li>
+<li>
+<p><code>int (*pt)[10]</code></p>
 <ul>
 <li>数组指针</li>
 <li>表示： pt为指向包含10个int值数组的指针</li>
 <li>元素表示： <code>(*ar)[i]</code></li>
-</ul></li>
 </ul>
-
-<p><img src="/images/2015073100.png" alt="" /></p>
-
+</li>
+</ul>
+<p><img src="/images/2015073100.png" alt=""></p>
 <p>指针数组比较好理解，就是用来存储指针的数组。举例说明：</p>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-
-int main(void)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
 {
-    int i = 1, j = 2;
-    int *a[2];
+    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, j <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>a[<span style="color:#ae81ff">2</span>];
 
-    // 数组a用来存储两个指针
-    a[0] = &amp;i; // a[0]和a[1]分别指向i和j
-    a[1] = &amp;j;
+    <span style="color:#75715e">// 数组a用来存储两个指针
+</span><span style="color:#75715e"></span>    a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>i; <span style="color:#75715e">// a[0]和a[1]分别指向i和j
+</span><span style="color:#75715e"></span>    a[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>j;
 
-    printf(&quot;*a[0] = %d\n*a[1] = %d\n&quot;, *a[0], *a[1]);
+    printf(<span style="color:#e6db74">&#34;*a[0] = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">*a[1] = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>a[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">*</span>a[<span style="color:#ae81ff">1</span>]);
 
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<p>输出如下::</p>
-
+</code></pre></div><p>输出如下::</p>
 <pre><code>*a[0] = 1
 *a[1] = 2
 </code></pre>
-
 <p>但是数组指针就看起看有点奇怪了。</p>
-
 <p>我们平时定义指针都是在数据类型后面加上指针变量名，但是数组指针为什么却是按
 <code>int (*pt)[10]</code> 来定义？其实数组指针的原型是这样的： <code>int (*)[10] pt</code> ,
 <code>int (*)[10]</code> 是指针类型，表示指针变量 <code>pt</code> 指向一个包含有10个int值的数组； <code>pt</code> 每加1，就跳过 <code>10 * sizeof(int)</code> 个字节。</p>
-
 <p>将数组指针当作 <strong>行指针</strong> 也比较好理解，举例：</p>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#define ROWS 4
-#define COLS 2
-
-int main(void)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#define ROWS 4
+</span><span style="color:#75715e">#define COLS 2
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
 {
-    int a[ROWS][COLS] = { {2,4}, {6,8}, {1,3}, {5,7} };
-    int (*p)[2]; // 声明数组指针
+    <span style="color:#66d9ef">int</span> a[ROWS][COLS] <span style="color:#f92672">=</span> { {<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">4</span>}, {<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>}, {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">3</span>}, {<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>} };
+    <span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>p)[<span style="color:#ae81ff">2</span>]; <span style="color:#75715e">// 声明数组指针
+</span><span style="color:#75715e"></span>
+    p <span style="color:#f92672">=</span> a;
+    <span style="color:#75715e">// 将其指向数组a,这里p指向第一个含有两个int值的数组,即a[0]
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 那么 p+1 指向第二个大小为2个int的数组
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ROWS; i<span style="color:#f92672">++</span>)
+        printf(<span style="color:#e6db74">&#34;p+%d = %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i, p<span style="color:#f92672">+</span>i);
 
-    p = a;
-    // 将其指向数组a,这里p指向第一个含有两个int值的数组,即a[0]
-    // 那么 p+1 指向第二个大小为2个int的数组
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ROWS; i<span style="color:#f92672">++</span>)
+        printf(<span style="color:#e6db74">&#34;*p+%d = %p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i, <span style="color:#f92672">*</span>p<span style="color:#f92672">+</span>i);
 
-    for (int i=0; i&lt;ROWS; i++)
-        printf(&quot;p+%d = %p\n&quot;, i, p+i);
-
-    for (int i=0; i&lt;ROWS; i++)
-        printf(&quot;*p+%d = %p\n&quot;, i, *p+i);
-
-    for (int i=0; i&lt;ROWS; i++) {
-        for (int j=0; j&lt;COLS; j++)
-            printf(&quot;*(*(p+%d)+%d) = %d\t&quot;, i, j, *(*(p+i)+j));
-    printf(&quot;\n&quot;);
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>ROWS; i<span style="color:#f92672">++</span>) {
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span>COLS; j<span style="color:#f92672">++</span>)
+            printf(<span style="color:#e6db74">&#34;*(*(p+%d)+%d) = %d</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>, i, j, <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(p<span style="color:#f92672">+</span>i)<span style="color:#f92672">+</span>j));
+    printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
     }
 
-    int *start = *p; // *p == &amp;a[0][0]
-    int * const end = start + ROWS*COLS;
-    // 将二维数组当成一维数组来循环
-    for ( ; start != end; start++)
-        printf(&quot;%-3d&quot;, *start);
-    putchar('\n');
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>start <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>p; <span style="color:#75715e">// *p == &amp;a[0][0]
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> end <span style="color:#f92672">=</span> start <span style="color:#f92672">+</span> ROWS<span style="color:#f92672">*</span>COLS;
+    <span style="color:#75715e">// 将二维数组当成一维数组来循环
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> ( ; start <span style="color:#f92672">!=</span> end; start<span style="color:#f92672">++</span>)
+        printf(<span style="color:#e6db74">&#34;%-3d&#34;</span>, <span style="color:#f92672">*</span>start);
+    putchar(<span style="color:#e6db74">&#39;\n&#39;</span>);
 
 
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<p>输出:</p>
-
+</code></pre></div><p>输出:</p>
 <pre><code>p+0 = 000000000022FE00
 p+1 = 000000000022FE08
 p+2 = 000000000022FE10
@@ -435,59 +418,47 @@ p+3 = 000000000022FE18
 *(*(p+3)+0) = 5 *(*(p+3)+1) = 7
 2  4  6  8  1  3  5  7
 </code></pre>
-
 <p>从这段代码结果我们可以看出：</p>
-
 <ol>
-<li><p>p每加1都跳过 <code>2 * sizeof(int)</code> 个字节；而 <code>*p</code> 每加1则只跳过  <code>sizeof(int)</code> 个字节</p></li>
-
-<li><p><code>p+1</code> 和 <code>*(p+1)</code> 值是一样的，但是意义不同，与数组中 <code>a</code> 和 <code>&amp;a[0]</code> 的关系类似,前者表示的是整个数组内存块开始的地址，后者表示的是每个数组首元素的地址。</p></li>
-
-<li><p>可以将数组指针理解为指针的指针，需要两次取值运算才能得到存储的值。</p></li>
-
-<li><p>数组指针p的用法和二维数组名a的用法是一样的，尽管其为一个指针变量，仍然可以使用<code>p[2][1]</code>这样的符号。表示单个元素的时候，数组名和数组指针都可行： <code>a[m][n] = *(*(a+m)+n)</code> 或 <code>p[m][n] = *(*(p+m)+n)</code></p></li>
-
-<li><p>二维数组可以当作特殊的一维数组，上述代码利用一个for循环就遍历了一个二维数组也说明了这一点。</p></li>
+<li>
+<p>p每加1都跳过 <code>2 * sizeof(int)</code> 个字节；而 <code>*p</code> 每加1则只跳过  <code>sizeof(int)</code> 个字节</p>
+</li>
+<li>
+<p><code>p+1</code> 和 <code>*(p+1)</code> 值是一样的，但是意义不同，与数组中 <code>a</code> 和 <code>&amp;a[0]</code> 的关系类似,前者表示的是整个数组内存块开始的地址，后者表示的是每个数组首元素的地址。</p>
+</li>
+<li>
+<p>可以将数组指针理解为指针的指针，需要两次取值运算才能得到存储的值。</p>
+</li>
+<li>
+<p>数组指针p的用法和二维数组名a的用法是一样的，尽管其为一个指针变量，仍然可以使用<code>p[2][1]</code>这样的符号。表示单个元素的时候，数组名和数组指针都可行： <code>a[m][n] = *(*(a+m)+n)</code> 或 <code>p[m][n] = *(*(p+m)+n)</code></p>
+</li>
+<li>
+<p>二维数组可以当作特殊的一维数组，上述代码利用一个for循环就遍历了一个二维数组也说明了这一点。</p>
+</li>
 </ol>
-
 <h2 id="总结">总结</h2>
-
 <p>其实不论是指针数组还是数组指针，都是复合类型声明。搞明白复合类型声明的规则就都
 很好理解。</p>
-
 <p>最简单的办法就是
 <strong>从右至左来阅读声明，离变量名最近的符号对变量的类型有最直接的影响。</strong></p>
-
 <p>举一个简单的例子:</p>
-
-<pre><code class="language-c">int *ptrs[10]
-</code></pre>
-
-<p>从右至左： 首先知道我们定义的是一个大小为10的数组，它的名字为<code>ptrs</code>，然后知道
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptrs[<span style="color:#ae81ff">10</span>]
+</code></pre></div><p>从右至左： 首先知道我们定义的是一个大小为10的数组，它的名字为<code>ptrs</code>，然后知道
 数组中存放的是指向<code>int</code>的指针。</p>
-
 <p>但是对于:</p>
-
-<pre><code class="language-c">int (*pArray)[10]
-</code></pre>
-
-<p>这种有括号的声明，需要先考虑括号内的部分。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>pArray)[<span style="color:#ae81ff">10</span>]
+</code></pre></div><p>这种有括号的声明，需要先考虑括号内的部分。</p>
 <p>由内而外，从右至左：首先是圆括号内的部分，<code>*pArray</code>意味着<code>pArray</code>是一个指针，
 接下来观察右边，可知道<code>pArray</code>是指向大小为10的数组的指针，最后观察左边，知道数组
 的元素是‵int‵类型，这样最终的含义就清楚了，<code>pArray</code> 是一个指针，它指向一个<code>int</code>
 数组，数组中包含有10个元素。</p>
-
 <h2 id="参考">参考</h2>
-
 <ol>
 <li><a href="http://blog.csdn.net/touch_2011/article/details/6966980">数组指针和指针数组</a></li>
 <li><a href="http://www.informit.com/store/c-primer-plus-9780321928429">C Primer Plus, 6th Edition</a></li>
 <li><a href="http://www.cnblogs.com/mq0036/p/3382732.html">数组指针和指针数组的区别</a></li>
 </ol>
-
 <h2 id="修订历史">修订历史</h2>
-
 <ul>
 <li>2015-07-31 初稿</li>
 <li>2017-05-26 添加总结</li>
@@ -572,7 +543,7 @@ p+3 = 000000000022FE18
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

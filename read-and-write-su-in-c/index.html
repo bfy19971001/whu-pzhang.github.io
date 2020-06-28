@@ -30,7 +30,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/read-and-write-su-in-c/" />
@@ -55,59 +55,41 @@
 
 <meta property="og:title" content="在C程序中读写SU格式文件" />
 <meta property="og:description" content="序言
-
 Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
 中读写SU文件。本文介绍如何在C程序中读写SU格式文件。
-
 子函数库
-
 Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。
-
 但是其中自带的 segy.h 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
 来对SU格式的文件进行读写。
-
 关于SU文件格式可以参考SU/SEGY文件格式 一文。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/read-and-write-su-in-c/" /><meta property="article:published_time" content="2016-03-01T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2016-03-01T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/read-and-write-su-in-c/" />
+<meta property="article:published_time" content="2016-03-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-03-01T00:00:00+00:00" />
 <meta itemprop="name" content="在C程序中读写SU格式文件">
 <meta itemprop="description" content="序言
-
 Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
 中读写SU文件。本文介绍如何在C程序中读写SU格式文件。
-
 子函数库
-
 Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。
-
 但是其中自带的 segy.h 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
 来对SU格式的文件进行读写。
-
 关于SU文件格式可以参考SU/SEGY文件格式 一文。">
-
-
 <meta itemprop="datePublished" content="2016-03-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2016-03-01T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="4280">
 
 
 
-<meta itemprop="keywords" content="Seismic Unix,c," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Seismic Unix,c," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="在C程序中读写SU格式文件"/>
 <meta name="twitter:description" content="序言
-
 Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
 中读写SU文件。本文介绍如何在C程序中读写SU格式文件。
-
 子函数库
-
 Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。
-
 但是其中自带的 segy.h 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
 来对SU格式的文件进行读写。
-
 关于SU文件格式可以参考SU/SEGY文件格式 一文。"/>
 
 <!--[if lte IE 9]>
@@ -203,16 +185,13 @@ Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序�
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#序言">序言</a></li>
-<li><a href="#子函数库">子函数库</a></li>
-<li><a href="#示例">示例</a></li>
-<li><a href="#后记">后记</a></li>
-<li><a href="#修改历史">修改历史</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#序言">序言</a></li>
+    <li><a href="#子函数库">子函数库</a></li>
+    <li><a href="#示例">示例</a></li>
+    <li><a href="#后记">后记</a></li>
+    <li><a href="#修改历史">修改历史</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -220,979 +199,955 @@ Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序�
     
     <div class="post-content">
       <h2 id="序言">序言</h2>
-
 <p>Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
 中读写SU文件。本文介绍如何在C程序中读写SU格式文件。</p>
-
 <h2 id="子函数库">子函数库</h2>
-
 <p>Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。</p>
-
 <p>但是其中自带的 <code>segy.h</code> 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
 来对SU格式的文件进行读写。</p>
-
 <p>关于SU文件格式可以参考<a href="/SU-and-Segy-format.html">SU/SEGY文件格式</a> 一文。</p>
-
 <p>在 <code>segy.h</code> 中定义了名为 <code>segy</code> 的结构体，其包含了SU格式的所有道头变量。</p>
-
-<pre><code class="language-C">
-    /* Copyright (c) Colorado School of Mines, 2011.*/
-    /* All rights reserved.                       */
-
-    /* segy.h - include file for SEGY traces
-     *
-     * declarations for:
-     *	typedef struct {} segy - the trace identification header
-     *	typedef struct {} bhed - binary header
-     *
-     * Note:
-     *	If header words are added, run the makefile in this directory
-     *	to recreate hdr.h.
-     *
-     * Reference:
-     *	K. M. Barry, D. A. Cavers and C. W. Kneale, &quot;Special Report:
-     *		Recommended Standards for Digital Tape Formats&quot;,
-     *		Geophysics, vol. 40, no. 2 (April 1975), P. 344-352.
-     *
-     * $Author: john $
-     * $Source: /usr/local/cwp/src/su/include/RCS/segy.h,v $
-     * $Revision: 1.33 $ ; $Date: 2011/11/11 23:56:14 $
-     */
-
-    #include &lt;limits.h&gt;
-    #include &quot;par.h&quot;
-
-    #ifndef SEGY_H
-    #define SEGY_H
-    #define TRCBYTES		240
-
-    #define SU_NFLTS	32767	/* Arbitrary limit on data array size	*/
-
-    /* TYPEDEFS */
-    typedef struct {	/* segy - trace identification header */
-
-    	int tracl;	/* Trace sequence number within line
-    			   --numbers continue to increase if the
-    			   same line continues across multiple
-    			   SEG Y files.
-    			   byte# 1-4
-    			 */
-
-    	int tracr;	/* Trace sequence number within SEG Y file
-    			   ---each file starts with trace sequence
-    			   one
-    			   byte# 5-8
-    			 */
-
-    	int fldr;	/* Original field record number
-    			   byte# 9-12
-    			*/
-
-    	int tracf;	/* Trace number within original field record
-    			   byte# 13-16
-    			*/
-
-    	int ep;		/* energy source point number
-    			   ---Used when more than one record occurs
-    			   at the same effective surface location.
-    			   byte# 17-20
-    			 */
-
-    	int cdp;	/* Ensemble number (i.e. CDP, CMP, CRP,...)
-    			   byte# 21-24
-    			*/
-
-    	int cdpt;	/* trace number within the ensemble
-    			   ---each ensemble starts with trace number one.
-    			   byte# 25-28
-    			 */
-
-    	short trid;	/* trace identification code:
-    			-1 = Other
-    		         0 = Unknown
-    			 1 = Seismic data
-    			 2 = Dead
-    			 3 = Dummy
-    			 4 = Time break
-    			 5 = Uphole
-    			 6 = Sweep
-    			 7 = Timing
-    			 8 = Water break
-    			 9 = Near-field gun signature
-    			10 = Far-field gun signature
-    			11 = Seismic pressure sensor
-    			12 = Multicomponent seismic sensor
-    				- Vertical component
-    			13 = Multicomponent seismic sensor
-    				- Cross-line component
-    			14 = Multicomponent seismic sensor
-    				- in-line component
-    			15 = Rotated multicomponent seismic sensor
-    				- Vertical component
-    			16 = Rotated multicomponent seismic sensor
-    				- Transverse component
-    			17 = Rotated multicomponent seismic sensor
-    				- Radial component
-    			18 = Vibrator reaction mass
-    			19 = Vibrator baseplate
-    			20 = Vibrator estimated ground force
-    			21 = Vibrator reference
-    			22 = Time-velocity pairs
-    			23 ... N = optional use
-    				(maximum N = 32,767)
-
-    			Following are CWP id flags:
-
-    			109 = autocorrelation
-    			110 = Fourier transformed - no packing
-    			     xr[0],xi[0], ..., xr[N-1],xi[N-1]
-    			111 = Fourier transformed - unpacked Nyquist
-    			     xr[0],xi[0],...,xr[N/2],xi[N/2]
-    			112 = Fourier transformed - packed Nyquist
-    	 		     even N:
-    			     xr[0],xr[N/2],xr[1],xi[1], ...,
-    				xr[N/2 -1],xi[N/2 -1]
-    				(note the exceptional second entry)
-    			     odd N:
-    			     xr[0],xr[(N-1)/2],xr[1],xi[1], ...,
-    				xr[(N-1)/2 -1],xi[(N-1)/2 -1],xi[(N-1)/2]
-    				(note the exceptional second &amp; last entries)
-    			113 = Complex signal in the time domain
-    			     xr[0],xi[0], ..., xr[N-1],xi[N-1]
-    			114 = Fourier transformed - amplitude/phase
-    			     a[0],p[0], ..., a[N-1],p[N-1]
-    			115 = Complex time signal - amplitude/phase
-    			     a[0],p[0], ..., a[N-1],p[N-1]
-    			116 = Real part of complex trace from 0 to Nyquist
-    			117 = Imag part of complex trace from 0 to Nyquist
-    			118 = Amplitude of complex trace from 0 to Nyquist
-    			119 = Phase of complex trace from 0 to Nyquist
-    			121 = Wavenumber time domain (k-t)
-    			122 = Wavenumber frequency (k-omega)
-    			123 = Envelope of the complex time trace
-    			124 = Phase of the complex time trace
-    			125 = Frequency of the complex time trace
-    			130 = Depth-Range (z-x) traces
-    			201 = Seismic data packed to bytes (by supack1)
-    			202 = Seismic data packed to 2 bytes (by supack2)
-    			   byte# 29-30
-    			*/
-
-    	short nvs;	/* Number of vertically summed traces yielding
-    			   this trace. (1 is one trace,
-    			   2 is two summed traces, etc.)
-    			   byte# 31-32
-    			 */
-
-    	short nhs;	/* Number of horizontally summed traces yielding
-    			   this trace. (1 is one trace
-    			   2 is two summed traces, etc.)
-    			   byte# 33-34
-    			 */
-
-    	short duse;	/* Data use:
-    				1 = Production
-    				2 = Test
-    			   byte# 35-36
-    			 */
-
-    	int offset;	/* Distance from the center of the source point
-    			   to the center of the receiver group
-    			   (negative if opposite to direction in which
-    			   the line was shot).
-    			   byte# 37-40
-    			 */
-
-    	int gelev;	/* Receiver group elevation from sea level
-    			   (all elevations above the Vertical datum are
-    			   positive and below are negative).
-    			   byte# 41-44
-    			 */
-
-    	int selev;	/* Surface elevation at source.
-    			   byte# 45-48
-    			 */
-
-    	int sdepth;	/* Source depth below surface (a positive number).
-    			   byte# 49-52
-    			 */
-
-    	int gdel;	/* Datum elevation at receiver group.
-    			   byte# 53-56
-    			*/
-
-    	int sdel;	/* Datum elevation at source.
-    			   byte# 57-60
-    			*/
-
-    	int swdep;	/* Water depth at source.
-    			   byte# 61-64
-    			*/
-
-    	int gwdep;	/* Water depth at receiver group.
-    			   byte# 65-68
-    			*/
-
-    	short scalel;	/* Scalar to be applied to the previous 7 entries
-    			   to give the real value.
-    			   Scalar = 1, +10, +100, +1000, +10000.
-    			   If positive, scalar is used as a multiplier,
-    			   if negative, scalar is used as a divisor.
-    			   byte# 69-70
-    			 */
-
-    	short scalco;	/* Scalar to be applied to the next 4 entries
-    			   to give the real value.
-    			   Scalar = 1, +10, +100, +1000, +10000.
-    			   If positive, scalar is used as a multiplier,
-    			   if negative, scalar is used as a divisor.
-    			   byte# 71-72
-    			 */
-
-    	int  sx;	/* Source coordinate - X
-    			   byte# 73-76
-    			*/
-
-    	int  sy;	/* Source coordinate - Y
-    			   byte# 77-80
-    			*/
-
-    	int  gx;	/* Group coordinate - X
-    			   byte# 81-84
-    			*/
-
-    	int  gy;	/* Group coordinate - Y
-    			   byte# 85-88
-    			*/
-
-    	short counit;	/* Coordinate units: (for previous 4 entries and
-    				for the 7 entries before scalel)
-    			   1 = Length (meters or feet)
-    			   2 = Seconds of arc
-    			   3 = Decimal degrees
-    			   4 = Degrees, minutes, seconds (DMS)
-
-    			In case 2, the X values are longitude and
-    			the Y values are latitude, a positive value designates
-    			the number of seconds east of Greenwich
-    				or north of the equator
-
-    			In case 4, to encode +-DDDMMSS
-    			counit = +-DDD*10^4 + MM*10^2 + SS,
-    			with scalco = 1. To encode +-DDDMMSS.ss
-    			counit = +-DDD*10^6 + MM*10^4 + SS*10^2
-    			with scalco = -100.
-    			   byte# 89-90
-    			*/
-
-    	short wevel;	/* Weathering velocity.
-    			   byte# 91-92
-    			*/
-
-    	short swevel;	/* Subweathering velocity.
-    			   byte# 93-94
-    			*/
-
-    	short sut;	/* Uphole time at source in milliseconds.
-    			   byte# 95-96
-    			*/
-
-    	short gut;	/* Uphole time at receiver group in milliseconds.
-    			   byte# 97-98
-    			*/
-
-    	short sstat;	/* Source static correction in milliseconds.
-    			   byte# 99-100
-    			*/
-
-    	short gstat;	/* Group static correction  in milliseconds.
-    			   byte# 101-102
-    			*/
-
-    	short tstat;	/* Total static applied  in milliseconds.
-    			   (Zero if no static has been applied.)
-    			   byte# 103-104
-    			*/
-
-    	short laga;	/* Lag time A, time in ms between end of 240-
-    			   byte trace identification header and time
-    			   break, positive if time break occurs after
-    			   end of header, time break is defined as
-    			   the initiation pulse which maybe recorded
-    			   on an auxiliary trace or as otherwise
-    			   specified by the recording system
-    			   byte# 105-106
-    			*/
-
-    	short lagb;	/* lag time B, time in ms between the time break
-    			   and the initiation time of the energy source,
-    			   may be positive or negative
-    			   byte# 107-108
-    			*/
-
-    	short delrt;	/* delay recording time, time in ms between
-    			   initiation time of energy source and time
-    			   when recording of data samples begins
-    			   (for deep water work if recording does not
-    			   start at zero time)
-    			   byte# 109-110
-    			*/
-
-    	short muts;	/* mute time--start
-    			   byte# 111-112
-    			*/
-
-    	short mute;	/* mute time--end
-    			   byte# 113-114
-    			*/
-
-    	unsigned short ns;	/* number of samples in this trace
-    			   byte# 115-116
-    			*/
-
-    	unsigned short dt;	/* sample interval; in micro-seconds
-    			   byte# 117-118
-    			*/
-
-    	short gain;	/* gain type of field instruments code:
-    				1 = fixed
-    				2 = binary
-    				3 = floating point
-    				4 ---- N = optional use
-    			   byte# 119-120
-    			*/
-
-    	short igc;	/* instrument gain constant
-    			   byte# 121-122
-    			*/
-
-    	short igi;	/* instrument early or initial gain
-    			   byte# 123-124
-    			*/
-
-    	short corr;	/* correlated:
-    				1 = no
-    				2 = yes
-    			   byte# 125-126
-    			*/
-
-    	short sfs;	/* sweep frequency at start
-    			   byte# 127-128
-    			*/
-
-    	short sfe;	/* sweep frequency at end
-    			   byte# 129-130
-    			*/
-
-    	short slen;	/* sweep length in ms
-    			   byte# 131-132
-    			*/
-
-    	short styp;	/* sweep type code:
-    				1 = linear
-    				2 = cos-squared
-    				3 = other
-    			   byte# 133-134
-    			*/
-
-    	short stas;	/* sweep trace length at start in ms
-    			   byte# 135-136
-    			*/
-
-    	short stae;	/* sweep trace length at end in ms
-    			   byte# 137-138
-    			*/
-
-    	short tatyp;	/* taper type: 1=linear, 2=cos^2, 3=other
-    			   byte# 139-140
-    			*/
-
-    	short afilf;	/* alias filter frequency if used
-    			   byte# 141-142
-    			*/
-
-    	short afils;	/* alias filter slope
-    			   byte# 143-144
-    			*/
-
-    	short nofilf;	/* notch filter frequency if used
-    			   byte# 145-146
-    			*/
-
-    	short nofils;	/* notch filter slope
-    			   byte# 147-148
-    			*/
-
-    	short lcf;	/* low cut frequency if used
-    			   byte# 149-150
-    			*/
-
-    	short hcf;	/* high cut frequncy if used
-    			   byte# 151-152
-    			*/
-
-    	short lcs;	/* low cut slope
-    			   byte# 153-154
-    			*/
-
-    	short hcs;	/* high cut slope
-    			   byte# 155-156
-    			*/
-
-    	short year;	/* year data recorded
-    			   byte# 157-158
-    			*/
-
-    	short day;	/* day of year
-    			   byte# 159-160
-    			*/
-
-    	short hour;	/* hour of day (24 hour clock)
-    			   byte# 161-162
-    			*/
-
-    	short minute;	/* minute of hour
-    			   byte# 163-164
-    			*/
-
-    	short sec;	/* second of minute
-    			   byte# 165-166
-    			*/
-
-    	short timbas;	/* time basis code:
-    				1 = local
-    				2 = GMT
-    				3 = other
-    			   byte# 167-168
-    			*/
-
-    	short trwf;	/* trace weighting factor, defined as 1/2^N
-    			   volts for the least sigificant bit
-    			   byte# 169-170
-    			*/
-
-    	short grnors;	/* geophone group number of roll switch
-    			   position one
-    			   byte# 171-172
-    			*/
-
-    	short grnofr;	/* geophone group number of trace one within
-    			   original field record
-    			   byte# 173-174
-    			*/
-
-    	short grnlof;	/* geophone group number of last trace within
-    			   original field record
-    			   byte# 175-176
-    			*/
-
-    	short gaps;	/* gap size (total number of groups dropped)
-    			   byte# 177-178
-    			*/
-
-    	short otrav;	/* overtravel taper code:
-    				1 = down (or behind)
-    				2 = up (or ahead)
-    			   byte# 179-180
-    			*/
-
-    #ifdef SLTSU_SEGY_H  /* begin Unocal SU segy.h differences */
-
-
-    	/* cwp local assignments */
-    	float d1;	/* sample spacing for non-seismic data
-    			   byte# 181-184
-    			*/
-
-    	float f1;	/* first sample location for non-seismic data
-    			   byte# 185-188
-    			*/
-
-    	float d2;	/* sample spacing between traces
-    			   byte# 189-192
-    			*/
-
-    	float f2;	/* first trace location
-    			   byte# 193-196
-    			*/
-
-    	float ungpow;	/* negative of power used for dynamic
-    			   range compression
-    			   byte# 197-200
-    			*/
-
-    	float unscale;	/* reciprocal of scaling factor to normalize
-    			   range
-    			   byte# 201-204
-    			*/
-
-    	short mark;	/* mark selected traces
-    			   byte# 205-206
-    			*/
-
-    	/* SLTSU local assignments */
-    	short mutb;	/* mute time at bottom (start time)
-    			   bottom mute ends at last sample
-    			   byte# 207-208
-    			*/
-    	float dz;	/* depth sampling interval in (m or ft)
-    			if =0.0, input are time samples
-    			   byte# 209-212
-    			*/
-
-    	float fz;	/* depth of first sample in (m or ft)
-    			   byte# 213-116
-    			*/
-
-    	short n2;	/* number of traces per cdp or per shot
-    			   byte# 217-218
-    			*/
-
-        short shortpad; /* alignment padding
-    			   byte# 219-220
-    			*/
-
-    	int ntr; 	/* number of traces
-    			   byte# 221-224
-    			*/
-
-    	/* SLTSU local assignments end */
-
-    	short unass[8];	/* unassigned
-    			   byte# 225-240
-    			*/
-
-    #else
-
-    	/* cwp local assignments */
-    	float d1;	/* sample spacing for non-seismic data
-    			   byte# 181-184
-    			*/
-
-    	float f1;	/* first sample location for non-seismic data
-    			   byte# 185-188
-    			*/
-
-    	float d2;	/* sample spacing between traces
-    			   byte# 189-192
-    			*/
-
-    	float f2;	/* first trace location
-    			   byte# 193-196
-    			*/
-
-    	float ungpow;	/* negative of power used for dynamic
-    			   range compression
-    			   byte# 197-200
-    			*/
-
-    	float unscale;	/* reciprocal of scaling factor to normalize
-    			   range
-    			   byte# 201-204
-    			*/
-
-    	int ntr; 	/* number of traces
-    			   byte# 205-208
-    			*/
-
-    	short mark;	/* mark selected traces
-    			   byte# 209-210
-    			*/
-
-        short shortpad; /* alignment padding
-    			   byte# 211-212
-    			*/
-
-
-    	short unass[14];	/* unassigned--NOTE: last entry causes
-    			   a break in the word alignment, if we REALLY
-    			   want to maintain 240 bytes, the following
-    			   entry should be an odd number of short/UINT2
-    			   OR do the insertion above the &quot;mark&quot; keyword
-    			   entry
-    			   byte# 213-240
-    			*/
-    #endif
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">
+    <span style="color:#75715e">/* Copyright (c) Colorado School of Mines, 2011.*/</span>
+    <span style="color:#75715e">/* All rights reserved.                       */</span>
+
+    <span style="color:#75715e">/* segy.h - include file for SEGY traces
+</span><span style="color:#75715e">     *
+</span><span style="color:#75715e">     * declarations for:
+</span><span style="color:#75715e">     *	typedef struct {} segy - the trace identification header
+</span><span style="color:#75715e">     *	typedef struct {} bhed - binary header
+</span><span style="color:#75715e">     *
+</span><span style="color:#75715e">     * Note:
+</span><span style="color:#75715e">     *	If header words are added, run the makefile in this directory
+</span><span style="color:#75715e">     *	to recreate hdr.h.
+</span><span style="color:#75715e">     *
+</span><span style="color:#75715e">     * Reference:
+</span><span style="color:#75715e">     *	K. M. Barry, D. A. Cavers and C. W. Kneale, &#34;Special Report:
+</span><span style="color:#75715e">     *		Recommended Standards for Digital Tape Formats&#34;,
+</span><span style="color:#75715e">     *		Geophysics, vol. 40, no. 2 (April 1975), P. 344-352.
+</span><span style="color:#75715e">     *
+</span><span style="color:#75715e">     * $Author: john $
+</span><span style="color:#75715e">     * $Source: /usr/local/cwp/src/su/include/RCS/segy.h,v $
+</span><span style="color:#75715e">     * $Revision: 1.33 $ ; $Date: 2011/11/11 23:56:14 $
+</span><span style="color:#75715e">     */</span>
+
+    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;limits.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;par.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">#ifndef SEGY_H
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#define SEGY_H
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#define TRCBYTES		240
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">#define SU_NFLTS	32767	</span><span style="color:#75715e">/* Arbitrary limit on data array size	*/</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">/* TYPEDEFS */</span>
+    <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {	<span style="color:#75715e">/* segy - trace identification header */</span>
+
+    	<span style="color:#66d9ef">int</span> tracl;	<span style="color:#75715e">/* Trace sequence number within line
+</span><span style="color:#75715e">    			   --numbers continue to increase if the
+</span><span style="color:#75715e">    			   same line continues across multiple
+</span><span style="color:#75715e">    			   SEG Y files.
+</span><span style="color:#75715e">    			   byte# 1-4
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> tracr;	<span style="color:#75715e">/* Trace sequence number within SEG Y file
+</span><span style="color:#75715e">    			   ---each file starts with trace sequence
+</span><span style="color:#75715e">    			   one
+</span><span style="color:#75715e">    			   byte# 5-8
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> fldr;	<span style="color:#75715e">/* Original field record number
+</span><span style="color:#75715e">    			   byte# 9-12
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> tracf;	<span style="color:#75715e">/* Trace number within original field record
+</span><span style="color:#75715e">    			   byte# 13-16
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> ep;		<span style="color:#75715e">/* energy source point number
+</span><span style="color:#75715e">    			   ---Used when more than one record occurs
+</span><span style="color:#75715e">    			   at the same effective surface location.
+</span><span style="color:#75715e">    			   byte# 17-20
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> cdp;	<span style="color:#75715e">/* Ensemble number (i.e. CDP, CMP, CRP,...)
+</span><span style="color:#75715e">    			   byte# 21-24
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> cdpt;	<span style="color:#75715e">/* trace number within the ensemble
+</span><span style="color:#75715e">    			   ---each ensemble starts with trace number one.
+</span><span style="color:#75715e">    			   byte# 25-28
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">short</span> trid;	<span style="color:#75715e">/* trace identification code:
+</span><span style="color:#75715e">    			-1 = Other
+</span><span style="color:#75715e">    		         0 = Unknown
+</span><span style="color:#75715e">    			 1 = Seismic data
+</span><span style="color:#75715e">    			 2 = Dead
+</span><span style="color:#75715e">    			 3 = Dummy
+</span><span style="color:#75715e">    			 4 = Time break
+</span><span style="color:#75715e">    			 5 = Uphole
+</span><span style="color:#75715e">    			 6 = Sweep
+</span><span style="color:#75715e">    			 7 = Timing
+</span><span style="color:#75715e">    			 8 = Water break
+</span><span style="color:#75715e">    			 9 = Near-field gun signature
+</span><span style="color:#75715e">    			10 = Far-field gun signature
+</span><span style="color:#75715e">    			11 = Seismic pressure sensor
+</span><span style="color:#75715e">    			12 = Multicomponent seismic sensor
+</span><span style="color:#75715e">    				- Vertical component
+</span><span style="color:#75715e">    			13 = Multicomponent seismic sensor
+</span><span style="color:#75715e">    				- Cross-line component
+</span><span style="color:#75715e">    			14 = Multicomponent seismic sensor
+</span><span style="color:#75715e">    				- in-line component
+</span><span style="color:#75715e">    			15 = Rotated multicomponent seismic sensor
+</span><span style="color:#75715e">    				- Vertical component
+</span><span style="color:#75715e">    			16 = Rotated multicomponent seismic sensor
+</span><span style="color:#75715e">    				- Transverse component
+</span><span style="color:#75715e">    			17 = Rotated multicomponent seismic sensor
+</span><span style="color:#75715e">    				- Radial component
+</span><span style="color:#75715e">    			18 = Vibrator reaction mass
+</span><span style="color:#75715e">    			19 = Vibrator baseplate
+</span><span style="color:#75715e">    			20 = Vibrator estimated ground force
+</span><span style="color:#75715e">    			21 = Vibrator reference
+</span><span style="color:#75715e">    			22 = Time-velocity pairs
+</span><span style="color:#75715e">    			23 ... N = optional use
+</span><span style="color:#75715e">    				(maximum N = 32,767)
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">    			Following are CWP id flags:
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">    			109 = autocorrelation
+</span><span style="color:#75715e">    			110 = Fourier transformed - no packing
+</span><span style="color:#75715e">    			     xr[0],xi[0], ..., xr[N-1],xi[N-1]
+</span><span style="color:#75715e">    			111 = Fourier transformed - unpacked Nyquist
+</span><span style="color:#75715e">    			     xr[0],xi[0],...,xr[N/2],xi[N/2]
+</span><span style="color:#75715e">    			112 = Fourier transformed - packed Nyquist
+</span><span style="color:#75715e">    	 		     even N:
+</span><span style="color:#75715e">    			     xr[0],xr[N/2],xr[1],xi[1], ...,
+</span><span style="color:#75715e">    				xr[N/2 -1],xi[N/2 -1]
+</span><span style="color:#75715e">    				(note the exceptional second entry)
+</span><span style="color:#75715e">    			     odd N:
+</span><span style="color:#75715e">    			     xr[0],xr[(N-1)/2],xr[1],xi[1], ...,
+</span><span style="color:#75715e">    				xr[(N-1)/2 -1],xi[(N-1)/2 -1],xi[(N-1)/2]
+</span><span style="color:#75715e">    				(note the exceptional second &amp; last entries)
+</span><span style="color:#75715e">    			113 = Complex signal in the time domain
+</span><span style="color:#75715e">    			     xr[0],xi[0], ..., xr[N-1],xi[N-1]
+</span><span style="color:#75715e">    			114 = Fourier transformed - amplitude/phase
+</span><span style="color:#75715e">    			     a[0],p[0], ..., a[N-1],p[N-1]
+</span><span style="color:#75715e">    			115 = Complex time signal - amplitude/phase
+</span><span style="color:#75715e">    			     a[0],p[0], ..., a[N-1],p[N-1]
+</span><span style="color:#75715e">    			116 = Real part of complex trace from 0 to Nyquist
+</span><span style="color:#75715e">    			117 = Imag part of complex trace from 0 to Nyquist
+</span><span style="color:#75715e">    			118 = Amplitude of complex trace from 0 to Nyquist
+</span><span style="color:#75715e">    			119 = Phase of complex trace from 0 to Nyquist
+</span><span style="color:#75715e">    			121 = Wavenumber time domain (k-t)
+</span><span style="color:#75715e">    			122 = Wavenumber frequency (k-omega)
+</span><span style="color:#75715e">    			123 = Envelope of the complex time trace
+</span><span style="color:#75715e">    			124 = Phase of the complex time trace
+</span><span style="color:#75715e">    			125 = Frequency of the complex time trace
+</span><span style="color:#75715e">    			130 = Depth-Range (z-x) traces
+</span><span style="color:#75715e">    			201 = Seismic data packed to bytes (by supack1)
+</span><span style="color:#75715e">    			202 = Seismic data packed to 2 bytes (by supack2)
+</span><span style="color:#75715e">    			   byte# 29-30
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> nvs;	<span style="color:#75715e">/* Number of vertically summed traces yielding
+</span><span style="color:#75715e">    			   this trace. (1 is one trace,
+</span><span style="color:#75715e">    			   2 is two summed traces, etc.)
+</span><span style="color:#75715e">    			   byte# 31-32
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">short</span> nhs;	<span style="color:#75715e">/* Number of horizontally summed traces yielding
+</span><span style="color:#75715e">    			   this trace. (1 is one trace
+</span><span style="color:#75715e">    			   2 is two summed traces, etc.)
+</span><span style="color:#75715e">    			   byte# 33-34
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">short</span> duse;	<span style="color:#75715e">/* Data use:
+</span><span style="color:#75715e">    				1 = Production
+</span><span style="color:#75715e">    				2 = Test
+</span><span style="color:#75715e">    			   byte# 35-36
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> offset;	<span style="color:#75715e">/* Distance from the center of the source point
+</span><span style="color:#75715e">    			   to the center of the receiver group
+</span><span style="color:#75715e">    			   (negative if opposite to direction in which
+</span><span style="color:#75715e">    			   the line was shot).
+</span><span style="color:#75715e">    			   byte# 37-40
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> gelev;	<span style="color:#75715e">/* Receiver group elevation from sea level
+</span><span style="color:#75715e">    			   (all elevations above the Vertical datum are
+</span><span style="color:#75715e">    			   positive and below are negative).
+</span><span style="color:#75715e">    			   byte# 41-44
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> selev;	<span style="color:#75715e">/* Surface elevation at source.
+</span><span style="color:#75715e">    			   byte# 45-48
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> sdepth;	<span style="color:#75715e">/* Source depth below surface (a positive number).
+</span><span style="color:#75715e">    			   byte# 49-52
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span> gdel;	<span style="color:#75715e">/* Datum elevation at receiver group.
+</span><span style="color:#75715e">    			   byte# 53-56
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> sdel;	<span style="color:#75715e">/* Datum elevation at source.
+</span><span style="color:#75715e">    			   byte# 57-60
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> swdep;	<span style="color:#75715e">/* Water depth at source.
+</span><span style="color:#75715e">    			   byte# 61-64
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> gwdep;	<span style="color:#75715e">/* Water depth at receiver group.
+</span><span style="color:#75715e">    			   byte# 65-68
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> scalel;	<span style="color:#75715e">/* Scalar to be applied to the previous 7 entries
+</span><span style="color:#75715e">    			   to give the real value.
+</span><span style="color:#75715e">    			   Scalar = 1, +10, +100, +1000, +10000.
+</span><span style="color:#75715e">    			   If positive, scalar is used as a multiplier,
+</span><span style="color:#75715e">    			   if negative, scalar is used as a divisor.
+</span><span style="color:#75715e">    			   byte# 69-70
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">short</span> scalco;	<span style="color:#75715e">/* Scalar to be applied to the next 4 entries
+</span><span style="color:#75715e">    			   to give the real value.
+</span><span style="color:#75715e">    			   Scalar = 1, +10, +100, +1000, +10000.
+</span><span style="color:#75715e">    			   If positive, scalar is used as a multiplier,
+</span><span style="color:#75715e">    			   if negative, scalar is used as a divisor.
+</span><span style="color:#75715e">    			   byte# 71-72
+</span><span style="color:#75715e">    			 */</span>
+
+    	<span style="color:#66d9ef">int</span>  sx;	<span style="color:#75715e">/* Source coordinate - X
+</span><span style="color:#75715e">    			   byte# 73-76
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span>  sy;	<span style="color:#75715e">/* Source coordinate - Y
+</span><span style="color:#75715e">    			   byte# 77-80
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span>  gx;	<span style="color:#75715e">/* Group coordinate - X
+</span><span style="color:#75715e">    			   byte# 81-84
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span>  gy;	<span style="color:#75715e">/* Group coordinate - Y
+</span><span style="color:#75715e">    			   byte# 85-88
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> counit;	<span style="color:#75715e">/* Coordinate units: (for previous 4 entries and
+</span><span style="color:#75715e">    				for the 7 entries before scalel)
+</span><span style="color:#75715e">    			   1 = Length (meters or feet)
+</span><span style="color:#75715e">    			   2 = Seconds of arc
+</span><span style="color:#75715e">    			   3 = Decimal degrees
+</span><span style="color:#75715e">    			   4 = Degrees, minutes, seconds (DMS)
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">    			In case 2, the X values are longitude and
+</span><span style="color:#75715e">    			the Y values are latitude, a positive value designates
+</span><span style="color:#75715e">    			the number of seconds east of Greenwich
+</span><span style="color:#75715e">    				or north of the equator
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">    			In case 4, to encode +-DDDMMSS
+</span><span style="color:#75715e">    			counit = +-DDD*10^4 + MM*10^2 + SS,
+</span><span style="color:#75715e">    			with scalco = 1. To encode +-DDDMMSS.ss
+</span><span style="color:#75715e">    			counit = +-DDD*10^6 + MM*10^4 + SS*10^2
+</span><span style="color:#75715e">    			with scalco = -100.
+</span><span style="color:#75715e">    			   byte# 89-90
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> wevel;	<span style="color:#75715e">/* Weathering velocity.
+</span><span style="color:#75715e">    			   byte# 91-92
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> swevel;	<span style="color:#75715e">/* Subweathering velocity.
+</span><span style="color:#75715e">    			   byte# 93-94
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> sut;	<span style="color:#75715e">/* Uphole time at source in milliseconds.
+</span><span style="color:#75715e">    			   byte# 95-96
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> gut;	<span style="color:#75715e">/* Uphole time at receiver group in milliseconds.
+</span><span style="color:#75715e">    			   byte# 97-98
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> sstat;	<span style="color:#75715e">/* Source static correction in milliseconds.
+</span><span style="color:#75715e">    			   byte# 99-100
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> gstat;	<span style="color:#75715e">/* Group static correction  in milliseconds.
+</span><span style="color:#75715e">    			   byte# 101-102
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> tstat;	<span style="color:#75715e">/* Total static applied  in milliseconds.
+</span><span style="color:#75715e">    			   (Zero if no static has been applied.)
+</span><span style="color:#75715e">    			   byte# 103-104
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> laga;	<span style="color:#75715e">/* Lag time A, time in ms between end of 240-
+</span><span style="color:#75715e">    			   byte trace identification header and time
+</span><span style="color:#75715e">    			   break, positive if time break occurs after
+</span><span style="color:#75715e">    			   end of header, time break is defined as
+</span><span style="color:#75715e">    			   the initiation pulse which maybe recorded
+</span><span style="color:#75715e">    			   on an auxiliary trace or as otherwise
+</span><span style="color:#75715e">    			   specified by the recording system
+</span><span style="color:#75715e">    			   byte# 105-106
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> lagb;	<span style="color:#75715e">/* lag time B, time in ms between the time break
+</span><span style="color:#75715e">    			   and the initiation time of the energy source,
+</span><span style="color:#75715e">    			   may be positive or negative
+</span><span style="color:#75715e">    			   byte# 107-108
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> delrt;	<span style="color:#75715e">/* delay recording time, time in ms between
+</span><span style="color:#75715e">    			   initiation time of energy source and time
+</span><span style="color:#75715e">    			   when recording of data samples begins
+</span><span style="color:#75715e">    			   (for deep water work if recording does not
+</span><span style="color:#75715e">    			   start at zero time)
+</span><span style="color:#75715e">    			   byte# 109-110
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> muts;	<span style="color:#75715e">/* mute time--start
+</span><span style="color:#75715e">    			   byte# 111-112
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> mute;	<span style="color:#75715e">/* mute time--end
+</span><span style="color:#75715e">    			   byte# 113-114
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> ns;	<span style="color:#75715e">/* number of samples in this trace
+</span><span style="color:#75715e">    			   byte# 115-116
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> dt;	<span style="color:#75715e">/* sample interval; in micro-seconds
+</span><span style="color:#75715e">    			   byte# 117-118
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> gain;	<span style="color:#75715e">/* gain type of field instruments code:
+</span><span style="color:#75715e">    				1 = fixed
+</span><span style="color:#75715e">    				2 = binary
+</span><span style="color:#75715e">    				3 = floating point
+</span><span style="color:#75715e">    				4 ---- N = optional use
+</span><span style="color:#75715e">    			   byte# 119-120
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> igc;	<span style="color:#75715e">/* instrument gain constant
+</span><span style="color:#75715e">    			   byte# 121-122
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> igi;	<span style="color:#75715e">/* instrument early or initial gain
+</span><span style="color:#75715e">    			   byte# 123-124
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> corr;	<span style="color:#75715e">/* correlated:
+</span><span style="color:#75715e">    				1 = no
+</span><span style="color:#75715e">    				2 = yes
+</span><span style="color:#75715e">    			   byte# 125-126
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> sfs;	<span style="color:#75715e">/* sweep frequency at start
+</span><span style="color:#75715e">    			   byte# 127-128
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> sfe;	<span style="color:#75715e">/* sweep frequency at end
+</span><span style="color:#75715e">    			   byte# 129-130
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> slen;	<span style="color:#75715e">/* sweep length in ms
+</span><span style="color:#75715e">    			   byte# 131-132
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> styp;	<span style="color:#75715e">/* sweep type code:
+</span><span style="color:#75715e">    				1 = linear
+</span><span style="color:#75715e">    				2 = cos-squared
+</span><span style="color:#75715e">    				3 = other
+</span><span style="color:#75715e">    			   byte# 133-134
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> stas;	<span style="color:#75715e">/* sweep trace length at start in ms
+</span><span style="color:#75715e">    			   byte# 135-136
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> stae;	<span style="color:#75715e">/* sweep trace length at end in ms
+</span><span style="color:#75715e">    			   byte# 137-138
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> tatyp;	<span style="color:#75715e">/* taper type: 1=linear, 2=cos^2, 3=other
+</span><span style="color:#75715e">    			   byte# 139-140
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> afilf;	<span style="color:#75715e">/* alias filter frequency if used
+</span><span style="color:#75715e">    			   byte# 141-142
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> afils;	<span style="color:#75715e">/* alias filter slope
+</span><span style="color:#75715e">    			   byte# 143-144
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> nofilf;	<span style="color:#75715e">/* notch filter frequency if used
+</span><span style="color:#75715e">    			   byte# 145-146
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> nofils;	<span style="color:#75715e">/* notch filter slope
+</span><span style="color:#75715e">    			   byte# 147-148
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> lcf;	<span style="color:#75715e">/* low cut frequency if used
+</span><span style="color:#75715e">    			   byte# 149-150
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> hcf;	<span style="color:#75715e">/* high cut frequncy if used
+</span><span style="color:#75715e">    			   byte# 151-152
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> lcs;	<span style="color:#75715e">/* low cut slope
+</span><span style="color:#75715e">    			   byte# 153-154
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> hcs;	<span style="color:#75715e">/* high cut slope
+</span><span style="color:#75715e">    			   byte# 155-156
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> year;	<span style="color:#75715e">/* year data recorded
+</span><span style="color:#75715e">    			   byte# 157-158
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> day;	<span style="color:#75715e">/* day of year
+</span><span style="color:#75715e">    			   byte# 159-160
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> hour;	<span style="color:#75715e">/* hour of day (24 hour clock)
+</span><span style="color:#75715e">    			   byte# 161-162
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> minute;	<span style="color:#75715e">/* minute of hour
+</span><span style="color:#75715e">    			   byte# 163-164
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> sec;	<span style="color:#75715e">/* second of minute
+</span><span style="color:#75715e">    			   byte# 165-166
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> timbas;	<span style="color:#75715e">/* time basis code:
+</span><span style="color:#75715e">    				1 = local
+</span><span style="color:#75715e">    				2 = GMT
+</span><span style="color:#75715e">    				3 = other
+</span><span style="color:#75715e">    			   byte# 167-168
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> trwf;	<span style="color:#75715e">/* trace weighting factor, defined as 1/2^N
+</span><span style="color:#75715e">    			   volts for the least sigificant bit
+</span><span style="color:#75715e">    			   byte# 169-170
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> grnors;	<span style="color:#75715e">/* geophone group number of roll switch
+</span><span style="color:#75715e">    			   position one
+</span><span style="color:#75715e">    			   byte# 171-172
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> grnofr;	<span style="color:#75715e">/* geophone group number of trace one within
+</span><span style="color:#75715e">    			   original field record
+</span><span style="color:#75715e">    			   byte# 173-174
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> grnlof;	<span style="color:#75715e">/* geophone group number of last trace within
+</span><span style="color:#75715e">    			   original field record
+</span><span style="color:#75715e">    			   byte# 175-176
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> gaps;	<span style="color:#75715e">/* gap size (total number of groups dropped)
+</span><span style="color:#75715e">    			   byte# 177-178
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> otrav;	<span style="color:#75715e">/* overtravel taper code:
+</span><span style="color:#75715e">    				1 = down (or behind)
+</span><span style="color:#75715e">    				2 = up (or ahead)
+</span><span style="color:#75715e">    			   byte# 179-180
+</span><span style="color:#75715e">    			*/</span>
+
+    <span style="color:#75715e">#ifdef SLTSU_SEGY_H  </span><span style="color:#75715e">/* begin Unocal SU segy.h differences */</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+
+    	<span style="color:#75715e">/* cwp local assignments */</span>
+    	<span style="color:#66d9ef">float</span> d1;	<span style="color:#75715e">/* sample spacing for non-seismic data
+</span><span style="color:#75715e">    			   byte# 181-184
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> f1;	<span style="color:#75715e">/* first sample location for non-seismic data
+</span><span style="color:#75715e">    			   byte# 185-188
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> d2;	<span style="color:#75715e">/* sample spacing between traces
+</span><span style="color:#75715e">    			   byte# 189-192
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> f2;	<span style="color:#75715e">/* first trace location
+</span><span style="color:#75715e">    			   byte# 193-196
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> ungpow;	<span style="color:#75715e">/* negative of power used for dynamic
+</span><span style="color:#75715e">    			   range compression
+</span><span style="color:#75715e">    			   byte# 197-200
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> unscale;	<span style="color:#75715e">/* reciprocal of scaling factor to normalize
+</span><span style="color:#75715e">    			   range
+</span><span style="color:#75715e">    			   byte# 201-204
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> mark;	<span style="color:#75715e">/* mark selected traces
+</span><span style="color:#75715e">    			   byte# 205-206
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#75715e">/* SLTSU local assignments */</span>
+    	<span style="color:#66d9ef">short</span> mutb;	<span style="color:#75715e">/* mute time at bottom (start time)
+</span><span style="color:#75715e">    			   bottom mute ends at last sample
+</span><span style="color:#75715e">    			   byte# 207-208
+</span><span style="color:#75715e">    			*/</span>
+    	<span style="color:#66d9ef">float</span> dz;	<span style="color:#75715e">/* depth sampling interval in (m or ft)
+</span><span style="color:#75715e">    			if =0.0, input are time samples
+</span><span style="color:#75715e">    			   byte# 209-212
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> fz;	<span style="color:#75715e">/* depth of first sample in (m or ft)
+</span><span style="color:#75715e">    			   byte# 213-116
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> n2;	<span style="color:#75715e">/* number of traces per cdp or per shot
+</span><span style="color:#75715e">    			   byte# 217-218
+</span><span style="color:#75715e">    			*/</span>
+
+        <span style="color:#66d9ef">short</span> shortpad; <span style="color:#75715e">/* alignment padding
+</span><span style="color:#75715e">    			   byte# 219-220
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> ntr; 	<span style="color:#75715e">/* number of traces
+</span><span style="color:#75715e">    			   byte# 221-224
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#75715e">/* SLTSU local assignments end */</span>
+
+    	<span style="color:#66d9ef">short</span> unass[<span style="color:#ae81ff">8</span>];	<span style="color:#75715e">/* unassigned
+</span><span style="color:#75715e">    			   byte# 225-240
+</span><span style="color:#75715e">    			*/</span>
+
+    <span style="color:#75715e">#else
+</span><span style="color:#75715e"></span>
+    	<span style="color:#75715e">/* cwp local assignments */</span>
+    	<span style="color:#66d9ef">float</span> d1;	<span style="color:#75715e">/* sample spacing for non-seismic data
+</span><span style="color:#75715e">    			   byte# 181-184
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> f1;	<span style="color:#75715e">/* first sample location for non-seismic data
+</span><span style="color:#75715e">    			   byte# 185-188
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> d2;	<span style="color:#75715e">/* sample spacing between traces
+</span><span style="color:#75715e">    			   byte# 189-192
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> f2;	<span style="color:#75715e">/* first trace location
+</span><span style="color:#75715e">    			   byte# 193-196
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> ungpow;	<span style="color:#75715e">/* negative of power used for dynamic
+</span><span style="color:#75715e">    			   range compression
+</span><span style="color:#75715e">    			   byte# 197-200
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">float</span> unscale;	<span style="color:#75715e">/* reciprocal of scaling factor to normalize
+</span><span style="color:#75715e">    			   range
+</span><span style="color:#75715e">    			   byte# 201-204
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">int</span> ntr; 	<span style="color:#75715e">/* number of traces
+</span><span style="color:#75715e">    			   byte# 205-208
+</span><span style="color:#75715e">    			*/</span>
+
+    	<span style="color:#66d9ef">short</span> mark;	<span style="color:#75715e">/* mark selected traces
+</span><span style="color:#75715e">    			   byte# 209-210
+</span><span style="color:#75715e">    			*/</span>
+
+        <span style="color:#66d9ef">short</span> shortpad; <span style="color:#75715e">/* alignment padding
+</span><span style="color:#75715e">    			   byte# 211-212
+</span><span style="color:#75715e">    			*/</span>
+
+
+    	<span style="color:#66d9ef">short</span> unass[<span style="color:#ae81ff">14</span>];	<span style="color:#75715e">/* unassigned--NOTE: last entry causes
+</span><span style="color:#75715e">    			   a break in the word alignment, if we REALLY
+</span><span style="color:#75715e">    			   want to maintain 240 bytes, the following
+</span><span style="color:#75715e">    			   entry should be an odd number of short/UINT2
+</span><span style="color:#75715e">    			   OR do the insertion above the &#34;mark&#34; keyword
+</span><span style="color:#75715e">    			   entry
+</span><span style="color:#75715e">    			   byte# 213-240
+</span><span style="color:#75715e">    			*/</span>
+    <span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
     } segy;
 
 
-    typedef struct {	/* bhed - binary header */
+    <span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> {	<span style="color:#75715e">/* bhed - binary header */</span>
 
-    	int jobid;	/* job identification number */
+    	<span style="color:#66d9ef">int</span> jobid;	<span style="color:#75715e">/* job identification number */</span>
 
-    	int lino;	/* line number (only one line per reel) */
+    	<span style="color:#66d9ef">int</span> lino;	<span style="color:#75715e">/* line number (only one line per reel) */</span>
 
-    	int reno;	/* reel number */
+    	<span style="color:#66d9ef">int</span> reno;	<span style="color:#75715e">/* reel number */</span>
 
-    	short ntrpr;	/* number of data traces per record */
+    	<span style="color:#66d9ef">short</span> ntrpr;	<span style="color:#75715e">/* number of data traces per record */</span>
 
-        short nart;	/* number of auxiliary traces per record */
+        <span style="color:#66d9ef">short</span> nart;	<span style="color:#75715e">/* number of auxiliary traces per record */</span>
 
-    	unsigned short hdt; /* sample interval in micro secs for this reel */
+    	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> hdt; <span style="color:#75715e">/* sample interval in micro secs for this reel */</span>
 
-    	unsigned short dto; /* same for original field recording */
+    	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> dto; <span style="color:#75715e">/* same for original field recording */</span>
 
-    	unsigned short hns; /* number of samples per trace for this reel */
+    	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> hns; <span style="color:#75715e">/* number of samples per trace for this reel */</span>
 
-    	unsigned short nso; /* same for original field recording */
+    	<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> nso; <span style="color:#75715e">/* same for original field recording */</span>
 
-    	short format;	/* data sample format code:
-    				1 = floating point, 4 byte (32 bits)
-    				2 = fixed point, 4 byte (32 bits)
-    				3 = fixed point, 2 byte (16 bits)
-    				4 = fixed point w/gain code, 4 byte (32 bits)
-    				5 = IEEE floating point, 4 byte (32 bits)
-    				8 = two's complement integer, 1 byte (8 bits)
-    			*/
+    	<span style="color:#66d9ef">short</span> format;	<span style="color:#75715e">/* data sample format code:
+</span><span style="color:#75715e">    				1 = floating point, 4 byte (32 bits)
+</span><span style="color:#75715e">    				2 = fixed point, 4 byte (32 bits)
+</span><span style="color:#75715e">    				3 = fixed point, 2 byte (16 bits)
+</span><span style="color:#75715e">    				4 = fixed point w/gain code, 4 byte (32 bits)
+</span><span style="color:#75715e">    				5 = IEEE floating point, 4 byte (32 bits)
+</span><span style="color:#75715e">    				8 = two&#39;s complement integer, 1 byte (8 bits)
+</span><span style="color:#75715e">    			*/</span>
 
-    	short fold;	/* CDP fold expected per CDP ensemble */
+    	<span style="color:#66d9ef">short</span> fold;	<span style="color:#75715e">/* CDP fold expected per CDP ensemble */</span>
 
-    	short tsort;	/* trace sorting code:
-    				1 = as recorded (no sorting)
-    				2 = CDP ensemble
-    				3 = single fold continuous profile
-    				4 = horizontally stacked */
+    	<span style="color:#66d9ef">short</span> tsort;	<span style="color:#75715e">/* trace sorting code:
+</span><span style="color:#75715e">    				1 = as recorded (no sorting)
+</span><span style="color:#75715e">    				2 = CDP ensemble
+</span><span style="color:#75715e">    				3 = single fold continuous profile
+</span><span style="color:#75715e">    				4 = horizontally stacked */</span>
 
-    	short vscode;	/* vertical sum code:
-    				1 = no sum
-    				2 = two sum ...
-    				N = N sum (N = 32,767) */
+    	<span style="color:#66d9ef">short</span> vscode;	<span style="color:#75715e">/* vertical sum code:
+</span><span style="color:#75715e">    				1 = no sum
+</span><span style="color:#75715e">    				2 = two sum ...
+</span><span style="color:#75715e">    				N = N sum (N = 32,767) */</span>
 
-    	short hsfs;	/* sweep frequency at start */
+    	<span style="color:#66d9ef">short</span> hsfs;	<span style="color:#75715e">/* sweep frequency at start */</span>
 
-    	short hsfe;	/* sweep frequency at end */
+    	<span style="color:#66d9ef">short</span> hsfe;	<span style="color:#75715e">/* sweep frequency at end */</span>
 
-    	short hslen;	/* sweep length (ms) */
+    	<span style="color:#66d9ef">short</span> hslen;	<span style="color:#75715e">/* sweep length (ms) */</span>
 
-    	short hstyp;	/* sweep type code:
-    				1 = linear
-    				2 = parabolic
-    				3 = exponential
-    				4 = other */
+    	<span style="color:#66d9ef">short</span> hstyp;	<span style="color:#75715e">/* sweep type code:
+</span><span style="color:#75715e">    				1 = linear
+</span><span style="color:#75715e">    				2 = parabolic
+</span><span style="color:#75715e">    				3 = exponential
+</span><span style="color:#75715e">    				4 = other */</span>
 
-    	short schn;	/* trace number of sweep channel */
+    	<span style="color:#66d9ef">short</span> schn;	<span style="color:#75715e">/* trace number of sweep channel */</span>
 
-    	short hstas;	/* sweep trace taper length at start if
-    			   tapered (the taper starts at zero time
-    			   and is effective for this length) */
+    	<span style="color:#66d9ef">short</span> hstas;	<span style="color:#75715e">/* sweep trace taper length at start if
+</span><span style="color:#75715e">    			   tapered (the taper starts at zero time
+</span><span style="color:#75715e">    			   and is effective for this length) */</span>
 
-    	short hstae;	/* sweep trace taper length at end (the ending
-    			   taper starts at sweep length minus the taper
-    			   length at end) */
+    	<span style="color:#66d9ef">short</span> hstae;	<span style="color:#75715e">/* sweep trace taper length at end (the ending
+</span><span style="color:#75715e">    			   taper starts at sweep length minus the taper
+</span><span style="color:#75715e">    			   length at end) */</span>
 
-    	short htatyp;	/* sweep trace taper type code:
-    				1 = linear
-    				2 = cos-squared
-    				3 = other */
+    	<span style="color:#66d9ef">short</span> htatyp;	<span style="color:#75715e">/* sweep trace taper type code:
+</span><span style="color:#75715e">    				1 = linear
+</span><span style="color:#75715e">    				2 = cos-squared
+</span><span style="color:#75715e">    				3 = other */</span>
 
-    	short hcorr;	/* correlated data traces code:
-    				1 = no
-    				2 = yes */
+    	<span style="color:#66d9ef">short</span> hcorr;	<span style="color:#75715e">/* correlated data traces code:
+</span><span style="color:#75715e">    				1 = no
+</span><span style="color:#75715e">    				2 = yes */</span>
 
-    	short bgrcv;	/* binary gain recovered code:
-    				1 = yes
-    				2 = no */
+    	<span style="color:#66d9ef">short</span> bgrcv;	<span style="color:#75715e">/* binary gain recovered code:
+</span><span style="color:#75715e">    				1 = yes
+</span><span style="color:#75715e">    				2 = no */</span>
 
-    	short rcvm;	/* amplitude recovery method code:
-    				1 = none
-    				2 = spherical divergence
-    				3 = AGC
-    				4 = other */
+    	<span style="color:#66d9ef">short</span> rcvm;	<span style="color:#75715e">/* amplitude recovery method code:
+</span><span style="color:#75715e">    				1 = none
+</span><span style="color:#75715e">    				2 = spherical divergence
+</span><span style="color:#75715e">    				3 = AGC
+</span><span style="color:#75715e">    				4 = other */</span>
 
-    	short mfeet;	/* measurement system code:
-    				1 = meters
-    				2 = feet */
+    	<span style="color:#66d9ef">short</span> mfeet;	<span style="color:#75715e">/* measurement system code:
+</span><span style="color:#75715e">    				1 = meters
+</span><span style="color:#75715e">    				2 = feet */</span>
 
-    	short polyt;	/* impulse signal polarity code:
-    				1 = increase in pressure or upward
-    				    geophone case movement gives
-    				    negative number on tape
-    				2 = increase in pressure or upward
-    				    geophone case movement gives
-    				    positive number on tape */
+    	<span style="color:#66d9ef">short</span> polyt;	<span style="color:#75715e">/* impulse signal polarity code:
+</span><span style="color:#75715e">    				1 = increase in pressure or upward
+</span><span style="color:#75715e">    				    geophone case movement gives
+</span><span style="color:#75715e">    				    negative number on tape
+</span><span style="color:#75715e">    				2 = increase in pressure or upward
+</span><span style="color:#75715e">    				    geophone case movement gives
+</span><span style="color:#75715e">    				    positive number on tape */</span>
 
-    	short vpol;	/* vibratory polarity code:
-    				code	seismic signal lags pilot by
-    				1	337.5 to  22.5 degrees
-    				2	 22.5 to  67.5 degrees
-    				3	 67.5 to 112.5 degrees
-    				4	112.5 to 157.5 degrees
-    				5	157.5 to 202.5 degrees
-    				6	202.5 to 247.5 degrees
-    				7	247.5 to 292.5 degrees
-    				8	293.5 to 337.5 degrees */
+    	<span style="color:#66d9ef">short</span> vpol;	<span style="color:#75715e">/* vibratory polarity code:
+</span><span style="color:#75715e">    				code	seismic signal lags pilot by
+</span><span style="color:#75715e">    				1	337.5 to  22.5 degrees
+</span><span style="color:#75715e">    				2	 22.5 to  67.5 degrees
+</span><span style="color:#75715e">    				3	 67.5 to 112.5 degrees
+</span><span style="color:#75715e">    				4	112.5 to 157.5 degrees
+</span><span style="color:#75715e">    				5	157.5 to 202.5 degrees
+</span><span style="color:#75715e">    				6	202.5 to 247.5 degrees
+</span><span style="color:#75715e">    				7	247.5 to 292.5 degrees
+</span><span style="color:#75715e">    				8	293.5 to 337.5 degrees */</span>
 
-    	short hunass[170];	/* unassigned */
+    	<span style="color:#66d9ef">short</span> hunass[<span style="color:#ae81ff">170</span>];	<span style="color:#75715e">/* unassigned */</span>
 
     } bhed;
 
-    /* DEFINES */
-    #define gettr(x)	fgettr(stdin, (x))
-    #define vgettr(x)	fvgettr(stdin, (x))
-    #define puttr(x)	fputtr(stdout, (x))
-    #define vputtr(x)	fvputtr(stdout, (x))
-    #define gettra(x, y)    fgettra(stdin, (x), (y))
+    <span style="color:#75715e">/* DEFINES */</span>
+    <span style="color:#75715e">#define gettr(x)	fgettr(stdin, (x))
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#define vgettr(x)	fvgettr(stdin, (x))
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#define puttr(x)	fputtr(stdout, (x))
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#define vputtr(x)	fvputtr(stdout, (x))
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#define gettra(x, y)    fgettra(stdin, (x), (y))
+</span><span style="color:#75715e"></span>
 
+    <span style="color:#75715e">/* TOTHER represents &#34;other&#34;					*/</span>
+    <span style="color:#75715e">#define		TOTHER		-1
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TUNK represents time traces of an unknown type		*/</span>
+    <span style="color:#75715e">#define		TUNK		0
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TREAL represents real time traces 				*/</span>
+    <span style="color:#75715e">#define		TREAL		1
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TDEAD represents dead time traces 				*/</span>
+    <span style="color:#75715e">#define		TDEAD		2
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TDUMMY represents dummy time traces 				*/</span>
+    <span style="color:#75715e">#define		TDUMMY		3
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TBREAK represents time break traces 				*/</span>
+    <span style="color:#75715e">#define		TBREAK		4
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* UPHOLE represents uphole traces 				*/</span>
+    <span style="color:#75715e">#define		UPHOLE		5
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* SWEEP represents sweep traces 				*/</span>
+    <span style="color:#75715e">#define		SWEEP		6
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TIMING represents timing traces 				*/</span>
+    <span style="color:#75715e">#define		TIMING		7
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* WBREAK represents timing traces 				*/</span>
+    <span style="color:#75715e">#define		WBREAK		8
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* NFGUNSIG represents near field gun signature 		*/</span>
+    <span style="color:#75715e">#define		NFGUNSIG	9
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* FFGUNSIG represents far field gun signature	 		*/</span>
+    <span style="color:#75715e">#define		FFGUNSIG	10
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* SPSENSOR represents seismic pressure sensor	 		*/</span>
+    <span style="color:#75715e">#define		SPSENSOR	11
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TVERT represents multicomponent seismic sensor
+</span><span style="color:#75715e">    	- vertical component */</span>
+    <span style="color:#75715e">#define		TVERT		12
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TXLIN represents multicomponent seismic sensor
+</span><span style="color:#75715e">    	- cross-line component */</span>
+    <span style="color:#75715e">#define		TXLIN		13
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TINLIN represents multicomponent seismic sensor
+</span><span style="color:#75715e">    	- in-line component */</span>
+    <span style="color:#75715e">#define		TINLIN	14
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* ROTVERT represents rotated multicomponent seismic sensor
+</span><span style="color:#75715e">    	- vertical component */</span>
+    <span style="color:#75715e">#define		ROTVERT		15
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TTRANS represents rotated multicomponent seismic sensor
+</span><span style="color:#75715e">    	- transverse component */</span>
+    <span style="color:#75715e">#define		TTRANS		16
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TRADIAL represents rotated multicomponent seismic sensor
+</span><span style="color:#75715e">    	- radial component */</span>
+    <span style="color:#75715e">#define		TRADIAL		17
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* VRMASS represents vibrator reaction mass */</span>
+    <span style="color:#75715e">#define		VRMASS		18
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* VBASS represents vibrator baseplate */</span>
+    <span style="color:#75715e">#define		VBASS		19
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* VEGF represents vibrator estimated ground force */</span>
+    <span style="color:#75715e">#define		VEGF		20
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* VREF represents vibrator reference */</span>
+    <span style="color:#75715e">#define		VREF		21
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">/*** CWP trid assignments ***/</span>
+    <span style="color:#75715e">/* ACOR represents autocorrelation  */</span>
+    <span style="color:#75715e">#define		ACOR		109
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* FCMPLX represents fourier transformed - no packing
+</span><span style="color:#75715e">       xr[0],xi[0], ..., xr[N-1],xi[N-1] */</span>
+    <span style="color:#75715e">#define		FCMPLX		110
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* FUNPACKNYQ represents fourier transformed - unpacked Nyquist
+</span><span style="color:#75715e">       xr[0],xi[0],...,xr[N/2],xi[N/2] */</span>
+    <span style="color:#75715e">#define		FUNPACKNYQ	111
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* FTPACK represents fourier transformed - packed Nyquist
+</span><span style="color:#75715e">       even N: xr[0],xr[N/2],xr[1],xi[1], ...,
+</span><span style="color:#75715e">    	xr[N/2 -1],xi[N/2 -1]
+</span><span style="color:#75715e">       (note the exceptional second entry)
+</span><span style="color:#75715e">        odd N:
+</span><span style="color:#75715e">         xr[0],xr[(N-1)/2],xr[1],xi[1], ...,
+</span><span style="color:#75715e">         xr[(N-1)/2 -1],xi[(N-1)/2 -1],xi[(N-1)/2]
+</span><span style="color:#75715e">       (note the exceptional second &amp; last entries)
+</span><span style="color:#75715e">    */</span>
+    <span style="color:#75715e">#define		FTPACK		112
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TCMPLX represents complex time traces 			*/</span>
+    <span style="color:#75715e">#define		TCMPLX		113
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* FAMPH represents freq domain data in amplitude/phase form	*/</span>
+    <span style="color:#75715e">#define		FAMPH		114
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* TAMPH represents time domain data in amplitude/phase form	*/</span>
+    <span style="color:#75715e">#define		TAMPH		115
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* REALPART represents the real part of a trace to Nyquist	*/</span>
+    <span style="color:#75715e">#define		REALPART	116
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* IMAGPART represents the real part of a trace to Nyquist	*/</span>
+    <span style="color:#75715e">#define		IMAGPART	117
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* AMPLITUDE represents the amplitude of a trace to Nyquist	*/</span>
+    <span style="color:#75715e">#define		AMPLITUDE	118
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* PHASE represents the phase of a trace to Nyquist		*/</span>
+    <span style="color:#75715e">#define		PHASE		119
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* KT represents wavenumber-time domain data 			*/</span>
+    <span style="color:#75715e">#define		KT		121
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* KOMEGA represents wavenumber-frequency domain data		*/</span>
+    <span style="color:#75715e">#define		KOMEGA		122
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* ENVELOPE represents the envelope of the complex time trace	*/</span>
+    <span style="color:#75715e">#define		ENVELOPE	123
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* INSTPHASE represents the phase of the complex time trace	*/</span>
+    <span style="color:#75715e">#define		INSTPHASE	124
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* INSTFREQ represents the frequency of the complex time trace	*/</span>
+    <span style="color:#75715e">#define		INSTFREQ	125
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* DEPTH represents traces in depth-range (z-x)			*/</span>
+    <span style="color:#75715e">#define		TRID_DEPTH	130
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* 3C data...  v,h1,h2=(11,12,13)+32 so a bitmask will convert  */</span>
+    <span style="color:#75715e">/* between conventions */</span>
+    <span style="color:#75715e">/* CHARPACK represents byte packed seismic data from supack1	*/</span>
+    <span style="color:#75715e">#define		CHARPACK	201
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* SHORTPACK represents 2 byte packed seismic data from supack2	*/</span>
+    <span style="color:#75715e">#define		SHORTPACK	202
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">#define ISSEISMIC(id) (( (id)==TUNK || (id)==TREAL || (id)==TDEAD || (id)==TDUMMY || (id)==TBREAK || (id)==UPHOLE || (id)==SWEEP || (id)==TIMING || (id)==WBREAK || (id)==NFGUNSIG || ( id)==FFGUNSIG || (id)==SPSENSOR || (id)==TVERT || (id)==TXLIN || (id)==TINLIN || (id)==ROTVERT || (id)==TTRANS || (id)==TRADIAL || (id)==ACOR ) ? cwp_true : cwp_false )
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">/* FUNCTION PROTOTYPES */</span>
+    <span style="color:#75715e">#ifdef __cplusplus </span><span style="color:#75715e">/* if C++, specify external linkage to C functions */</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">extern</span> <span style="color:#e6db74">&#34;C&#34;</span> {
+    <span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">/* get trace and put trace */</span>
+    <span style="color:#66d9ef">int</span> fgettr(FILE <span style="color:#f92672">*</span>fp, segy <span style="color:#f92672">*</span>tp);
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fvgettr</span>(FILE <span style="color:#f92672">*</span>fp, segy <span style="color:#f92672">*</span>tp);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fputtr</span>(FILE <span style="color:#f92672">*</span>fp, segy <span style="color:#f92672">*</span>tp);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">fvputtr</span>(FILE <span style="color:#f92672">*</span>fp, segy <span style="color:#f92672">*</span>tp);
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fgettra</span>(FILE <span style="color:#f92672">*</span>fp, segy <span style="color:#f92672">*</span>tp, <span style="color:#66d9ef">int</span> itr);
 
-    /* TOTHER represents &quot;other&quot;					*/
-    #define		TOTHER		-1
-    /* TUNK represents time traces of an unknown type		*/
-    #define		TUNK		0
-    /* TREAL represents real time traces 				*/
-    #define		TREAL		1
-    /* TDEAD represents dead time traces 				*/
-    #define		TDEAD		2
-    /* TDUMMY represents dummy time traces 				*/
-    #define		TDUMMY		3
-    /* TBREAK represents time break traces 				*/
-    #define		TBREAK		4
-    /* UPHOLE represents uphole traces 				*/
-    #define		UPHOLE		5
-    /* SWEEP represents sweep traces 				*/
-    #define		SWEEP		6
-    /* TIMING represents timing traces 				*/
-    #define		TIMING		7
-    /* WBREAK represents timing traces 				*/
-    #define		WBREAK		8
-    /* NFGUNSIG represents near field gun signature 		*/
-    #define		NFGUNSIG	9
-    /* FFGUNSIG represents far field gun signature	 		*/
-    #define		FFGUNSIG	10
-    /* SPSENSOR represents seismic pressure sensor	 		*/
-    #define		SPSENSOR	11
-    /* TVERT represents multicomponent seismic sensor
-    	- vertical component */
-    #define		TVERT		12
-    /* TXLIN represents multicomponent seismic sensor
-    	- cross-line component */
-    #define		TXLIN		13
-    /* TINLIN represents multicomponent seismic sensor
-    	- in-line component */
-    #define		TINLIN	14
-    /* ROTVERT represents rotated multicomponent seismic sensor
-    	- vertical component */
-    #define		ROTVERT		15
-    /* TTRANS represents rotated multicomponent seismic sensor
-    	- transverse component */
-    #define		TTRANS		16
-    /* TRADIAL represents rotated multicomponent seismic sensor
-    	- radial component */
-    #define		TRADIAL		17
-    /* VRMASS represents vibrator reaction mass */
-    #define		VRMASS		18
-    /* VBASS represents vibrator baseplate */
-    #define		VBASS		19
-    /* VEGF represents vibrator estimated ground force */
-    #define		VEGF		20
-    /* VREF represents vibrator reference */
-    #define		VREF		21
+    <span style="color:#75715e">/* get gather and put gather */</span>
+    segy <span style="color:#f92672">**</span><span style="color:#a6e22e">fget_gather</span>(FILE <span style="color:#f92672">*</span>fp, cwp_String <span style="color:#f92672">*</span>key,cwp_String <span style="color:#f92672">*</span>type,Value <span style="color:#f92672">*</span>n_val,
+                            <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>nt,<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ntr, <span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>dt,<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>first);
+    segy <span style="color:#f92672">**</span><span style="color:#a6e22e">get_gather</span>(cwp_String <span style="color:#f92672">*</span>key, cwp_String <span style="color:#f92672">*</span>type, Value <span style="color:#f92672">*</span>n_val,
+    			<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>nt, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ntr, <span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>dt, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>first);
+    segy <span style="color:#f92672">**</span><span style="color:#a6e22e">fput_gather</span>(FILE <span style="color:#f92672">*</span>fp, segy <span style="color:#f92672">**</span>rec,<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>nt, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ntr);
+    segy <span style="color:#f92672">**</span><span style="color:#a6e22e">put_gather</span>(segy <span style="color:#f92672">**</span>rec,<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>nt, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ntr);
 
-    /*** CWP trid assignments ***/
-    /* ACOR represents autocorrelation  */
-    #define		ACOR		109
-    /* FCMPLX represents fourier transformed - no packing
-       xr[0],xi[0], ..., xr[N-1],xi[N-1] */
-    #define		FCMPLX		110
-    /* FUNPACKNYQ represents fourier transformed - unpacked Nyquist
-       xr[0],xi[0],...,xr[N/2],xi[N/2] */
-    #define		FUNPACKNYQ	111
-    /* FTPACK represents fourier transformed - packed Nyquist
-       even N: xr[0],xr[N/2],xr[1],xi[1], ...,
-    	xr[N/2 -1],xi[N/2 -1]
-       (note the exceptional second entry)
-        odd N:
-         xr[0],xr[(N-1)/2],xr[1],xi[1], ...,
-         xr[(N-1)/2 -1],xi[(N-1)/2 -1],xi[(N-1)/2]
-       (note the exceptional second &amp; last entries)
-    */
-    #define		FTPACK		112
-    /* TCMPLX represents complex time traces 			*/
-    #define		TCMPLX		113
-    /* FAMPH represents freq domain data in amplitude/phase form	*/
-    #define		FAMPH		114
-    /* TAMPH represents time domain data in amplitude/phase form	*/
-    #define		TAMPH		115
-    /* REALPART represents the real part of a trace to Nyquist	*/
-    #define		REALPART	116
-    /* IMAGPART represents the real part of a trace to Nyquist	*/
-    #define		IMAGPART	117
-    /* AMPLITUDE represents the amplitude of a trace to Nyquist	*/
-    #define		AMPLITUDE	118
-    /* PHASE represents the phase of a trace to Nyquist		*/
-    #define		PHASE		119
-    /* KT represents wavenumber-time domain data 			*/
-    #define		KT		121
-    /* KOMEGA represents wavenumber-frequency domain data		*/
-    #define		KOMEGA		122
-    /* ENVELOPE represents the envelope of the complex time trace	*/
-    #define		ENVELOPE	123
-    /* INSTPHASE represents the phase of the complex time trace	*/
-    #define		INSTPHASE	124
-    /* INSTFREQ represents the frequency of the complex time trace	*/
-    #define		INSTFREQ	125
-    /* DEPTH represents traces in depth-range (z-x)			*/
-    #define		TRID_DEPTH	130
-    /* 3C data...  v,h1,h2=(11,12,13)+32 so a bitmask will convert  */
-    /* between conventions */
-    /* CHARPACK represents byte packed seismic data from supack1	*/
-    #define		CHARPACK	201
-    /* SHORTPACK represents 2 byte packed seismic data from supack2	*/
-    #define		SHORTPACK	202
+    <span style="color:#75715e">/* hdrpkge */</span>
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">gethval</span>(<span style="color:#66d9ef">const</span> segy <span style="color:#f92672">*</span>tp, <span style="color:#66d9ef">int</span> index, Value <span style="color:#f92672">*</span>valp);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">puthval</span>(segy <span style="color:#f92672">*</span>tp, <span style="color:#66d9ef">int</span> index, Value <span style="color:#f92672">*</span>valp);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getbhval</span>(<span style="color:#66d9ef">const</span> bhed <span style="color:#f92672">*</span>bhp, <span style="color:#66d9ef">int</span> index, Value <span style="color:#f92672">*</span>valp);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">putbhval</span>(bhed <span style="color:#f92672">*</span>bhp, <span style="color:#66d9ef">int</span> index, Value <span style="color:#f92672">*</span>valp);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">gethdval</span>(<span style="color:#66d9ef">const</span> segy <span style="color:#f92672">*</span>tp, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>key, Value <span style="color:#f92672">*</span>valp);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">puthdval</span>(segy <span style="color:#f92672">*</span>tp, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>key, Value <span style="color:#f92672">*</span>valp);
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hdtype</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>key);
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">getkey</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> index);
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getindex</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>key);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swaphval</span>(segy <span style="color:#f92672">*</span>tp, <span style="color:#66d9ef">int</span> index);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swapbhval</span>(bhed <span style="color:#f92672">*</span>bhp, <span style="color:#66d9ef">int</span> index);
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printheader</span>(<span style="color:#66d9ef">const</span> segy <span style="color:#f92672">*</span>tp);
 
-    #define ISSEISMIC(id) (( (id)==TUNK || (id)==TREAL || (id)==TDEAD || (id)==TDUMMY || (id)==TBREAK || (id)==UPHOLE || (id)==SWEEP || (id)==TIMING || (id)==WBREAK || (id)==NFGUNSIG || ( id)==FFGUNSIG || (id)==SPSENSOR || (id)==TVERT || (id)==TXLIN || (id)==TINLIN || (id)==ROTVERT || (id)==TTRANS || (id)==TRADIAL || (id)==ACOR ) ? cwp_true : cwp_false )
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">tabplot</span>(segy <span style="color:#f92672">*</span>tp, <span style="color:#66d9ef">int</span> itmin, <span style="color:#66d9ef">int</span> itmax);
 
-    /* FUNCTION PROTOTYPES */
-    #ifdef __cplusplus /* if C++, specify external linkage to C functions */
-    extern &quot;C&quot; {
-    #endif
-
-    /* get trace and put trace */
-    int fgettr(FILE *fp, segy *tp);
-    int fvgettr(FILE *fp, segy *tp);
-    void fputtr(FILE *fp, segy *tp);
-    void fvputtr(FILE *fp, segy *tp);
-    int fgettra(FILE *fp, segy *tp, int itr);
-
-    /* get gather and put gather */
-    segy **fget_gather(FILE *fp, cwp_String *key,cwp_String *type,Value *n_val,
-                            int *nt,int *ntr, float *dt,int *first);
-    segy **get_gather(cwp_String *key, cwp_String *type, Value *n_val,
-    			int *nt, int *ntr, float *dt, int *first);
-    segy **fput_gather(FILE *fp, segy **rec,int *nt, int *ntr);
-    segy **put_gather(segy **rec,int *nt, int *ntr);
-
-    /* hdrpkge */
-    void gethval(const segy *tp, int index, Value *valp);
-    void puthval(segy *tp, int index, Value *valp);
-    void getbhval(const bhed *bhp, int index, Value *valp);
-    void putbhval(bhed *bhp, int index, Value *valp);
-    void gethdval(const segy *tp, char *key, Value *valp);
-    void puthdval(segy *tp, char *key, Value *valp);
-    char *hdtype(const char *key);
-    char *getkey(const int index);
-    int getindex(const char *key);
-    void swaphval(segy *tp, int index);
-    void swapbhval(bhed *bhp, int index);
-    void printheader(const segy *tp);
-
-    void tabplot(segy *tp, int itmin, int itmax);
-
-    #ifdef __cplusplus /* if C++, end external linkage specification */
-    }
-    #endif
-
-    #endif
-</code></pre>
-
-<h2 id="示例">示例</h2>
-
+    <span style="color:#75715e">#ifdef __cplusplus </span><span style="color:#75715e">/* if C++, end external linkage specification */</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">#endif
+</span></code></pre></div><h2 id="示例">示例</h2>
 <p>假设我们现在想建立一个简单的一维水平层状模型，上层速度为2000 m/s， 下层速度为3000m/s。
 将模型文件存储为SU格式。该模型大小为：2000m，深1000m。z和x方向的步长都为10。那么我们
 可以通过以下程序来实现。</p>
-
-<pre><code class="language-c">    #include &lt;stdlib.h&gt;
-    #include &lt;stdio.h&gt;
-    #include &lt;string.h&gt;
-    #include &lt;assert.h&gt;
-    #include &quot;segy.h&quot;
-
-    int main(int argc, char *argv[])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;assert.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;segy.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[])
     {
-        FILE *fp_out;
+        FILE <span style="color:#f92672">*</span>fp_out;
         size_t size, nwrite;
-        int n1, n2; // n1 number of samples; n2 number of traces
-        float d1, d2, f1, f2; // d1 samlping interval; d2 trace interval
-        float *data;
-        char file_out[30];
-        segy *hdrs;
+        <span style="color:#66d9ef">int</span> n1, n2; <span style="color:#75715e">// n1 number of samples; n2 number of traces
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">float</span> d1, d2, f1, f2; <span style="color:#75715e">// d1 samlping interval; d2 trace interval
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>data;
+        <span style="color:#66d9ef">char</span> file_out[<span style="color:#ae81ff">30</span>];
+        segy <span style="color:#f92672">*</span>hdrs;
 
-        n1 = 101; n2 = 201;
-        f1 = 0.0; f2 = 0.0;
-        d1 = 10.0; d2 = 10.0;
+        n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">101</span>; n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">201</span>;
+        f1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>; f2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+        d1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10.0</span>; d2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10.0</span>;
 
-        strcpy(file_out, argv[1]);
+        strcpy(file_out, argv[<span style="color:#ae81ff">1</span>]);
 
-        hdrs = (segy *)calloc(n2, sizeof(segy));
-        assert(hdrs != NULL);
+        hdrs <span style="color:#f92672">=</span> (segy <span style="color:#f92672">*</span>)calloc(n2, <span style="color:#66d9ef">sizeof</span>(segy));
+        assert(hdrs <span style="color:#f92672">!=</span> NULL);
 
-        for (int i=0; i&lt;n2; i++) {  // n2: number of traces
-            hdrs[i].f1 = f1;
-            hdrs[i].f2 = f2;
-            hdrs[i].d1 = d1;
-            hdrs[i].d2 = d2;
-            hdrs[i].ns = n1;    //number of samples of this trace
-            hdrs[i].trwf = n2;
-            hdrs[i].tracl = i;    // Trace sequence number within line
-            hdrs[i].tracf = i;
-            hdrs[i].scalco = -1000;
-            hdrs[i].gx = (i*d2)*1000;
-            hdrs[i].timbas = 3;
-            hdrs[i].trid = TRID_DEPTH;   // trace identification code
-        }
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n2; i<span style="color:#f92672">++</span>) {  <span style="color:#75715e">// n2: number of traces
+</span><span style="color:#75715e"></span>            hdrs[i].f1 <span style="color:#f92672">=</span> f1;
+            hdrs[i].f2 <span style="color:#f92672">=</span> f2;
+            hdrs[i].d1 <span style="color:#f92672">=</span> d1;
+            hdrs[i].d2 <span style="color:#f92672">=</span> d2;
+            hdrs[i].ns <span style="color:#f92672">=</span> n1;    <span style="color:#75715e">//number of samples of this trace
+</span><span style="color:#75715e"></span>            hdrs[i].trwf <span style="color:#f92672">=</span> n2;
+            hdrs[i].tracl <span style="color:#f92672">=</span> i;    <span style="color:#75715e">// Trace sequence number within line
+</span><span style="color:#75715e"></span>            hdrs[i].tracf <span style="color:#f92672">=</span> i;
+            hdrs[i].scalco <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1000</span>;
+            hdrs[i].gx <span style="color:#f92672">=</span> (i<span style="color:#f92672">*</span>d2)<span style="color:#f92672">*</span><span style="color:#ae81ff">1000</span>;
+            hdrs[i].timbas <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+            hdrs[i].trid <span style="color:#f92672">=</span> TRID_DEPTH;   <span style="color:#75715e">// trace identification code
+</span><span style="color:#75715e"></span>        }
 
-        size = n1*n2;
-        data = (float *)malloc(size * sizeof(float)); // the basic cell of data is float
-        assert(data != NULL);
+        size <span style="color:#f92672">=</span> n1<span style="color:#f92672">*</span>n2;
+        data <span style="color:#f92672">=</span> (<span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>)malloc(size <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">float</span>)); <span style="color:#75715e">// the basic cell of data is float
+</span><span style="color:#75715e"></span>        assert(data <span style="color:#f92672">!=</span> NULL);
 
-        for (int ix=0; ix&lt;n2; ix++) {
-            for (int iz=0; iz&lt;n1; iz++) {
-                if (iz &lt; 50) {
-                    data[ix*n1+iz] = 2000.0;
-                } else {
-                    data[ix*n1+iz] = 3000.0;
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> ix<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; ix<span style="color:#f92672">&lt;</span>n2; ix<span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> iz<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; iz<span style="color:#f92672">&lt;</span>n1; iz<span style="color:#f92672">++</span>) {
+                <span style="color:#66d9ef">if</span> (iz <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">50</span>) {
+                    data[ix<span style="color:#f92672">*</span>n1<span style="color:#f92672">+</span>iz] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000.0</span>;
+                } <span style="color:#66d9ef">else</span> {
+                    data[ix<span style="color:#f92672">*</span>n1<span style="color:#f92672">+</span>iz] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3000.0</span>;
                 }
             }
         }
 
-        // creat output file
-        fp_out = fopen(file_out, &quot;w&quot;);
-        assert(fp_out != NULL);
-        for (int i=0; i&lt;n2; i++) {
-            nwrite = fwrite(&amp;hdrs[i], 1, TRCBYTES, fp_out); // TRCBYTES为segy.h中定义的SU文件的240字节头段大小。
-            assert(nwrite == TRCBYTES);
-            nwrite = fwrite(&amp;data[i*n1], sizeof(float), n1, fp_out);
-            assert(nwrite == n1);
+        <span style="color:#75715e">// creat output file
+</span><span style="color:#75715e"></span>        fp_out <span style="color:#f92672">=</span> fopen(file_out, <span style="color:#e6db74">&#34;w&#34;</span>);
+        assert(fp_out <span style="color:#f92672">!=</span> NULL);
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>n2; i<span style="color:#f92672">++</span>) {
+            nwrite <span style="color:#f92672">=</span> fwrite(<span style="color:#f92672">&amp;</span>hdrs[i], <span style="color:#ae81ff">1</span>, TRCBYTES, fp_out); <span style="color:#75715e">// TRCBYTES为segy.h中定义的SU文件的240字节头段大小。
+</span><span style="color:#75715e"></span>            assert(nwrite <span style="color:#f92672">==</span> TRCBYTES);
+            nwrite <span style="color:#f92672">=</span> fwrite(<span style="color:#f92672">&amp;</span>data[i<span style="color:#f92672">*</span>n1], <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">float</span>), n1, fp_out);
+            assert(nwrite <span style="color:#f92672">==</span> n1);
         }
         fclose(fp_out);
         free(hdrs);
         free(data);
 
-        return 0;
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
     }
-</code></pre>
-
-<p>编译链接::</p>
-
-<pre><code class="language-bash">    # 因为segy.h文件包含了par.h头文件，编译时，必须得找得到par.h文件才行
-    $ gcc -g -Wall -o test test.c -std=c99
-    # 运行
+</code></pre></div><p>编译链接::</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    <span style="color:#75715e"># 因为segy.h文件包含了par.h头文件，编译时，必须得找得到par.h文件才行</span>
+    $ gcc -g -Wall -o test test.c -std<span style="color:#f92672">=</span>c99
+    <span style="color:#75715e"># 运行</span>
     $ ./test first_model.su
-</code></pre>
-
-<p>就可以创建一个SU格式的速度格网文件。然后可以利用 <code>suximage</code> 命令来查看。</p>
-
+</code></pre></div><p>就可以创建一个SU格式的速度格网文件。然后可以利用 <code>suximage</code> 命令来查看。</p>
 <pre><code>$ suximage &lt;first_model.su title=&quot;Firts Model&quot; wbox=1000 hbox=500 \
     label2=&quot;lateral position [m]&quot; label1=&quot;depth [m]&quot; legend=1
 </code></pre>
-
-<p><img src="/images/2016042200.png" alt="" /></p>
-
+<p><img src="/images/2016042200.png" alt=""></p>
 <h2 id="后记">后记</h2>
-
 <p>现在来说一说为什么要用SU格式来存储速度格网文件，直接用不带头段的二进制不好吗？
 恩，答案就是不好！ 直接存二进制文件的话，因为文件本身是没有文件描述信息的，过一段时间
 就忘了这个文件的格点数，横向和深度方向的大小什么的，很不方便。而且想画图看一下都不行。
 二进制的文件得用 <code>ximage</code> 命令来查看，但是该命令必须指定一个维度的格点数才行。</p>
-
 <p>而存成SU格式就没有这个问题了，头段相当于将该模型的格点信息等都存储着，想看的话，直接
 用 <code>suximage</code> 命令即可。</p>
-
 <p>PS： <code>segy.h</code> 里还有很多其他的函数在本文里没有涉及到。至于这些函数的功能，后面进一步学习之后
 再拿出来讲。</p>
-
 <h2 id="修改历史">修改历史</h2>
-
 <p>#. 2016-03-01 初稿
 #. 2016-04-22 加入例子</p>
     </div>
@@ -1275,7 +1230,7 @@ Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序�
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

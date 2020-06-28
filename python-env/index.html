@@ -19,7 +19,7 @@
 <meta name="author" content="pzhang" />
   <meta name="description" content="经常遇到这样的情况：
  系统自带的Python是2.6，自己需要Python 2.7中的某些特性； 系统自带的Python是2.x，自己需要Python 3.x；  此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。pyenv 就是这样一个Python版本管理器。
-安装pyenv $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv $ echo &#39;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &#39;export PATH=&amp;quot;$PATH:$PYENV_ROOT/bin&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &#39;eval &amp;quot;$(pyenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc $ exec $SHELL -l " />
+安装pyenv $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv $ echo &amp;#39;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;export PATH=&amp;#34;$PATH:$PYENV_ROOT/bin&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ echo &amp;#39;eval &amp;#34;$(pyenv init -)&amp;#34;&amp;#39; &amp;gt;&amp;gt; ~/.bashrc $ exec $SHELL -l " />
 
   <meta name="keywords" content="Geophysics, Computer Vision, Machine Learning" />
 
@@ -28,7 +28,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/python-env/" />
@@ -54,69 +54,54 @@
 <meta property="og:title" content="Python多版本共存之pyenv" />
 <meta property="og:description" content="经常遇到这样的情况：
 
-
 系统自带的Python是2.6，自己需要Python 2.7中的某些特性；
 系统自带的Python是2.x，自己需要Python 3.x；
 
-
 此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。pyenv 就是这样一个Python版本管理器。
-
 安装pyenv
-
 $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
-$ echo &#39;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#39; &gt;&gt; ~/.bashrc
-$ echo &#39;export PATH=&quot;$PATH:$PYENV_ROOT/bin&quot;&#39; &gt;&gt; ~/.bashrc
-$ echo &#39;eval &quot;$(pyenv init -)&quot;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;export PYENV_ROOT=&#34;$HOME/.pyenv&#34;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;export PATH=&#34;$PATH:$PYENV_ROOT/bin&#34;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;eval &#34;$(pyenv init -)&#34;&#39; &gt;&gt; ~/.bashrc
 $ exec $SHELL -l
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/python-env/" /><meta property="article:published_time" content="2015-07-22T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2015-07-22T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/python-env/" />
+<meta property="article:published_time" content="2015-07-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-07-22T00:00:00+00:00" />
 <meta itemprop="name" content="Python多版本共存之pyenv">
 <meta itemprop="description" content="经常遇到这样的情况：
 
-
 系统自带的Python是2.6，自己需要Python 2.7中的某些特性；
 系统自带的Python是2.x，自己需要Python 3.x；
 
-
 此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。pyenv 就是这样一个Python版本管理器。
-
 安装pyenv
-
 $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
-$ echo &#39;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#39; &gt;&gt; ~/.bashrc
-$ echo &#39;export PATH=&quot;$PATH:$PYENV_ROOT/bin&quot;&#39; &gt;&gt; ~/.bashrc
-$ echo &#39;eval &quot;$(pyenv init -)&quot;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;export PYENV_ROOT=&#34;$HOME/.pyenv&#34;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;export PATH=&#34;$PATH:$PYENV_ROOT/bin&#34;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;eval &#34;$(pyenv init -)&#34;&#39; &gt;&gt; ~/.bashrc
 $ exec $SHELL -l
 ">
-
-
 <meta itemprop="datePublished" content="2015-07-22T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2015-07-22T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1162">
+<meta itemprop="wordCount" content="1158">
 
 
 
-<meta itemprop="keywords" content="pyenv,Python," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="pyenv,Python," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Python多版本共存之pyenv"/>
 <meta name="twitter:description" content="经常遇到这样的情况：
 
-
 系统自带的Python是2.6，自己需要Python 2.7中的某些特性；
 系统自带的Python是2.x，自己需要Python 3.x；
 
-
 此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。pyenv 就是这样一个Python版本管理器。
-
 安装pyenv
-
 $ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
-$ echo &#39;export PYENV_ROOT=&quot;$HOME/.pyenv&quot;&#39; &gt;&gt; ~/.bashrc
-$ echo &#39;export PATH=&quot;$PATH:$PYENV_ROOT/bin&quot;&#39; &gt;&gt; ~/.bashrc
-$ echo &#39;eval &quot;$(pyenv init -)&quot;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;export PYENV_ROOT=&#34;$HOME/.pyenv&#34;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;export PATH=&#34;$PATH:$PYENV_ROOT/bin&#34;&#39; &gt;&gt; ~/.bashrc
+$ echo &#39;eval &#34;$(pyenv init -)&#34;&#39; &gt;&gt; ~/.bashrc
 $ exec $SHELL -l
 "/>
 
@@ -194,7 +179,7 @@ $ exec $SHELL -l
       <div class="post-meta">
         <span class="post-time"> 2015-07-22 </span>
         
-        <span class="more-meta"> 约 1162 字 </span>
+        <span class="more-meta"> 约 1158 字 </span>
         <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
@@ -207,26 +192,24 @@ $ exec $SHELL -l
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#安装pyenv">安装pyenv</a></li>
-<li><a href="#安装python">安装Python</a>
-<ul>
-<li><a href="#查看可安装的版本">查看可安装的版本</a></li>
-<li><a href="#安装python的依赖包">安装Python的依赖包</a></li>
-<li><a href="#安装指定版本">安装指定版本</a></li>
-<li><a href="#更新数据库">更新数据库</a></li>
-<li><a href="#查看当前已安装的python版本">查看当前已安装的python版本</a></li>
-<li><a href="#设置全局的python版本">设置全局的python版本</a></li>
-<li><a href="#确认python版本">确认python版本</a></li>
-</ul></li>
-<li><a href="#使用python">使用python</a></li>
-<li><a href="#更新">更新</a></li>
-<li><a href="#参考">参考</a></li>
-<li><a href="#修订历史">修订历史</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#安装pyenv">安装pyenv</a></li>
+    <li><a href="#安装python">安装Python</a>
+      <ul>
+        <li><a href="#查看可安装的版本">查看可安装的版本</a></li>
+        <li><a href="#安装python的依赖包">安装Python的依赖包</a></li>
+        <li><a href="#安装指定版本">安装指定版本</a></li>
+        <li><a href="#更新数据库">更新数据库</a></li>
+        <li><a href="#查看当前已安装的python版本">查看当前已安装的python版本</a></li>
+        <li><a href="#设置全局的python版本">设置全局的python版本</a></li>
+        <li><a href="#确认python版本">确认python版本</a></li>
+      </ul>
+    </li>
+    <li><a href="#使用python">使用python</a></li>
+    <li><a href="#更新">更新</a></li>
+    <li><a href="#参考">参考</a></li>
+    <li><a href="#修订历史">修订历史</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -234,122 +217,83 @@ $ exec $SHELL -l
     
     <div class="post-content">
       <p>经常遇到这样的情况：</p>
-
 <ul>
 <li>系统自带的Python是2.6，自己需要Python 2.7中的某些特性；</li>
 <li>系统自带的Python是2.x，自己需要Python 3.x；</li>
 </ul>
-
 <p>此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。<a href="https://github.com/yyuu/pyenv">pyenv</a> 就是这样一个Python版本管理器。</p>
-
 <h2 id="安装pyenv">安装pyenv</h2>
-
-<pre><code class="language-bash">$ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
-$ echo 'export PYENV_ROOT=&quot;$HOME/.pyenv&quot;' &gt;&gt; ~/.bashrc
-$ echo 'export PATH=&quot;$PATH:$PYENV_ROOT/bin&quot;' &gt;&gt; ~/.bashrc
-$ echo 'eval &quot;$(pyenv init -)&quot;' &gt;&gt; ~/.bashrc
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+$ echo <span style="color:#e6db74">&#39;export PYENV_ROOT=&#34;$HOME/.pyenv&#34;&#39;</span> &gt;&gt; ~/.bashrc
+$ echo <span style="color:#e6db74">&#39;export PATH=&#34;$PATH:$PYENV_ROOT/bin&#34;&#39;</span> &gt;&gt; ~/.bashrc
+$ echo <span style="color:#e6db74">&#39;eval &#34;$(pyenv init -)&#34;&#39;</span> &gt;&gt; ~/.bashrc
 $ exec $SHELL -l
-</code></pre>
-
-<h2 id="安装python">安装Python</h2>
-
+</code></pre></div><h2 id="安装python">安装Python</h2>
 <h3 id="查看可安装的版本">查看可安装的版本</h3>
-
 <p>$ pyenv install &ndash;list</p>
-
 <p>该命令会列出可以用pyenv安装的Python版本，仅列举几个::</p>
-
 <pre><code>2.7.8   # Python 2最新版本
 3.4.1   # Python 3最新版本
 anaconda-2.0.1  # 支持Python 2.6和2.7
 anaconda3-2.0.1 # 支持Python 3.3和3.4
 </code></pre>
-
 <p>其中形如 <code>x.x.x</code> 这样的只有版本号的为Python官方版本，其他的形如 <code>xxxxx-x.x.x</code> 这种既有名称又有版本后的属于“衍生版”或发行版。</p>
-
 <h3 id="安装python的依赖包">安装Python的依赖包</h3>
-
 <p>在安装Python时需要首先安装其依赖的其他软件包，已知的一些需要预先安装的库如下。</p>
-
 <p>在CentOS/RHEL/Fedora下::</p>
-
 <pre><code>sudo yum install readline readline-devel readline-static
 sudo yum install openssl openssl-devel openssl-static
 sudo yum install sqlite-devel
 sudo yum install bzip2-devel bzip2-libs
 </code></pre>
-
 <h3 id="安装指定版本">安装指定版本</h3>
-
 <p>使用如下命令即可安装python 3.4.1：</p>
-
 <pre><code>$ pyenv install 3.4.1 -v
 </code></pre>
-
 <p>该命令会从github上下载python的源代码，并解压到/tmp目录下，然后在/tmp中执行编译工作。若依赖包没有安装，则会出现编译错误，需要在安装依赖包后重新执行该命令。</p>
-
-<p>对于科研环境，更推荐安装专为科学计算准备的Anaconda发行版，<code>pyenv install anaconda-2.1.0</code> 安装2.x版本，<code>pyenv install anaconda3-2.1.0</code> 安装3.x版本；</p>
-
+<p>对于科研环境，更推荐安装专为科学计算准备的Anaconda发行版，<code> pyenv install anaconda-2.1.0</code> 安装2.x版本，<code>pyenv install anaconda3-2.1.0</code> 安装3.x版本；</p>
 <p>Anacoda很大，用pyenv下载会比较慢，可以自己到Anaconda官方网站下载，并将下载得到的文件放在 <code>~/.pyenv/cache</code> 目录下，则pyenv不会重复下载。</p>
-
 <h3 id="更新数据库">更新数据库</h3>
-
 <p>安装完成之后需要对数据库进行更新：</p>
-
 <pre><code>$ pyenv rehash
 </code></pre>
-
 <h3 id="查看当前已安装的python版本">查看当前已安装的python版本</h3>
-
 <pre><code>$ pyenv versions
 * system (set by /home/seisman/.pyenv/version)
 3.4.1
 </code></pre>
-
 <p>其中的星号表示当前正在使用的是系统自带的python。</p>
-
 <h3 id="设置全局的python版本">设置全局的python版本</h3>
-
 <pre><code>$ pyenv global 3.4.1
 $ pyenv versions
 system
 * 3.4.1 (set by /home/seisman/.pyenv/version)
 </code></pre>
-
 <p>当前全局的python版本已经变成了3.4.1。也可以使用 <code>pyenv local</code> 或 <code>pyenv shell</code> 临时改变python版本。</p>
-
 <h3 id="确认python版本">确认python版本</h3>
-
 <pre><code>$ python
 Python 3.4.1 (default, Sep 10 2014, 17:10:18)
 [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt;
 </code></pre>
-
 <h2 id="使用python">使用python</h2>
-
 <ul>
 <li>输入 <code>python</code> 即可使用新版本的python；</li>
 <li>系统自带的脚本会以 <code>/usr/bin/python</code> 的方式直接调用老版本的python，因而不会对系统脚本产生影响；</li>
 <li>使用 <code>pip</code> 安装第三方模块时会安装到 <code>~/.pyenv/versions/3.4.1</code> 下，不会和系统模块发生冲突。</li>
 <li>使用 <code>pip</code> 安装模块后，可能需要执行 <code>pyenv rehash</code> 更新数据库；</li>
 </ul>
-
 <h2 id="更新">更新</h2>
-
 <p>更新至最近的pyenv版本，可以用git的pull命令</p>
-
 <pre><code>$ cd ~/.pyenv
 $ git pull
 </code></pre>
-
 <p>想要更新至某个特定的pyenv版本，也行</p>
-
-<pre><code class="language-bash">
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
     $ cd ~/.pyenv
     $ git fetch
-    $ git tag  # 会显示出所有可用的版本号
+    $ git tag  <span style="color:#75715e"># 会显示出所有可用的版本号</span>
     v0.1.0
     v0.1.1
     v0.1.2
@@ -367,15 +311,10 @@ $ git pull
     v0.4.0-20140110.1
     ...
     $ git checkout v0.1.0
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+</code></pre></div><h2 id="参考">参考</h2>
 <p>#. <a href="https://github.com/yyuu/pyenv">https://github.com/yyuu/pyenv</a>
 #. <a href="http://seisman.info/python-pyenv.html">http://seisman.info/python-pyenv.html</a></p>
-
 <h2 id="修订历史">修订历史</h2>
-
 <ul>
 <li>2015-07-22：初稿取自Seisman；</li>
 <li>2015-09-01：添加了更新pyenv部分</li>
@@ -460,7 +399,7 @@ $ git pull
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

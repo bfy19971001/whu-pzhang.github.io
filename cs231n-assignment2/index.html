@@ -37,7 +37,7 @@ loffe 2015提出的Batch Normalization便是为了解决这个问题的。具体
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/cs231n-assignment2/" />
@@ -105,9 +105,9 @@ PyTorch/TensofFlow on CIFAR-10
 
 我的代码实现whu-pzhang/cs231n." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/cs231n-assignment2/" /><meta property="article:published_time" content="2018-11-10T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-11-10T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/cs231n-assignment2/" />
+<meta property="article:published_time" content="2018-11-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-11-10T00:00:00+00:00" />
 <meta itemprop="name" content="cs231n作业2笔记">
 <meta itemprop="description" content="简介
 
@@ -152,16 +152,13 @@ PyTorch/TensofFlow on CIFAR-10
 主要是这两个框架的练习。
 
 我的代码实现whu-pzhang/cs231n.">
-
-
 <meta itemprop="datePublished" content="2018-11-10T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-11-10T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="6492">
 
 
 
-<meta itemprop="keywords" content="Python,NumPy," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Python,NumPy," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="cs231n作业2笔记"/>
 <meta name="twitter:description" content="简介
 
@@ -350,52 +347,40 @@ PyTorch/TensofFlow on CIFAR-10
 <h2 id="fullyconnected-nerual-network">Fully-connected Nerual Network</h2>
 
 <p>这部分需要对每层实现一个 <code>forward</code> 和 <code>backward</code> 函数：<code>forward</code> 函数接收为输入、权重和其他参数，返回输出以及一个 <code>cache</code> 对象，包含反向传播计算梯度时用到的数据。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">layer_forward</span>(x, w):
+  <span style="color:#e6db74">&#34;&#34;&#34; Receive inputs x and weights w &#34;&#34;&#34;</span>
+  <span style="color:#75715e"># Do some computations ...</span>
+  z <span style="color:#f92672">=</span> <span style="color:#75715e"># ... some intermediate value</span>
+  <span style="color:#75715e"># Do some more computations ...</span>
+  out <span style="color:#f92672">=</span> <span style="color:#75715e"># the output</span>
 
-<pre><code class="language-python">def layer_forward(x, w):
-  &quot;&quot;&quot; Receive inputs x and weights w &quot;&quot;&quot;
-  # Do some computations ...
-  z = # ... some intermediate value
-  # Do some more computations ...
-  out = # the output
+  cache <span style="color:#f92672">=</span> (x, w, z, out) <span style="color:#75715e"># Values we need to compute gradients</span>
 
-  cache = (x, w, z, out) # Values we need to compute gradients
-
-  return out, cache
-</code></pre>
-
+  <span style="color:#66d9ef">return</span> out, cache</code></pre></div>
 <p><code>backward</code> 函数则接收upstream传过来的梯度和 <code>forward</code> 返回的 <code>cache</code> 对象，
 计算返回该层相对于输入和权重的梯度值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">layer_backward</span>(dout, cache):
+  <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">  Receive dout (derivative of loss with respect to outputs) and cache,
+</span><span style="color:#e6db74">  and compute derivative with respect to inputs.
+</span><span style="color:#e6db74">  &#34;&#34;&#34;</span>
+  <span style="color:#75715e"># Unpack cache values</span>
+  x, w, z, out <span style="color:#f92672">=</span> cache
 
-<pre><code class="language-python">def layer_backward(dout, cache):
-  &quot;&quot;&quot;
-  Receive dout (derivative of loss with respect to outputs) and cache,
-  and compute derivative with respect to inputs.
-  &quot;&quot;&quot;
-  # Unpack cache values
-  x, w, z, out = cache
+  <span style="color:#75715e"># Use values in cache to compute derivatives</span>
+  dx <span style="color:#f92672">=</span> <span style="color:#75715e"># Derivative of loss with respect to x</span>
+  dw <span style="color:#f92672">=</span> <span style="color:#75715e"># Derivative of loss with respect to w</span>
 
-  # Use values in cache to compute derivatives
-  dx = # Derivative of loss with respect to x
-  dw = # Derivative of loss with respect to w
-
-  return dx, dw
-</code></pre>
-
+  <span style="color:#66d9ef">return</span> dx, dw</code></pre></div>
 <h3 id="affine-layer">affine layer</h3>
 
 <p>全连接层的forward就是简单的矩阵乘法。需要先将每个实例展平为向量，然后和权重做矩阵乘法即可，最后别忘了偏置项。</p>
-
-<pre><code class="language-python">x_reshaped = x.reshape(x.shape[0], -1)
-out = x_reshaped.dot(w) + b
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x_reshaped <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+out <span style="color:#f92672">=</span> x_reshaped<span style="color:#f92672">.</span>dot(w) <span style="color:#f92672">+</span> b</code></pre></div>
 <p>backward时，根据链式法计算即可，注意各个量的shape即可。</p>
-
-<pre><code class="language-python">dx = dout.dot(w.T).reshape(*x.shape)
-dw = x.reshape(x.shape[0], -1).T.dot(dout)
-db = np.sum(dout, axis=0)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dx <span style="color:#f92672">=</span> dout<span style="color:#f92672">.</span>dot(w<span style="color:#f92672">.</span>T)<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">*</span>x<span style="color:#f92672">.</span>shape)
+dw <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>reshape(x<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>], <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>T<span style="color:#f92672">.</span>dot(dout)
+db <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dout, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)</code></pre></div>
 <h3 id="relu-activation">ReLU activation</h3>
 
 <p><code>ReLU</code> 激活只是应用一个mask，计算相当简单，直接用 <code>np.maximum()</code> 函数即可。</p>
@@ -458,37 +443,31 @@ db = np.sum(dout, axis=0)
 <p>至此，正向传播就完成了。</p>
 
 <p>为了方便计算梯度的反向传播，根据计算图可将<code>forward</code>过程分解为如下9步：</p>
-
-<pre><code class="language-python">mu = 1.0 / N * np.sum(x, axis=0, keepdims=True)               # (1)
-xsubmu = x - mu                                               # (2)
-xsubmusqr = xsubmu**2                                         # (3)
-var = 1.0 / N * np.sum(xsubmusqr, axis=0, keepdims=True)      # (4)
-sqrtvar = np.sqrt(var + eps)                                  # (5)
-invsqrtvar = 1.0 / sqrtvar                                    # (6)
-x_norm = xsubmu * invsqrtvar                                  # (7)
-gammax = gamma * x_norm                                       # (8)
-out = gammax + beta                                           # (9)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">mu <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> N <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sum(x, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True)               <span style="color:#75715e"># (1)</span>
+xsubmu <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span> mu                                               <span style="color:#75715e"># (2)</span>
+xsubmusqr <span style="color:#f92672">=</span> xsubmu<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>                                         <span style="color:#75715e"># (3)</span>
+var <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> N <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sum(xsubmusqr, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True)      <span style="color:#75715e"># (4)</span>
+sqrtvar <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sqrt(var <span style="color:#f92672">+</span> eps)                                  <span style="color:#75715e"># (5)</span>
+invsqrtvar <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> sqrtvar                                    <span style="color:#75715e"># (6)</span>
+x_norm <span style="color:#f92672">=</span> xsubmu <span style="color:#f92672">*</span> invsqrtvar                                  <span style="color:#75715e"># (7)</span>
+gammax <span style="color:#f92672">=</span> gamma <span style="color:#f92672">*</span> x_norm                                       <span style="color:#75715e"># (8)</span>
+out <span style="color:#f92672">=</span> gammax <span style="color:#f92672">+</span> beta                                           <span style="color:#75715e"># (9)</span></code></pre></div>
 <h3 id="backward">backward</h3>
 
 <p><code>backward</code> 过程按照上面9步倒序进行即可：</p>
-
-<pre><code class="language-python">dgammax = dout                                                # (9)
-dbeta = np.sum(dout, axis=0, keepdims=True)                   # (9)
-dgamma = np.sum(dgammax * x_norm, axis=0, keepdims=True)      # (8)
-dx_norm = dgammax * gamma                                     # (8)
-dxsubmu = dx_norm * invsqrtvar                                # (7)
-dinvsqrtvar = np.sum(dx_norm * xsubmu, axis=0, keepdims=True) # (7)
-dsqrtvar = dinvsqrtvar * (-1.0) * (sqrtvar)**(-2)             # (6)
-dvar = dsqrtvar * (0.5 * (var + eps)**(-0.5))                 # (5)
-dxsubmusqr = dvar * (1.0 / N * np.ones((N, D)))               # (4)
-dxsubmu += dxsubmusqr * (2 * xsubmu)                          # (3)
-dx = dxsubmu                                                  # (2)
-dmu = -1.0 * np.sum(dxsubmu, axis=0, keepdims=True)           # (2)
-dx += dmu * (1.0 / N * np.ones((N, D)))                       # (1)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dgammax <span style="color:#f92672">=</span> dout                                                <span style="color:#75715e"># (9)</span>
+dbeta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dout, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True)                   <span style="color:#75715e"># (9)</span>
+dgamma <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dgammax <span style="color:#f92672">*</span> x_norm, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True)      <span style="color:#75715e"># (8)</span>
+dx_norm <span style="color:#f92672">=</span> dgammax <span style="color:#f92672">*</span> gamma                                     <span style="color:#75715e"># (8)</span>
+dxsubmu <span style="color:#f92672">=</span> dx_norm <span style="color:#f92672">*</span> invsqrtvar                                <span style="color:#75715e"># (7)</span>
+dinvsqrtvar <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dx_norm <span style="color:#f92672">*</span> xsubmu, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True) <span style="color:#75715e"># (7)</span>
+dsqrtvar <span style="color:#f92672">=</span> dinvsqrtvar <span style="color:#f92672">*</span> (<span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span>) <span style="color:#f92672">*</span> (sqrtvar)<span style="color:#f92672">**</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)             <span style="color:#75715e"># (6)</span>
+dvar <span style="color:#f92672">=</span> dsqrtvar <span style="color:#f92672">*</span> (<span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (var <span style="color:#f92672">+</span> eps)<span style="color:#f92672">**</span>(<span style="color:#f92672">-</span><span style="color:#ae81ff">0.5</span>))                 <span style="color:#75715e"># (5)</span>
+dxsubmusqr <span style="color:#f92672">=</span> dvar <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> N <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>ones((N, D)))               <span style="color:#75715e"># (4)</span>
+dxsubmu <span style="color:#f92672">+=</span> dxsubmusqr <span style="color:#f92672">*</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> xsubmu)                          <span style="color:#75715e"># (3)</span>
+dx <span style="color:#f92672">=</span> dxsubmu                                                  <span style="color:#75715e"># (2)</span>
+dmu <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1.0</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sum(dxsubmu, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True)           <span style="color:#75715e"># (2)</span>
+dx <span style="color:#f92672">+=</span> dmu <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> N <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>ones((N, D)))                       <span style="color:#75715e"># (1)</span></code></pre></div>
 <h3 id="alternative-backward-implement">Alternative backward implement</h3>
 
 <p>BatchNorm backward前面的实现是按照计算图一步步来的，实际上可以直接推导出BatchNorm的梯度计算公式，这样能够简化计算。</p>
@@ -609,14 +588,11 @@ dx += dmu * (1.0 / N * np.ones((N, D)))                       # (1)
 \]</span></p>
 
 <p>最终我们得到了$\frac{\partial L}{\partial \boldsymbol{x}_i}$的数学表达式，相比前面基于计算图的实现更为简便。实现代码如下：</p>
-
-<pre><code class="language-python">xsubmu, var, sqrtvar, invsqrtvar, x_norm, gamma, eps = cache
-N, D = xsubmu.shape
-dbeta = np.sum(dout, axis=0, keepdims=True)
-dgamma = np.sum(x_norm * dout, axis=0, keepdims=True)
-dx = (1. / N) * gamma * invsqrtvar * (N * dout - dgamma * x_norm - dbeta)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">xsubmu, var, sqrtvar, invsqrtvar, x_norm, gamma, eps <span style="color:#f92672">=</span> cache
+N, D <span style="color:#f92672">=</span> xsubmu<span style="color:#f92672">.</span>shape
+dbeta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dout, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True)
+dgamma <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(x_norm <span style="color:#f92672">*</span> dout, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, keepdims<span style="color:#f92672">=</span>True)
+dx <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1.</span> <span style="color:#f92672">/</span> N) <span style="color:#f92672">*</span> gamma <span style="color:#f92672">*</span> invsqrtvar <span style="color:#f92672">*</span> (N <span style="color:#f92672">*</span> dout <span style="color:#f92672">-</span> dgamma <span style="color:#f92672">*</span> x_norm <span style="color:#f92672">-</span> dbeta)</code></pre></div>
 <p>这个实现相比基于计算图的实现，会快上2~4倍。</p>
 
 <h3 id="layer-normalization">Layer Normalization</h3>
@@ -627,11 +603,8 @@ Layer Normalization 是沿着特征轴进行的 Batch Normalization。其实现�
 <h2 id="dropout">Dropout</h2>
 
 <p><a href="https://arxiv.org/abs/1207.0580">Dropout</a>是在forward过程中通过随机将一部分特征设为零来实现的一种正则化方法。实现起来也很简单，不过为了使测试时的代码不发生改变，通常使用的是 <strong>Inverted dropout</strong>，在训练时进行放大。</p>
-
-<pre><code class="language-python">mask = (np.random.rand(*x.shape) &lt; p) / p
-out = x * mask
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">mask <span style="color:#f92672">=</span> (np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(<span style="color:#f92672">*</span>x<span style="color:#f92672">.</span>shape) <span style="color:#f92672">&lt;</span> p) <span style="color:#f92672">/</span> p
+out <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> mask</code></pre></div>
 <h2 id="convolutional-networks">Convolutional Networks</h2>
 
 <p>卷积神经网络（CNN）其实和常规的神经网络很像，由包含可学习的权重和偏置的神经元组成。
@@ -660,43 +633,37 @@ out = x * mask
 <p>作业2中的卷积采用的是原始实现，通过两层循环即可，这里不多讲，直接贴我的代码实现：</p>
 
 <p>forward：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">stride <span style="color:#f92672">=</span> conv_param[<span style="color:#e6db74">&#39;stride&#39;</span>]
+pad <span style="color:#f92672">=</span> conv_param[<span style="color:#e6db74">&#39;pad&#39;</span>]
+N, C, H, W <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>shape
+F, C, HH, WW <span style="color:#f92672">=</span> w<span style="color:#f92672">.</span>shape
+Hout <span style="color:#f92672">=</span> (H <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> pad <span style="color:#f92672">-</span> HH) <span style="color:#f92672">//</span> stride <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+Wout <span style="color:#f92672">=</span> (W <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> pad <span style="color:#f92672">-</span> WW) <span style="color:#f92672">//</span> stride <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+out <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((N, F, Hout, Wout), dtype<span style="color:#f92672">=</span>x<span style="color:#f92672">.</span>dtype)
 
-<pre><code class="language-python">stride = conv_param['stride']
-pad = conv_param['pad']
-N, C, H, W = x.shape
-F, C, HH, WW = w.shape
-Hout = (H + 2 * pad - HH) // stride + 1
-Wout = (W + 2 * pad - WW) // stride + 1
-out = np.zeros((N, F, Hout, Wout), dtype=x.dtype)
+padx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>pad(x, ((<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>), (<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>), (pad, pad), (pad, pad)), <span style="color:#e6db74">&#39;constant&#39;</span>)
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(Hout):
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(Wout):
+        xblock <span style="color:#f92672">=</span> padx[:, :, i <span style="color:#f92672">*</span> stride:i <span style="color:#f92672">*</span>
+                      stride <span style="color:#f92672">+</span> HH, j <span style="color:#f92672">*</span> stride:j <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span> WW]
+        <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(F):
+            out[:, k, i, j] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(xblock <span style="color:#f92672">*</span> w[k], axis<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>))
 
-padx = np.pad(x, ((0, 0), (0, 0), (pad, pad), (pad, pad)), 'constant')
-for i in range(Hout):
-    for j in range(Wout):
-        xblock = padx[:, :, i * stride:i *
-                      stride + HH, j * stride:j * stride + WW]
-        for k in range(F):
-            out[:, k, i, j] = np.sum(xblock * w[k], axis=(1, 2, 3))
-
-out += b[np.newaxis, :, np.newaxis, np.newaxis]
-</code></pre>
-
+out <span style="color:#f92672">+=</span> b[np<span style="color:#f92672">.</span>newaxis, :, np<span style="color:#f92672">.</span>newaxis, np<span style="color:#f92672">.</span>newaxis]</code></pre></div>
 <p>backward:</p>
-
-<pre><code class="language-python">dw = np.zeros_like(w)
-dpadx = np.zeros_like(padx)
-db = np.sum(dout, axis=(0, 2, 3))
-for i in range(Hout):
-    for j in range(Wout):
-        xblock = padx[:, :, i * stride:i *
-                      stride + HH, j * stride:j * stride + WW]
-        for k in range(F):
-            dw[k, :, :, :] += np.sum(xblock * dout[:, k, i, j]
-                                     [:, None, None, None], axis=0)
-        for n in range(N):
-            dpadx[n, :, i * stride:i * stride + HH, j * stride:j * stride +
-                  WW] += np.sum(dout[n, :, i, j][:, None, None, None] * w, axis=0)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dw <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(w)
+dpadx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(padx)
+db <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dout, axis<span style="color:#f92672">=</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>))
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(Hout):
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(Wout):
+        xblock <span style="color:#f92672">=</span> padx[:, :, i <span style="color:#f92672">*</span> stride:i <span style="color:#f92672">*</span>
+                      stride <span style="color:#f92672">+</span> HH, j <span style="color:#f92672">*</span> stride:j <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span> WW]
+        <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(F):
+            dw[k, :, :, :] <span style="color:#f92672">+=</span> np<span style="color:#f92672">.</span>sum(xblock <span style="color:#f92672">*</span> dout[:, k, i, j]
+                                     [:, None, None, None], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
+        <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(N):
+            dpadx[n, :, i <span style="color:#f92672">*</span> stride:i <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span> HH, j <span style="color:#f92672">*</span> stride:j <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span>
+                  WW] <span style="color:#f92672">+=</span> np<span style="color:#f92672">.</span>sum(dout[n, :, i, j][:, None, None, None] <span style="color:#f92672">*</span> w, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)</code></pre></div>
 <h3 id="im2col"><code>im2col</code></h3>
 
 <p>这里来推导CNN基于矩阵乘法的高效实现。
@@ -897,26 +864,20 @@ w_{12} & w_{11}
 <p>原始实现代码如下：</p>
 
 <p>forward：</p>
-
-<pre><code class="language-python">for i in range(Hout):
-    for j in range(Wout):
-        xblock = x[:, :, i * stride:i * stride +
-                    HH, j * stride:j * stride + WW]
-        out[:, :, i, j] = np.max(xblock, axis=(2, 3))
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(Hout):
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(Wout):
+        xblock <span style="color:#f92672">=</span> x[:, :, i <span style="color:#f92672">*</span> stride:i <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span>
+                    HH, j <span style="color:#f92672">*</span> stride:j <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span> WW]
+        out[:, :, i, j] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>max(xblock, axis<span style="color:#f92672">=</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>))</code></pre></div>
 <p>Backward:</p>
-
-<pre><code class="language-python">for i in range(Hout):
-    for j in range(Wout):
-        xblock = x[:, :, i * stride:i * stride +
-                     HH, j * stride:j * stride + WW]
-        max_values = np.max(xblock, axis=(2, 3), keepdims=True)
-        mask = (xblock == max_values)
-        dx[:, :, i * stride:i * stride +
-           HH, j * stride:j * stride + WW] += dout[:, :, i, j][:, :, None, None] * mask
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(Hout):
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(Wout):
+        xblock <span style="color:#f92672">=</span> x[:, :, i <span style="color:#f92672">*</span> stride:i <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span>
+                     HH, j <span style="color:#f92672">*</span> stride:j <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span> WW]
+        max_values <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>max(xblock, axis<span style="color:#f92672">=</span>(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>), keepdims<span style="color:#f92672">=</span>True)
+        mask <span style="color:#f92672">=</span> (xblock <span style="color:#f92672">==</span> max_values)
+        dx[:, :, i <span style="color:#f92672">*</span> stride:i <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span>
+           HH, j <span style="color:#f92672">*</span> stride:j <span style="color:#f92672">*</span> stride <span style="color:#f92672">+</span> WW] <span style="color:#f92672">+=</span> dout[:, :, i, j][:, :, None, None] <span style="color:#f92672">*</span> mask</code></pre></div>
 <h3 id="spatial-batch-normalization">Spatial batch normalization</h3>
 
 <p>BatchNorm 不仅可以加快全连接深度神经网络的训练过程，而且对CNN也有效，只不过需要略微的调整，调整后称为 <strong>Spatial batch normalization</strong>.</p>
@@ -927,21 +888,15 @@ w_{12} & w_{11}
 因此，将batchnorm程序稍作修改即可：</p>
 
 <p>Forward:</p>
-
-<pre><code class="language-python">N, C, H, W = x.shape
-x_reshaped = np.transpose(x, axes=[0, 2, 3, 1]).reshape(-1, C)
-out, cache = batchnorm_forward(x_reshaped, gamma, beta, bn_param)
-out = np.transpose(out.reshape((N, H, W, C)), axes=[0, 3, 1, 2])
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">N, C, H, W <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>shape
+x_reshaped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(x, axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, C)
+out, cache <span style="color:#f92672">=</span> batchnorm_forward(x_reshaped, gamma, beta, bn_param)
+out <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(out<span style="color:#f92672">.</span>reshape((N, H, W, C)), axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])</code></pre></div>
 <p>backward:</p>
-
-<pre><code class="language-python">N, C, H, W = dout.shape
-dout_reshaped = np.transpose(dout, axes=[0, 2, 3, 1]).reshape(-1, C)
-dx, dgamma, dbeta = batchnorm_backward(dout_reshaped, cache)
-dx = np.transpose(dx.reshape((N, H, W, C)), axes=[0, 3, 1, 2])
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">N, C, H, W <span style="color:#f92672">=</span> dout<span style="color:#f92672">.</span>shape
+dout_reshaped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(dout, axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, C)
+dx, dgamma, dbeta <span style="color:#f92672">=</span> batchnorm_backward(dout_reshaped, cache)
+dx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(dx<span style="color:#f92672">.</span>reshape((N, H, W, C)), axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])</code></pre></div>
 <h3 id="group-normalization">Group normalization</h3>
 
 <p>LayerNorm是BatchNorm的一种缓解batchsize依赖的选择，但研究人员发现，在CNN中，LayerNorm表现不如BatchNorm。因此又提出了一种新的归一化方法： <strong>Group normalization</strong>，为LayerNorm和BatchNorm的折衷。</p>
@@ -951,45 +906,39 @@ dx = np.transpose(dx.reshape((N, H, W, C)), axes=[0, 3, 1, 2])
 <p>相比如LayerNorm和BatchNorm，GroupNorm多了一个控制Group的参数 <code>G</code>。</p>
 
 <p>forward：</p>
-
-<pre><code class="language-python">group_size = C // G
-x_reshaped = np.transpose(x, axes=[0, 2, 3, 1]).reshape(-1, C)
-gamma_reshaped = np.transpose(gamma, axes=[0, 2, 3, 1]).reshape(C,)
-beta_reshaped = np.transpose(beta, axes=[0, 2, 3, 1]).reshape(C,)
-for i in range(G):
-    index = np.arange(i * group_size, (i + 1) * group_size)
-    group_x = x_reshaped[:, index]
-    group_gamma = gamma_reshaped[index]
-    group_beta = beta_reshaped[index]
-    group_out, group_cache = layernorm_forward(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">group_size <span style="color:#f92672">=</span> C <span style="color:#f92672">//</span> G
+x_reshaped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(x, axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, C)
+gamma_reshaped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(gamma, axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])<span style="color:#f92672">.</span>reshape(C,)
+beta_reshaped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(beta, axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])<span style="color:#f92672">.</span>reshape(C,)
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(G):
+    index <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(i <span style="color:#f92672">*</span> group_size, (i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> group_size)
+    group_x <span style="color:#f92672">=</span> x_reshaped[:, index]
+    group_gamma <span style="color:#f92672">=</span> gamma_reshaped[index]
+    group_beta <span style="color:#f92672">=</span> beta_reshaped[index]
+    group_out, group_cache <span style="color:#f92672">=</span> layernorm_forward(
         group_x, group_gamma, group_beta, gn_param)
 
-    out[:, index, :, :] = np.transpose(
-        group_out.reshape(N, H, W, group_size), axes=[0, 3, 1, 2])
-    cache.append(group_cache)
-</code></pre>
-
+    out[:, index, :, :] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(
+        group_out<span style="color:#f92672">.</span>reshape(N, H, W, group_size), axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
+    cache<span style="color:#f92672">.</span>append(group_cache)</code></pre></div>
 <p>backward:</p>
-
-<pre><code class="language-python">N, C, H, W = dout.shape
-dx = np.zeros_like(dout)
-dgamma = np.zeros((1, C, 1, 1), dtype=dout.dtype)
-dbeta = np.zeros((1, C, 1, 1), dtype=dout.dtype)
-G = len(cache)
-group_size = C // G
-dout_reshaped = np.transpose(dout, axes=[0, 2, 3, 1]).reshape(-1, C)
-for i in range(G):
-    index = np.arange(i * group_size, (i + 1) * group_size)
-    group_dout = dout_reshaped[:, index]
-    group_cache = cache[i]
-    group_dx, group_dgamma, group_dbeta = layernorm_backward(
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">N, C, H, W <span style="color:#f92672">=</span> dout<span style="color:#f92672">.</span>shape
+dx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros_like(dout)
+dgamma <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">1</span>, C, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>), dtype<span style="color:#f92672">=</span>dout<span style="color:#f92672">.</span>dtype)
+dbeta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((<span style="color:#ae81ff">1</span>, C, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>), dtype<span style="color:#f92672">=</span>dout<span style="color:#f92672">.</span>dtype)
+G <span style="color:#f92672">=</span> len(cache)
+group_size <span style="color:#f92672">=</span> C <span style="color:#f92672">//</span> G
+dout_reshaped <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(dout, axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>])<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, C)
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(G):
+    index <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(i <span style="color:#f92672">*</span> group_size, (i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> group_size)
+    group_dout <span style="color:#f92672">=</span> dout_reshaped[:, index]
+    group_cache <span style="color:#f92672">=</span> cache[i]
+    group_dx, group_dgamma, group_dbeta <span style="color:#f92672">=</span> layernorm_backward(
         group_dout, group_cache)
-    dx[:, index, :, :] = np.transpose(
-        group_dx.reshape(N, H, W, group_size), axes=[0, 3, 1, 2])
-    dgamma[:, index, :, :] = group_dgamma[:, :, None, None]
-    dbeta[:, index, :, :] = group_dbeta[:, :, None, None]
-</code></pre>
-
+    dx[:, index, :, :] <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>transpose(
+        group_dx<span style="color:#f92672">.</span>reshape(N, H, W, group_size), axes<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>])
+    dgamma[:, index, :, :] <span style="color:#f92672">=</span> group_dgamma[:, :, None, None]
+    dbeta[:, index, :, :] <span style="color:#f92672">=</span> group_dbeta[:, :, None, None]</code></pre></div>
 <h2 id="总结">总结</h2>
 
 <p>作业2的核心在于实现一个可用的CNN网络，重点是卷积层原理和实现以及BatchNorm层的原理和实现，作业中的卷积层采用的是原始的循环方法，是较为低效的实现，实际中一般采用 <code>im2col</code> 来实现，可以充分利用计算机的并行优势。而BatchNorm则是优化训练效果和速度的黑魔法，后面的LayerNorm以及GroupNorm均为其变种。</p>
@@ -1073,7 +1022,7 @@ for i in range(G):
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

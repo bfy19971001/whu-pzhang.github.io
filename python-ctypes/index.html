@@ -28,7 +28,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/python-ctypes/" />
@@ -53,29 +53,23 @@
 
 <meta property="og:title" content="用ctypes调用C函数" />
 <meta property="og:description" content="现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。
-
 对于这样的需求，使用Python标准库中的ctypes模块来实现是非常容易的。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/python-ctypes/" /><meta property="article:published_time" content="2017-05-11T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2017-05-11T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/python-ctypes/" />
+<meta property="article:published_time" content="2017-05-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-05-11T00:00:00+00:00" />
 <meta itemprop="name" content="用ctypes调用C函数">
 <meta itemprop="description" content="现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。
-
 对于这样的需求，使用Python标准库中的ctypes模块来实现是非常容易的。">
-
-
 <meta itemprop="datePublished" content="2017-05-11T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2017-05-11T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2732">
+<meta itemprop="wordCount" content="2730">
 
 
 
-<meta itemprop="keywords" content="Python,c," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Python,c," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="用ctypes调用C函数"/>
 <meta name="twitter:description" content="现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。
-
 对于这样的需求，使用Python标准库中的ctypes模块来实现是非常容易的。"/>
 
 <!--[if lte IE 9]>
@@ -156,7 +150,7 @@
               <a href="/categories/programming/"> Programming </a>
             
           </div>
-        <span class="more-meta"> 约 2732 字 </span>
+        <span class="more-meta"> 约 2730 字 </span>
         <span class="more-meta"> 预计阅读 6 分钟 </span>
         
       </div>
@@ -169,26 +163,18 @@
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#前言">前言</a></li>
-<li><a href="#c源码">C源码</a></li>
-<li><a href="#利用ctype访问c代码">利用ctype访问C代码</a></li>
-<li><a href="#细节剖析">细节剖析</a>
-<ul>
-<li><a href="#搜索路径">搜索路径</a></li>
-<li><a href="#源码说明">源码说明</a>
-<ul>
-<li><a href="#常规函数">常规函数</a></li>
-<li><a href="#多返回值的函数">多返回值的函数</a></li>
-<li><a href="#处理数组的函数">处理数组的函数</a></li>
-<li><a href="#结构体">结构体</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#c源码">C源码</a></li>
+    <li><a href="#利用ctype访问c代码">利用ctype访问C代码</a></li>
+    <li><a href="#细节剖析">细节剖析</a>
+      <ul>
+        <li><a href="#搜索路径">搜索路径</a></li>
+        <li><a href="#源码说明">源码说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -196,291 +182,227 @@
     
     <div class="post-content">
       <p>现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。</p>
-
 <p>对于这样的需求，使用Python标准库中的<code>ctypes</code>模块来实现是非常容易的。</p>
-
 <h2 id="前言">前言</h2>
-
 <p>要使用ctypes，必须确保要访问的C代码已经被编译成与Python解释器相兼容（即，采用相同的体系结构、字长、编译器等）的共享库。</p>
-
 <h2 id="c源码">C源码</h2>
-
 <p>现有如下的C代码：</p>
-
-<pre><code class="language-c">#include &lt;math.h&gt;
-#include &lt;stdbool.h&gt;
-#include &quot;sample.h&quot;
-
-// 计算最大公约数
-int gcd(int x, int y)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdbool.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;sample.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 计算最大公约数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
 {
-    int g = y;
-    while (x &gt; 0) {
-        g = x;
-        x = y % x;
-        y = g;
+    <span style="color:#66d9ef">int</span> g <span style="color:#f92672">=</span> y;
+    <span style="color:#66d9ef">while</span> (x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+        g <span style="color:#f92672">=</span> x;
+        x <span style="color:#f92672">=</span> y <span style="color:#f92672">%</span> x;
+        y <span style="color:#f92672">=</span> g;
     }
-    return g;
+    <span style="color:#66d9ef">return</span> g;
 }
 
-// 检查（x0,y0）是否在Mandelbort集合中
-bool in_mandel(double x0, double y0, int n)
+<span style="color:#75715e">// 检查（x0,y0）是否在Mandelbort集合中
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">in_mandel</span>(<span style="color:#66d9ef">double</span> x0, <span style="color:#66d9ef">double</span> y0, <span style="color:#66d9ef">int</span> n)
 {
-    double x=0, y=0, xtemp;
-    while (n &gt; 0) {
-        xtemp = x*x -y*y + y0;
-        y = 2*x*y + y0;
-        x = xtemp;
-        n -= 1;
-        if (x*x + y*y &gt; 4) return false;
+    <span style="color:#66d9ef">double</span> x<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, y<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, xtemp;
+    <span style="color:#66d9ef">while</span> (n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+        xtemp <span style="color:#f92672">=</span> x<span style="color:#f92672">*</span>x <span style="color:#f92672">-</span>y<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> y0;
+        y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>x<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> y0;
+        x <span style="color:#f92672">=</span> xtemp;
+        n <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">if</span> (x<span style="color:#f92672">*</span>x <span style="color:#f92672">+</span> y<span style="color:#f92672">*</span>y <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">4</span>) <span style="color:#66d9ef">return</span> false;
     }
-    return true;
+    <span style="color:#66d9ef">return</span> true;
 }
 
-// 两数相除
-int divide(int a, int b, int *remainder)
+<span style="color:#75715e">// 两数相除
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">divide</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>remainder)
 {
-    int quot = a / b;
-    *remainder = a % b;
-    return quot;
+    <span style="color:#66d9ef">int</span> quot <span style="color:#f92672">=</span> a <span style="color:#f92672">/</span> b;
+    <span style="color:#f92672">*</span>remainder <span style="color:#f92672">=</span> a <span style="color:#f92672">%</span> b;
+    <span style="color:#66d9ef">return</span> quot;
 }
 
 
-// 计算数组平均值
-double avg(double *a, int n)
+<span style="color:#75715e">// 计算数组平均值
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">avg</span>(<span style="color:#66d9ef">double</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">int</span> n)
 {
-    double sum = 0.0;
-    for (int i = 0; i &lt; n; ++i)
-        sum += a[i];
+    <span style="color:#66d9ef">double</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>;
+    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i)
+        sum <span style="color:#f92672">+=</span> a[i];
 
-    return sum / n;
+    <span style="color:#66d9ef">return</span> sum <span style="color:#f92672">/</span> n;
 }
 
-// C 结构体
-typedef struct point {
-    double x, y;
+<span style="color:#75715e">// C 结构体
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> point {
+    <span style="color:#66d9ef">double</span> x, y;
 } Point;
 
-double distance(Point *p1, Point *p2)
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">distance</span>(Point <span style="color:#f92672">*</span>p1, Point <span style="color:#f92672">*</span>p2)
 {
-    return hypot(p1-&gt;x - p2-&gt;x, p1-&gt;y - p2-&gt;y);
+    <span style="color:#66d9ef">return</span> hypot(p1<span style="color:#f92672">-&gt;</span>x <span style="color:#f92672">-</span> p2<span style="color:#f92672">-&gt;</span>x, p1<span style="color:#f92672">-&gt;</span>y <span style="color:#f92672">-</span> p2<span style="color:#f92672">-&gt;</span>y);
 }
-</code></pre>
-
-<p>这份代码中包含了C语言中不同的特性。其中<code>gcd</code>和<code>in_mandel</code>为不同参数类型的简单函数。<code>divide</code>则是C语言中返回多个值的例子，其中一个以指针的形式返回。<code>avg</code>函数遍历了数组且做了数据转换。<code>distance</code>则涉及到C语言结构体类型。</p>
-
+</code></pre></div><p>这份代码中包含了C语言中不同的特性。其中<code>gcd</code>和<code>in_mandel</code>为不同参数类型的简单函数。<code>divide</code>则是C语言中返回多个值的例子，其中一个以指针的形式返回。<code>avg</code>函数遍历了数组且做了数据转换。<code>distance</code>则涉及到C语言结构体类型。</p>
 <p>将上面的代码写入了一个名叫“sample.c”的文件中， 然后它们的声明写入名为“sample.h”的头文件中。</p>
-
 <p>我们首先将上述源码编译成共享库：</p>
-
-<pre><code class="language-bash">gcc -std=c99 -Wall -fPIC -shared sample.c -o libsample.so
-</code></pre>
-
-<h2 id="利用ctype访问c代码">利用ctype访问C代码</h2>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcc -std<span style="color:#f92672">=</span>c99 -Wall -fPIC -shared sample.c -o libsample.so
+</code></pre></div><h2 id="利用ctype访问c代码">利用ctype访问C代码</h2>
 <p>要访问我们编译好的共享库<code>libsample.so</code>，需要先构建一个Python模块来包装它，示例如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python3</span>
+<span style="color:#75715e"># coding: utf-8</span>
 
-<pre><code class="language-python">#!/usr/bin/env python3
-# coding: utf-8
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> ctypes
 
-import os
-import ctypes
+<span style="color:#75715e"># 定位到共享库文件</span>
+_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;libsample.so&#39;</span>
+_path <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#f92672">*</span>(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>split(__file__)[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (_file,)))
+_mod <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>cdll<span style="color:#f92672">.</span>LoadLibrary(_path)
 
-# 定位到共享库文件
-_file = 'libsample.so'
-_path = os.path.join(*(os.path.split(__file__)[:-1] + (_file,)))
-_mod = ctypes.cdll.LoadLibrary(_path)
+<span style="color:#75715e"># int gcd(int, int)</span>
+gcd <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>gcd
+gcd<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>c_int)
+gcd<span style="color:#f92672">.</span>restype <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_int
 
-# int gcd(int, int)
-gcd = _mod.gcd
-gcd.argtypes = (ctypes.c_int, ctypes.c_int)
-gcd.restype = ctypes.c_int
+<span style="color:#75715e"># bool in_mandel(double, double, int)</span>
+in_mandel <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>in_mandel
+in_mandel<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (ctypes<span style="color:#f92672">.</span>c_double, ctypes<span style="color:#f92672">.</span>c_double, ctypes<span style="color:#f92672">.</span>c_int)
+in_mandel<span style="color:#f92672">.</span>restype <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_bool
 
-# bool in_mandel(double, double, int)
-in_mandel = _mod.in_mandel
-in_mandel.argtypes = (ctypes.c_double, ctypes.c_double, ctypes.c_int)
-in_mandel.restype = ctypes.c_bool
-
-# int divide(int, int, int *)
-_divide = _mod.divide
-_divide.argtypes = (ctypes.c_int, ctypes.c_int, ctypes.POINTER(ctypes.c_int))
-_divide.restype = ctypes.c_int
-
-
-def divide(x, y):
-    rem = ctypes.c_int()
-    quot = _divide(x, y, rem)
-
-    return quot, rem.value
-
-# double avg(doubel *, int n)
-# 定义一个类来处理 &quot;doubel *&quot; 参数
-class DoubleArrayType:
-
-    def from_param(self, param):
-        typename = type(param).__name__
-        if hasattr(self, 'from_' + typename):
-            return getattr(self, 'from_' + typename)(param)
-        elif isinstance(param, ctypes.Array):
-            return param
-        else:
-            raise TypeError(&quot;Can't convert %s&quot; % typename)
-
-    # 从列表和元组转换
-    def from_list(self, param):
-        val = ((ctypes.c_double) * len(param))(*param)
-        return val
-
-    from_tuple = from_list
-
-    # 从array.array对象转换
-    def from_array(self, param):
-        if param.typecode != 'd':
-            raise TypeError(&quot;must be an array of doubles&quot;)
-        ptr, _ = param.buffer_info()
-        return ctypes.cast(ptr, ctypes.POINTER(ctypes.c_double))
-
-    # 从nump数组对象转换
-    def from_ndarray(self, param):
-        if param.dtype.name != 'float64':
-            raise TypeError(&quot;The dtype of array must be float64&quot;)
-        return param.ctypes.data_as(ctypes.POINTER(ctypes.c_double))
+<span style="color:#75715e"># int divide(int, int, int *)</span>
+_divide <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>divide
+_divide<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>POINTER(ctypes<span style="color:#f92672">.</span>c_int))
+_divide<span style="color:#f92672">.</span>restype <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_int
 
 
-DoubleArray = DoubleArrayType()
-_avg = _mod.avg
-_avg.argtypes = (DoubleArray, ctypes.c_int)
-_avg.restype = ctypes.c_double
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">divide</span>(x, y):
+    rem <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_int()
+    quot <span style="color:#f92672">=</span> _divide(x, y, rem)
+
+    <span style="color:#66d9ef">return</span> quot, rem<span style="color:#f92672">.</span>value
+
+<span style="color:#75715e"># double avg(doubel *, int n)</span>
+<span style="color:#75715e"># 定义一个类来处理 &#34;doubel *&#34; 参数</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DoubleArrayType</span>:
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">from_param</span>(self, param):
+        typename <span style="color:#f92672">=</span> type(param)<span style="color:#f92672">.</span>__name__
+        <span style="color:#66d9ef">if</span> hasattr(self, <span style="color:#e6db74">&#39;from_&#39;</span> <span style="color:#f92672">+</span> typename):
+            <span style="color:#66d9ef">return</span> getattr(self, <span style="color:#e6db74">&#39;from_&#39;</span> <span style="color:#f92672">+</span> typename)(param)
+        <span style="color:#66d9ef">elif</span> isinstance(param, ctypes<span style="color:#f92672">.</span>Array):
+            <span style="color:#66d9ef">return</span> param
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">TypeError</span>(<span style="color:#e6db74">&#34;Can&#39;t convert </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> typename)
+
+    <span style="color:#75715e"># 从列表和元组转换</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">from_list</span>(self, param):
+        val <span style="color:#f92672">=</span> ((ctypes<span style="color:#f92672">.</span>c_double) <span style="color:#f92672">*</span> len(param))(<span style="color:#f92672">*</span>param)
+        <span style="color:#66d9ef">return</span> val
+
+    from_tuple <span style="color:#f92672">=</span> from_list
+
+    <span style="color:#75715e"># 从array.array对象转换</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">from_array</span>(self, param):
+        <span style="color:#66d9ef">if</span> param<span style="color:#f92672">.</span>typecode <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;d&#39;</span>:
+            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">TypeError</span>(<span style="color:#e6db74">&#34;must be an array of doubles&#34;</span>)
+        ptr, _ <span style="color:#f92672">=</span> param<span style="color:#f92672">.</span>buffer_info()
+        <span style="color:#66d9ef">return</span> ctypes<span style="color:#f92672">.</span>cast(ptr, ctypes<span style="color:#f92672">.</span>POINTER(ctypes<span style="color:#f92672">.</span>c_double))
+
+    <span style="color:#75715e"># 从nump数组对象转换</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">from_ndarray</span>(self, param):
+        <span style="color:#66d9ef">if</span> param<span style="color:#f92672">.</span>dtype<span style="color:#f92672">.</span>name <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;float64&#39;</span>:
+            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">TypeError</span>(<span style="color:#e6db74">&#34;The dtype of array must be float64&#34;</span>)
+        <span style="color:#66d9ef">return</span> param<span style="color:#f92672">.</span>ctypes<span style="color:#f92672">.</span>data_as(ctypes<span style="color:#f92672">.</span>POINTER(ctypes<span style="color:#f92672">.</span>c_double))
 
 
-def avg(values):
-    return _avg(values, len(values))
+DoubleArray <span style="color:#f92672">=</span> DoubleArrayType()
+_avg <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>avg
+_avg<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (DoubleArray, ctypes<span style="color:#f92672">.</span>c_int)
+_avg<span style="color:#f92672">.</span>restype <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_double
 
 
-# struct Point {}
-class Point(ctypes.Structure):
-    _fields_ = [('x', ctypes.c_double),
-                ('y', ctypes.c_double)]
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">avg</span>(values):
+    <span style="color:#66d9ef">return</span> _avg(values, len(values))
 
-# double distance(Point *, Point *)
-distance = _mod.distance
-distance.argtypes = (ctypes.POINTER(Point), ctypes.POINTER(Point))
-distance.restype = ctypes.c_double
+
+<span style="color:#75715e"># struct Point {}</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>(ctypes<span style="color:#f92672">.</span>Structure):
+    _fields_ <span style="color:#f92672">=</span> [(<span style="color:#e6db74">&#39;x&#39;</span>, ctypes<span style="color:#f92672">.</span>c_double),
+                (<span style="color:#e6db74">&#39;y&#39;</span>, ctypes<span style="color:#f92672">.</span>c_double)]
+
+<span style="color:#75715e"># double distance(Point *, Point *)</span>
+distance <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>distance
+distance<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (ctypes<span style="color:#f92672">.</span>POINTER(Point), ctypes<span style="color:#f92672">.</span>POINTER(Point))
+distance<span style="color:#f92672">.</span>restype <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_double
+</code></pre></div><p>如果一切正常，就可以加载并使用里面定义的C函数了：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> sample
+<span style="color:#f92672">&gt;&gt;&gt;</span> sample<span style="color:#f92672">.</span>gcd(<span style="color:#ae81ff">35</span>, <span style="color:#ae81ff">42</span>), sample<span style="color:#f92672">.</span>in_mandel(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">500</span>), sample<span style="color:#f92672">.</span>divide(<span style="color:#ae81ff">42</span>, <span style="color:#ae81ff">8</span>)
+</code></pre></div><pre><code>(7, True, (5, 2))
 </code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> array
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
 
-<p>如果一切正常，就可以加载并使用里面定义的C函数了：</p>
+<span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">=</span> list(range(<span style="color:#ae81ff">100</span>))
+<span style="color:#f92672">&gt;&gt;&gt;</span> b <span style="color:#f92672">=</span> array<span style="color:#f92672">.</span>array(<span style="color:#e6db74">&#39;d&#39;</span>, a)
+<span style="color:#f92672">&gt;&gt;&gt;</span> c <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(a, dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>double)  <span style="color:#75715e"># dtype需为int64</span>
 
-<pre><code class="language-python">&gt;&gt;&gt; import sample
-&gt;&gt;&gt; sample.gcd(35, 42), sample.in_mandel(0, 0, 500), sample.divide(42, 8)
+<span style="color:#f92672">&gt;&gt;&gt;</span> sample<span style="color:#f92672">.</span>avg(a), sample<span style="color:#f92672">.</span>avg(b), sample<span style="color:#f92672">.</span>avg(c)
+</code></pre></div><pre><code>(49.5, 49.5, 49.5)
 </code></pre>
-
-<pre><code>(7, True, (5, 2))
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> p1 <span style="color:#f92672">=</span> sample<span style="color:#f92672">.</span>Point(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> p2 <span style="color:#f92672">=</span> sample<span style="color:#f92672">.</span>Point(<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> sample<span style="color:#f92672">.</span>distance(p1, p2)
+</code></pre></div><pre><code>4.242640687119285
 </code></pre>
-
-<pre><code class="language-python">&gt;&gt;&gt; import array
-&gt;&gt;&gt; import numpy as np
-
-&gt;&gt;&gt; a = list(range(100))
-&gt;&gt;&gt; b = array.array('d', a)
-&gt;&gt;&gt; c = np.array(a, dtype=np.double)  # dtype需为int64
-
-&gt;&gt;&gt; sample.avg(a), sample.avg(b), sample.avg(c)
-</code></pre>
-
-<pre><code>(49.5, 49.5, 49.5)
-</code></pre>
-
-<pre><code class="language-python">&gt;&gt;&gt; p1 = sample.Point(1, 2)
-&gt;&gt;&gt; p2 = sample.Point(4, 5)
-&gt;&gt;&gt; sample.distance(p1, p2)
-</code></pre>
-
-<pre><code>4.242640687119285
-</code></pre>
-
 <p>测试下速度：</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; a = np.random.rand(100)
-&gt;&gt;&gt; %timeit a.mean()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> a <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>rand(<span style="color:#ae81ff">100</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">%</span>timeit a<span style="color:#f92672">.</span>mean()
+</code></pre></div><pre><code>4.28 µs ± 20.7 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
 </code></pre>
-
-<pre><code>4.28 µs ± 20.7 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">%</span>timeit sample<span style="color:#f92672">.</span>avg(a)
+</code></pre></div><pre><code>6.45 µs ± 72 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
 </code></pre>
-
-<pre><code class="language-python">&gt;&gt;&gt; %timeit sample.avg(a)
-</code></pre>
-
-<pre><code>6.45 µs ± 72 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
-</code></pre>
-
 <p>可以看到，调用C函数的速度随比不上NumPy，但已经很快了！</p>
-
 <h2 id="细节剖析">细节剖析</h2>
-
 <h3 id="搜索路径">搜索路径</h3>
-
 <p>用ctypes来调用自己编译的C程序，需要把共享库放在驱动模块可以找到的地方，上述例子中将共享库文件与所支撑的Python文件放在同一目录下：<code>sample.py</code>通过<code>__file__</code>获得当前目录，然后在相同目录下构建一个指向<code>libsample.so</code>的路径。</p>
-
 <p>如果想将C程序共享库安装到别的地方，则需要调整路径。若C共享库已经作为标准库安装在机器上了，那么可以直接使用<code>ctypes.util.find_library()</code>函数。</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; from ctypes.util import find_library
-&gt;&gt;&gt; find_library('m')
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> ctypes.util <span style="color:#f92672">import</span> find_library
+<span style="color:#f92672">&gt;&gt;&gt;</span> find_library(<span style="color:#e6db74">&#39;m&#39;</span>)
+</code></pre></div><pre><code>'libm.so.6'
 </code></pre>
-
-<pre><code>'libm.so.6'
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> find_library(<span style="color:#e6db74">&#39;fftw3&#39;</span>)
+</code></pre></div><pre><code>'libfftw3.so.3'
 </code></pre>
-
-<pre><code class="language-python">&gt;&gt;&gt; find_library('fftw3')
-</code></pre>
-
-<pre><code>'libfftw3.so.3'
-</code></pre>
-
 <p>一旦ctypes无法找到C共享库则无法工作。</p>
-
 <p>知道C共享库的位置后，就可以使用<code>ctypes.cdll.LoadLibrary()</code>函数来加载。上述例子中，<code>_path</code> 为指向共享库的完整路径，用以下语句来加载：</p>
-
-<pre><code class="language-python">_mod = ctypes.cdll.LoadLibraay(_path)
-</code></pre>
-
-<h3 id="源码说明">源码说明</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">_mod <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>cdll<span style="color:#f92672">.</span>LoadLibraay(_path)
+</code></pre></div><h3 id="源码说明">源码说明</h3>
 <p>C共享库加载完成后，我们还需要将Python的数据类型转换成C语言可以直接使用的参数类型。</p>
-
 <p>对不同的C函数，需要不同的处理方案，这里将其分为三类。</p>
-
 <h4 id="常规函数">常规函数</h4>
-
 <p>这里的常规函数指的是像<code>int gcd(int, int);</code>和<code>bool in_mandel(double, double, int)</code>这样参数中不含指针，返回值单一的函数。我们摘录一段代码来看：</p>
-
-<pre><code class="language-python"># int gcd(int, int)
-gcd = _mod.gcd
-gcd.argtypes = (ctypes.c_int, ctypes.c_int)
-gcd.restype = ctypes.c_int
-</code></pre>
-
-<p>其中，<code>.argtypes</code> 属性为一个包含函数输入参数的元组，而<code>.restype</code>代表返回值类型。<code>ctypes</code>中定义了很多类型对象：<code>c_int</code>，<code>c_float</code>，<code>c_uint</code>等，用来表示常见的C数据类型。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># int gcd(int, int)</span>
+gcd <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>gcd
+gcd<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>c_int)
+gcd<span style="color:#f92672">.</span>restype <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_int
+</code></pre></div><p>其中，<code>.argtypes</code> 属性为一个包含函数输入参数的元组，而<code>.restype</code>代表返回值类型。<code>ctypes</code>中定义了很多类型对象：<code>c_int</code>，<code>c_float</code>，<code>c_uint</code>等，用来表示常见的C数据类型。</p>
 <p>用Python调用时，需要传递正确的参数类型并对数据作正确的转换，代码才能正常工作。
 因此，类型签名的绑定至关重要。</p>
-
 <p>对于常规C函数，只需要对数据类型作相应的转换就行。</p>
-
 <h4 id="多返回值的函数">多返回值的函数</h4>
-
 <p>由于C语言不支持返回多个值，此类需求通常以指针的形式实现。例子中的<code>int divide(int, int, int *);</code>函数便是这类函数。</p>
-
 <p>对于这类函数，我们不能和常规函数一样处理：</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; import ctypes
-&gt;&gt;&gt; _mod = ctypes.cdll.LoadLibrary('./libsample.so')
-&gt;&gt;&gt; divide = _mod.divide
-&gt;&gt;&gt; divide.argtypes = (ctypes.c_int, ctypes.c_int, ctypes.POINTER(ctypes.c_int))
-&gt;&gt;&gt; x = 0
-&gt;&gt;&gt; divide(10, 3, x)
-</code></pre>
-
-<pre><code>---------------------------------------------------------------------------
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> ctypes
+<span style="color:#f92672">&gt;&gt;&gt;</span> _mod <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>cdll<span style="color:#f92672">.</span>LoadLibrary(<span style="color:#e6db74">&#39;./libsample.so&#39;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> divide <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>divide
+<span style="color:#f92672">&gt;&gt;&gt;</span> divide<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>POINTER(ctypes<span style="color:#f92672">.</span>c_int))
+<span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> divide(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>, x)
+</code></pre></div><pre><code>---------------------------------------------------------------------------
 
 ArgumentError                             Traceback (most recent call last)
 
@@ -491,69 +413,43 @@ ArgumentError                             Traceback (most recent call last)
 
 ArgumentError: argument 3: &lt;class 'TypeError'&gt;: expected LP_c_int instance instead of int
 </code></pre>
-
 <p>即使这样行的通，也违反了Python中整数不可变的原则，可能会导致整个进程卡死。</p>
-
 <p>对于涉及指针的参数，必须构建一个兼容的<code>ctypes</code>对象才行</p>
-
-<pre><code class="language-python">&gt;&gt;&gt; x = ctypes.c_int()
-&gt;&gt;&gt; divide(10, 3, x)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> x <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_int()
+<span style="color:#f92672">&gt;&gt;&gt;</span> divide(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>, x)
+</code></pre></div><pre><code>3
 </code></pre>
-
-<pre><code>3
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> x<span style="color:#f92672">.</span>value
+</code></pre></div><pre><code>1
 </code></pre>
-
-<pre><code class="language-python">&gt;&gt;&gt; x.value
-</code></pre>
-
-<pre><code>1
-</code></pre>
-
 <p>这里，我们创建了一个<code>ctypes.c_int</code>对象，并把它作为指针对象传递给函数，与普通的Python整数不同，<code>ctypes.c_int</code>对象是可变的，可以根据需要通过<code>.value</code>属性来获取或者修改值。</p>
-
 <p>对于那些不Pythonic的C函数调用，通常需要写一个包装函数。这里，<code>divide()</code>函数通过元组返回两个结果。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># int divide(int, int, int *)</span>
+_divide <span style="color:#f92672">=</span> _mod<span style="color:#f92672">.</span>divide
+_divide<span style="color:#f92672">.</span>argtypes <span style="color:#f92672">=</span> (ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>c_int, ctypes<span style="color:#f92672">.</span>POINTER(ctypes<span style="color:#f92672">.</span>c_int))
+_divide<span style="color:#f92672">.</span>restype <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_int
 
-<pre><code class="language-python"># int divide(int, int, int *)
-_divide = _mod.divide
-_divide.argtypes = (ctypes.c_int, ctypes.c_int, ctypes.POINTER(ctypes.c_int))
-_divide.restype = ctypes.c_int
 
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">divide</span>(x, y):
+    rem <span style="color:#f92672">=</span> ctypes<span style="color:#f92672">.</span>c_int()
+    quot <span style="color:#f92672">=</span> _divide(x, y, rem)
 
-def divide(x, y):
-    rem = ctypes.c_int()
-    quot = _divide(x, y, rem)
-
-    return quot, rem.value
-</code></pre>
-
-<h4 id="处理数组的函数">处理数组的函数</h4>
-
+    <span style="color:#66d9ef">return</span> quot, rem<span style="color:#f92672">.</span>value
+</code></pre></div><h4 id="处理数组的函数">处理数组的函数</h4>
 <p>对于<code>avg()</code>函数来说，C代码需要接收一个指针和一个表示数组长度的整型。从Python的角度来看，我们需要考虑以下问题：数组是什么？是列表还是元组？是<code>array</code>模块中的<code>array</code>对象还是<code>numpy</code>中的<code>ndarray</code>对象？ 实际上，Python中的数组有多种形式，我们这里就需要考虑这多种形式。</p>
-
 <p><code>DoubleArrayType</code>类展示了如何处理这种情况。在这个类中，<code>from_param()</code>方法的作用就是接收一个单独的 参数并将其范围缩小为一个兼容的<code>ctypes</code>对象，在本例中就是指向<code>ctypes.c_double</code>的指针。在<code>from_param()</code>方法中，参数的类型名被提取出来并被分发给一个更具体的方法中，如果<code>typename</code>为列表，就调用<code>from_list()</code>方法。</p>
-
 <p>对于列表和元组，<code>from_list()</code> 方法将其转换为一个 <code>ctypes</code> 的数组对象。</p>
-
 <p>对于数组对象，<code>from_array()</code> 提取底层的内存指针并将其转换为一个 <code>ctypes</code> 指针对象。</p>
-
 <p><code>from_ndarray()</code> 演示了对于 <code>numpy</code> 数组的转换操作。</p>
-
 <p>这样，通过定义 <code>DoubleArrayType</code> 类并在 avg() 类型签名中使用它， 那么这个函数就能接受多个不同的类数组输入了。</p>
-
 <h4 id="结构体">结构体</h4>
-
 <p>对于C结构体，只需要定义一个类，在其中包含适当的字段和类型：</p>
-
-<pre><code class="language-python"># struct Point {}
-class Point(ctypes.Structure):
-    _fields_ = [('x', ctypes.c_double),
-                ('y', ctypes.c_double)]
-</code></pre>
-
-<p>类被定义后，你就可以在类型签名中或者是需要实例化结构体的代码中使用它。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># struct Point {}</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span>(ctypes<span style="color:#f92672">.</span>Structure):
+    _fields_ <span style="color:#f92672">=</span> [(<span style="color:#e6db74">&#39;x&#39;</span>, ctypes<span style="color:#f92672">.</span>c_double),
+                (<span style="color:#e6db74">&#39;y&#39;</span>, ctypes<span style="color:#f92672">.</span>c_double)]
+</code></pre></div><p>类被定义后，你就可以在类型签名中或者是需要实例化结构体的代码中使用它。</p>
 <h2 id="参考">参考</h2>
-
 <ol>
 <li><a href="http://chimera.labs.oreilly.com/books/1230000000393">Python Cookbook</a></li>
 <li><a href="https://docs.python.org/3/library/ctypes.html#module-ctypes">ctypes</a></li>
@@ -638,7 +534,7 @@ class Point(ctypes.Structure):
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

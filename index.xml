@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PzNotes - Learning and Sharing</title>
@@ -6,7 +6,7 @@
     <description>Recent content on PzNotes - Learning and Sharing</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 20 Dec 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 07 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://whu-pzhang.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -120,7 +120,6 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt; 很久之前挖的坑，现在慢慢填坑中……&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。&lt;/p&gt;</description>
     </item>
     
@@ -168,7 +167,6 @@
       
       <guid>https://whu-pzhang.github.io/python-ctypes/</guid>
       <description>&lt;p&gt;现在已有一些C语言函数被编译成共享库，我们想从纯Python中直接调用这些函数，而不必额外编写C代码或者使用第三方的扩展工具。&lt;/p&gt;
-
 &lt;p&gt;对于这样的需求，使用Python标准库中的&lt;code&gt;ctypes&lt;/code&gt;模块来实现是非常容易的。&lt;/p&gt;</description>
     </item>
     
@@ -180,9 +178,7 @@
       <guid>https://whu-pzhang.github.io/mada-colormaps/</guid>
       <description>&lt;p&gt;平常作图时都会遇到如何选择colormap的问题。
 而Madagascar文档也没有对各种colormap作系统的说明。&lt;/p&gt;
-
 &lt;p&gt;本文梳理了Madagascar中现有的各种colormap。&lt;/p&gt;
-
 &lt;p&gt;本文 &lt;code&gt;SConstruct&lt;/code&gt; 脚本位于 &lt;a href=&#34;https://github.com/whu-pzhang/Mada/tree/master/colormap&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     
@@ -193,11 +189,8 @@
       
       <guid>https://whu-pzhang.github.io/learn-numpy/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://www.numpy.org/&#34;&gt;NumPy&lt;/a&gt; 为 Python下科学计算的基础包。&lt;/p&gt;
-
 &lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
-
 &lt;p&gt;NumPy 的出现主要是弥补 Python 数值计算的不足。为 Python 科学计算提供了强大的支撑。&lt;/p&gt;
-
 &lt;p&gt;NumPy 主要提供了两种对象：ndarray(N-dimensional array)和 ufunc(Unversal function)。&lt;/p&gt;</description>
     </item>
     
@@ -209,16 +202,15 @@
       <guid>https://whu-pzhang.github.io/add-new-program-to-mada/</guid>
       <description>&lt;p&gt;有时候自己利用Madagascar编写了一些数据处理的程序，每次调用都需要将源码放到需要用的目
 录重新编译，然后再在SConstruct中调用,类似这样：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;prog = Program(&#39;Mcode.c&#39;)
-exe = str(prog[0])
-# proj = Project()
-# prog = proj.Program(&#39;Mcode.c&#39;)
-Flow(&#39;out&#39;, [&#39;inp1&#39;, &#39;inp2&#39;, exe],
-    &#39;&#39;&#39;
-    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
-    &#39;&#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;prog &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Program(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;Mcode.c&amp;#39;&lt;/span&gt;)
+exe &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; str(prog[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+&lt;span style=&#34;color:#75715e&#34;&gt;# proj = Project()&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# prog = proj.Program(&amp;#39;Mcode.c&amp;#39;)&lt;/span&gt;
+Flow(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;out&amp;#39;&lt;/span&gt;, [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;inp1&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;inp2&amp;#39;&lt;/span&gt;, exe],
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    ${SOURCES[2].abspath} inp2=${SOURCES[1]}
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -247,11 +239,8 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt
       
       <guid>https://whu-pzhang.github.io/python-anaconda/</guid>
       <description>&lt;p&gt;本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。&lt;/p&gt;
-
 &lt;h2 id=&#34;anaconda-特性&#34;&gt;Anaconda 特性&lt;/h2&gt;
-
 &lt;p&gt;主页： &lt;a href=&#34;https://www.continuum.io/&#34;&gt;https://www.continuum.io/&lt;/a&gt;&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;包含了众多流行的科学、教学、工程和数据分析的Python包&lt;/li&gt;
 &lt;li&gt;完全开源、免费&lt;/li&gt;
@@ -268,17 +257,12 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt
       
       <guid>https://whu-pzhang.github.io/read-and-write-su-in-c/</guid>
       <description>&lt;h2 id=&#34;序言&#34;&gt;序言&lt;/h2&gt;
-
 &lt;p&gt;Seismic_Unix是处理勘探地震数据的好工具，SU文件格式是其内部的默认格式，有时候需要自己在程序
 中读写SU文件。本文介绍如何在C程序中读写SU格式文件。&lt;/p&gt;
-
 &lt;h2 id=&#34;子函数库&#34;&gt;子函数库&lt;/h2&gt;
-
 &lt;p&gt;Seismic_Unix程序自带有子函数库，但是我没有找到相关的程序源码。。。。&lt;/p&gt;
-
 &lt;p&gt;但是其中自带的 &lt;code&gt;segy.h&lt;/code&gt; 头文件可以帮助我们了解SU文件的道头格式，而且可以利用该头文件
 来对SU格式的文件进行读写。&lt;/p&gt;
-
 &lt;p&gt;关于SU文件格式可以参考&lt;a href=&#34;https://whu-pzhang.github.io/SU-and-Segy-format.html&#34;&gt;SU/SEGY文件格式&lt;/a&gt; 一文。&lt;/p&gt;</description>
     </item>
     
@@ -289,7 +273,6 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt
       
       <guid>https://whu-pzhang.github.io/su-and-segy-format/</guid>
       <description>&lt;h2 id=&#34;序言&#34;&gt;序言&lt;/h2&gt;
-
 &lt;p&gt;地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
@@ -312,13 +295,9 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
       
       <guid>https://whu-pzhang.github.io/useful-algorithms/</guid>
       <description>&lt;p&gt;收集了一些可能会用到的小算法。&lt;/p&gt;
-
 &lt;h2 id=&#34;判断字节序&#34;&gt;判断字节序&lt;/h2&gt;
-
 &lt;p&gt;在处理数据是常常会碰到字节序(Byte Endian)的问题&lt;/p&gt;
-
 &lt;p&gt;Linux下可以直接用Shell命令查看：&lt;/p&gt;
-
 &lt;pre&gt;&lt;code&gt;lscpu | grep -i byte
 &lt;/code&gt;&lt;/pre&gt;</description>
     </item>
@@ -332,7 +311,6 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;已全面转向 Atom，本文不再更新。&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。&lt;/p&gt;</description>
     </item>
@@ -344,16 +322,13 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
       
       <guid>https://whu-pzhang.github.io/usage-of-getopt/</guid>
       <description>&lt;h2 id=&#34;getopt介绍&#34;&gt;getopt介绍&lt;/h2&gt;
-
 &lt;p&gt;&lt;code&gt;getopt&lt;/code&gt; 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
 getopt提供了更为方便和友好的方式。&lt;/p&gt;
-
 &lt;p&gt;函数 &lt;code&gt;getopt&lt;/code&gt; 包含于系统头文件 &lt;code&gt;unistd.h&lt;/code&gt; 中，其函数原型为:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;int getopt(int argc, char *const argv[], const char *optstring);
-extern char *optarg;
-extern int optind, opterr, optopt;
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;getopt&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; argv[], &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;optstring);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;optarg;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;extern&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; optind, opterr, optopt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -365,15 +340,11 @@ extern int optind, opterr, optopt;
       <description>&lt;p&gt;在C语言中，数组是最常用到的。分为静态数组和动态数组。
 静态数据即数组长度预先定义好，一旦给定大小就无法再改变长度，静态数组用完后会自动释放
 内存。&lt;/p&gt;
-
 &lt;p&gt;c99 标准中加入了&lt;a href=&#34;http://en.cppreference.com/w/c/language/array&#34;&gt;变长数组VLA&lt;/a&gt;，
 数组大小可以用非整数常量表达式表示。例如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;size_t n1 = 10, n2=35;
-float a[n1], b[n1][n2];
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;size_t n1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, n2&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;35&lt;/span&gt;;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;float&lt;/span&gt; a[n1], b[n1][n2];
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;但当需要的数组大小过大时，栈（stack）上空间就会不够用，静态数组会失败，俗称爆栈。
 这时就需要动态地从堆（heap）上分配内存，即动态分配。
 动态数组的长度则是随程序的需要来指定的。
 标准C语言中提供动态分配和释放的函数，包含于头文件 &lt;code&gt;stdlib.h&lt;/code&gt; 中。&lt;/p&gt;</description>
@@ -386,22 +357,25 @@ float a[n1], b[n1][n2];
       
       <guid>https://whu-pzhang.github.io/array-and-pointer/</guid>
       <description>&lt;h2 id=&#34;数组名和指针&#34;&gt;数组名和指针&lt;/h2&gt;
-
 &lt;p&gt;在C语言中，数组和指针是紧密联系在一起的，对于数组来说，数组名就是数组第一个元素的地址，
 不同的是数组名是一个常量，而指针则是变量。这是两者之间的最主要区别。&lt;/p&gt;
-
 &lt;p&gt;事实上，数组名和指针除了上述区别外，还有其他的一些不同：&lt;/p&gt;
-
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;在引用上，数组名只需访问内存一次；而指针需要访问内存两次。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;若a是一个数组名，p为指向该数组的指针变量，使用 &lt;code&gt;a&lt;/code&gt; 和 &lt;code&gt;&amp;amp;a&lt;/code&gt; 得到的值是一样的。对 &lt;code&gt;p&lt;/code&gt; 来说则不一样&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;code&gt;sizeof a&lt;/code&gt; 得到的是整个数组所占字节的大小，而 &lt;code&gt;sizeof p&lt;/code&gt; 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;尽管 &lt;code&gt;a&lt;/code&gt;和 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt; 得到的地址是一样的，但是其意义是不一样的，&lt;code&gt;a&lt;/code&gt;表示的是存储数组这块连续内存空间的首地址而 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt;表示的是数组第一个元素的首地址。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在声明时，只有作为函数参数的数组名编译器会将其转化成指针。其他情况下，数组名和指针是完全不一样的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在引用上，数组名只需访问内存一次；而指针需要访问内存两次。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;若a是一个数组名，p为指向该数组的指针变量，使用 &lt;code&gt;a&lt;/code&gt; 和 &lt;code&gt;&amp;amp;a&lt;/code&gt; 得到的值是一样的。对 &lt;code&gt;p&lt;/code&gt; 来说则不一样&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sizeof a&lt;/code&gt; 得到的是整个数组所占字节的大小，而 &lt;code&gt;sizeof p&lt;/code&gt; 得到的是指针所占字节的大小(32位系统为4个字节，64位系统为8个字节)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;尽管 &lt;code&gt;a&lt;/code&gt;和 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt; 得到的地址是一样的，但是其意义是不一样的，&lt;code&gt;a&lt;/code&gt;表示的是存储数组这块连续内存空间的首地址而 &lt;code&gt;&amp;amp;a[0]&lt;/code&gt;表示的是数组第一个元素的首地址。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;</description>
     </item>
     
@@ -421,22 +395,18 @@ float a[n1], b[n1][n2];
       
       <guid>https://whu-pzhang.github.io/python-env/</guid>
       <description>&lt;p&gt;经常遇到这样的情况：&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;系统自带的Python是2.6，自己需要Python 2.7中的某些特性；&lt;/li&gt;
 &lt;li&gt;系统自带的Python是2.x，自己需要Python 3.x；&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;此时需要在系统中安装多个Python，但又不能影响系统自带的Python，即需要实现Python的多版本共存。&lt;a href=&#34;https://github.com/yyuu/pyenv&#34;&gt;pyenv&lt;/a&gt; 就是这样一个Python版本管理器。&lt;/p&gt;
-
 &lt;h2 id=&#34;安装pyenv&#34;&gt;安装pyenv&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
-$ echo &#39;export PYENV_ROOT=&amp;quot;$HOME/.pyenv&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-$ echo &#39;export PATH=&amp;quot;$PATH:$PYENV_ROOT/bin&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
-$ echo &#39;eval &amp;quot;$(pyenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ git clone git://github.com/yyuu/pyenv.git ~/.pyenv
+$ echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;export PYENV_ROOT=&amp;#34;$HOME/.pyenv&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bashrc
+$ echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;export PATH=&amp;#34;$PATH:$PYENV_ROOT/bin&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bashrc
+$ echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;eval &amp;#34;$(pyenv init -)&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.bashrc
 $ exec $SHELL -l
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
     </item>
     
     <item>
@@ -446,7 +416,6 @@ $ exec $SHELL -l
       
       <guid>https://whu-pzhang.github.io/hello-world/</guid>
       <description>&lt;p&gt;Hello World! 欢迎来到 pzhang 的个人博客。&lt;/p&gt;
-
 &lt;p&gt;博客成立于2015年，主要关注地震学、图像处理以及人工智能的基础知识、相关软件以及编程语言和工具。&lt;/p&gt;</description>
     </item>
     
@@ -456,7 +425,7 @@ $ exec $SHELL -l
       <pubDate>Tue, 30 Sep 2014 00:00:00 +0000</pubDate>
       
       <guid>https://whu-pzhang.github.io/links/</guid>
-      <description>本页面列出一些常用链接。包括勘探地震和天然地震。 鼠标在链接上悬停可看到详细的名称。 -- 机构/大学 SEG IRIS AGU ISC ORFEUS USTC 研究小组 CWP SEP CREWES TCCS Harvard Seismology Global Seismology Group at Rice University Berkeley</description>
+      <description>本页面列出一些常用链接。包括勘探地震和天然地震。 鼠标在链接上悬停可看到详细的名称。 机构/大学 SEG IRIS AGU ISC ORFEUS USTC 研究小组 CWP SEP CREWES TCCS Harvard Seismology Global Seismology Group at Rice University Berkeley Global</description>
     </item>
     
     <item>
@@ -467,12 +436,9 @@ $ exec $SHELL -l
       <guid>https://whu-pzhang.github.io/linux-environment-for-seismology/</guid>
       <description>&lt;p&gt;&lt;strong&gt;转载于 Seisman &lt;a href=&#34;https://seisman.info/linux-environment-for-seismology-research.html&#34;&gt;用 CentOS 7 打造合适的科研环境&lt;/a&gt;&lt;/strong&gt;，
 部分小节按照自己需求有更改。&lt;/p&gt;
-
 &lt;p&gt;这篇博文记录了我用 CentOS 7 搭建 &lt;strong&gt;地震学科研环境&lt;/strong&gt; 的过程，供我个人在未来重装系统时参考。
 对于其他地震学科研人员，也许有借鉴意义。&lt;/p&gt;
-
 &lt;p&gt;阅读须知：&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;本文适用于个人电脑，不适用于服务器；&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;不推荐刚接触 Linux 的人使用 CentOS 发行版&lt;/strong&gt;；&lt;/li&gt;
@@ -506,7 +472,7 @@ $ exec $SHELL -l
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://whu-pzhang.github.io/404/</guid>
-      <description>.posts-expand .post-title { font-size: 35px; padding-bottom: 20px; }  404 Not Found   var max = 5; var random = Math.floor(Math.random() * max) + 1; var picture = random + &#34;.jpg&#34;; document.write(&#39;&#39;);   </description>
+      <description></description>
     </item>
     
   </channel>

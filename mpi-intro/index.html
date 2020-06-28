@@ -28,7 +28,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/mpi-intro/" />
@@ -55,32 +55,26 @@
 <meta property="og:description" content="
  很久之前挖的坑，现在慢慢填坑中……
 
-
 作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/mpi-intro/" /><meta property="article:published_time" content="2018-04-08T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-04-08T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/mpi-intro/" />
+<meta property="article:published_time" content="2018-04-08T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-04-08T00:00:00+00:00" />
 <meta itemprop="name" content="MPI之环境配置">
 <meta itemprop="description" content="
  很久之前挖的坑，现在慢慢填坑中……
 
-
 作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。">
-
-
 <meta itemprop="datePublished" content="2018-04-08T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-08T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="858">
+<meta itemprop="wordCount" content="857">
 
 
 
-<meta itemprop="keywords" content="MPI,高性能计算," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="MPI,高性能计算," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MPI之环境配置"/>
 <meta name="twitter:description" content="
  很久之前挖的坑，现在慢慢填坑中……
-
 
 作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。"/>
 
@@ -162,7 +156,7 @@
               <a href="/categories/programming/"> Programming </a>
             
           </div>
-        <span class="more-meta"> 约 858 字 </span>
+        <span class="more-meta"> 约 857 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -175,15 +169,12 @@
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#mpi-安装">MPI 安装</a></li>
-<li><a href="#集群上的配置">集群上的配置</a></li>
-<li><a href="#mpi-hello">MPI_Hello</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#mpi-安装">MPI 安装</a></li>
+    <li><a href="#集群上的配置">集群上的配置</a></li>
+    <li><a href="#mpi_hello">MPI_Hello</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -193,28 +184,18 @@
       <blockquote>
 <p> 很久之前挖的坑，现在慢慢填坑中……</p>
 </blockquote>
-
 <p>作为 MPI 系列学习笔记的开始，本文介绍如何在服务器上配置 MPI 环境。</p>
-
 <h2 id="mpi-安装">MPI 安装</h2>
-
 <p>安装部分略过不谈。自行下载源码编译或者从 Linux 发行版仓库安装均可。</p>
-
 <p>安装完成后</p>
-
-<pre><code class="language-shell">$ mpicc --showme
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ mpicc --showme
 llvm-clang -I/usr/local/Cellar/open-mpi/3.0.0_2/include -L/usr/local/opt/libevent/lib -L/usr/local/Cellar/open-mpi/3.0.0_2/lib -lmpi
-</code></pre>
-
-<h2 id="集群上的配置">集群上的配置</h2>
-
+</code></pre></div><h2 id="集群上的配置">集群上的配置</h2>
 <p>MPI 通常是运行在多节点服务器上，单机并行直接用 OpenMP 可能更为方便。</p>
-
 <p>多节点上的 MPI 程序需要在不同的计算机之间进行了通信，那么就需要知道每个节点的 IP 地址，为了方便输入，可以给每个节点取一个名字，这样就不用去记各自的 IP 地址了。<code>hosts</code> 文件保存着 IP 和名字的映射关系。这里进行设置的是你执行计算的节点，即主节点（Client）。</p>
-
-<pre><code class="language-bash">$ cat /etc/hosts
-# Do not remove the following line, or various programs
-# that require network functionality will fail.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /etc/hosts
+<span style="color:#75715e"># Do not remove the following line, or various programs</span>
+<span style="color:#75715e"># that require network functionality will fail.</span>
 127.0.0.1	node10	localhost
 ::1		node10  localhost6
 192.168.0.1 node1
@@ -234,91 +215,69 @@ llvm-clang -I/usr/local/Cellar/open-mpi/3.0.0_2/include -L/usr/local/opt/libeven
 192.168.0.15 node15
 192.168.0.16 node16
 192.168.0.17 node17
-</code></pre>
-
-<p>上述输出为在所里曙光超算上控制节点(主节点)的输出。</p>
-
+</code></pre></div><p>上述输出为在所里曙光超算上控制节点(主节点)的输出。</p>
 <p>如此设置后即可利用 <code>ssh username@hostname</code> 来登录不同的节点了，这个命令会让你输入用户密码，为了使得节点见通信不需要密码，可以生成公共秘钥加入主节点的 <code>authorized_keys</code> 中。</p>
-
-<pre><code class="language-bash">$ ssh-keygen -t dsa
-</code></pre>
-
-<p>一系列回车(默认值)后，将生成的秘钥拷贝到各个子节点即可。</p>
-
-<pre><code class="language-bash">$ cat .ssh/id_dsa.pub | ssh b@B 'cat &gt;&gt; .ssh/authorized_keys'
-b@B's password:
-</code></pre>
-
-<p>现在各个节点可以进行通信，但是还需要有一个共享的存储数据的文件夹，使得所有的节点均可以访问。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh-keygen -t dsa
+</code></pre></div><p>一系列回车(默认值)后，将生成的秘钥拷贝到各个子节点即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat .ssh/id_dsa.pub | ssh b@B <span style="color:#e6db74">&#39;cat &gt;&gt; .ssh/authorized_keys&#39;</span>
+b@B<span style="color:#960050;background-color:#1e0010">&#39;</span>s password:
+</code></pre></div><p>现在各个节点可以进行通信，但是还需要有一个共享的存储数据的文件夹，使得所有的节点均可以访问。</p>
 <p>由于所里超算是共享硬盘的，这一步暂时不管。</p>
-
 <p>至此，MPI 的运行环境便已经搭建完毕！下面运行一个简单的程序测试一下。</p>
-
-<h2 id="mpi-hello">MPI_Hello</h2>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;mpi.h&gt;
-
-int main(void)
+<h2 id="mpi_hello">MPI_Hello</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;mpi.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
 {
     MPI_Init(NULL, NULL);
 
-    int rank, size, len;
-    char hostName[MPI_MAX_PROCESSOR_NAME];
-    MPI_Get_processor_name(hostName, &amp;len);
-    MPI_Comm_size(MPI_COMM_WORLD, &amp;size);
-    MPI_Comm_rank(MPI_COMM_WORLD, &amp;rank);
+    <span style="color:#66d9ef">int</span> rank, size, len;
+    <span style="color:#66d9ef">char</span> hostName[MPI_MAX_PROCESSOR_NAME];
+    MPI_Get_processor_name(hostName, <span style="color:#f92672">&amp;</span>len);
+    MPI_Comm_size(MPI_COMM_WORLD, <span style="color:#f92672">&amp;</span>size);
+    MPI_Comm_rank(MPI_COMM_WORLD, <span style="color:#f92672">&amp;</span>rank);
 
-    printf(&quot;Number of task=%d, My rank=%d Running on %s.\n&quot;, size, rank, hostName);
+    printf(<span style="color:#e6db74">&#34;Number of task=%d, My rank=%d Running on %s.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, size, rank, hostName);
 
     MPI_Finalize();
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<p>编译链接：</p>
-
-<pre><code class="language-bash">$ mpicc -std=c99 -Wall mpi_hello.c -o mpi_hello
-</code></pre>
-
-<p>运行时，可以在命令行指定在哪些节点上运行，也可以通过 <code>hostfile</code> 来指定。</p>
-
-<pre><code class="language-bash">$ mpirun -np 8 --hosts node1,node2,node3,node4 ./mpi_hello
-Number of task=8, My rank=2 Running on node3.
-Number of task=8, My rank=6 Running on node3.
-Number of task=8, My rank=7 Running on node4.
-Number of task=8, My rank=4 Running on node1.
-Number of task=8, My rank=1 Running on node2.
-Number of task=8, My rank=5 Running on node2.
-Number of task=8, My rank=3 Running on node4.
-Number of task=8, My rank=0 Running on node1.
+</code></pre></div><p>编译链接：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mpicc -std<span style="color:#f92672">=</span>c99 -Wall mpi_hello.c -o mpi_hello
+</code></pre></div><p>运行时，可以在命令行指定在哪些节点上运行，也可以通过 <code>hostfile</code> 来指定。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mpirun -np <span style="color:#ae81ff">8</span> --hosts node1,node2,node3,node4 ./mpi_hello
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> Running on node3.
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span> Running on node3.
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span> Running on node4.
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> Running on node1.
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> Running on node2.
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> Running on node2.
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> Running on node4.
+Number of task<span style="color:#f92672">=</span>8, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> Running on node1.
 $ cat host.txt
 node3:4
 node4:4
 node5:4
 node6:4
-$ mpirun -np 16 --hostfile host.txt ./mpi_hello
-Number of task=16, My rank=8 Running on node5.
-Number of task=16, My rank=14 Running on node6.
-Number of task=16, My rank=13 Running on node6.
-Number of task=16, My rank=12 Running on node6.
-Number of task=16, My rank=15 Running on node6.
-Number of task=16, My rank=1 Running on node3.
-Number of task=16, My rank=0 Running on node3.
-Number of task=16, My rank=4 Running on node4.
-Number of task=16, My rank=2 Running on node3.
-Number of task=16, My rank=5 Running on node4.
-Number of task=16, My rank=6 Running on node4.
-Number of task=16, My rank=7 Running on node4.
-Number of task=16, My rank=9 Running on node5.
-Number of task=16, My rank=3 Running on node3.
-Number of task=16, My rank=10 Running on node5.
-Number of task=16, My rank=11 Running on node5.
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+$ mpirun -np <span style="color:#ae81ff">16</span> --hostfile host.txt ./mpi_hello
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span> Running on node5.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span> Running on node6.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">13</span> Running on node6.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span> Running on node6.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">15</span> Running on node6.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> Running on node3.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> Running on node3.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> Running on node4.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> Running on node3.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> Running on node4.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">6</span> Running on node4.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">7</span> Running on node4.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span> Running on node5.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> Running on node3.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span> Running on node5.
+Number of task<span style="color:#f92672">=</span>16, My rank<span style="color:#f92672">=</span><span style="color:#ae81ff">11</span> Running on node5.
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="http://mpitutorial.com/tutorials/running-an-mpi-cluster-within-a-lan/">Running an MPI cluster within a Lan</a></li>
 </ul>
@@ -402,7 +361,7 @@ Number of task=16, My rank=11 Running on node5.
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

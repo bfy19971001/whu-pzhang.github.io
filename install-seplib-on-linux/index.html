@@ -27,7 +27,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/install-seplib-on-linux/" />
@@ -54,22 +54,19 @@
 <meta property="og:description" content="SEPlib 是由
 Stanford Exploration Project 开发并维护的地震勘探开源软件包。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/install-seplib-on-linux/" /><meta property="article:published_time" content="2016-04-18T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2016-04-18T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/install-seplib-on-linux/" />
+<meta property="article:published_time" content="2016-04-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-04-18T00:00:00+00:00" />
 <meta itemprop="name" content="Linux下安装SEPlib">
 <meta itemprop="description" content="SEPlib 是由
 Stanford Exploration Project 开发并维护的地震勘探开源软件包。">
-
-
 <meta itemprop="datePublished" content="2016-04-18T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2016-04-18T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="546">
 
 
 
-<meta itemprop="keywords" content="SEPlib,fortran," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="SEPlib,fortran," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux下安装SEPlib"/>
 <meta name="twitter:description" content="SEPlib 是由
 Stanford Exploration Project 开发并维护的地震勘探开源软件包。"/>
@@ -167,17 +164,14 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。"/>
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#依赖">依赖</a></li>
-<li><a href="#编译安装">编译安装</a></li>
-<li><a href="#debug">Debug</a></li>
-<li><a href="#安装">安装</a></li>
-<li><a href="#测试">测试</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#依赖">依赖</a></li>
+    <li><a href="#编译安装">编译安装</a></li>
+    <li><a href="#debug">Debug</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#测试">测试</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -186,9 +180,7 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。"/>
     <div class="post-content">
       <p><a href="http://sepwww.stanford.edu/doku.php?id=sep:software:seplib">SEPlib</a> 是由
 Stanford Exploration Project 开发并维护的地震勘探开源软件包。</p>
-
 <h2 id="依赖">依赖</h2>
-
 <ul>
 <li>intel Fortran complier</li>
 <li>flex</li>
@@ -196,115 +188,76 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。</p
 <li>lesstif (or openmotif)</li>
 <li>netpbm (for vplot)</li>
 </ul>
-
 <p>安装依赖包::</p>
-
 <pre><code>$ sudo yum install fftw3 fftw3-devel
 $ sudo yum install flex flex-devel
 $ sudo yum install lesstif lesstif-devel
 $ sudo yum install netpbm netpbm-devel netpbm-progs
 </code></pre>
-
 <h2 id="编译安装">编译安装</h2>
-
 <p>SEPlib 安装需要配置，可以在 <code>seplib-6.5.3/docs/config_examples</code> 目录下找到一些
 配置文件的例子参考。</p>
-
 <p>我选择的是将以下内容保存为脚本 <code>run_config.sh</code> 来进行配置：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#75715e"># COMPILE SCRIPT FOR INTEL</span>
+export FC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ifort -O3&#34;</span>
+export FFTW_FCLD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-L/usr/lib64 -lfftw3f&#34;</span>
+<span style="color:#75715e"># MPI支持目前报错，暂时先注释掉</span>
+<span style="color:#75715e">#export MPI_FLAGS=&#34;-I/usr/include/mpich-x86_64/&#34;</span>
+<span style="color:#75715e">#export MPI_FCLD=&#34;-L/usr/lib64/mpich/lib -lmpichf90 -lfmpich -lmpich&#34;</span>
+export PERL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/bin/perl&#34;</span>
+export PPM_INC<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-I/usr/include/netpbm&#34;</span>
+export PPM_LD<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-L/usr/lib64 -lnetpbm&#34;</span>
 
-<pre><code class="language-bash">#!/bin/bash
-# COMPILE SCRIPT FOR INTEL
-export FC=&quot;ifort -O3&quot;
-export FFTW_FCLD=&quot;-L/usr/lib64 -lfftw3f&quot;
-# MPI支持目前报错，暂时先注释掉
-#export MPI_FLAGS=&quot;-I/usr/include/mpich-x86_64/&quot;
-#export MPI_FCLD=&quot;-L/usr/lib64/mpich/lib -lmpichf90 -lfmpich -lmpich&quot;
-export PERL=&quot;/usr/bin/perl&quot;
-export PPM_INC=&quot;-I/usr/include/netpbm&quot;
-export PPM_LD=&quot;-L/usr/lib64 -lnetpbm&quot;
-
-./configure --prefix=/opt/seplib --with-local --with-su=/opt/cwp --with-fftw
-</code></pre>
-
-<h2 id="debug">Debug</h2>
-
+./configure --prefix<span style="color:#f92672">=</span>/opt/seplib --with-local --with-su<span style="color:#f92672">=</span>/opt/cwp --with-fftw
+</code></pre></div><h2 id="debug">Debug</h2>
 <p>然后在终端里输入</p>
-
 <pre><code>$ bash run_config.sh
 $ gmake
 </code></pre>
-
 <p>这时会报错，</p>
-
-<pre><code class="language-fortran">super_chain_mod.f90(79): error #7061: The characteristics of dummy argument 1 of the associated actual procedure differ from the characteristics of dummy argument 1 of the dummy procedure.   [FLAT_CHAIN_ADJ_EXEC]
-call chain20( flat_chain_adj_exec,flat_chain_exec,adj, add, model, data,temp2)
-------------------^
-</code></pre>
-
-<p>经过Google后发现是由于在调用 <code>chain20</code> 这个函数时，传入的函数类型和声明的不匹配。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fortran" data-lang="fortran">super_chain_mod.f90(<span style="color:#ae81ff">79</span>): error <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">7061</span>: The characteristics of dummy argument <span style="color:#ae81ff">1</span> of the associated actual <span style="color:#66d9ef">procedure </span>differ from the characteristics of dummy argument <span style="color:#ae81ff">1</span> of the dummy <span style="color:#66d9ef">procedure</span>.   [FLAT_CHAIN_ADJ_EXEC]
+<span style="color:#66d9ef">call </span>chain20( flat_chain_adj_exec,flat_chain_exec,adj, add, model, <span style="color:#66d9ef">data</span>,temp2)
+<span style="color:#f92672">------------------</span><span style="color:#960050;background-color:#1e0010">^</span>
+</code></pre></div><p>经过Google后发现是由于在调用 <code>chain20</code> 这个函数时，传入的函数类型和声明的不匹配。</p>
 <p>我们需要修改 <code>seplib-6.5.3/seplib_base/lib/seis/dip/super_chain_mod.f90</code>
 文件。</p>
-
 <p>修改第50行，将</p>
-
-<pre><code class="language-fortran">logical       :: adj, add,adj_new
-</code></pre>
-
-<p>改为</p>
-
-<pre><code class="language-fortran">logical,intent(in)  :: adj, add
-logical             :: adj_new
-</code></pre>
-
-<p>其他出错的地方作类型的修改，分别位于第28，114以及141行处。总共需要修改5处！</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fortran" data-lang="fortran"><span style="color:#66d9ef">logical</span>       <span style="color:#66d9ef">::</span> adj, add,adj_new
+</code></pre></div><p>改为</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fortran" data-lang="fortran"><span style="color:#66d9ef">logical</span>,<span style="color:#66d9ef">intent</span>(in)  <span style="color:#66d9ef">::</span> adj, add
+<span style="color:#66d9ef">logical</span>             <span style="color:#66d9ef">::</span> adj_new
+</code></pre></div><p>其他出错的地方作类型的修改，分别位于第28，114以及141行处。总共需要修改5处！</p>
 <p>除了该处错误，在编译 <code>RickMoive</code> 和 <code>Ricksep</code> 这两个包时，也会报错。这是由于没有
 链接一些库文件导致的，需要进到相关目录中修改 <code>Makefile</code> 。</p>
-
 <p>进入 <code>interact/RickMoive</code> 目录下，将<code>Makefile</code>中125行的 <code>LIBS</code>加上缺失的库:</p>
-
 <pre><code>LIBS =  -L/usr/lib64 -lXm   -L/usr/lib64 -L/usr/lib64 -lXt -lX11
 </code></pre>
-
 <p>对于 <code>interact/Ricksep/Makefile</code> 同样按上修改保存。
 然后接着编译。</p>
-
 <h2 id="安装">安装</h2>
-
 <p>编译全部通过之后，::</p>
-
 <pre><code>$ make install
 </code></pre>
-
 <p>然后添加环境变量即可</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">export SEPROOT<span style="color:#f92672">=</span>/opt/seplib
+export SEPINC<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>SEPROOT<span style="color:#e6db74">}</span>/include
+export PATH<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>PATH<span style="color:#e6db74">}</span>:<span style="color:#e6db74">${</span>SEPROOT<span style="color:#e6db74">}</span>/bin
+export DATAPATH<span style="color:#f92672">=</span>/var/tmp/
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$PYTHONPATH<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+    export PYTHONPATH<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>PYTHONPATH<span style="color:#e6db74">}</span>:$SEPROOT/lib/python
+<span style="color:#66d9ef">else</span>
+    export PYTHONPATH<span style="color:#f92672">=</span>$SEPROOT/lib/python
+<span style="color:#66d9ef">fi</span>
 
-<pre><code class="language-bash">export SEPROOT=/opt/seplib
-export SEPINC=${SEPROOT}/include
-export PATH=${PATH}:${SEPROOT}/bin
-export DATAPATH=/var/tmp/
-if [ -n &quot;$PYTHONPATH&quot; ]; then
-    export PYTHONPATH=${PYTHONPATH}:$SEPROOT/lib/python
-else
-    export PYTHONPATH=$SEPROOT/lib/python
-fi
-
-</code></pre>
-
-<h2 id="测试">测试</h2>
-
+</code></pre></div><h2 id="测试">测试</h2>
 <p>安装完成后，在终端输入::</p>
-
 <pre><code>$ Spike n1=1000 k1=300 title=&quot;\s200 Welcome to \c2 SEP\c5 lib&quot; \
     | Bandpass fhi=2. phase=1 | Wiggle | Tube
 </code></pre>
-
 <p>出现如下图形即安装成功：</p>
-
-<p><img src="/images/2016041800.png" alt="" /></p>
-
+<p><img src="/images/2016041800.png" alt=""></p>
 <h2 id="参考">参考</h2>
-
 <ul>
 <li><a href="https://software.intel.com/en-us/forums/intel-fortran-compiler-for-linux-and-mac-os-x/topic/472080">https://software.intel.com/en-us/forums/intel-fortran-compiler-for-linux-and-mac-os-x/topic/472080</a></li>
 <li><a href="http://www.linuxidc.com/Linux/2010-01/23959.htm">http://www.linuxidc.com/Linux/2010-01/23959.htm</a></li>
@@ -389,7 +342,7 @@ fi
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

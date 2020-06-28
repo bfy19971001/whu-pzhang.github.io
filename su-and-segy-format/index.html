@@ -27,7 +27,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/su-and-segy-format/" />
@@ -52,35 +52,29 @@
 
 <meta property="og:title" content="SU/SEGY文件格式" />
 <meta property="og:description" content="序言
-
 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/su-and-segy-format/" /><meta property="article:published_time" content="2016-02-29T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2016-02-29T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/su-and-segy-format/" />
+<meta property="article:published_time" content="2016-02-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-02-29T00:00:00+00:00" />
 <meta itemprop="name" content="SU/SEGY文件格式">
 <meta itemprop="description" content="序言
-
 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。">
-
-
 <meta itemprop="datePublished" content="2016-02-29T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2016-02-29T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="2525">
 
 
 
-<meta itemprop="keywords" content="Seismic Unix,C," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Seismic Unix,C," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SU/SEGY文件格式"/>
 <meta name="twitter:description" content="序言
-
 地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
@@ -177,24 +171,22 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#序言">序言</a></li>
-<li><a href="#seg-y数据格式">SEG-Y数据格式</a>
-<ul>
-<li><a href="#segy卷头文件3200字节ebcdic码内容">SEGY卷头文件3200字节EBCDIC码内容</a></li>
-<li><a href="#segy卷头文件400字节二进制内容表">SEGY卷头文件400字节二进制内容表</a></li>
-<li><a href="#seg-y定义的240字节道头变量列表">SEG-Y定义的240字节道头变量列表</a></li>
-</ul></li>
-<li><a href="#su数据格式">SU数据格式</a>
-<ul>
-<li><a href="#su第181-240字节道头变量">SU第181-240字节道头变量</a></li>
-</ul></li>
-<li><a href="#部分道头变量之间的关系">部分道头变量之间的关系</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul>
+  <ul>
+    <li><a href="#序言">序言</a></li>
+    <li><a href="#seg-y数据格式">SEG-Y数据格式</a>
+      <ul>
+        <li><a href="#segy卷头文件3200字节ebcdic码内容">SEGY卷头文件3200字节EBCDIC码内容</a></li>
+        <li><a href="#segy卷头文件400字节二进制内容表">SEGY卷头文件400字节二进制内容表</a></li>
+        <li><a href="#seg-y定义的240字节道头变量列表">SEG-Y定义的240字节道头变量列表</a></li>
+      </ul>
+    </li>
+    <li><a href="#su数据格式">SU数据格式</a>
+      <ul>
+        <li><a href="#su第181-240字节道头变量">SU第181-240字节道头变量</a></li>
+      </ul>
+    </li>
+    <li><a href="#部分道头变量之间的关系">部分道头变量之间的关系</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -202,33 +194,25 @@ SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一
     
     <div class="post-content">
       <h2 id="序言">序言</h2>
-
 <p>地震勘探中，地震数据是以地震道为单位进行组织的，最常用的格式即为SEG-Y格式，这种格式是由
 SEG(Society of Exploration Geophysicists)提出的标准磁带数据格式之一，是石油行业使用
 最为普遍的格式。而SU格式是 Seismic_Unix 软件包使用的数据格式，可以看作的SEGY格式的简化，
 由于 Seismic_Unix 软件的广泛使用，该种格式也有着普遍的使用。</p>
-
 <h2 id="seg-y数据格式">SEG-Y数据格式</h2>
-
 <p>SEGY数据格式包括三个部分。</p>
-
-<p><img src="/images/2016022900.png" alt="" /></p>
-
+<p><img src="/images/2016022900.png" alt=""></p>
 <ul>
 <li><code>EBCDIC</code>：Extended Binary Coded Decimak Interchange Code,主要用于IBM计算机，</li>
 <li><code>32位IBM浮点型</code>: IBM格式和现代IBM PC所用的IEEE格式是不同的</li>
 </ul>
-
 <p>对于数据的读写主要在于要弄清楚数据的组成，而SEGY和SU文件格式的重要组成部分都是道头，类似于
 SAC文件的头段。道头记录了数据的一些基本信息。</p>
-
 <h3 id="segy卷头文件3200字节ebcdic码内容">SEGY卷头文件3200字节EBCDIC码内容</h3>
-
-<pre><code class="language-bash">    C      This tape was made at the
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">    C      This tape was made at the
     C
-    C      Center for Wave Phenomena
+    C      Center <span style="color:#66d9ef">for</span> Wave Phenomena
     C      Colorado School of Mines
-    C      Golden, CO, 80401
+    C      Golden, CO, <span style="color:#ae81ff">80401</span>
     C
     C
     C
@@ -264,10 +248,7 @@ SAC文件的头段。道头记录了数据的一些基本信息。</p>
     C
     C
     C
-</code></pre>
-
-<h3 id="segy卷头文件400字节二进制内容表">SEGY卷头文件400字节二进制内容表</h3>
-
+</code></pre></div><h3 id="segy卷头文件400字节二进制内容表">SEGY卷头文件400字节二进制内容表</h3>
 <p>+&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+
 | 字节      | 参数名      | 参数类型       | 参数说明                 |
 +===========+=============+================+==========================+
@@ -327,9 +308,7 @@ SAC文件的头段。道头记录了数据的一些基本信息。</p>
 +&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+
 | 3261-3600 | hunass[170] | short          | 无定义                   |
 +&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+</p>
-
 <h3 id="seg-y定义的240字节道头变量列表">SEG-Y定义的240字节道头变量列表</h3>
-
 <p>+&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+
 | 字节数  | 参数名     | 参数类型 | 参数描述                                                                                   |
 +=========+============+==========+============================================================================================+
@@ -477,23 +456,16 @@ SAC文件的头段。道头记录了数据的一些基本信息。</p>
 +&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+
 | 181-240 | null       | null     | Unassigned-for optional information. <strong>cwp local assignments</strong>                             |
 +&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&ndash;+</p>
-
 <p>其中粗体的变量是比较重要的，一般在SU/SEGY文件中都有值。另外需要说明的是，SEGY格式中有可选的
 道头字（字节181-240）,这些道头字的使用没有标准。在SU格式中，这些字节用来存放一些绘图参数。</p>
-
 <h2 id="su数据格式">SU数据格式</h2>
-
 <p>SU数据格式是基于SEGY格式的数据道部分。SEGY道和SU道的主要不同在于SU格式的道数据是浮点型，
 和你运行SU程序的计算机上的浮点格式一致，SU数据只有SEGY的道部分！SU格式中不保存EBCDIC和
 二进制卷头。</p>
-
 <p>因此，SU数据道头基本与SEGY中的数据道头相同，差别在于道头中的181-240字节在SEGY中并没有分配，
 而在SU数据中，这部分用来存放绘图参数。</p>
-
 <h3 id="su第181-240字节道头变量">SU第181-240字节道头变量</h3>
-
 <p><strong>cwp local assignments</strong></p>
-
 <p>+&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
 | Bytes   | Name      | Type  | Description                                          |
 +=========+===========+=======+======================================================+
@@ -517,11 +489,8 @@ SAC文件的头段。道头记录了数据的一些基本信息。</p>
 +&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+
 | 213-240 | unass[14] | short | unassigned                                           |
 +&mdash;&mdash;&mdash;+&mdash;&mdash;&mdash;&ndash;+&mdash;&mdash;-+&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;+</p>
-
 <h2 id="部分道头变量之间的关系">部分道头变量之间的关系</h2>
-
 <p>先来重申以下以下几个变量：</p>
-
 <ul>
 <li><strong>fldr</strong>: Original field record number</li>
 <li><strong>ep</strong>: Energy source point number</li>
@@ -529,20 +498,14 @@ SAC文件的头段。道头记录了数据的一些基本信息。</p>
 <li><strong>tracr</strong>: Trace sequence number within REEL(or file)</li>
 <li><strong>tracf</strong>: Trace sequence number within original field record</li>
 </ul>
-
 <p>现在我们假设一个含有3道的地震记录。那么：</p>
-
 <ul>
 <li><strong>fldr</strong> 和 <strong>ep</strong> 相等，且从1开始。</li>
 <li><strong>tracl</strong> 和 <strong>tracr</strong> 相等。</li>
 </ul>
-
 <p>如下图所示：</p>
-
-<p><img src="/images/2016022901.png" alt="" /></p>
-
+<p><img src="/images/2016022901.png" alt=""></p>
 <h1 id="参考">参考</h1>
-
 <ul>
 <li><a href="http://www.geo.uib.no/eworkshop/index.php?n=Main.SeismicUnix">USING SeismicUnix</a></li>
 </ul>
@@ -626,7 +589,7 @@ SAC文件的头段。道头记录了数据的一些基本信息。</p>
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

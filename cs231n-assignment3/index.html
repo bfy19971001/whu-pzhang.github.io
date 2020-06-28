@@ -27,7 +27,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/cs231n-assignment3/" />
@@ -55,23 +55,20 @@
 
 在作业 2 中手撸 CNN 后，cs231n 讲述了 RNN，LSTM，GRU 以及语言模型、图像标注、检测、定位、分割、识别等多方面的内容。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/cs231n-assignment3/" /><meta property="article:published_time" content="2018-12-20T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2018-12-20T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/cs231n-assignment3/" />
+<meta property="article:published_time" content="2018-12-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-12-20T00:00:00+00:00" />
 <meta itemprop="name" content="cs231n作业3笔记">
 <meta itemprop="description" content="简介
 
 在作业 2 中手撸 CNN 后，cs231n 讲述了 RNN，LSTM，GRU 以及语言模型、图像标注、检测、定位、分割、识别等多方面的内容。">
-
-
 <meta itemprop="datePublished" content="2018-12-20T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-12-20T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="4725">
 
 
 
-<meta itemprop="keywords" content="Python,NumPy,PyTorch," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Python,NumPy,PyTorch," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="cs231n作业3笔记"/>
 <meta name="twitter:description" content="简介
 
@@ -210,73 +207,58 @@ RNN 需要预测一个和时间相关的量，其基本架构如下：</p>
 \]</span></p>
 
 <p>根据上述公式，RNN 单元的 <code>rnn_step_forward</code> 如下：</p>
-
-<pre><code class="language-python">prev_hWh = prev_h @ Wh                          # (1)
-xWx = x @ Wx                                    # (2)
-hsum = prev_hWh + xWx + b                       # (3)
-next_h = np.tanh(hsum)                          # (4)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">prev_hWh <span style="color:#f92672">=</span> prev_h <span style="color:#960050;background-color:#1e0010">@</span> Wh                          <span style="color:#75715e"># (1)</span>
+xWx <span style="color:#f92672">=</span> x <span style="color:#960050;background-color:#1e0010">@</span> Wx                                    <span style="color:#75715e"># (2)</span>
+hsum <span style="color:#f92672">=</span> prev_hWh <span style="color:#f92672">+</span> xWx <span style="color:#f92672">+</span> b                       <span style="color:#75715e"># (3)</span>
+next_h <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>tanh(hsum)                          <span style="color:#75715e"># (4)</span></code></pre></div>
 <p>根据计算图反推，backward 也很简单：</p>
-
-<pre><code class="language-python">dhsum = (1 - np.tanh(hsum)**2) * dnext_h      # (4)
-dprev_hWh = dhsum                             # (3)
-dxWx = dhsum                                  # (3)
-db = np.sum(dhsum, axis=0)                    # (3)
-dx = dxWx @ Wx.T                              # (2)
-dWx = x.T @ dxWx                              # (2)
-dWh = prev_h.T @ dprev_hWh                    # (1)
-dprev_h = dprev_hWh @ Wh.T                    # (1)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dhsum <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>tanh(hsum)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>) <span style="color:#f92672">*</span> dnext_h      <span style="color:#75715e"># (4)</span>
+dprev_hWh <span style="color:#f92672">=</span> dhsum                             <span style="color:#75715e"># (3)</span>
+dxWx <span style="color:#f92672">=</span> dhsum                                  <span style="color:#75715e"># (3)</span>
+db <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dhsum, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)                    <span style="color:#75715e"># (3)</span>
+dx <span style="color:#f92672">=</span> dxWx <span style="color:#960050;background-color:#1e0010">@</span> Wx<span style="color:#f92672">.</span>T                              <span style="color:#75715e"># (2)</span>
+dWx <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>T <span style="color:#960050;background-color:#1e0010">@</span> dxWx                              <span style="color:#75715e"># (2)</span>
+dWh <span style="color:#f92672">=</span> prev_h<span style="color:#f92672">.</span>T <span style="color:#960050;background-color:#1e0010">@</span> dprev_hWh                    <span style="color:#75715e"># (1)</span>
+dprev_h <span style="color:#f92672">=</span> dprev_hWh <span style="color:#960050;background-color:#1e0010">@</span> Wh<span style="color:#f92672">.</span>T                    <span style="color:#75715e"># (1)</span></code></pre></div>
 <p>接下来就是完整的 RNN 了，forward 过程需要对 RNN 单元循环 <code>T</code> 次（<code>T</code>为序列长度），在循环内部每次记得更新 $\boldsymbol{h}_t$ 即可。</p>
 
 <p>backward 过程和以前的神经网络不太一样，RNN 从上游传过来的梯度不只一个，除了从右边传过来的梯度外，
 还有每个时间点（上面）传过来的梯度。首先需要逆序循环，然后每个循环内更新 RNN 单元需要的梯度值。
 此外，在 RNN 中，Wx, Wh, b 这三个参数是共享的，对每个时间步都是一样的，因此它们的梯度是一个累加的值。</p>
-
-<pre><code class="language-python">dprev_ht = np.zeros((N, H))
-for t in reversed(range(T)):
-    dx[:, t, :], dprev_ht, dWxt, dWht, dbt = rnn_step_backward(
-        dh[:, t, :] + dprev_ht, cache[t])
-    dWx += dWxt
-    dWh += dWht
-    db += dbt
-dh0 = dprev_ht
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dprev_ht <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((N, H))
+<span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> reversed(range(T)):
+    dx[:, t, :], dprev_ht, dWxt, dWht, dbt <span style="color:#f92672">=</span> rnn_step_backward(
+        dh[:, t, :] <span style="color:#f92672">+</span> dprev_ht, cache[t])
+    dWx <span style="color:#f92672">+=</span> dWxt
+    dWh <span style="color:#f92672">+=</span> dWht
+    db <span style="color:#f92672">+=</span> dbt
+dh0 <span style="color:#f92672">=</span> dprev_ht</code></pre></div>
 <p>在用 RNN 对图像进行标注前，还需要进行词嵌入(word embeding)操作。
 神经网络不能将单词作为输入，所以需要将单词映射为单词索引的形式。</p>
 
 <p>现在就可以来搭建 RNN 的架构了。首先需要把图像经 CNN 提取的特征（作业中采用的是在 ImageNet 数据集上预训练的 VGG16 模型的 fc7 层提取得到的特征）通过全连接层转换为初始的隐藏状态（$\boldsymbol{h}_0$），接着将 captions 做词嵌入输入 RNN 单元中，再利用一个仿射变换将 RNN 单元的输出转换为单词字典索引，接着采用 softmax 损失计算 loss。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">h0, h0cache <span style="color:#f92672">=</span> affine_forward(features, W_proj, b_proj)
+weout, wecache <span style="color:#f92672">=</span> word_embedding_forward(captions_in, W_embed)
 
-<pre><code class="language-python">h0, h0cache = affine_forward(features, W_proj, b_proj)
-weout, wecache = word_embedding_forward(captions_in, W_embed)
+<span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>cell_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;rnn&#39;</span>:
+    rnnout, rnncache <span style="color:#f92672">=</span> rnn_forward(weout, h0, Wx, Wh, b)
 
-if self.cell_type == 'rnn':
-    rnnout, rnncache = rnn_forward(weout, h0, Wx, Wh, b)
-
-x, xcache = temporal_affine_forward(rnnout, W_vocab, b_vocab)
-loss, dx = temporal_softmax_loss(x, captions_out, mask)
-</code></pre>
-
+x, xcache <span style="color:#f92672">=</span> temporal_affine_forward(rnnout, W_vocab, b_vocab)
+loss, dx <span style="color:#f92672">=</span> temporal_softmax_loss(x, captions_out, mask)</code></pre></div>
 <p>上面描述的是 RNN 训练过程，测试时没有真值标注作为输入，需要一个起始单词（<code>&lt;START&gt;</code>）作为开始，然后按序列依次更新隐藏状态，并预测输出下一个标注单词。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">prev_h, _ <span style="color:#f92672">=</span> affine_forward(features, W_proj, b_proj)
+captions[:, <span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_start
+x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_start <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>ones((N, ), dtype<span style="color:#f92672">=</span>np<span style="color:#f92672">.</span>int32)
+<span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, max_length):
+    embed, _ <span style="color:#f92672">=</span> word_embedding_forward(x, W_embed)
 
-<pre><code class="language-python">prev_h, _ = affine_forward(features, W_proj, b_proj)
-captions[:, 0] = self._start
-x = self._start * np.ones((N, ), dtype=np.int32)
-for t in range(1, max_length):
-    embed, _ = word_embedding_forward(x, W_embed)
+    <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>cell_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;rnn&#39;</span>:
+        next_h, _ <span style="color:#f92672">=</span> rnn_step_forward(embed, prev_h, Wx, Wh, b)
 
-    if self.cell_type == 'rnn':
-        next_h, _ = rnn_step_forward(embed, prev_h, Wx, Wh, b)
-
-    prev_h = next_h
-    out, _ = affine_forward(next_h, W_vocab, b_vocab)
-    idx = np.argmax(out, axis=1)
-    captions[:, t] = idx
-</code></pre>
-
+    prev_h <span style="color:#f92672">=</span> next_h
+    out, _ <span style="color:#f92672">=</span> affine_forward(next_h, W_vocab, b_vocab)
+    idx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>argmax(out, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+    captions[:, t] <span style="color:#f92672">=</span> idx</code></pre></div>
 <h2 id="lstm-captioning">LSTM captioning</h2>
 
 <p>RNN 应该能够记住许多时间步之前见过的信息，但实际中由于梯度消失（vanishing gradient problem）问题，
@@ -314,41 +296,35 @@ h_t & = o \odot \tanh(c_t)
 \]</span></p>
 
 <p>注意到每个 LSTM 单元有 3 个输入：$c, h, x$。实际计算时 4 个 gate 的线性部分可以通过一次计算完成，然后将不同 gate 对应的值分开即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">H <span style="color:#f92672">=</span> prev_h<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>]
+z <span style="color:#f92672">=</span> x <span style="color:#960050;background-color:#1e0010">@</span> Wx <span style="color:#f92672">+</span> prev_h <span style="color:#960050;background-color:#1e0010">@</span> Wh <span style="color:#f92672">+</span> b
+igate <span style="color:#f92672">=</span> sigmoid(z[:, :H])
+fgate <span style="color:#f92672">=</span> sigmoid(z[:, H:<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> H])
+ogate <span style="color:#f92672">=</span> sigmoid(z[:, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> H:<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> H])
+ggate <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>tanh(z[:, <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> H:])
 
-<pre><code class="language-python">H = prev_h.shape[1]
-z = x @ Wx + prev_h @ Wh + b
-igate = sigmoid(z[:, :H])
-fgate = sigmoid(z[:, H:2 * H])
-ogate = sigmoid(z[:, 2 * H:3 * H])
-ggate = np.tanh(z[:, 3 * H:])
-
-next_c = fgate * prev_c + igate * ggate
-next_h = ogate * np.tanh(next_c)
-</code></pre>
-
+next_c <span style="color:#f92672">=</span> fgate <span style="color:#f92672">*</span> prev_c <span style="color:#f92672">+</span> igate <span style="color:#f92672">*</span> ggate
+next_h <span style="color:#f92672">=</span> ogate <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>tanh(next_c)</code></pre></div>
 <p>backward 时，相比 RNN，反传过来的值有两个 <strong><code>dnext_h</code>, <code>dnext_c</code></strong>。求：
 <code>dx</code>, <code>dWx</code>, <code>dWh</code>, <code>db</code>, <code>dprev_h</code> 和 <code>dprev_c</code> 的梯度。弄清楚哪些变量之间有关联，然后利用链式法则即可：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">dogate <span style="color:#f92672">=</span> dnext_h <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>tanh(next_c)
+dnext_c <span style="color:#f92672">+=</span> dnext_h <span style="color:#f92672">*</span> ogate <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>tanh(next_c)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+dfgate <span style="color:#f92672">=</span> dnext_c <span style="color:#f92672">*</span> prev_c
+dprev_c <span style="color:#f92672">=</span> dnext_c <span style="color:#f92672">*</span> fgate
+digate <span style="color:#f92672">=</span> dnext_c <span style="color:#f92672">*</span> ggate
+dggate <span style="color:#f92672">=</span> dnext_c <span style="color:#f92672">*</span> igate
 
-<pre><code class="language-python">dogate = dnext_h * np.tanh(next_c)
-dnext_c += dnext_h * ogate * (1.0 - np.tanh(next_c)**2)
-dfgate = dnext_c * prev_c
-dprev_c = dnext_c * fgate
-digate = dnext_c * ggate
-dggate = dnext_c * igate
+dz <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((N, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> H))
+dz[:, :H] <span style="color:#f92672">=</span> digate <span style="color:#f92672">*</span> igate <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-</span> igate)
+dz[:, H:<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> H] <span style="color:#f92672">=</span> dfgate <span style="color:#f92672">*</span> fgate <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.</span> <span style="color:#f92672">-</span> fgate)
+dz[:, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> H:<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> H] <span style="color:#f92672">=</span> dogate <span style="color:#f92672">*</span> ogate <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-</span> ogate)
+dz[:, <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> H:<span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> H] <span style="color:#f92672">=</span> dggate <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">-</span> ggate<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
 
-dz = np.zeros((N, 4 * H))
-dz[:, :H] = digate * igate * (1.0 - igate)
-dz[:, H:2 * H] = dfgate * fgate * (1. - fgate)
-dz[:, 2 * H:3 * H] = dogate * ogate * (1.0 - ogate)
-dz[:, 3 * H:4 * H] = dggate * (1.0 - ggate**2)
-
-dx = dz @ Wx.T
-dWx = x.T @ dz
-dprev_h = dz @ Wh.T
-dWh = prev_h.T @ dz
-db = np.sum(dz, axis=0)
-</code></pre>
-
+dx <span style="color:#f92672">=</span> dz <span style="color:#960050;background-color:#1e0010">@</span> Wx<span style="color:#f92672">.</span>T
+dWx <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>T <span style="color:#960050;background-color:#1e0010">@</span> dz
+dprev_h <span style="color:#f92672">=</span> dz <span style="color:#960050;background-color:#1e0010">@</span> Wh<span style="color:#f92672">.</span>T
+dWh <span style="color:#f92672">=</span> prev_h<span style="color:#f92672">.</span>T <span style="color:#960050;background-color:#1e0010">@</span> dz
+db <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sum(dz, axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)</code></pre></div>
 <p>完整的 LSTM 大体和 RNN 相同，注意多了一个变量 <code>c</code>，不论是 forward 和 backward 都记得在循环里更新即可。</p>
 
 <h2 id="network-visualization">Network Visualization</h2>
@@ -362,56 +338,47 @@ db = np.sum(dz, axis=0)
 </ul>
 
 <p>显著性图告诉我们图像中每个像素影响图像类别分数的程度。通过计算正确类未规范化的分数相对于每个像素的梯度来得到。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">scores <span style="color:#f92672">=</span> model(X) <span style="color:#75715e"># correct class scores</span>
+scores <span style="color:#f92672">=</span> scores<span style="color:#f92672">.</span>gather(<span style="color:#ae81ff">1</span>, y<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>squeeze() <span style="color:#75715e"># backward</span>
+scores<span style="color:#f92672">.</span>backward(torch<span style="color:#f92672">.</span>ones(X<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">0</span>)))
 
-<pre><code class="language-python">scores = model(X) # correct class scores
-scores = scores.gather(1, y.view(-1, 1)).squeeze() # backward
-scores.backward(torch.ones(X.size(0)))
+ <span style="color:#75715e"># image gradient</span>
+saliency <span style="color:#f92672">=</span> X<span style="color:#f92672">.</span>grad
 
- # image gradient
-saliency = X.grad
-
- # absolute the value and take the maximum value over the 3 channels
-saliency = torch.abs(saliency)
-saliency, _ = torch.max(saliency, dim=1)
-</code></pre>
-
+ <span style="color:#75715e"># absolute the value and take the maximum value over the 3 channels</span>
+saliency <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>abs(saliency)
+saliency, _ <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>max(saliency, dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)</code></pre></div>
 <ul>
 <li>Fooling images</li>
 </ul>
 
 <p>Fooling images 则是在给定图像和类别时，通过梯度上升法不断地更新图像，最后使得模型认为该图像就是这个类别的图像为止。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">while</span> (True):
+    scores <span style="color:#f92672">=</span> model(X<span style="color:#f92672">*</span>fooling)
+    idx <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>argmax(scores)
 
-<pre><code class="language-python">while (True):
-    scores = model(X*fooling)
-    idx = torch.argmax(scores)
+    <span style="color:#66d9ef">if</span> idx<span style="color:#f92672">.</span>item() <span style="color:#f92672">==</span> target_y:
+        <span style="color:#66d9ef">break</span>
 
-    if idx.item() == target_y:
-        break
+    scores[<span style="color:#ae81ff">0</span>, target_y]<span style="color:#f92672">.</span>backward()
 
-    scores[0, target_y].backward()
+    dX <span style="color:#f92672">=</span> X_fooling<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>data
 
-    dX = X_fooling.grad.data
+    <span style="color:#75715e"># update image using gradient ascent</span>
+    X_fooling<span style="color:#f92672">.</span>data <span style="color:#f92672">+=</span> learning_rate <span style="color:#f92672">*</span> (dX <span style="color:#f92672">/</span> dX<span style="color:#f92672">.</span>norm())
 
-    # update image using gradient ascent
-    X_fooling.data += learning_rate * (dX / dX.norm())
-
-    X_fooling.grad.zero_()
-</code></pre>
-
+    X_fooling<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>zero_()</code></pre></div>
 <ul>
 <li>类别可视化（Class Visualization）</li>
 </ul>
 
 <p>这里和 fooling images 差不多，都是预训练的模型通过梯度上升将输入的随机噪音图像变为指定类别的图像。</p>
-
-<pre><code class="language-python">scores = model(img)
-loss = scores[0, target_y] - l2_reg * img.norm()
-loss.backward()
-grad = img.grad.data
-img.data += learning_rate * grad
-img.grad.zero_()
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">scores <span style="color:#f92672">=</span> model(img)
+loss <span style="color:#f92672">=</span> scores[<span style="color:#ae81ff">0</span>, target_y] <span style="color:#f92672">-</span> l2_reg <span style="color:#f92672">*</span> img<span style="color:#f92672">.</span>norm()
+loss<span style="color:#f92672">.</span>backward()
+grad <span style="color:#f92672">=</span> img<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>data
+img<span style="color:#f92672">.</span>data <span style="color:#f92672">+=</span> learning_rate <span style="color:#f92672">*</span> grad
+img<span style="color:#f92672">.</span>grad<span style="color:#f92672">.</span>zero_()</code></pre></div>
 <h2 id="style-transfer">Style Transfer</h2>
 
 <p>风格迁移的目的是将参考图像的风格应用于目标图像，同时保留目标图像的内容，从而生成一副新的图像。</p>
@@ -422,11 +389,8 @@ img.grad.zero_()
 需要先定义一个损失函数定义要实现的目标，然后采用梯度下降法最小化这个损失函数。
 目标就是保存原始图像内容的同时实现风格化，若能在数学上给出 content 和 style 的定义，那么损失函数
 可以定义如下：</p>
-
 <pre><code>loss = distance(style(reference_image) - style(generated_image)) +
-       distance(content(original_image) - content(generated_image))
-</code></pre>
-
+       distance(content(original_image) - content(generated_image))</code></pre>
 <p>这里的 <code>distance</code> 是一个范数，如 L2 范数。<code>content</code> 和 <code>style</code> 分别是计算输入图像内容和风格
 的函数。</p>
 
@@ -434,24 +398,21 @@ img.grad.zero_()
 
 <p>内容损失描述的是网络从目标图像提取出的特征图与从生成图像提取的特征图之间的差别。通常选择的是靠近
 顶部的某一特征图来进行逐元素比较。代码如下：</p>
-
-<pre><code class="language-python">def content_loss(content_weight, content_current, content_original):
-    &quot;&quot;&quot;
-    Compute the content loss for style transfer.
-    
-    Inputs:
-    - content_weight: Scalar giving the weighting for the content loss.
-    - content_current: features of the current image; this is a PyTorch Tensor of shape
-      (1, C_l, H_l, W_l).
-    - content_target: features of the content image, Tensor with shape (1, C_l, H_l, W_l).
-    
-    Returns:
-    - scalar content loss
-    &quot;&quot;&quot;
-    loss = content_weight * torch.sum((content_current - content_original)**2)
-    return loss
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">content_loss</span>(content_weight, content_current, content_original):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Compute the content loss for style transfer.
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Inputs:
+</span><span style="color:#e6db74">    - content_weight: Scalar giving the weighting for the content loss.
+</span><span style="color:#e6db74">    - content_current: features of the current image; this is a PyTorch Tensor of shape
+</span><span style="color:#e6db74">      (1, C_l, H_l, W_l).
+</span><span style="color:#e6db74">    - content_target: features of the content image, Tensor with shape (1, C_l, H_l, W_l).
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Returns:
+</span><span style="color:#e6db74">    - scalar content loss
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    loss <span style="color:#f92672">=</span> content_weight <span style="color:#f92672">*</span> torch<span style="color:#f92672">.</span>sum((content_current <span style="color:#f92672">-</span> content_original)<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">return</span> loss</code></pre></div>
 <h3 id="style-loss">style loss</h3>
 
 <p>不同于内容损失，风格损失使用卷积网络的多个层来定义，以此来捕捉参考图像和生成图像上不同空间尺度上
@@ -478,83 +439,74 @@ L_s = \sum_{l \in \mathcal{L}} {L_s^l}
 \]</span></p>
 
 <p>首先实现 Gram 矩阵的计算：</p>
-
-<pre><code class="language-python">def gram_matrix(features, normalize=True):
-    &quot;&quot;&quot;
-    Compute the Gram matrix from features.
-    
-    Inputs:
-    - features: PyTorch Tensor of shape (N, C, H, W) giving features for
-      a batch of N images.
-    - normalize: optional, whether to normalize the Gram matrix
-        If True, divide the Gram matrix by the number of neurons (H * W * C)
-    
-    Returns:
-    - gram: PyTorch Tensor of shape (N, C, C) giving the
-      (optionally normalized) Gram matrices for the N input images.
-    &quot;&quot;&quot;
-    N, C, H, W = features.size()
-    features_reshaped = features.reshape(N, C, H * W)
-    gram = torch.bmm(features_reshaped, features_reshaped.transpose(1, 2))
-    if normalize:
-        gram /= H * W * C
-    return gram
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gram_matrix</span>(features, normalize<span style="color:#f92672">=</span>True):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Compute the Gram matrix from features.
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Inputs:
+</span><span style="color:#e6db74">    - features: PyTorch Tensor of shape (N, C, H, W) giving features for
+</span><span style="color:#e6db74">      a batch of N images.
+</span><span style="color:#e6db74">    - normalize: optional, whether to normalize the Gram matrix
+</span><span style="color:#e6db74">        If True, divide the Gram matrix by the number of neurons (H * W * C)
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Returns:
+</span><span style="color:#e6db74">    - gram: PyTorch Tensor of shape (N, C, C) giving the
+</span><span style="color:#e6db74">      (optionally normalized) Gram matrices for the N input images.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    N, C, H, W <span style="color:#f92672">=</span> features<span style="color:#f92672">.</span>size()
+    features_reshaped <span style="color:#f92672">=</span> features<span style="color:#f92672">.</span>reshape(N, C, H <span style="color:#f92672">*</span> W)
+    gram <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>bmm(features_reshaped, features_reshaped<span style="color:#f92672">.</span>transpose(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>))
+    <span style="color:#66d9ef">if</span> normalize:
+        gram <span style="color:#f92672">/=</span> H <span style="color:#f92672">*</span> W <span style="color:#f92672">*</span> C
+    <span style="color:#66d9ef">return</span> gram</code></pre></div>
 <p>接着，我们实现风格损失函数：</p>
-
-<pre><code class="language-python">def style_loss(feats, style_layers, style_targets, style_weights):
-    &quot;&quot;&quot;
-    Computes the style loss at a set of layers.
-    
-    Inputs:
-    - feats: list of the features at every layer of the current image, as produced by
-      the extract_features function.
-    - style_layers: List of layer indices into feats giving the layers to include in the
-      style loss.
-    - style_targets: List of the same length as style_layers, where style_targets[i] is
-      a PyTorch Tensor giving the Gram matrix of the source style image computed at
-      layer style_layers[i].
-    - style_weights: List of the same length as style_layers, where style_weights[i]
-      is a scalar giving the weight for the style loss at layer style_layers[i].
-      
-    Returns:
-    - style_loss: A PyTorch Tensor holding a scalar giving the style loss.
-    &quot;&quot;&quot;
-    # Hint: you can do this with one for loop over the style layers, and should
-    # not be very much code (~5 lines). You will need to use your gram_matrix function.
-    loss = torch.FloatTensor([0]).type(dtype)
-    for i, idx in enumerate(style_layers):
-        gram = gram_matrix(feats[idx])
-        loss += torch.sum(style_weights[i] * (gram - style_targets[i])**2)       
-    return loss
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">style_loss</span>(feats, style_layers, style_targets, style_weights):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Computes the style loss at a set of layers.
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Inputs:
+</span><span style="color:#e6db74">    - feats: list of the features at every layer of the current image, as produced by
+</span><span style="color:#e6db74">      the extract_features function.
+</span><span style="color:#e6db74">    - style_layers: List of layer indices into feats giving the layers to include in the
+</span><span style="color:#e6db74">      style loss.
+</span><span style="color:#e6db74">    - style_targets: List of the same length as style_layers, where style_targets[i] is
+</span><span style="color:#e6db74">      a PyTorch Tensor giving the Gram matrix of the source style image computed at
+</span><span style="color:#e6db74">      layer style_layers[i].
+</span><span style="color:#e6db74">    - style_weights: List of the same length as style_layers, where style_weights[i]
+</span><span style="color:#e6db74">      is a scalar giving the weight for the style loss at layer style_layers[i].
+</span><span style="color:#e6db74">      
+</span><span style="color:#e6db74">    Returns:
+</span><span style="color:#e6db74">    - style_loss: A PyTorch Tensor holding a scalar giving the style loss.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    <span style="color:#75715e"># Hint: you can do this with one for loop over the style layers, and should</span>
+    <span style="color:#75715e"># not be very much code (~5 lines). You will need to use your gram_matrix function.</span>
+    loss <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>FloatTensor([<span style="color:#ae81ff">0</span>])<span style="color:#f92672">.</span>type(dtype)
+    <span style="color:#66d9ef">for</span> i, idx <span style="color:#f92672">in</span> enumerate(style_layers):
+        gram <span style="color:#f92672">=</span> gram_matrix(feats[idx])
+        loss <span style="color:#f92672">+=</span> torch<span style="color:#f92672">.</span>sum(style_weights[i] <span style="color:#f92672">*</span> (gram <span style="color:#f92672">-</span> style_targets[i])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)       
+    <span style="color:#66d9ef">return</span> loss</code></pre></div>
 <h3 id="totalvariation-regularization">Total-variation regularization</h3>
 
 <p>除了内容损失和风格损失之外，还需要添加一个全变分正则化损失，使生成图像
 的像素具有空间连续性和平滑，避免图像过度像素化。</p>
 
 <p>全变分损失定义为水平和垂直方向相邻像素差的平方和，对于不同的通道之间也是相加。</p>
-
-<pre><code class="language-python">def tv_loss(img, tv_weight):
-    &quot;&quot;&quot;
-    Compute total variation loss.
-    
-    Inputs:
-    - img: PyTorch Variable of shape (1, 3, H, W) holding an input image.
-    - tv_weight: Scalar giving the weight w_t to use for the TV loss.
-    
-    Returns:
-    - loss: PyTorch Variable holding a scalar giving the total variation loss
-      for img weighted by tv_weight.
-    &quot;&quot;&quot;
-    # Your implementation should be vectorized and not require any loops!
-    hsum = torch.sum((img[:,:,:-1,:] - img[:,:,1:,:])**2)
-    wsum = torch.sum((img[:,:,:,:-1] - img[:,:,:,1:])**2)
-    return tv_weight * (hsum + wsum)
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tv_loss</span>(img, tv_weight):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Compute total variation loss.
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Inputs:
+</span><span style="color:#e6db74">    - img: PyTorch Variable of shape (1, 3, H, W) holding an input image.
+</span><span style="color:#e6db74">    - tv_weight: Scalar giving the weight w_t to use for the TV loss.
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Returns:
+</span><span style="color:#e6db74">    - loss: PyTorch Variable holding a scalar giving the total variation loss
+</span><span style="color:#e6db74">      for img weighted by tv_weight.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    <span style="color:#75715e"># Your implementation should be vectorized and not require any loops!</span>
+    hsum <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>sum((img[:,:,:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,:] <span style="color:#f92672">-</span> img[:,:,<span style="color:#ae81ff">1</span>:,:])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+    wsum <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>sum((img[:,:,:,:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> img[:,:,:,<span style="color:#ae81ff">1</span>:])<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">return</span> tv_weight <span style="color:#f92672">*</span> (hsum <span style="color:#f92672">+</span> wsum)</code></pre></div>
 <p>在风格迁移中，我们需要最小化的损失为内容损失、风格损失和全变差损失这三部分之和。
 接下来，只需要将这三部分组合起来，利用梯度下降法来得到最后的图像即可。具体可以参考
 <a href="https://github.com/whu-pzhang/cs231n/blob/master/assignment3/StyleTransfer-PyTorch.ipynb">StyleTransfer-Pytorch.ipynb</a></p>
@@ -638,27 +590,24 @@ bce(s,y) = -y * \log(s) - (1-y) * \log(1-s)
 \]</span></p>
 
 <p>为了确保稳定性，实现如下：</p>
-
-<pre><code class="language-python">def bce_loss(input, target):
-    &quot;&quot;&quot;
-    Numerically stable version of the binary cross-entropy loss function.
-
-    As per https://github.com/pytorch/pytorch/issues/751
-    See the TensorFlow docs for a derivation of this formula:
-    https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits
-
-    Inputs:
-    - input: PyTorch Tensor of shape (N, ) giving scores.
-    - target: PyTorch Tensor of shape (N,) containing 0 and 1 giving targets.
-
-    Returns:
-    - A PyTorch Tensor containing the mean BCE loss over the minibatch of input data.
-    &quot;&quot;&quot;
-    neg_abs = - input.abs()
-    loss = input.clamp(min=0) - input * target + (1 + neg_abs.exp()).log()
-    return loss.mean()
-</code></pre>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bce_loss</span>(input, target):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Numerically stable version of the binary cross-entropy loss function.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    As per https://github.com/pytorch/pytorch/issues/751
+</span><span style="color:#e6db74">    See the TensorFlow docs for a derivation of this formula:
+</span><span style="color:#e6db74">    https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Inputs:
+</span><span style="color:#e6db74">    - input: PyTorch Tensor of shape (N, ) giving scores.
+</span><span style="color:#e6db74">    - target: PyTorch Tensor of shape (N,) containing 0 and 1 giving targets.
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Returns:
+</span><span style="color:#e6db74">    - A PyTorch Tensor containing the mean BCE loss over the minibatch of input data.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    neg_abs <span style="color:#f92672">=</span> <span style="color:#f92672">-</span> input<span style="color:#f92672">.</span>abs()
+    loss <span style="color:#f92672">=</span> input<span style="color:#f92672">.</span>clamp(min<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">-</span> input <span style="color:#f92672">*</span> target <span style="color:#f92672">+</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> neg_abs<span style="color:#f92672">.</span>exp())<span style="color:#f92672">.</span>log()
+    <span style="color:#66d9ef">return</span> loss<span style="color:#f92672">.</span>mean()</code></pre></div>
 <p>在此基础上，便可以分别实现判别器和生成器的损失函数了。这里就不贴代码了。
 后面的部分是介绍不同的GAN以及实现了。作业可以参考我的repo：<a href="https://github.com/whu-pzhang/cs231n/blob/master/assignment3/GANs-PyTorch.ipynb">GANs-Pytorch.ipynb</a></p>
 
@@ -745,7 +694,7 @@ bce(s,y) = -y * \log(s) - (1-y) * \log(1-s)
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

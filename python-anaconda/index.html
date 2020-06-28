@@ -28,7 +28,7 @@ Anaconda 特性 主页： https://www.continuum.io/
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/python-anaconda/" />
@@ -53,11 +53,8 @@ Anaconda 特性 主页： https://www.continuum.io/
 
 <meta property="og:title" content="Python科学计算环境Anaconda" />
 <meta property="og:description" content="本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。
-
 Anaconda 特性
-
 主页： https://www.continuum.io/
-
 
 包含了众多流行的科学、教学、工程和数据分析的Python包
 完全开源、免费
@@ -66,16 +63,13 @@ Anaconda 特性
 支持Python2.6、2.7、3.4、3.5
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/python-anaconda/" /><meta property="article:published_time" content="2016-04-05T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2016-04-05T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/python-anaconda/" />
+<meta property="article:published_time" content="2016-04-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2016-04-05T00:00:00+00:00" />
 <meta itemprop="name" content="Python科学计算环境Anaconda">
 <meta itemprop="description" content="本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。
-
 Anaconda 特性
-
 主页： https://www.continuum.io/
-
 
 包含了众多流行的科学、教学、工程和数据分析的Python包
 完全开源、免费
@@ -83,23 +77,17 @@ Anaconda 特性
 全平台支持： Linux、Windows、Mac
 支持Python2.6、2.7、3.4、3.5
 ">
-
-
 <meta itemprop="datePublished" content="2016-04-05T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2016-04-05T00:00:00&#43;00:00" />
 <meta itemprop="wordCount" content="628">
 
 
 
-<meta itemprop="keywords" content="Python,Anaconda," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Python,Anaconda," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Python科学计算环境Anaconda"/>
 <meta name="twitter:description" content="本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。
-
 Anaconda 特性
-
 主页： https://www.continuum.io/
-
 
 包含了众多流行的科学、教学、工程和数据分析的Python包
 完全开源、免费
@@ -199,21 +187,19 @@ Anaconda 特性
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#anaconda-特性">Anaconda 特性</a></li>
-<li><a href="#安装">安装</a>
-<ul>
-<li><a href="#安装pyenv">安装pyenv</a></li>
-<li><a href="#安装anaconda">安装Anaconda</a></li>
-<li><a href="#申请免费的学术license">申请免费的学术License</a></li>
-<li><a href="#安装额外加速包">安装额外加速包</a></li>
-</ul></li>
-<li><a href="#模块管理">模块管理</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#anaconda-特性">Anaconda 特性</a></li>
+    <li><a href="#安装">安装</a>
+      <ul>
+        <li><a href="#安装pyenv">安装pyenv</a></li>
+        <li><a href="#安装anaconda">安装Anaconda</a></li>
+        <li><a href="#申请免费的学术license">申请免费的学术License</a></li>
+        <li><a href="#安装额外加速包">安装额外加速包</a></li>
+      </ul>
+    </li>
+    <li><a href="#模块管理">模块管理</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -221,11 +207,8 @@ Anaconda 特性
     
     <div class="post-content">
       <p>本文记录Python科学计算发行版Anaconda的介绍，安装以及后续的一些应用。</p>
-
 <h2 id="anaconda-特性">Anaconda 特性</h2>
-
 <p>主页： <a href="https://www.continuum.io/">https://www.continuum.io/</a></p>
-
 <ul>
 <li>包含了众多流行的科学、教学、工程和数据分析的Python包</li>
 <li>完全开源、免费</li>
@@ -233,67 +216,47 @@ Anaconda 特性
 <li>全平台支持： Linux、Windows、Mac</li>
 <li>支持Python2.6、2.7、3.4、3.5</li>
 </ul>
-
 <h2 id="安装">安装</h2>
-
 <h3 id="安装pyenv">安装pyenv</h3>
-
 <p>利用 <a href="https://github.com/yyuu/pyenv">pyenv</a> 来对多个版本的python进行管理。</p>
-
 <p>首先安装好pyenv。具体见 <a href="/python-pyenv.html">Python多版本共存之pyenv</a></p>
-
 <h3 id="安装anaconda">安装Anaconda</h3>
-
 <p>pyenv支持很多版本的anaconda</p>
-
 <p>python2.7</p>
-
 <pre><code>$ pyenv install anaconda-2.0.1 -v
 </code></pre>
-
 <p>或者python3</p>
-
 <pre><code>$ pyenv install anaconda3-2.5.1 -v
 </code></pre>
-
 <h3 id="申请免费的学术license">申请免费的学术License</h3>
-
 <p>对于由教育邮箱的学生或者教职工，可以申请免费的学术License，实现计算过程的加速。</p>
-
-<p>申请地址：<a href="https://www.continuum.io/anaconda-academic-subscriptions-available">https://www.continuum.io/anaconda-academic-subscriptions-available</a></p>
-
+<p>申请地址：https://www.continuum.io/anaconda-academic-subscriptions-available</p>
 <p>注册一个帐号，然后在 My settings&ndash;&gt;Add ons里就可以找到额外的加速License了，
 下载下来后是几个txt后缀的文本，将其移动到 <code>$HOME/.continuum</code> 目录下
 （若不存在该目录，则新建一个）</p>
-
 <p>这些额外的包包括：</p>
-
 <ul>
-<li><p>MKL Optimizations</p>
-
-<p>Boost the speed of NumPy, SciPy, NumExpr, and scikit-learn through Intel&rsquo;s Math Kernel Library (MKL)</p></li>
-
-<li><p>IOPro</p>
-
-<p>Fast, memory-efficient Python interface for databases, NoSQL stores, Amazon S3, and large data files.</p></li>
-
-<li><p>Anaconda Accelerate</p>
-
-<p>Fast Python for GPUs and multi-core with NumbaPro and MKL Optimizations.</p></li>
+<li>
+<p>MKL Optimizations</p>
+<p>Boost the speed of NumPy, SciPy, NumExpr, and scikit-learn through Intel&rsquo;s Math Kernel Library (MKL)</p>
+</li>
+<li>
+<p>IOPro</p>
+<p>Fast, memory-efficient Python interface for databases, NoSQL stores, Amazon S3, and large data files.</p>
+</li>
+<li>
+<p>Anaconda Accelerate</p>
+<p>Fast Python for GPUs and multi-core with NumbaPro and MKL Optimizations.</p>
+</li>
 </ul>
-
 <h3 id="安装额外加速包">安装额外加速包</h3>
-
 <pre><code>$ conda update conda
 $ conda install accelerate
 $ conda update numbapro
 $ conda install iopro
 </code></pre>
-
 <h2 id="模块管理">模块管理</h2>
-
 <p>Anaconda自带了conda用于模块的管理。</p>
-
 <pre><code># 安装模块
 $ conda install scipy
 # 更新模块
@@ -301,14 +264,10 @@ $ conda update scipy
 # 更新所有模块
 $ conda update --all
 </code></pre>
-
 <p>也可以利用conda来对Anaconda进行升级</p>
-
 <pre><code>$ conda update anaconda
 </code></pre>
-
 <h2 id="参考">参考</h2>
-
 <ol>
 <li><a href="https://docs.continuum.io/advanced-installation">ADVANCED INSTALL INSTRUCTIONS</a></li>
 </ol>
@@ -392,7 +351,7 @@ $ conda update --all
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

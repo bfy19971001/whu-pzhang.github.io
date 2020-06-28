@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>安装 on PzNotes - Learning and Sharing</title>
@@ -48,7 +48,6 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt
       <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;已全面转向 Atom，本文不再更新。&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-
 &lt;p&gt;Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。&lt;/p&gt;</description>
     </item>
@@ -61,12 +60,9 @@ Stanford Exploration Project 开发并维护的地震勘探开源软件包。&lt
       <guid>https://whu-pzhang.github.io/linux-environment-for-seismology/</guid>
       <description>&lt;p&gt;&lt;strong&gt;转载于 Seisman &lt;a href=&#34;https://seisman.info/linux-environment-for-seismology-research.html&#34;&gt;用 CentOS 7 打造合适的科研环境&lt;/a&gt;&lt;/strong&gt;，
 部分小节按照自己需求有更改。&lt;/p&gt;
-
 &lt;p&gt;这篇博文记录了我用 CentOS 7 搭建 &lt;strong&gt;地震学科研环境&lt;/strong&gt; 的过程，供我个人在未来重装系统时参考。
 对于其他地震学科研人员，也许有借鉴意义。&lt;/p&gt;
-
 &lt;p&gt;阅读须知：&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;本文适用于个人电脑，不适用于服务器；&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;不推荐刚接触 Linux 的人使用 CentOS 发行版&lt;/strong&gt;；&lt;/li&gt;

@@ -28,7 +28,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/install-sublime-text-3-under-linux/" />
@@ -55,34 +55,28 @@
 <meta property="og:description" content="
 已全面转向 Atom，本文不再更新。
 
-
 Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/install-sublime-text-3-under-linux/" /><meta property="article:published_time" content="2015-09-22T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2015-09-22T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/install-sublime-text-3-under-linux/" />
+<meta property="article:published_time" content="2015-09-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-09-22T00:00:00+00:00" />
 <meta itemprop="name" content="Linux安装Sublime Text 3">
 <meta itemprop="description" content="
 已全面转向 Atom，本文不再更新。
 
-
 Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。">
-
-
 <meta itemprop="datePublished" content="2015-09-22T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2015-09-22T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="736">
+<meta itemprop="wordCount" content="732">
 
 
 
-<meta itemprop="keywords" content="Linux,sublime," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Linux,sublime," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux安装Sublime Text 3"/>
 <meta name="twitter:description" content="
 已全面转向 Atom，本文不再更新。
-
 
 Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。"/>
@@ -165,7 +159,7 @@ Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高
               <a href="/categories/%E5%AE%89%E8%A3%85/"> 安装 </a>
             
           </div>
-        <span class="more-meta"> 约 736 字 </span>
+        <span class="more-meta"> 约 732 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -178,20 +172,18 @@ Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#安装">安装</a></li>
-<li><a href="#基础设置">基础设置</a></li>
-<li><a href="#插件管理">插件管理</a>
-<ul>
-<li><a href="#安装-1">安装</a></li>
-<li><a href="#使用">使用</a></li>
-<li><a href="#常用插件列表">常用插件列表</a></li>
-</ul></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#基础设置">基础设置</a></li>
+    <li><a href="#插件管理">插件管理</a>
+      <ul>
+        <li><a href="#安装-1">安装</a></li>
+        <li><a href="#使用">使用</a></li>
+        <li><a href="#常用插件列表">常用插件列表</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -201,130 +193,93 @@ Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高
       <blockquote>
 <p><strong>已全面转向 Atom，本文不再更新。</strong></p>
 </blockquote>
-
 <p>Sublime Text 3作为一款跨平台的编辑器，支持多种插件，语法高亮齐全，而且还有vi模式，
 在Window环境下一直用的是这款编辑器。本文记录在CentOS7下安装，配置Sublime Text 3的过程。</p>
-
 <h2 id="安装">安装</h2>
-
 <p>从 <a href="http://www.sublimetext.com/3">Sublime Text 3</a> 官网选择相应的版本下载。</p>
-
 <p>我下载的是64位的 <code>tarball for other Linux distributions</code> 版本。</p>
-
 <p>下载完成解压到指定目录下</p>
-
 <pre><code>$ sudo tar jxvf sublime_text_3_build_3083_x64.tar.bz2 -C /opt/
 </code></pre>
-
 <p>然后建立软连接到 <code>/usr/bin/</code> 目录下以便可以在终端启动</p>
-
 <pre><code>$ sudo ln -s /opt/sublime_text_3/sublime_text /usr/bin/sublime
 </code></pre>
-
 <p>加入应用程序列表</p>
-
 <pre><code>$ sudo cp /opt/sublime_text_3/sublime_text.desktop /usr/share/applications/
 </code></pre>
-
 <p>修改该文本:</p>
-
 <pre><code>$ sudo vi /usr/share/applications/sublime_text.desktop
 </code></pre>
-
 <p>将 <code>Exec</code> 和 <code>Icon</code> 这项改为：</p>
-
 <pre><code>Exec=/opt/sublime_text_3/sublime_text
 Icon=/opt/sublime_text_3/Icon/48x48/sublime-text.png
 </code></pre>
-
 <p>其他的可以根据自己需求来修改。</p>
-
 <p>修改完成后即可在 <code>Gnome应用程序 &gt; 编程</code> 中找到 sublime</p>
-
 <ul>
-<li><p>加入右键菜单</p>
-
-<p>$ sublime ~/.local/share/applications/mimeapps.list</p></li>
+<li>
+<p>加入右键菜单</p>
+<p>$ sublime ~/.local/share/applications/mimeapps.list</p>
+</li>
 </ul>
-
 <p>加入以下内容：</p>
-
 <pre><code>text/plain=sublime.desktop;
 </code></pre>
-
 <h2 id="基础设置">基础设置</h2>
-
 <p>sublime text 3自带的配置已经可以用了，加上自己的一些设置会更好。</p>
-
 <p>其设置方式为：</p>
-
 <p><code>Preferences--&gt;Settings-User</code> 打开配置文件，配置文件是以Python字典的格式存在的。</p>
-
 <p>以下为个人的一些设置，每个选项的值可以在 <code>Preferences--&gt;Settings-Default</code> 中查看</p>
-
-<pre><code class="language-Python">    {
-        &quot;color_scheme&quot;: &quot;Packages/Monokai Extended/Monokai Extended.tmTheme&quot;,   # 安装Monokai Extended后的主题设置
-        &quot;default_line_ending&quot;: &quot;unix&quot;,                      # 以UNIX格式的&quot;\n&quot;为行结尾，而不是doc的 &quot;\r\n&quot;
-        &quot;font_face&quot;: &quot;Yahei Consolas Hybrid&quot;,               # 字体设置
-        &quot;font_size&quot;: 13,                                    # 字号
-        &quot;highlight_line&quot;: true,
-        &quot;ignored_packages&quot;:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">    {
+        <span style="color:#e6db74">&#34;color_scheme&#34;</span>: <span style="color:#e6db74">&#34;Packages/Monokai Extended/Monokai Extended.tmTheme&#34;</span>,   <span style="color:#75715e"># 安装Monokai Extended后的主题设置</span>
+        <span style="color:#e6db74">&#34;default_line_ending&#34;</span>: <span style="color:#e6db74">&#34;unix&#34;</span>,                      <span style="color:#75715e"># 以UNIX格式的&#34;\n&#34;为行结尾，而不是doc的 &#34;\r\n&#34;</span>
+        <span style="color:#e6db74">&#34;font_face&#34;</span>: <span style="color:#e6db74">&#34;Yahei Consolas Hybrid&#34;</span>,               <span style="color:#75715e"># 字体设置</span>
+        <span style="color:#e6db74">&#34;font_size&#34;</span>: <span style="color:#ae81ff">13</span>,                                    <span style="color:#75715e"># 字号</span>
+        <span style="color:#e6db74">&#34;highlight_line&#34;</span>: true,
+        <span style="color:#e6db74">&#34;ignored_packages&#34;</span>:
         [
         ],
-        &quot;line_padding_bottom&quot;: 1,
-        &quot;line_padding_top&quot;: 1,
-        &quot;show_encoding&quot;: true,                              # 状态栏显示编码
-        &quot;show_line_endings&quot;: true,
-        &quot;tab_size&quot;: 4,                                      # tabwidth: 4个空格
-        &quot;translate_tabs_to_spaces&quot;: true,
-        &quot;vintage_ctrl_keys&quot;: true
+        <span style="color:#e6db74">&#34;line_padding_bottom&#34;</span>: <span style="color:#ae81ff">1</span>,
+        <span style="color:#e6db74">&#34;line_padding_top&#34;</span>: <span style="color:#ae81ff">1</span>,
+        <span style="color:#e6db74">&#34;show_encoding&#34;</span>: true,                              <span style="color:#75715e"># 状态栏显示编码</span>
+        <span style="color:#e6db74">&#34;show_line_endings&#34;</span>: true,
+        <span style="color:#e6db74">&#34;tab_size&#34;</span>: <span style="color:#ae81ff">4</span>,                                      <span style="color:#75715e"># tabwidth: 4个空格</span>
+        <span style="color:#e6db74">&#34;translate_tabs_to_spaces&#34;</span>: true,
+        <span style="color:#e6db74">&#34;vintage_ctrl_keys&#34;</span>: true
     }
-</code></pre>
-
-<h2 id="插件管理">插件管理</h2>
-
+</code></pre></div><h2 id="插件管理">插件管理</h2>
 <p>管理插件最简单的方法就是安装包管理器。</p>
-
 <h3 id="安装-1">安装</h3>
-
 <ul>
-<li><p><strong>自动安装</strong></p>
-
+<li>
+<p><strong>自动安装</strong></p>
 <ul>
-<li>组合键 <code>ctrl+</code><code>或者</code>View &gt; Show Console` 打开控制台，输入以下 Python 代码</li>
-</ul></li>
+<li>组合键 <code>ctrl+``或者 </code>View &gt; Show Console` 打开控制台，输入以下 Python 代码</li>
 </ul>
-
-<pre><code class="language-python">import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
-</code></pre>
-
-<p>这段代码会下载 <code>Package Control.sublime-package</code> 到 Installed Packages 文件夹（若没有的话会创建）。</p>
-
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> urllib.request<span style="color:#f92672">,</span>os<span style="color:#f92672">,</span>hashlib; h <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2915d1851351e5ee549c20394736b442&#39;</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;8bc59f460fa1548d1514676163dafc88&#39;</span>; pf <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Package Control.sublime-package&#39;</span>; ipp <span style="color:#f92672">=</span> sublime<span style="color:#f92672">.</span>installed_packages_path(); urllib<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>install_opener( urllib<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>build_opener( urllib<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>ProxyHandler()) ); by <span style="color:#f92672">=</span> urllib<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>urlopen( <span style="color:#e6db74">&#39;http://packagecontrol.io/&#39;</span> <span style="color:#f92672">+</span> pf<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#e6db74">&#39;%20&#39;</span>))<span style="color:#f92672">.</span>read(); dh <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>sha256(by)<span style="color:#f92672">.</span>hexdigest(); <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Error validating download (got </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> instead of </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">), please try manual install&#39;</span> <span style="color:#f92672">%</span> (dh, h)) <span style="color:#66d9ef">if</span> dh <span style="color:#f92672">!=</span> h <span style="color:#66d9ef">else</span> open(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join( ipp, pf), <span style="color:#e6db74">&#39;wb&#39;</span> )<span style="color:#f92672">.</span>write(by)
+</code></pre></div><p>这段代码会下载 <code>Package Control.sublime-package</code> 到 Installed Packages 文件夹（若没有的话会创建）。</p>
 <ul>
-<li><p><strong>手动安装</strong></p>
-
+<li>
+<p><strong>手动安装</strong></p>
 <ul>
 <li>Preferences &gt; Browse Packages</li>
 <li>进入 Installed Packages 文件夹</li>
 <li>下载 <a href="https://packagecontrol.io/Package%20Control.sublime-package">Package Control.sublime-package</a> 至该文件夹</li>
 <li>重启 Sublime Text 3</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="使用">使用</h3>
-
 <p>组合键 <code>Ctrl+Shift+P</code> 打开包管理器，输入 <code>PCI</code> 即可搜索安装插件包</p>
-
 <h3 id="常用插件列表">常用插件列表</h3>
-
 <ul>
 <li>IMESupport: 解决中文输入框不跟随的问题</li>
 <li>Monokai Extended: 增强的Monokai主题</li>
 <li>MinimalFortran: Fortran语法高亮</li>
 </ul>
-
 <h2 id="参考">参考</h2>
-
 <ol>
 <li><a href="http://www.sublimetext.com/docs/3/">Sublime Text 3 Documentation</a></li>
 <li><a href="http://docs.sublimetext.info/en/latest/index.html">Sublime Text Unofficial Documentation</a></li>
@@ -410,7 +365,7 @@ Icon=/opt/sublime_text_3/Icon/48x48/sublime-text.png
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

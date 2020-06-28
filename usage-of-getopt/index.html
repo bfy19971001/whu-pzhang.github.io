@@ -28,7 +28,7 @@ int getopt(int argc, char *const argv[], const char *optstring); extern char *op
 
 
 
-<meta name="generator" content="Hugo 0.53" />
+<meta name="generator" content="Hugo 0.69.2" />
 
 
 <link rel="canonical" href="https://whu-pzhang.github.io/usage-of-getopt/" />
@@ -53,50 +53,38 @@ int getopt(int argc, char *const argv[], const char *optstring); extern char *op
 
 <meta property="og:title" content="getopt用法" />
 <meta property="og:description" content="getopt介绍
-
 getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
 getopt提供了更为方便和友好的方式。
-
 函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
-
 int getopt(int argc, char *const argv[], const char *optstring);
 extern char *optarg;
 extern int optind, opterr, optopt;
 " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://whu-pzhang.github.io/usage-of-getopt/" /><meta property="article:published_time" content="2015-09-20T00:00:00&#43;00:00"/>
-<meta property="article:modified_time" content="2015-09-20T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="https://whu-pzhang.github.io/usage-of-getopt/" />
+<meta property="article:published_time" content="2015-09-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-09-20T00:00:00+00:00" />
 <meta itemprop="name" content="getopt用法">
 <meta itemprop="description" content="getopt介绍
-
 getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
 getopt提供了更为方便和友好的方式。
-
 函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
-
 int getopt(int argc, char *const argv[], const char *optstring);
 extern char *optarg;
 extern int optind, opterr, optopt;
 ">
-
-
 <meta itemprop="datePublished" content="2015-09-20T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2015-09-20T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="848">
+<meta itemprop="wordCount" content="845">
 
 
 
-<meta itemprop="keywords" content="Linux,C," />
-<meta name="twitter:card" content="summary"/>
+<meta itemprop="keywords" content="Linux,C," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="getopt用法"/>
 <meta name="twitter:description" content="getopt介绍
-
 getopt 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
 getopt提供了更为方便和友好的方式。
-
 函数 getopt 包含于系统头文件 unistd.h 中，其函数原型为:
-
 int getopt(int argc, char *const argv[], const char *optstring);
 extern char *optarg;
 extern int optind, opterr, optopt;
@@ -180,7 +168,7 @@ extern int optind, opterr, optopt;
               <a href="/categories/programming/"> Programming </a>
             
           </div>
-        <span class="more-meta"> 约 848 字 </span>
+        <span class="more-meta"> 约 845 字 </span>
         <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -193,14 +181,11 @@ extern int optind, opterr, optopt;
   
   <div class="post-toc-content">
     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#getopt介绍">getopt介绍</a></li>
-<li><a href="#实例说明">实例说明</a></li>
-<li><a href="#参考">参考</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#getopt介绍">getopt介绍</a></li>
+    <li><a href="#实例说明">实例说明</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
 </nav>
   </div>
 </div>
@@ -208,139 +193,119 @@ extern int optind, opterr, optopt;
     
     <div class="post-content">
       <h2 id="getopt介绍">getopt介绍</h2>
-
 <p><code>getopt</code> 为Linux下处理命令行参数的函数，相对于自己编写代码来解析命令行参数，
 getopt提供了更为方便和友好的方式。</p>
-
 <p>函数 <code>getopt</code> 包含于系统头文件 <code>unistd.h</code> 中，其函数原型为:</p>
-
-<pre><code class="language-c">int getopt(int argc, char *const argv[], const char *optstring);
-extern char *optarg;
-extern int optind, opterr, optopt;
-</code></pre>
-
-<p>其中，<code>argc</code> 和 <code>argv</code> 是由 <code>main()</code> 函数传递的参数个数和内容， <code>optstring</code> 代表待处理的选项字符串;</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getopt</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">const</span> argv[], <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>optstring);
+<span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>optarg;
+<span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">int</span> optind, opterr, optopt;
+</code></pre></div><p>其中，<code>argc</code> 和 <code>argv</code> 是由 <code>main()</code> 函数传递的参数个数和内容， <code>optstring</code> 代表待处理的选项字符串;</p>
 <ul>
 <li><code>optarg</code>: 指向当前选项参数的指针</li>
 <li><code>optind</code>: 再次调用 <code>getopt()</code> 时，下一个 <code>argv</code> 指针的索引</li>
 <li><code>opterr</code>: 非零时， <code>getopt</code> 会向标准错误输出错误信息</li>
 <li><code>optopt</code>: 遭遇未知选项或者遗漏必须参数的选项时，用来存储该选项</li>
 </ul>
-
 <p><code>optstring</code> 中内容的意义（例如 <code>getopt(argc, argv, &quot;ab:c::&quot;)</code>）</p>
-
 <ul>
 <li>单个字符: 表示选项,例如a，b和c</li>
 <li>单个字符后一个冒号： 表示该选项后必须跟一个参数。参数紧跟在选项后或者以空格隔开，该参数指针赋值给optarg</li>
 <li>单个字符后两个冒号： 表示该选项后可以跟一个参数也可以不跟。若跟一个参数，则该参数必须紧跟在选项后而不能以空格隔开。</li>
 </ul>
-
 <p>若 <code>getopt</code> 遇到一个不包括于 <code>argv</code> 中的选项，或是一个没有参数的选项，将会返回 <code>?</code> 并将全局变量
 <code>optopt</code> 设置为该选项字符；
 若选项首字符为一个冒号 <code>:</code> ，getopt返回 <code>:</code> 代替 <code>?</code> 来表明没有选项参数。</p>
-
 <h2 id="实例说明">实例说明</h2>
-
 <p>getopt 的通常用法如下：</p>
-
 <ul>
 <li><code>getopt</code> 在循环中调用，当其返回-1时表明没有选项了，循环就此结束</li>
 <li><code>switch</code> 语句用来对getopt返回的值进行分派</li>
 <li>利用第二个循环来处理余下的非选项参数</li>
 </ul>
-
 <p>多说无益，看实例：</p>
-
-<pre><code class="language-c">#include &lt;ctype.h&gt;
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;unistd.h&gt;
-
-int main(int argc, char *agrv[])
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>agrv[])
 {
-    int aflag = 0;
-    int bflag = 0;
-    char *cvalue = NULL;
-    int index, i;
+    <span style="color:#66d9ef">int</span> aflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">int</span> bflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>cvalue <span style="color:#f92672">=</span> NULL;
+    <span style="color:#66d9ef">int</span> index, i;
 
-    opterr = 0;
+    opterr <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 
-    while ((c=getopt(argc, argv, &quot;abc:&quot;)) != -1)
-        switch (c) {
-            case 'a':
-                aflag = 1;
-                break;
-            case 'b':
-                bflag = 1;
-                break;
-            case 'c':
-                cvalue = optarg;
-                break;
-            case '?':
-                if (optopt == 'c')
-                    fprintf(stderr, &quot;Option -%c requires an argument.\n&quot;, optopt);
-                else if (isprint(optopt))
-                    fprintf(stderr, &quot;Unknow option -%c.\n&quot;, optopt);
-                else
-                    fprintf(stderr, &quot;Unknown option character '\\x%x'.\n&quot;, optopt); // 以16进制输出未知选项
-                    return 1;
-            default:
+    <span style="color:#66d9ef">while</span> ((c<span style="color:#f92672">=</span>getopt(argc, argv, <span style="color:#e6db74">&#34;abc:&#34;</span>)) <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+        <span style="color:#66d9ef">switch</span> (c) {
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span>
+                aflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span>
+                bflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span>
+                cvalue <span style="color:#f92672">=</span> optarg;
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;?&#39;</span><span style="color:#f92672">:</span>
+                <span style="color:#66d9ef">if</span> (optopt <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;c&#39;</span>)
+                    fprintf(stderr, <span style="color:#e6db74">&#34;Option -%c requires an argument.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, optopt);
+                <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (isprint(optopt))
+                    fprintf(stderr, <span style="color:#e6db74">&#34;Unknow option -%c.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, optopt);
+                <span style="color:#66d9ef">else</span>
+                    fprintf(stderr, <span style="color:#e6db74">&#34;Unknown option character &#39;</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">x%x&#39;.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, optopt); <span style="color:#75715e">// 以16进制输出未知选项
+</span><span style="color:#75715e"></span>                    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
                 abort();
         }
-        printf(&quot;aflag = %d, bflag = %d, cvalue = %s\n&quot;,
+        printf(<span style="color:#e6db74">&#34;aflag = %d, bflag = %d, cvalue = %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,
                 aflag, bflag, cvalue);
 
-        for (index = optind; index&lt;argc; index++)
-            printf(&quot;Non-option argument %s\n&quot;, argv[index]);
+        <span style="color:#66d9ef">for</span> (index <span style="color:#f92672">=</span> optind; index<span style="color:#f92672">&lt;</span>argc; index<span style="color:#f92672">++</span>)
+            printf(<span style="color:#e6db74">&#34;Non-option argument %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[index]);
 
-        return 0;
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<p>编译链接成可执行文件，运行：</p>
-
-<pre><code class="language-bash">$ ./testopt
-aflag = 0, bflag = 0, cvalue = (null)
+</code></pre></div><p>编译链接成可执行文件，运行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./testopt
+aflag <span style="color:#f92672">=</span> 0, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
 
 $ ./testopt -a -b
-aflag = 1, bflag = 1, cvalue = (null)
+aflag <span style="color:#f92672">=</span> 1, bflag <span style="color:#f92672">=</span> 1, cvalue <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
 
 $ ./testopt -ab
-aflag = 1, bflag = 1, cvalue = (null)
+aflag <span style="color:#f92672">=</span> 1, bflag <span style="color:#f92672">=</span> 1, cvalue <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
 
 $ ./testopt -c foo
-aflag = 0, bflag = 0, cvalue = foo
+aflag <span style="color:#f92672">=</span> 0, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> foo
 
 $ ./testopt -cfoo
-aflag = 0, bflag = 0, cvalue = foo
+aflag <span style="color:#f92672">=</span> 0, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> foo
 
 $ ./testopt arg1
-aflag = 0, bflag = 0, cvalue = (null)
+aflag <span style="color:#f92672">=</span> 0, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
 Non-option argument arg1
 
 $ ./testopt -a arg1
-aflag = 1, bflag = 0, cvalue = (null)
+aflag <span style="color:#f92672">=</span> 1, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
 Non-option argument arg1
 
 $ ./testopt -c foo arg1
-aflag = 0, bflag = 0, cvalue = foo
+aflag <span style="color:#f92672">=</span> 0, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> foo
 Non-option argument arg1
 
 $ ./testopt -a -- -b
-aflag = 1, bflag = 0, cvalue = (null)
+aflag <span style="color:#f92672">=</span> 1, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
 Non-option argument -b
 
 $ ./testopt -a -
-aflag = 1, bflag = 0, cvalue = (null)
+aflag <span style="color:#f92672">=</span> 1, bflag <span style="color:#f92672">=</span> 0, cvalue <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>null<span style="color:#f92672">)</span>
 Non-option argument -
 
 $ ./testopt -a -我
-Unknown option character '\xffffffce'.
-</code></pre>
-
-<h2 id="参考">参考</h2>
-
+Unknown option character <span style="color:#e6db74">&#39;\xffffffce&#39;</span>.
+</code></pre></div><h2 id="参考">参考</h2>
 <ul>
 <li><a href="http://www.gnu.org/software/libc/manual/html_node/Getopt.html#Getopt">The GNU C Library</a></li>
 </ul>
@@ -424,7 +389,7 @@ Unknown option character '\xffffffce'.
     &copy; 
     
       2014 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
