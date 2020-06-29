@@ -59,7 +59,7 @@
 <meta itemprop="description" content="matplotlib 存储图片时，可加入bbox_inches=&#39;tight&#39; 参数切除白边 Git HEAD: 表示当前版本 reflog: 记录历史命令 git checkout -- file: 丢弃工作区的改动。其实就是用版本">
 <meta itemprop="datePublished" content="2017-10-06T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-04-07T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="622">
+<meta itemprop="wordCount" content="663">
 
 
 
@@ -240,6 +240,24 @@ End()
 <li>Github克隆加速</li>
 </ol>
 <p>将 <code>github.com</code> 替换为 <code>github.com/cnpmjs.org</code></p>
+<ol start="4">
+<li>ssh login without password
+<ol>
+<li>
+<p>generate authentication keys</p>
+<p><code>ssh-keygen -t rsa</code></p>
+</li>
+<li>
+<p>use <code>ssh</code> to create a directory <code>~/.ssh</code> on remote server</p>
+<p><code>ssh user_name@server_ip mkdir -p .ssh</code></p>
+</li>
+<li>
+<p>Append your new public key to <code>user@server_ip: .ssh/authorized_keys</code></p>
+<p><code>cat .ssh/id_rsa.pub | ssh user@server_ip 'cat &gt;&gt; .ssh/authorized_keys'</code></p>
+</li>
+</ol>
+</li>
+</ol>
 
   </div>
 </article>
